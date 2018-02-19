@@ -1,0 +1,37 @@
+{
+    "name": "c975l/user-bundle",
+    "type": "symfony-bundle",
+    "description": "Bundle to manage user profile, by users and admin",
+    "keywords": ["symfony", "bundle", "user"],
+    "homepage": "https://github.com/975L/UserBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Laurent Marquet",
+            "email": "laurent.marquet@laposte.net",
+            "homepage": "https://github.com/Laurent3170",
+            "role": "Developer"
+        },
+        {
+            "name": "975L Community",
+            "homepage": "https://github.com/975L"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9",
+        "symfony/framework-bundle": "^3",
+        "sensio/framework-extra-bundle": "^3",
+        "c975l/email-bundle": "^1",
+        "c975l/toolbar-bundle": "^1"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": { "c975L\\UserBundle\\": ""
+        }
+    },
+    "support": {
+        "email": "contact@975l.com",
+        "source": "https://github.com/975L/UserBundle",
+        "issues": "https://github.com/975L/UserBundle/issues"
+    }
+}
