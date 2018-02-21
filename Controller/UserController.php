@@ -86,6 +86,11 @@ class UserController extends Controller
             return $this->redirectToRoute('user_signin');
         }
 
+        //Redirects to dashboard if user has already signed-in
+        if ($this->getUser() instanceof User) {
+            return $this->redirectToRoute('user_dashboard');
+        }
+
         //Gets session
         $session = $request->getSession();
 

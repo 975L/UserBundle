@@ -98,10 +98,6 @@
                 <source>label.my_account</source>
                 <target>Mi cuenta</target>
             </trans-unit>
-            <trans-unit id="28">
-                <source>label.password_already_requested</source>
-                <target>Ya ha pedido la contraseña</target>
-            </trans-unit>
             <trans-unit id="29">
                 <source>label.profile</source>
                 <target>Perfil</target>
@@ -177,18 +173,6 @@
             <trans-unit id="47">
                 <source>text.account_deleted</source>
                 <target>Su cuenta ha sido eliminada.</target>
-            </trans-unit>
-            <trans-unit id="48">
-                <source>text.alert_must_signin_warning</source>
-                <target>Tengo registrarse antes de poder utilizar este servicio</target>
-            </trans-unit>
-            <trans-unit id="49">
-                <source>text.alert_not_allowed</source>
-                <target>No se me permite utilizar este recurso</target>
-            </trans-unit>
-            <trans-unit id="50">
-                <source>text.already_signedin_warning</source>
-                <target>Usted ya ha firmado en</target>
             </trans-unit>
             <trans-unit id="51">
                 <source>text.delete_account_info</source>

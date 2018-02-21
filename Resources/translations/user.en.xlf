@@ -98,10 +98,6 @@
                 <source>label.my_account</source>
                 <target>My account</target>
             </trans-unit>
-            <trans-unit id="28">
-                <source>label.password_already_requested</source>
-                <target>Password already requested</target>
-            </trans-unit>
             <trans-unit id="29">
                 <source>label.profile</source>
                 <target>Profile</target>
@@ -177,18 +173,6 @@
             <trans-unit id="47">
                 <source>text.account_deleted</source>
                 <target>Your account has been deleted.</target>
-            </trans-unit>
-            <trans-unit id="48">
-                <source>text.alert_must_signin_warning</source>
-                <target>I must sign in before being able to use this service</target>
-            </trans-unit>
-            <trans-unit id="49">
-                <source>text.alert_not_allowed</source>
-                <target>I am not allowed to use this resource</target>
-            </trans-unit>
-            <trans-unit id="50">
-                <source>text.already_signedin_warning</source>
-                <target>You have already signed in</target>
             </trans-unit>
             <trans-unit id="51">
                 <source>text.delete_account_info</source>
