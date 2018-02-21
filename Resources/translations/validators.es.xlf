@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" target-language="es" datatype="plaintext" original="validators.en.xlf">
+        <body>
+            <trans-unit id="1">
+                <source>email.not_valid</source>
+                <target>El correo electrónico no es válida</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>firstname.max_length</source>
+                <target>Mi primer nombre no puede tener más de {{ limit }} de caracteres</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>firstname.min_length</source>
+                <target>Mi primer nombre debe ser al menos {{ limit }} de caracteres</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>gender.choose_valid</source>
+                <target>Elegir un género válido</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>label.error_challenge</source>
+                <target>Mala respuesta al desafío</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>lastname.max_length</source>
+                <target>Mi apellido no puede tener más de {{ limit }} de caracteres</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>lastname.min_length</source>
+                <target>Mi apellido debe ser al menos {{ limit }} de caracteres</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>name.max_length</source>
+                <target>Mi nombre no puede tener más de {{ limit }} caracteres</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>name.min_length</source>
+                <target>Mi nombre debe ser al menos {{ limit }} caracteres</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>password.requirement</source>
+                <target>La contraseña debe tener entre 8 y 48 caracteres y contener al menos 1 letra, 1 dígito y 1 señal dentro de @#$%^*</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>text.password_mismatch</source>
+                <target>Los campos de contraseña deben coincidir</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

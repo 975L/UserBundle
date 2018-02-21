@@ -1,0 +1,28 @@
+{% trans_default_domain 'user' %}
+
+<hr />
+
+<p>
+    {{ 'label.thanks_confidence'|trans|nl2br }}
+    <br />
+    <br />
+    {{ 'label.regards_team'|trans({'%site%': site})|nl2br }}
+    <br />
+</p>
+
+{# Email sent by #}
+<p class="text-muted text-center">
+    {{ 'label.email_sent_by'|trans({'%site%': site})|raw }}
+</p>
+
+<div class="text-center">
+{# Set here useful links to your website, such as legal notice, etc. #}
+
+{# Copyright #}
+    <ul class="inline">
+        <li>© Copyright ({{ 'now'|date('Y') }}): {{ site }}</li>
+    </ul>
+</div>
+
+
+

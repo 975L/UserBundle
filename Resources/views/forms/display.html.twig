@@ -1,0 +1,22 @@
+{% extends "@c975LUser/layout.html.twig" %}
+{% trans_default_domain 'user' %}
+{% set title = 'label.user_profile_show'|trans %}
+
+{% block user_content %}
+{# Toolbar #}
+    {{ toolbar|raw }}
+{# Avatar #}
+    {% if user_gravatar() == true %}
+        <p class="text-center">
+            <img class="img-circle" src="{{ app.user.avatar }}" width="128" height="128" />
+        </p>
+{# Avatar information #}
+        <p class="text-center">
+            {{ 'text.gravatar_picture'|trans|raw }}
+        </p>
+    {% endif %}
+{# Form #}
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+    {{ form_end(form) }}
+{% endblock %}

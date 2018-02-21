@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" target-language="en" datatype="plaintext" original="validators.en.xlf">
+        <body>
+            <trans-unit id="1">
+                <source>email.not_valid</source>
+                <target>The email is not valid</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>firstname.max_length</source>
+                <target>My firstname cannot be longer than {{ limit }} characters</target>
+            </trans-unit>
+            <trans-unit id="3">
+                <source>firstname.min_length</source>
+                <target>My firstname must be at least {{ limit }} characters long</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>gender.choose_valid</source>
+                <target>Choose a valid gender</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>label.error_challenge</source>
+                <target>Wrong answer to the challenge</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>lastname.max_length</source>
+                <target>My lastname cannot be longer than {{ limit }} characters</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>lastname.min_length</source>
+                <target>My lastname must be at least {{ limit }} characters long</target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>name.max_length</source>
+                <target>My name cannot be longer than {{ limit }} characters</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>name.min_length</source>
+                <target>My name must be at least {{ limit }} characters long</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>password.requirement</source>
+                <target>The password must be from 8 to 48 characters long and contain at least 1 letter, 1 digit and 1 sign within @#$%^*</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>password.requirement</source>
+                <target>The password must be from 8 to 48 characters long and contain at least 1 letter, 1 digit and 1 sign within @#$%^*</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>text.password_mismatch</source>
+                <target>The password fields must match</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

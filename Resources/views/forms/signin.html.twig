@@ -1,0 +1,88 @@
+{% extends "@c975LUser/layout.html.twig" %}
+{% trans_default_domain 'user' %}
+{% set title = 'label.signin'|trans %}
+
+{% block user_content %}
+    <div class="row">
+{# Form #}
+        {% if registration == true or hwiOauth != null %}
+            <div class="col-xs-12 col-sm-5">
+{# Social networks #}
+                {% if hwiOauth != null %}
+                    <p class="text-center">
+                        {{ 'label.using_following_services'|trans }}
+                    </p>
+                    {% for network in hwiOauth %}
+                        <p class="text-center">
+                            <a href="{{ path('hwi_oauth_service_redirect', {service: network}) }}" rel="nofollow">
+                                <img src="{{ asset('images/signin-' ~ network ~ '.png') }}" class="img img-rounded" width="200" height="50" /></a>
+                        </p>
+                    {% endfor %}
+                    <p>
+                        <br />
+                    </p>
+                {% endif %}
+{# Registration #}
+                {% if registration == true %}
+                    <p class="text-center">
+                        {{ 'label.by_creating_account'|trans({'%site%': site})|raw }}
+                        <br />
+                        <strong>
+                            <a href="{{ path('user_register') }}" class="btn btn-info" rel="nofollow">
+                                <span class="glyphicon glyphicon-user white"></span> {{ 'label.signin_create_account'|trans }}</a>
+                        </strong>
+                    </p>
+                {% endif %}
+            </div>
+            <div class="col-xs-12 col-sm-7">
+        {% else %}
+            <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+        {% endif %}
+{# Signin #}
+            <p class="text-center">
+                {{ 'label.using_created_account'|trans({'%site%': site})|raw }}
+            </p>
+{# Error #}
+            {% if error %}
+                <div class="alert alert-danger">
+                    {{ error.messageKey|trans(error.messageData, 'security') }}
+                </div>
+            {% endif %}
+{# Form #}
+            <form action="{{ path('user_signin') }}" method="post">
+{# Username #}
+                <div class="form-group">
+                    <label for="username" class="control-label required">{{ 'label.email'|trans }}</label>
+                    <input type="text" id="_username" name="_username" value="" required="required" class="form-control" placeholder="{{ 'label.email'|trans }}" />
+                </div>
+{# Password #}
+                <div class="form-group">
+                    <label for="password" class="control-label required">{{ 'label.password'|trans }}</label>
+                    <input type="password" id="_password" name="_password" required="required" class="form-control" placeholder="{{ 'label.password'|trans }}" />
+                </div>
+{# Remember me #}
+                <div class="form-group">
+                    <input type="checkbox" id="remember_me" name="_remember_me" value="off" />
+                    <label for="remember_me">{{ 'label.remember_me'|trans }}</label>
+                </div>
+{# CSRF #}
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+{# Mandatory field #}
+                <p class="text-muted">
+                    <em>
+                        {{ 'label.mandatory_field'|trans }}
+                    </em>
+                </p>
+{# Forgot password #}
+                <p class="text-center">
+                    <a href="{{ path('user_reset_password') }}" rel="nofollow" title="{{ 'label.forgot_password'|trans }}">
+                        {{ 'label.forgot_password'|trans }}</a>
+                </p>
+{# Submit #}
+                <div class="form-group">
+                    <input type="submit" id="_submit" name="_submit" value="{{ 'label.signin'|trans }}" class="btn btn-block btn-lg btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

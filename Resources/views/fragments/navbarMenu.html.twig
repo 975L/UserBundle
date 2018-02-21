@@ -1,0 +1,30 @@
+{% trans_default_domain 'user' %}
+
+{% if is_granted('ROLE_USER') %}
+    <ul class="nav navbar-nav">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ 'label.my_account'|trans }} <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+{# User's personalised navbar menu actions #}
+                {% include('@c975LUser/fragments/navbarMenuActions.html.twig') %}
+{# Dashboard #}
+                <li>
+                    <a href="{{ path('user_dashboard') }}">
+                        {{ 'label.dashboard'|trans }}</a>
+                </li>
+{# Profile #}
+                <li>
+                    <a href="{{ path('user_display') }}">
+                        {{ 'label.view_profile'|trans }}</a>
+                </li>
+{# Separator #}
+                <li role="separator" class="divider"></li>
+{# Sign Out #}
+                <li>
+                    <a href="{{ path('user_signout') }}">
+                        {{ 'label.signout'|trans }}</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+{% endif %}

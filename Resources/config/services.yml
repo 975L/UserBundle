@@ -1,0 +1,17 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
+    c975L\UserBundle\Controller\:
+        resource: '../../Controller/*'
+
+    c975L\UserBundle\Listeners\:
+        resource: '../../Listeners/*'
+
+    c975L\UserBundle\Twig\:
+        resource: '../../Twig/*'
+
+
+

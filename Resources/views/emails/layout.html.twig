@@ -1,0 +1,45 @@
+{% trans_default_domain 'user' %}
+
+{% spaceless %}
+<!DOCTYPE html>
+    <head>
+        {% block head %}
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+            <meta name="viewport" content="width=device-width initial-scale=1.0 maximum-scale=1.0 user-scalable=no" />
+            <meta name="format-detection" content="telephone=no" />
+            <meta name="author" content="{{ site }}" />
+            <link rel="copyright" title="© Copyright({{ 'now'|date('Y') }}): {{ site }}" />
+        {% endblock %}
+        <style>
+            {% include('@c975LUser/emails/styles.min.css') %}
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+{# No spam #}
+            <p class="text-center text-muted small">
+                {{ 'text.no_spam'|trans({'%email%': email}) }}
+                <br />
+            </p>
+{# Insert your logo here #}
+
+{# Hello #}
+            <p>
+                {{ 'text.hello'|trans }},
+                <br />
+            </p>
+
+{# Content #}
+            {% block user_content %}
+            {% endblock %}
+
+{# Footer #}
+            {% block footer %}
+                {% include('@c975LUser/emails/footer.html.twig') %}
+            {% endblock %}
+        </div>
+    </body>
+</html>
+{% endspaceless %}

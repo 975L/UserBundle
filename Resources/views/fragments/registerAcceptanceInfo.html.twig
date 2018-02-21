@@ -1,0 +1,12 @@
+{% trans_default_domain 'user' %}
+
+<p class="alert alert-warning text-center">
+    {% trans with {
+        '%terms_link%': path('pageedit_display', { 'page': 'terms-of-use' }),
+        '%privacy_link%': path('pageedit_display', { 'page': 'privacy-policy' }),
+        '%cookies_link%': path('pageedit_display', { 'page': 'cookies-policy' }),
+        '%site%': site,
+        } from 'user' %}
+        text.register_acceptance
+    {% endtrans %}
+</p>

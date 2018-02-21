@@ -1,0 +1,27 @@
+{% trans_default_domain 'toolbar' %}
+
+{% spaceless %}
+{# Display #}
+{% if type == 'dashboard' or type == 'modify' or type == 'changePassword' or type == 'delete' %}
+    <a href="{{ path('user_display') }}" class="btn btn-default" title="{{ 'label.view_profile'|trans({}, 'user') }}" role="button">
+        <span class="glyphicon glyphicon-user"></span></a>
+{% endif %}
+
+{# Modify #}
+{% if type == 'dashboard' or type == 'display' or type == 'changePassword' or type == 'delete' %}
+    <a href="{{ path('user_modify') }}" class="btn btn-default" title="{{ 'label.modify_profile'|trans({}, 'user') }}" role="button">
+        <span class="glyphicon glyphicon-pencil"></span></a>
+{% endif %}
+
+{# Cancel #}
+{% if type != 'dashboard' and type != 'displayAvailable' %}
+    <a href="javascript:history.back()" class="btn btn-default" title="{{ 'label.cancel'|trans }}" role="button">
+        <span class="glyphicon glyphicon-remove-circle"></span></a>
+{% endif %}
+
+{# Change password #}
+{% if type == 'dashboard' or type == 'display' or type == 'modify' or type == 'delete' %}
+    <a href="{{ path('user_change_password') }}" class="btn btn-warning" title="{{ 'label.change_password'|trans({}, 'user') }}" role="button">
+        <span class="glyphicon glyphicon-refresh"></span></a>
+{% endif %}
+{% endspaceless %}

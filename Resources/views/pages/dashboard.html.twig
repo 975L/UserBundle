@@ -1,0 +1,59 @@
+{% extends "@c975LUser/layout.html.twig" %}
+{% trans_default_domain 'user' %}
+{% set title = 'label.dashboard'|trans({}, 'toolbar') %}
+
+{% block user_content %}
+{# Toolbar #}
+    {{ toolbar|raw }}
+{# Avatar #}
+    {% if user_gravatar() == true %}
+        <p class="text-center">
+            <img class="img-circle" src="{{ app.user.avatar }}" width="128" height="128" />
+        </p>
+    {% endif %}
+{# Actions #}
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ 'label.actions'|trans }}</h3>
+            </div>
+            <div class="panel-body">
+{# User's personalised dashboard actions #}
+                {% include('@c975LUser/fragments/dashboardActions.html.twig') %}
+{# Profile title #}
+                <h3>
+                    {{ 'label.profile'|trans }}
+                </h3>
+{# View profile #}
+                <p>
+                    <a href="{{ path('user_display') }}">
+                        <span class="glyphicon glyphicon-user"></span>&nbsp;{{ 'label.view_profile'|trans }}</a>
+                </p>
+{# Modify profile #}
+                <p>
+                    <a href="{{ path('user_modify') }}">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;{{ 'label.modify_profile'|trans }}</a>
+                </p>
+{# Change password #}
+                <p>
+                    <a href="{{ path('user_change_password') }}">
+                        <span class="text-warning">
+                            <span class="glyphicon glyphicon-refresh"></span>&nbsp;{{ 'label.change_password'|trans }}
+                        </span></a>
+                </p>
+{# Delete account #}
+                <p>
+                    <a href="{{ path('user_delete') }}">
+                        <span class="text-danger">
+                            <span class="glyphicon glyphicon-trash"></span>&nbsp;{{ 'label.delete_account'|trans }}
+                        </span></a>
+                </p>
+{# Sign out #}
+                <p>
+                    <a href="{{ path('user_signout') }}">
+                        <span class="glyphicon glyphicon-log-out"></span>&nbsp;{{ 'label.signout'|trans }}</a>
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

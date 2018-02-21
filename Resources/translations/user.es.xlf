@@ -1,0 +1,303 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" target-language="es" datatype="plaintext" original="user.en.xlf">
+        <body>
+            <trans-unit id="1">
+                <source>label.account_activated</source>
+                <target>Cuenta activada</target>
+            </trans-unit>
+            <trans-unit id="2">
+                <source>label.account_created</source>
+                <target>Cuenta creada validación de espera</target>
+            </trans-unit>
+            <trans-unit id="4">
+                <source>label.actions</source>
+                <target>Acciones</target>
+            </trans-unit>
+            <trans-unit id="5">
+                <source>label.avatar</source>
+                <target>Avatar</target>
+            </trans-unit>
+            <trans-unit id="6">
+                <source>label.back_to_dashboard</source>
+                <target>Volver al tablero</target>
+            </trans-unit>
+            <trans-unit id="7">
+                <source>label.by_creating_account</source>
+                <target><![CDATA[Al crear una cuenta en <strong>%site%</strong>]]></target>
+            </trans-unit>
+            <trans-unit id="8">
+                <source>label.challenge</source>
+                <target>Resuelvo este pequeño desafío</target>
+            </trans-unit>
+            <trans-unit id="9">
+                <source>label.change_password</source>
+                <target>Cambia la contraseña</target>
+            </trans-unit>
+            <trans-unit id="10">
+                <source>label.creation</source>
+                <target>Creación</target>
+            </trans-unit>
+            <trans-unit id="12">
+                <source>label.data</source>
+                <target>Datos</target>
+            </trans-unit>
+            <trans-unit id="13">
+                <source>label.delete_account</source>
+                <target>Borrar cuenta</target>
+            </trans-unit>
+            <trans-unit id="15">
+                <source>label.modify_profile</source>
+                <target>Modificar mi perfil</target>
+            </trans-unit>
+            <trans-unit id="16">
+                <source>label.email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="17">
+                <source>label.email_sent_by</source>
+                <target><![CDATA[Este correo electrónico fue enviado por <strong>%site%</strong>]]></target>
+            </trans-unit>
+            <trans-unit id="18">
+                <source>label.firstname</source>
+                <target>Primer nombre</target>
+            </trans-unit>
+            <trans-unit id="19">
+                <source>label.forgot_password</source>
+                <target>Se te olvidó tu contraseña</target>
+            </trans-unit>
+            <trans-unit id="20">
+                <source>label.gender</source>
+                <target>Género</target>
+            </trans-unit>
+            <trans-unit id="21">
+                <source>label.lastname</source>
+                <target>Apellido</target>
+            </trans-unit>
+            <trans-unit id="22">
+                <source>label.mail_password_sent</source>
+                <target>Mail con restablecimiento de la contraseña enviada</target>
+            </trans-unit>
+            <trans-unit id="23">
+                <source>label.man</source>
+                <target>Hombre</target>
+            </trans-unit>
+            <trans-unit id="24">
+                <source>label.managment</source>
+                <target>Administración</target>
+            </trans-unit>
+            <trans-unit id="25">
+                <source>label.mandatory_field</source>
+                <target>* Campo obligatorio</target>
+            </trans-unit>
+            <trans-unit id="26">
+                <source>label.member_since</source>
+                <target>Miembro desde</target>
+            </trans-unit>
+            <trans-unit id="27">
+                <source>label.my_account</source>
+                <target>Mi cuenta</target>
+            </trans-unit>
+            <trans-unit id="28">
+                <source>label.password_already_requested</source>
+                <target>Ya ha pedido la contraseña</target>
+            </trans-unit>
+            <trans-unit id="29">
+                <source>label.profile</source>
+                <target>Perfil</target>
+            </trans-unit>
+            <trans-unit id="30">
+                <source>label.regards_team</source>
+                <target><![CDATA[Saludos,<br />El equipo de %site%]]></target>
+            </trans-unit>
+            <trans-unit id="31">
+                <source>label.request_password_change</source>
+                <target>Solicitud de cambio de contraseña</target>
+            </trans-unit>
+            <trans-unit id="32">
+                <source>label.reset_content</source>
+                <target>Restablecer el contenido</target>
+            </trans-unit>
+            <trans-unit id="33">
+                <source>label.reset_password</source>
+                <target>Restablecimiento de contraseña</target>
+            </trans-unit>
+            <trans-unit id="34">
+                <source>label.signin</source>
+                <target>Registrarse</target>
+            </trans-unit>
+            <trans-unit id="35">
+                <source>label.signin_create_account</source>
+                <target>Crear mi cuenta</target>
+            </trans-unit>
+            <trans-unit id="36">
+                <source>label.signout</source>
+                <target>Desconectar</target>
+            </trans-unit>
+            <trans-unit id="37">
+                <source>label.thanks_confidence</source>
+                <target><![CDATA[¡Gracias por su confianza!<br />Quedamos a su disposición para cualquier petición.<br />]]></target>
+            </trans-unit>
+            <trans-unit id="38">
+                <source>label.user_profile_modify</source>
+                <target>Modificar perfil del usuario</target>
+            </trans-unit>
+            <trans-unit id="39">
+                <source>label.user_profile_show</source>
+                <target>Perfil del usuario</target>
+            </trans-unit>
+            <trans-unit id="40">
+                <source>label.using_created_account</source>
+                <target><![CDATA[Utilizando mi cuenta creada en <strong>%site%</strong>]]></target>
+            </trans-unit>
+            <trans-unit id="41">
+                <source>label.using_following_services</source>
+                <target>Utilizando uno de los siguientes servicios</target>
+            </trans-unit>
+            <trans-unit id="42">
+                <source>label.view_profile</source>
+                <target>Mira mi perfil</target>
+            </trans-unit>
+            <trans-unit id="43">
+                <source>label.woman</source>
+                <target>Mujer</target>
+            </trans-unit>
+            <trans-unit id="44">
+                <source>placeholder.email</source>
+                <target>Mi email</target>
+            </trans-unit>
+            <trans-unit id="45">
+                <source>placeholder.firstname</source>
+                <target>Mi primer nombre</target>
+            </trans-unit>
+            <trans-unit id="46">
+                <source>placeholder.lastname</source>
+                <target>Mi apellido</target>
+            </trans-unit>
+            <trans-unit id="47">
+                <source>text.account_deleted</source>
+                <target>Su cuenta ha sido eliminada.</target>
+            </trans-unit>
+            <trans-unit id="48">
+                <source>text.alert_must_signin_warning</source>
+                <target>Tengo registrarse antes de poder utilizar este servicio</target>
+            </trans-unit>
+            <trans-unit id="49">
+                <source>text.alert_not_allowed</source>
+                <target>No se me permite utilizar este recurso</target>
+            </trans-unit>
+            <trans-unit id="50">
+                <source>text.already_signedin_warning</source>
+                <target>Usted ya ha firmado en</target>
+            </trans-unit>
+            <trans-unit id="51">
+                <source>text.delete_account_info</source>
+                <target><![CDATA[Al eliminar mi cuenta, entender que todo va ligado a  mi cuenta será eliminado. <strong>Entiendo que aussi cette acción es inmediata e irreversible.</strong>]]></target>
+            </trans-unit>
+            <trans-unit id="52">
+                <source>text.gravatar_picture</source>
+                <target><![CDATA[Utilizamos <a href="http://gravatar.com" rel="nofollow">gravatar.com</a> para visualizar la imagen]]></target>
+            </trans-unit>
+            <trans-unit id="53">
+                <source>text.greetings</source>
+                <target><![CDATA[¡Gracias por su confianza!<br />Saludos,]]></target>
+            </trans-unit>
+            <trans-unit id="54">
+                <source>text.hello</source>
+                <target>Hola,</target>
+            </trans-unit>
+            <trans-unit id="55">
+                <source>text.no_spam</source>
+                <target>Le recomendamos que guarde nuestra dirección de correo electrónico "%email%" en su libreta de direcciones para que nuestros mensajes de correo electrónico no están clasificados spam.</target>
+            </trans-unit>
+            <trans-unit id="56">
+                <source>text.register_acceptance</source>
+                <target><![CDATA[Al crear esta cuenta, confirmo que acepto los <strong><a href="%terms_link%" rel="nofollow">Condiciones de uso</a></strong>, <strong><a href="%privacy_link%" rel="nofollow">Política de privacidad</a></strong> y <strong><a href="%cookies_link%" rel="nofollow">Uso de cookies</a></strong> de <strong>%site%</strong>.]]></target>
+            </trans-unit>
+            <trans-unit id="57">
+                <source>text.register_info</source>
+                <target>Yo uso este formulario para registrarse, con mi dirección de correo electrónico y mi contraseña. Un correo electrónico de confirmación será enviado a mí.</target>
+            </trans-unit>
+            <trans-unit id="58">
+                <source>text.reset_password_info</source>
+                <target>Yo uso este formulario para restablecer mi contraseña</target>
+            </trans-unit>
+            <trans-unit id="59">
+                <source>text.signin_social_not_concerned</source>
+                <target>Yo uso este formulario para restablecer mi contraseña</target>
+            </trans-unit>
+            <trans-unit id="60">
+                <source>label.password</source>
+                <target>Contraseña</target>
+            </trans-unit>
+            <trans-unit id="61">
+                <source>label.remember_me</source>
+                <target>Recordar</target>
+            </trans-unit>
+            <trans-unit id="62">
+                <source>label.password_repeat</source>
+                <target>Repita la contraseña</target>
+            </trans-unit>
+            <trans-unit id="63">
+                <source>text.check_email_register</source>
+                <target><![CDATA[Se ha enviado un email a <strong>%email%</strong>. Contiene un enlace que deberá hacer clic para activar su cuenta.]]></target>
+            </trans-unit>
+            <trans-unit id="64">
+                <source>label.check_email</source>
+                <target>Verifica su correo</target>
+            </trans-unit>
+            <trans-unit id="65">
+                <source>text.registration_email</source>
+                <target>Para validar su cuenta de usuario, visite el siguiente enlace.</target>
+            </trans-unit>
+            <trans-unit id="66">
+                <source>text.use_only_once_link</source>
+                <target>Este enlace sólo puede utilizarse una vez para validar su cuenta.</target>
+            </trans-unit>
+            <trans-unit id="67">
+                <source>label.register_email</source>
+                <target>Confirma su registro</target>
+            </trans-unit>
+            <trans-unit id="68">
+                <source>text.registration_confirmed</source>
+                <target>Felicidades, su cuenta está ahora confirmada !</target>
+            </trans-unit>
+            <trans-unit id="69">
+                <source>label.current_password</source>
+                <target>Contraseña actual</target>
+            </trans-unit>
+            <trans-unit id="70">
+                <source>text.password_changed</source>
+                <target>La contraseña se ha cambiado con éxito.</target>
+            </trans-unit>
+            <trans-unit id="71">
+                <source>label.latest_signin</source>
+                <target>Última registrarse</target>
+            </trans-unit>
+            <trans-unit id="72">
+                <source>label.latest_signout</source>
+                <target>Última desconectar</target>
+            </trans-unit>
+            <trans-unit id="73">
+                <source>text.profile_modified</source>
+                <target>El perfil ha sido bien modificado</target>
+            </trans-unit>
+            <trans-unit id="74">
+                <source>text.reset_password</source>
+                <target>Usted solicitó volver a inicializar su contraseña. Para hacer esto, visite el siguiente enlace.</target>
+            </trans-unit>
+            <trans-unit id="75">
+                <source>text.reset_password_not_requested</source>
+                <target>Si no inició esta acción, no tiene nada que hacer, su contraseña no se cambiará y el enlace caducará el %date%.</target>
+            </trans-unit>
+            <trans-unit id="76">
+                <source>text.check_email_reset_password</source>
+                <target><![CDATA[Se ha enviado un email a <strong>%email%</strong>. Contiene un enlace que deberá hacer clic para restablecer su contraseña.]]></target>
+            </trans-unit>
+            <trans-unit id="77">
+                <source>text.password_reset_success</source>
+                <target>La contraseña se ha initializado con éxito</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
