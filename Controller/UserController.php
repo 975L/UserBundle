@@ -600,7 +600,6 @@ class UserController extends Controller
                     'body' => $body,
                     'ip' => $request->getClientIp(),
                     );
-echo $body;die;
                 $emailService = $this->get(\c975L\EmailBundle\Service\EmailService::class);
                 $emailService->send($emailData, $this->getParameter('c975_l_user.databaseEmail'));
 

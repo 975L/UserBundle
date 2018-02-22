@@ -1,5 +1,9 @@
 # Changelog
 
+v1.2.1.1
+--------
+- Suppressed echo forgotten... (22/02/2018)
+
 v1.2.1
 ------
 - Replaced links in `register` and `resetPassword` emails by a button (22/02/2018)
