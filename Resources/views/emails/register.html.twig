@@ -1,19 +1,21 @@
-{% extends '@c975LUser/emails/layout.html.twig' %}
+{% extends '@c975LEmail/emails/layout.html.twig' %}
 {% trans_default_domain 'user' %}
 
-{% block user_content %}
-    <div>
-{# Explanation #}
-        <p>
-            {{ 'text.registration_email'|trans }}
-        </p>
-{# Url #}
-        <p>
-            <a href="{{ url }}">{{ url }}</a>
-        </p>
-{# Use only once #}
-        <p>
-            {{ 'text.use_only_once_link'|trans }}
-        </p>
-    </div>
+{% block email_content %}
+    {% block user_content %}
+        <div>
+    {# Explanation #}
+            <p>
+                {{ 'text.registration_email'|trans }}
+            </p>
+    {# Url #}
+            <p>
+                <a href="{{ url }}">{{ url }}</a>
+            </p>
+    {# Use only once #}
+            <p>
+                {{ 'text.use_only_once_link'|trans }}
+            </p>
+        </div>
+    {% endblock %}
 {% endblock %}

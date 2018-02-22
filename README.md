@@ -58,6 +58,8 @@ c975_l_user:
     site: 'Example.com'
     #If registration is allowed or not
     registration: false #true(default)
+    #User's role needed to enable access other user's data
+    roleNeeded: 'ROLE_ADMIN'
     #(Optional) If you want to display the gravatar linked to the email user's account
     gravatar: true #null(default)
     #(Optional) If you want to add social networks login using https://github.com/hwi/HWIOAuthBundle

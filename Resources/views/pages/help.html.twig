@@ -1,0 +1,11 @@
+{% extends "@c975LUser/layout.html.twig" %}
+{% trans_default_domain 'user' %}
+{% set title = 'label.help'|trans({}, 'toolbar') ~ ' - ' ~ 'label.user'|trans({}, 'toolbar') %}
+
+{% block user_content %}
+{# Toolbar #}
+    {{ toolbar|raw }}
+
+{# Help content #}
+    {{ include( ['@c975LUser/pages/languages/help-' ~ app.request.locale ~ '.html.twig', '@c975LUser/pages/languages/help-en.html.twig']) }}
+{% endblock %}

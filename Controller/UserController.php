@@ -600,6 +600,7 @@ class UserController extends Controller
                     'body' => $body,
                     'ip' => $request->getClientIp(),
                     );
+echo $body;die;
                 $emailService = $this->get(\c975L\EmailBundle\Service\EmailService::class);
                 $emailService->send($emailData, $this->getParameter('c975_l_user.databaseEmail'));
 
@@ -699,5 +700,37 @@ class UserController extends Controller
         } else {
             return $this->redirectToRoute('user_signin');
         }
+    }
+
+//HELP
+    /**
+     * @Route("/user/help",
+     *      name="user_help")
+     * @Method({"GET", "HEAD"})
+     */
+    public function helpAction()
+    {
+        //Gets the user
+        $user = $this->getUser();
+
+        //Returns the dashboard content
+        if ($user !== null && $this->get('security.authorization_checker')->isGranted($this->getParameter('c975_l_user.roleNeeded'))) {
+            //Defines toolbar
+            $tools  = $this->renderView('@c975LUser/tools.html.twig', array(
+                'type' => 'help',
+            ));
+            $toolbar = $this->forward('c975L\ToolbarBundle\Controller\ToolbarController::displayAction', array(
+                'tools'  => $tools,
+                'dashboard'  => 'user',
+            ))->getContent();
+
+            //Returns the help
+            return $this->render('@c975LUser/pages/help.html.twig', array(
+                'toolbar' => $toolbar,
+            ));
+        }
+
+        //Access is denied
+        throw $this->createAccessDeniedException();
     }
 }

@@ -40,7 +40,7 @@ class User implements UserInterface
 
     /**
      * @Assert\NotBlank()
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=128, unique=true)
      * @Assert\Email(
      *     message = "email.not_valid",
      *     checkMX = true
@@ -58,7 +58,7 @@ class User implements UserInterface
     protected $gender;
 
     /**
-     * @ORM\Column(name="firstname", type="string")
+     * @ORM\Column(name="firstname", length=48, type="string")
      * @Assert\Length(
      *      min = 2,
      *      max = 48,
@@ -69,7 +69,7 @@ class User implements UserInterface
     protected $firstname;
 
     /**
-     * @ORM\Column(name="lastname", type="string")
+     * @ORM\Column(name="lastname", length=48, type="string")
      * @Assert\Length(
      *      min = 2,
      *      max = 48,
@@ -97,12 +97,12 @@ class User implements UserInterface
     protected $enabled;
 
     /**
-     * @ORM\Column(name="salt", type="string")
+     * @ORM\Column(name="salt", length=255, type="string")
      */
     protected $salt;
 
     /**
-     * @ORM\Column(name="password", type="string")
+     * @ORM\Column(name="password", length=255, type="string")
      */
     protected $password;
 
@@ -121,7 +121,7 @@ class User implements UserInterface
     protected $latestSignout;
 
     /**
-     * @ORM\Column(name="token", type="string")
+     * @ORM\Column(name="token", length=255, type="string")
      */
     protected $token;
 

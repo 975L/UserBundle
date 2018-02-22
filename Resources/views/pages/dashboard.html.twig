@@ -27,31 +27,31 @@
 {# View profile #}
                 <p>
                     <a href="{{ path('user_display') }}">
-                        <span class="glyphicon glyphicon-user"></span>&nbsp;{{ 'label.view_profile'|trans }}</a>
+                        {{ 'label.view_profile'|trans }}</a>
                 </p>
 {# Modify profile #}
                 <p>
                     <a href="{{ path('user_modify') }}">
-                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;{{ 'label.modify_profile'|trans }}</a>
+                        {{ 'label.modify_profile'|trans }}</a>
                 </p>
 {# Change password #}
                 <p>
                     <a href="{{ path('user_change_password') }}">
                         <span class="text-warning">
-                            <span class="glyphicon glyphicon-refresh"></span>&nbsp;{{ 'label.change_password'|trans }}
+                            {{ 'label.change_password'|trans }}
                         </span></a>
                 </p>
 {# Delete account #}
                 <p>
                     <a href="{{ path('user_delete') }}">
                         <span class="text-danger">
-                            <span class="glyphicon glyphicon-trash"></span>&nbsp;{{ 'label.delete_account'|trans }}
+                            {{ 'label.delete_account'|trans }}
                         </span></a>
                 </p>
 {# Sign out #}
                 <p>
                     <a href="{{ path('user_signout') }}">
-                        <span class="glyphicon glyphicon-log-out"></span>&nbsp;{{ 'label.signout'|trans }}</a>
+                        {{ 'label.signout'|trans }}</a>
                 </p>
             </div>
         </div>
