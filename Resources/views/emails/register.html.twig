@@ -4,15 +4,16 @@
 {% block email_content %}
     {% block user_content %}
         <div>
-    {# Explanation #}
+{# Explanation #}
             <p>
                 {{ 'text.registration_email'|trans }}
             </p>
-    {# Url #}
-            <p>
-                <a href="{{ url }}">{{ url }}</a>
+{# Url #}
+            <p class="text-center">
+                <a href="{{ url }}" class="btn btn-primary btn-lg">
+                    {{ 'label.register_email'|trans }}</a>
             </p>
-    {# Use only once #}
+{# Use only once #}
             <p>
                 {{ 'text.use_only_once_link'|trans }}
             </p>
