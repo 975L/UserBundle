@@ -20,7 +20,7 @@ class UserRepository extends EntityRepository implements UserLoaderInterface
     {
         return $this->createQueryBuilder('u')
             ->where('u.email = :email')
-            ->setParameter('email', $email)
+            ->setParameter('email', strtolower($email))
             ->getQuery()
             ->getOneOrNullResult();
     }
@@ -30,7 +30,7 @@ class UserRepository extends EntityRepository implements UserLoaderInterface
     {
         return $this->createQueryBuilder('u')
             ->where('u.email = :email')
-            ->setParameter('email', $email)
+            ->setParameter('email', strtolower($email))
             ->getQuery()
             ->getOneOrNullResult();
     }
