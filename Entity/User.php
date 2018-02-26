@@ -212,7 +212,7 @@ class User implements UserInterface
      */
     public function setEmail($email)
     {
-        $this->email = $email;
+        $this->email = strtolower($email);
 
         return $this;
     }
@@ -224,7 +224,7 @@ class User implements UserInterface
      */
     public function getEmail()
     {
-        return $this->email;
+        return strtolower($this->email);
     }
 
     /**
