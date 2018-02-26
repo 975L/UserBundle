@@ -20,7 +20,7 @@ CREATE TABLE `user` (
   `lastname` varchar(48) DEFAULT NULL,
   `creation` datetime DEFAULT NULL,
   `avatar` varchar(255) DEFAULT NULL,
-  `enabled` tinyint(1) NOT NULL,
+  `enabled` tinyint(1) DEFAULT 0,
   `salt` varchar(255) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `latest_signin` datetime DEFAULT NULL,
@@ -28,7 +28,8 @@ CREATE TABLE `user` (
   `token` varchar(40) DEFAULT NULL,
   `password_request` datetime DEFAULT NULL,
   `roles` longtext DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `un_email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 -- ---------------------------------

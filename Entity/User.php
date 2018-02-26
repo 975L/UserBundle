@@ -22,8 +22,7 @@ use c975L\UserBundle\Validator\Constraints\UserChallenge;
 /**
  * User
  *
- * @ORM\Table(name="user")
- * @ORM\HasLifecycleCallbacks()
+ * @ORM\Table(name="user", indexes={@Index(name="un_email", columns={"name", "email"})})
  * @ORM\Entity(repositoryClass="c975L\UserBundle\Repository\UserRepository")
  */
 class User implements UserInterface
@@ -121,7 +120,7 @@ class User implements UserInterface
     protected $latestSignout;
 
     /**
-     * @ORM\Column(name="token", length=255, type="string")
+     * @ORM\Column(name="token", length=40, type="string")
      */
     protected $token;
 
@@ -200,7 +199,7 @@ class User implements UserInterface
      */
     public function getUsername()
     {
-        return $this->email;
+        return strtolower($this->email);
     }
 
     /**

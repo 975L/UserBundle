@@ -1,5 +1,10 @@
 # Changelog
 
+v1.2.2
+------
+- Added strotlower to `email` field (26/02/2018)
+- Added `un_email` index on table `user` (26/02/2018)
+
 v1.2.1.1
 --------
 - Suppressed echo forgotten... (22/02/2018)
