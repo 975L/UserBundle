@@ -8,38 +8,21 @@
             <meta name="format-detection" content="telephone=no" />
             <title>User ({{ title }})</title>
             <base />
-
 {# Css #}
             {% block css %}
-{# Bootstrap - http://getbootstrap.com #}
-                <link rel="stylesheet"
-                    type="text/css"
-                    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-                    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-                    crossorigin="anonymous" />
-{# Fontawesome - https://fontawesome.com #}
-                <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+                {# Uses c975L/IncludeLibraryBundle #}
+                {{ inc_lib('bootstrap', 'css', '3.*') }}
+                {{ inc_lib('fontawesome', 'css', '5.*') }}
             {% endblock %}
-
 {# Javascript #}
             {% block javascript %}
-{# jQuery - https://jquery.com #}
-                <script type="text/javascript"
-                    src="https://code.jquery.com/jquery-3.2.1.min.js"
-                    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-                    crossorigin="anonymous">
-                </script>
-
-{# Bootstrap - http://getbootstrap.com #}
-                <script type="text/javascript"
-                    src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-                    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-                    crossorigin="anonymous">
-                </script>
+                {# Uses c975L/IncludeLibraryBundle #}
+                {{ inc_lib('jquery', 'js', '3.*') }}
+                {{ inc_lib('bootstrap', 'js', '3.*') }}
             {% endblock %}
         {% endblock %}
     </head>
-
+{# Body #}
     <body>
         <div>
             {% block user_content %}
