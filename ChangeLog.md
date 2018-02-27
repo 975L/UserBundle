@@ -1,5 +1,9 @@
 # Changelog
 
+v1.3.1
+------
+- Added c957L/IncludeLibrary to `composer.json` (27/02/2018)
+
 v1.3
 ----
 - Added c957L/IncludeLibrary to include libraries in `layout.html.twig` (27/02/2018)
