@@ -22,7 +22,7 @@ use c975L\UserBundle\Validator\Constraints\UserChallenge;
 /**
  * User
  *
- * @ORM\Table(name="user", indexes={@Index(name="un_email", columns={"name", "email"})})
+ * @ORM\Table(name="user", indexes={@ORM\Index(name="un_email", columns={"name", "email"})})
  * @ORM\Entity(repositoryClass="c975L\UserBundle\Repository\UserRepository")
  */
 class User implements UserInterface

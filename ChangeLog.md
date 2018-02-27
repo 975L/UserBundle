@@ -1,5 +1,9 @@
 # Changelog
 
+v1.2.2.1
+--------
+- Corrected @Index mention in User entity (27/02/2018)
+
 v1.2.2
 ------
 - Added strotlower to `email` field (26/02/2018)
