@@ -73,16 +73,16 @@
                         {{ 'label.mandatory_field'|trans }}
                     </em>
                 </p>
-{# Forgot password #}
-                <p class="text-center">
-                    <a href="{{ path('user_reset_password') }}" rel="nofollow" title="{{ 'label.forgot_password'|trans }}">
-                        {{ 'label.forgot_password'|trans }}</a>
-                </p>
 {# Submit #}
                 <div class="form-group">
                     <input type="submit" id="_submit" name="_submit" value="{{ 'label.signin'|trans }}" class="btn btn-block btn-lg btn-primary" />
                 </div>
             </form>
+{# Forget password #}
+            <p class="text-center">
+                <a href="{{ path('user_reset_password') }}" rel="nofollow" title="{{ 'label.forgot_password'|trans }}">
+                    {{ 'label.forgot_password'|trans }}</a>
+            </p>
         </div>
     </div>
 {% endblock %}

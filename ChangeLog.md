@@ -1,5 +1,9 @@
 # Changelog
 
+v1.3.2
+------
+- Moved "Forget password" link below submit button on signin form (28/02/2018)
+
 v1.3.1
 ------
 - Added c957L/IncludeLibrary to `composer.json` (27/02/2018)
