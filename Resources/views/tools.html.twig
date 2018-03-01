@@ -3,26 +3,26 @@
 {% spaceless %}
 {# Display #}
 {% if type == 'dashboard' or type == 'modify' or type == 'changePassword' or type == 'delete' %}
-    {{ toolbar_button(path('user_display'), 'user')|raw }}
+    {{ toolbar_button(path('user_display'), 'user') }}
 {% endif %}
 
 {# Modify #}
 {% if type == 'dashboard' or type == 'display' or type == 'changePassword' or type == 'delete' %}
-    {{ toolbar_button(path('user_modify'), 'modify')|raw }}
+    {{ toolbar_button(path('user_modify'), 'modify') }}
 {% endif %}
 
 {# Cancel #}
 {% if type != 'dashboard' and type != 'displayAvailable' and type != 'help' %}
-    {{ toolbar_button('cancel', 'cancel')|raw }}
+    {{ toolbar_button('cancel', 'cancel') }}
 {% endif %}
 
 {# Change password #}
 {% if type == 'dashboard' or type == 'display' or type == 'modify' or type == 'delete' %}
-    {{ toolbar_button(path('user_change_password'), 'change_password')|raw }}
+    {{ toolbar_button(path('user_change_password'), 'change_password') }}
 {% endif %}
 
 {# Help #}
 {% if is_granted('ROLE_ADMIN') and type != 'help' %}
-    {{ toolbar_button(path('user_help'), 'help')|raw }}
+    {{ toolbar_button(path('user_help'), 'help') }}
 {% endif %}
 {% endspaceless %}

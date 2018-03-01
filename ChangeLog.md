@@ -1,5 +1,9 @@
 # Changelog
 
+v1.3.2.1
+--------
+- Removed the "|raw" for `toolbar_button` call as safe html is now sent (01/03/2018)
+
 v1.3.2
 ------
 - Moved "Forget password" link below submit button on signin form (28/02/2018)
