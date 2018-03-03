@@ -136,6 +136,16 @@ You also have to override:
 
 You can add a navbar menu via `{% include('@c975LUser/fragments/navbarMenu.html.twig') %}`. You can override it, if needed, or simply override `/fragments/navbarMenuActions.html.twig` to add actions above it.
 
+Sign in/Sign out link
+---------------------
+If you want to insert a link to sign in/sign out, i.e. in the footer, you can do it via this code:
+```
+{# Sign in/Sign out #}
+<p class="text-center">
+    {% include '@c975LUser/fragments/signinSignout.html.twig' %}
+</p>
+```
+
 Routes
 ------
 The Routes availables are:

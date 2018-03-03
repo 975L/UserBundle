@@ -1,5 +1,10 @@
 # Changelog
 
+v1.3.3
+------
+- Added template to display sign in/sign out link (03/03/2018)
+- Modified text from link to button in emails sent (03/03/2018)
+
 v1.3.2.1
 --------
 - Removed the "|raw" for `toolbar_button` call as safe html is now sent (01/03/2018)

@@ -224,7 +224,7 @@
             </trans-unit>
             <trans-unit id="63">
                 <source>text.check_email_register</source>
-                <target><![CDATA[An email has been sent to <strong>%email%</strong>. It contains a link you must click to activate your account.]]></target>
+                <target><![CDATA[An email has been sent to <strong>%email%</strong>. It contains a button you must click to activate your account.]]></target>
             </trans-unit>
             <trans-unit id="64">
                 <source>label.check_email</source>
@@ -232,11 +232,11 @@
             </trans-unit>
             <trans-unit id="65">
                 <source>text.registration_email</source>
-                <target>To validate your user account, please visit the link below.</target>
+                <target>To validate your user account, please click on the button below.</target>
             </trans-unit>
             <trans-unit id="66">
                 <source>text.use_only_once_link</source>
-                <target>This link can only be used once to validate your account.</target>
+                <target>This button can only be used once to validate your account.</target>
             </trans-unit>
             <trans-unit id="67">
                 <source>label.register_email</source>
@@ -268,7 +268,7 @@
             </trans-unit>
             <trans-unit id="74">
                 <source>text.reset_password</source>
-                <target>You asked to re-initialize your password. To do this, please visit the link below.</target>
+                <target>You asked to re-initialize your password. To do this, please click on the button below.</target>
             </trans-unit>
             <trans-unit id="75">
                 <source>text.reset_password_not_requested</source>

@@ -224,7 +224,7 @@
             </trans-unit>
             <trans-unit id="63">
                 <source>text.check_email_register</source>
-                <target><![CDATA[Un e-mail a été envoyé à l'adresse <strong>%email%</strong>. Il contient un lien sur lequel il vous faudra cliquer afin d'activer votre compte.]]></target>
+                <target><![CDATA[Un e-mail a été envoyé à l'adresse <strong>%email%</strong>. Il contient un bouton sur lequel il vous faudra cliquer afin d'activer votre compte.]]></target>
             </trans-unit>
             <trans-unit id="64">
                 <source>label.check_email</source>
@@ -232,11 +232,11 @@
             </trans-unit>
             <trans-unit id="65">
                 <source>text.registration_email</source>
-                <target>Pour valider votre compte utilisateur, merci de vous rendre sur le lien ci-dessous.</target>
+                <target>Pour valider votre compte utilisateur, merci de cliquer sur le bouton ci-dessous.</target>
             </trans-unit>
             <trans-unit id="66">
                 <source>text.use_only_once_link</source>
-                <target>Ce lien ne peut être utilisé qu'une seule fois pour valider votre compte.</target>
+                <target>Ce bouton ne peut être utilisé qu'une seule fois pour valider votre compte.</target>
             </trans-unit>
             <trans-unit id="67">
                 <source>label.register_email</source>
@@ -268,7 +268,7 @@
             </trans-unit>
             <trans-unit id="74">
                 <source>text.reset_password</source>
-                <target>Vous avez demandé à ré-initialiser votre mot de passe. Pour ce faire, merci de vous rendre sur le lien ci-dessous.</target>
+                <target>Vous avez demandé à ré-initialiser votre mot de passe. Pour ce faire, merci de cliquer sur le bouton ci-dessous.</target>
             </trans-unit>
             <trans-unit id="75">
                 <source>text.reset_password_not_requested</source>
