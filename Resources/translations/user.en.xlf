@@ -10,6 +10,10 @@
                 <source>label.account_created</source>
                 <target>Account created waiting validation</target>
             </trans-unit>
+            <trans-unit id="3">
+                <source>label.dashboard</source>
+                <target>Dashboard</target>
+            </trans-unit>
             <trans-unit id="4">
                 <source>label.actions</source>
                 <target>Actions</target>
@@ -37,6 +41,10 @@
             <trans-unit id="10">
                 <source>label.creation</source>
                 <target>Creation</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>label.signup</source>
+                <target>Sign up</target>
             </trans-unit>
             <trans-unit id="12">
                 <source>label.data</source>
@@ -123,7 +131,7 @@
                 <target>Sign in</target>
             </trans-unit>
             <trans-unit id="35">
-                <source>label.signin_create_account</source>
+                <source>label.signup_create_account</source>
                 <target>Create my account</target>
             </trans-unit>
             <trans-unit id="36">
@@ -195,12 +203,12 @@
                 <target>We advise you to save our email address "%email%" in your address book so that our emails are not classified as spam.</target>
             </trans-unit>
             <trans-unit id="56">
-                <source>text.register_acceptance</source>
-                <target><![CDATA[By creating this account, I confirm that I accept the <strong><a href="%terms_link%" rel="nofollow">Terms of use</a></strong>, the <strong><a href="%privacy_link%" rel="nofollow">Privacy policy</a></strong> and the <strong><a href="%cookies_link%" rel="nofollow">Use of cookies</a></strong> from <strong>%site%</strong>.]]></target>
+                <source>text.signup_acceptance</source>
+                <target><![CDATA[By creating this account, I confirm that I accept the <strong><a href="%terms_link%" rel="nofollow">Terms of use</a></strong> and the <strong><a href="%privacy_link%" rel="nofollow">Privacy policy</a></strong> of <strong>%site%</strong>.]]></target>
             </trans-unit>
             <trans-unit id="57">
-                <source>text.register_info</source>
-                <target>I use this form to register, with my email address and my password. A confirmation email will be sent to me.</target>
+                <source>text.signup_info</source>
+                <target>I use this form to signup, with my email address and my password. A confirmation email will be sent to me.</target>
             </trans-unit>
             <trans-unit id="58">
                 <source>text.reset_password_info</source>
@@ -223,7 +231,7 @@
                 <target>Repeat password</target>
             </trans-unit>
             <trans-unit id="63">
-                <source>text.check_email_register</source>
+                <source>text.check_email_signup</source>
                 <target><![CDATA[An email has been sent to <strong>%email%</strong>. It contains a button you must click to activate your account.]]></target>
             </trans-unit>
             <trans-unit id="64">
@@ -239,7 +247,7 @@
                 <target>This button can only be used once to validate your account.</target>
             </trans-unit>
             <trans-unit id="67">
-                <source>label.register_email</source>
+                <source>label.signup_email</source>
                 <target>Confirm your registration</target>
             </trans-unit>
             <trans-unit id="68">

@@ -11,6 +11,7 @@ namespace c975L\UserBundle\Listeners;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\AuthenticationEvents;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
@@ -24,12 +25,19 @@ class AuthenticationListener implements EventSubscriberInterface
     private $em;
     private $tokenStorage;
     private $authenticationUtils;
+    private $requestStack;
 
-    public function __construct(EntityManagerInterface $em, TokenStorageInterface $tokenStorage, AuthenticationUtils $authenticationUtils)
+    public function __construct(
+        EntityManagerInterface $em,
+        TokenStorageInterface $tokenStorage,
+        AuthenticationUtils $authenticationUtils,
+        RequestStack $requestStack
+    )
     {
         $this->em = $em;
         $this->tokenStorage = $tokenStorage;
         $this->authenticationUtils = $authenticationUtils;
+        $this->requestStack = $requestStack;
     }
 
     public static function getSubscribedEvents()
@@ -45,6 +53,11 @@ class AuthenticationListener implements EventSubscriberInterface
         $user = $this->tokenStorage->getToken()->getUser();
 
         if ($user instanceof User) {
+            //Removes challenge from session in case a user clicked on signup, canceled and then authenticate
+            $session = $this->requestStack->getCurrentRequest()->getSession();
+            $session->remove('challenge');
+            $session->remove('challengeResult');
+
             //Writes signin time
             $user->setLatestSignin(new \DateTime());
 

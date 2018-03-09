@@ -6,7 +6,7 @@ Directly inspired from [FOSUserBundle](https://github.com/FriendsOfSymfony/FOSUs
 - Stores users in database (using doctrine),
 - Allows users to manage their profile and data,
 - Displays a "challenge" for registration,
-- Allows the possibility to disable registration (for registering only one or more users and then no more),
+- Allows the possibility to disable sign up (for registering only one or more users and then no more),
 - provides forms for Sin in, Register, Modify profile, Change password, Reset password,
 - Sends email about registration and password reset to the user via [c975LEmailBundle](https://github.com/975L/EmailBundle) as `c975LEmailBundle` provides the possibility to save emails in a database, there is an option to NOT do so via this Bundle,
 - Integrates with [c975LToolbarBundle](https://github.com/975L/ToolbarBundle),
@@ -133,7 +133,7 @@ For this, simply, create the following structure `app/Resources/c975LUserBundle/
 
 You also have to override:
 - `app/Resources/c975LUserBundle/views/emails/layout.html.twig` to set data related to your emails.
-- `app/Resources/c975LUserBundle/views/fragments/registerAcceptanceInfo.html.twig` to display links (Terms of use, Privacy policy, etc.) displayed in the register form.
+- `app/Resources/c975LUserBundle/views/fragments/signupAcceptanceInfo.html.twig` to display links (Terms of use, Privacy policy, etc.) displayed in the signup form.
 - `app/Resources/c975LUserBundle/views/fragments/deleteAccountInfo.html.twig` that will list the implications, by deleting account, for user, displayed in the delete account page.
 - `app/Resources/c975LUserBundle/views/fragments/dashboardActions.html.twig` to add your own actions (or whatever) in the dashboard i.e.
 
@@ -152,8 +152,8 @@ If you want to insert a link to sign in/sign out, i.e. in the footer, you can do
 Routes
 ------
 The Routes availables are:
-- user_register
-- user_register_confirm
+- user_signup
+- user_signup_confirm
 - user_signin
 - user_dashboard
 - user_display

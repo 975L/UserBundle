@@ -5,8 +5,8 @@
 {% block user_content %}
     <p class="text-center">
 {# Register #}
-        {% if action == "register"%}
-            {{ 'text.check_email_register'|trans({'%email%': email})|raw }}
+        {% if action == "signup"%}
+            {{ 'text.check_email_signup'|trans({'%email%': email})|raw }}
 {# Reset password #}
         {% elseif action == "resetPassword"%}
             {{ 'text.check_email_reset_password'|trans({'%email%': email})|raw }}

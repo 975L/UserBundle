@@ -4,9 +4,8 @@
     {% trans with {
         '%terms_link%': path('pageedit_display', { 'page': 'terms-of-use' }),
         '%privacy_link%': path('pageedit_display', { 'page': 'privacy-policy' }),
-        '%cookies_link%': path('pageedit_display', { 'page': 'cookies-policy' }),
         '%site%': site,
         } from 'user' %}
-        text.register_acceptance
+        text.signup_acceptance
     {% endtrans %}
 </p>

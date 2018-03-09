@@ -10,6 +10,10 @@
                 <source>label.account_created</source>
                 <target>Compte créé en attente de validation</target>
             </trans-unit>
+            <trans-unit id="3">
+                <source>label.dashboard</source>
+                <target>Tableau de bord</target>
+            </trans-unit>
             <trans-unit id="4">
                 <source>label.actions</source>
                 <target>Actions</target>
@@ -37,6 +41,10 @@
             <trans-unit id="10">
                 <source>label.creation</source>
                 <target>Création</target>
+            </trans-unit>
+            <trans-unit id="11">
+                <source>label.signup</source>
+                <target>S'inscire</target>
             </trans-unit>
             <trans-unit id="12">
                 <source>label.data</source>
@@ -123,7 +131,7 @@
                 <target>Me connecter</target>
             </trans-unit>
             <trans-unit id="35">
-                <source>label.signin_create_account</source>
+                <source>label.signup_create_account</source>
                 <target>Créer mon compte</target>
             </trans-unit>
             <trans-unit id="36">
@@ -195,11 +203,11 @@
                 <target>Nous conseillons d'enregistrer notre adresse email "%email%" dans votre carnet d'adresses afin que nos emails ne soient pas classés spam.</target>
             </trans-unit>
             <trans-unit id="56">
-                <source>text.register_acceptance</source>
-                <target><![CDATA[En créant ce compte, je confirme que j'accepte les <strong><a href="%terms_link%" rel="nofollow">Conditions générales d'utilisation</a></strong>, les <strong><a href="%privacy_link%" rel="nofollow">Règles de confidentialité</a></strong> et l'<strong><a href="%cookies_link%" rel="nofollow">Utilisation des cookies</a></strong> de <strong>%site%</strong>.]]></target>
+                <source>text.signup_acceptance</source>
+                <target><![CDATA[En créant ce compte, je confirme que j'accepte les <strong><a href="%terms_link%" rel="nofollow">Conditions générales d'utilisation</a></strong> et les <strong><a href="%privacy_link%" rel="nofollow">Règles de confidentialité</a></strong> de <strong>%site%</strong>.]]></target>
             </trans-unit>
             <trans-unit id="57">
-                <source>text.register_info</source>
+                <source>text.signup_info</source>
                 <target>J'utilise ce formulaire pour m'enregistrer, avec mon adresse email et mon mot de passe. Un email de confirmation me sera envoyé</target>
             </trans-unit>
             <trans-unit id="58">
@@ -223,7 +231,7 @@
                 <target>Répéter mot de passe</target>
             </trans-unit>
             <trans-unit id="63">
-                <source>text.check_email_register</source>
+                <source>text.check_email_signup</source>
                 <target><![CDATA[Un e-mail a été envoyé à l'adresse <strong>%email%</strong>. Il contient un bouton sur lequel il vous faudra cliquer afin d'activer votre compte.]]></target>
             </trans-unit>
             <trans-unit id="64">
@@ -239,7 +247,7 @@
                 <target>Ce bouton ne peut être utilisé qu'une seule fois pour valider votre compte.</target>
             </trans-unit>
             <trans-unit id="67">
-                <source>label.register_email</source>
+                <source>label.signup_email</source>
                 <target>Confirmez votre inscription</target>
             </trans-unit>
             <trans-unit id="68">

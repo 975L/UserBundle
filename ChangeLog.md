@@ -1,5 +1,13 @@
 # Changelog
 
+v1.3.5
+------
+- Added 'label.dashboard' missing translations (09/03/2018)
+- Renamed register to signup (09/03/2018)
+- Added 'label.signup' missing translation for Sign up submit value (09/03/2018)
+- Suppressed cookies link in register acceptance (09/03/2018)
+- Added clean Challenge in session when connecting to avoid errors if someone goes to register, cnacel and the sign in (09/03/2018)
+
 v1.3.4
 ------
 - Added "_locale requirement" part for multilingual prefix in `routing.yml` in `README.md` (04/03/2018)

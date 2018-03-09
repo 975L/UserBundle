@@ -64,22 +64,40 @@ class UserController extends Controller
         throw $this->createAccessDeniedException();
     }
 
-//REGISTER
+//SIGN UP
     /**
      * @Route("/register")
      * @Method({"GET", "HEAD"})
      */
     public function registerRedirectAction()
     {
-        //Redirects to register
-        return $this->redirectToRoute('user_register');
+        //Redirects to signup
+        return $this->redirectToRoute('user_signup');
     }
     /**
-     * @Route("/user/register",
-     *      name="user_register")
+     * @Route("/user/register")
+     * @Method({"GET", "HEAD"})
+     */
+    public function userRegisterRedirectAction()
+    {
+        //Redirects to signup
+        return $this->redirectToRoute('user_signup');
+    }
+    /**
+     * @Route("/signup")
+     * @Method({"GET", "HEAD"})
+     */
+    public function signupRedirectAction()
+    {
+        //Redirects to signup
+        return $this->redirectToRoute('user_signup');
+    }
+    /**
+     * @Route("/user/signup",
+     *      name="user_signup")
      * @Method({"GET", "HEAD", "POST"})
      */
-    public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function signupAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
         //Redirects if registration is disabled
         if ($this->getParameter('c975_l_user.registration') !== true) {
@@ -116,12 +134,12 @@ class UserController extends Controller
                 $translator = $this->get('translator');
 
                 //Defines email
-                $body = $this->renderView('@c975LUser/emails/register.html.twig', array(
-                    'url' => $this->generateUrl('user_register_confirm', array('token' => $user->getToken()), UrlGeneratorInterface::ABSOLUTE_URL),
+                $body = $this->renderView('@c975LUser/emails/signup.html.twig', array(
+                    'url' => $this->generateUrl('user_signup_confirm', array('token' => $user->getToken()), UrlGeneratorInterface::ABSOLUTE_URL),
                     'user' => $user,
                 ));
                 $emailData = array(
-                    'subject' => $translator->trans('label.register_email', array(), 'user'),
+                    'subject' => $translator->trans('label.signup_email', array(), 'user'),
                     'sentFrom' => $this->getParameter('c975_l_email.sentFrom'),
                     'sentTo' => $user->getEmail(),
                     'replyTo' => $this->getParameter('c975_l_email.sentFrom'),
@@ -146,25 +164,35 @@ class UserController extends Controller
 
                 //Renders the check email page
                 $session->set('checkEmailUser', $user->getEmail());
-                $session->set('checkEmailUserAction', 'register');
+                $session->set('checkEmailUserAction', 'signup');
                 return $this->redirectToRoute('user_check_email');
             }
         }
 
-        //Renders the register forms
-        return $this->render('@c975LUser/forms/register.html.twig', array(
+        //Renders the signup forms
+        return $this->render('@c975LUser/forms/signup.html.twig', array(
             'form' => $form->createView(),
         ));
     }
 
-//REGISTER CONFIRM (FROM EMAIL LINK)
+//SIGN UP CONFIRM (FROM EMAIL LINK)
     /**
      * @Route("/user/register/{token}",
-     *      name="user_register_confirm",
      *      requirements={"token": "^[a-zA-Z0-9]{40}$"})
      * @Method({"GET", "HEAD"})
      */
     public function registerConfirmAction(Request $request, $token)
+    {
+        //Redirects to signupConfirm - Kept for retro-compatibility (09/03/2018)
+        return $this->redirectToRoute('user_signup_confirm');
+    }
+    /**
+     * @Route("/user/signup/{token}",
+     *      name="user_signup_confirm",
+     *      requirements={"token": "^[a-zA-Z0-9]{40}$"})
+     * @Method({"GET", "HEAD"})
+     */
+    public function signupConfirmAction(Request $request, $token)
     {
         //Redirects if registration is disabled
         if ($this->getParameter('c975_l_user.registration') !== true) {

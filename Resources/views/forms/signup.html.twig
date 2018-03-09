@@ -1,11 +1,11 @@
 {% extends "@c975LUser/layout.html.twig" %}
 {% trans_default_domain 'user' %}
-{% set title = 'label.signin_create_account'|trans %}
+{% set title = 'label.signup_create_account'|trans %}
 
 {% block user_content %}
 {# Information #}
     <p class="alert alert-info text-center">
-        {{ 'text.register_info'|trans }}
+        {{ 'text.signup_info'|trans }}
     </p>
 {# Password requirement #}
     <p class="alert alert-warning text-center">
@@ -15,12 +15,13 @@
     {{ form_start(form) }}
         {{ form_widget(form) }}
 {# Register acceptance info #}
-        {% include('@c975LUser/fragments/registerAcceptanceInfo.html.twig') %}
+        {% include('@c975LUser/fragments/signupAcceptanceInfo.html.twig') %}
 {# Submit #}
         <div class="form-group">
-            <input type="submit" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" class="btn btn-block btn-lg btn-primary" />
+            <input type="submit" value="{{ 'label.signup'|trans }}" class="btn btn-block btn-lg btn-primary" />
         </div>
-        {{ form_end(form) }}{# Mandatory field #}
+        {{ form_end(form) }}
+{# Mandatory field #}
     <p class="text-muted">
         <em>
             {{ 'label.mandatory_field'|trans }}
