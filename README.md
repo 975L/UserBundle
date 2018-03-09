@@ -118,8 +118,11 @@ Then, enable the routes by adding them to the `app/config/routing.yml` file of y
 c975_l_user:
     resource: "@c975LUserBundle/Controller/"
     type:     annotation
-    #Multilingual website use: prefix: /{_locale}
     prefix:   /
+    #Multilingual website use the following
+    #prefix: /{_locale}
+    #requirements:
+    #    _locale: en|fr|es
 ```
 
 Overriding Templates

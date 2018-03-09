@@ -1,5 +1,10 @@
 # Changelog
 
+v1.3.4
+------
+- Added "_locale requirement" part for multilingual prefix in `routing.yml` in `README.md` (04/03/2018)
+- Added rel="nofollow" for the Signin/Signout link (09/03/2018)
+
 v1.3.3
 ------
 - Added template to display sign in/sign out link (03/03/2018)

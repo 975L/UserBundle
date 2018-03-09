@@ -1,5 +1,5 @@
 {% if app.user == null %}
-    <a href="{{ path('user_signin') }}">{{ 'label.signin'|trans({}, 'user') }}</a>
+    <a href="{{ path('user_signin') }}" rel="nofollow" title="{{ 'label.signin'|trans({}, 'user') }}">{{ 'label.signin'|trans({}, 'user') }}</a>
 {% else %}
-    <a href="{{ path('user_signout') }}">{{ 'label.signout'|trans({}, 'user') }}</a>
+    <a href="{{ path('user_signout') }}" title="{{ 'label.signout'|trans({}, 'user') }}">{{ 'label.signout'|trans({}, 'user') }}</a>
 {% endif %}
