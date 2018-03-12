@@ -1,5 +1,10 @@
 # Changelog
 
+v1.4
+----
+- Added field "identifier" to be able to display public profile [BC-Break] (12/03/2018)
+- Added publicProfile (12/03/2018)
+
 v1.3.5
 ------
 - Added 'label.dashboard' missing translations (09/03/2018)

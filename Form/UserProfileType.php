@@ -23,9 +23,6 @@ class UserProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $disabled = $options['data']->getAction() == 'modify' ? false : true;
-
-//avatar
-
         $builder
             ->remove('current_password')
             ->add('email', EmailType::class, array(

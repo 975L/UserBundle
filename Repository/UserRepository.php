@@ -35,6 +35,16 @@ class UserRepository extends EntityRepository implements UserLoaderInterface
             ->getOneOrNullResult();
     }
 
+    //Finds by identifier
+    public function findByIdentifier($identifier)
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.identifier = :identifier')
+            ->setParameter('identifier', $identifier)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     //Finds by token
     public function findByToken($token)
     {

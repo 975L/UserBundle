@@ -29,6 +29,13 @@
                     <a href="{{ path('user_display') }}">
                         {{ 'label.view_profile'|trans }}</a>
                 </p>
+{# View public profile #}
+                {% if publicProfile == true %}
+                    <p>
+                        <a href="{{ path('user_public_profile', {'identifier': user.identifier}) }}">
+                            {{ 'label.view_public_profile'|trans }}</a>
+                    </p>
+                {% endif %}
 {# Modify profile #}
                 <p>
                     <a href="{{ path('user_modify') }}">

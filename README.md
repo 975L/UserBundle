@@ -163,6 +163,7 @@ The Routes availables are:
 - user_reset_password_confirm
 - user_signout
 - user_delete
+- user_public_profile
 
 Using HwiOauth (Social network sign in)
 ---------------------------------------

@@ -57,6 +57,7 @@ class UserController extends Controller
                 'user' => $user,
                 'data' => array('gravatar' => $this->getParameter('c975_l_user.gravatar')),
                 'toolbar' => $toolbar,
+                'publicProfile' => $this->getParameter('c975_l_user.publicProfile'),
                 ));
         }
 
@@ -128,6 +129,7 @@ class UserController extends Controller
                     ->setAvatar('https://www.gravatar.com/avatar/' . hash('md5', strtolower(trim($user->getEmail()))) . '?s=128&d=mm&r=g')
                     ->setToken(hash('sha1', $user->getEmail() . uniqid()))
                     ->setEnabled(false)
+                    ->setIdentifier(md5($user->getEmail() . uniqid(time())))
                 ;
 
                 //Gets translator
@@ -302,6 +304,40 @@ class UserController extends Controller
 
         //Access is denied
         throw $this->createAccessDeniedException();
+    }
+
+//PUBLIC PROFILE
+    /**
+     * @Route("/user/public/{identifier}",
+     *      name="user_public_profile",
+     *      requirements={
+     *          "identifier": "^([a-z0-9]{32})$"
+     *      })
+     * @Method({"GET", "HEAD"})
+     */
+    public function pulicProfileAction($identifier)
+    {
+        //Returns the public profile if allowed
+        if ($this->getParameter('c975_l_user.publicProfile') === true) {
+            //Gets the manager
+            $em = $this->getDoctrine()->getManager();
+
+            //Gets repository
+            $repository = $em->getRepository('c975LUserBundle:User');
+
+            //Loads from DB
+            $user = $repository->findByIdentifier($identifier);
+
+            //Renders the profile
+            if ($user instanceof User) {
+                return $this->render('@c975LUser/pages/publicProfile.html.twig', array(
+                    'user' => $user,
+                    ));
+            }
+        }
+
+        //Not found
+        throw $this->createNotFoundException();
     }
 
 //MODIFY
@@ -740,7 +776,7 @@ class UserController extends Controller
         //Gets the user
         $user = $this->getUser();
 
-        //Returns the dashboard content
+        //Returns the help content
         if ($user !== null && $this->get('security.authorization_checker')->isGranted($this->getParameter('c975_l_user.roleNeeded'))) {
             //Defines toolbar
             $tools  = $this->renderView('@c975LUser/tools.html.twig', array(

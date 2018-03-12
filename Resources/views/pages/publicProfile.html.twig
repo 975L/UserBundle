@@ -1,0 +1,26 @@
+{% extends "@c975LUser/layout.html.twig" %}
+{% trans_default_domain 'user' %}
+{% set title = 'label.public_profile'|trans %}
+
+{% block user_content %}
+{# Avatar #}
+    {% if user_gravatar() == true %}
+        <div class="col-xs-12 col-sm-4">
+            <p class="text-center">
+                <img class="img-circle" src="{{ user.avatar }}" width="128" height="128" />
+            </p>
+        </div>
+        <div class="col-xs-12 col-sm-8">
+    {% else %}
+        <div class="col-xs-12">
+    {% endif %}
+{# Firstname #}
+        <p>
+            {{ 'label.firstname'|trans }} : <strong>{{ user.firstname }}</strong>
+        </p>
+{# Member since #}
+        <p>
+            {{ 'label.member_since'|trans }} : <strong>{{ user.creation|localizeddate('medium', 'none') }}</strong>
+        </p>
+    </div>
+{% endblock %}

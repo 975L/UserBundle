@@ -38,5 +38,6 @@ class c975LUserExtension extends Extension
         $container->setParameter('c975_l_user.hwiOauth', $processedConfig['hwiOauth']);
         $container->setParameter('c975_l_user.databaseEmail', $processedConfig['databaseEmail']);
         $container->setParameter('c975_l_user.archiveUser', $processedConfig['archiveUser']);
+        $container->setParameter('c975_l_user.publicProfile', $processedConfig['publicProfile']);
     }
 }

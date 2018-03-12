@@ -54,6 +54,10 @@
                 <source>label.delete_account</source>
                 <target>Delete account</target>
             </trans-unit>
+            <trans-unit id="14">
+                <source>label.public_profile </source>
+                <target>Public profile</target>
+            </trans-unit>
             <trans-unit id="15">
                 <source>label.modify_profile</source>
                 <target>Modify my profile</target>
@@ -105,6 +109,10 @@
             <trans-unit id="27">
                 <source>label.my_account</source>
                 <target>My account</target>
+            </trans-unit>
+            <trans-unit id="28">
+                <source>label.view_public_profile</source>
+                <target>View my public profile</target>
             </trans-unit>
             <trans-unit id="29">
                 <source>label.profile</source>

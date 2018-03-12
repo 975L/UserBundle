@@ -42,6 +42,9 @@ class Configuration implements ConfigurationInterface
                 ->booleanNode('archiveUser')
                     ->defaultFalse()
                 ->end()
+                ->booleanNode('publicProfile')
+                    ->defaultFalse()
+                ->end()
             ->end()
         ;
 

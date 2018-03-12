@@ -14,6 +14,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `identifier` varchar(32) NOT NULL,
   `email` varchar(128) NOT NULL,
   `gender` set('woman','man') DEFAULT NULL,
   `firstname` varchar(48) DEFAULT NULL,
@@ -39,6 +40,7 @@ CREATE TABLE `user` (
 /*
 CREATE TABLE `user_archives` (
   `id` bigint(20) unsigned NOT NULL,
+  `identifier` varchar(32) NOT NULL,
   `email` varchar(128) NOT NULL,
   `gender` set('woman','man') DEFAULT NULL,
   `firstname` varchar(48) DEFAULT NULL,

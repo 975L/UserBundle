@@ -39,6 +39,12 @@ class User implements UserInterface
 
     /**
      * @Assert\NotBlank()
+     * @ORM\Column(type="string", length=32, unique=true)
+     */
+    protected $identifier;
+
+    /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", length=128, unique=true)
      * @Assert\Email(
      *     message = "email.not_valid",
@@ -200,6 +206,30 @@ class User implements UserInterface
     public function getUsername()
     {
         return strtolower($this->email);
+    }
+
+    /**
+     * Set identifier
+     *
+     * @param string $identifier
+     *
+     * @return User
+     */
+    public function setIdentifier($identifier)
+    {
+        $this->identifier = $identifier;
+
+        return $this;
+    }
+
+    /**
+     * Get identifier
+     *
+     * @return string
+     */
+    public function getIdentifier()
+    {
+        return $this->identifier;
     }
 
     /**
