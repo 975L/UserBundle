@@ -15,14 +15,24 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserProfileType extends AbstractType
 {
+    protected $tokenStorage;
+
+    public function __construct(TokenStorageInterface $tokenStorage)
+    {
+        $this->tokenStorage = $tokenStorage;
+    }
+
     //Builds the form
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $disabled = $options['data']->getAction() == 'modify' ? false : true;
+        $user = $this->tokenStorage->getToken()->getUser();
+        $disabled = $options['userConfig']['action'] == 'modify' ? false : true;
+
         $builder
             ->remove('current_password')
             ->add('email', EmailType::class, array(
@@ -77,15 +87,155 @@ class UserProfileType extends AbstractType
                     'placeholder' => 'placeholder.lastname',
                 )))
         ;
+//MULTILINGUAL
+        if (!empty($options['userConfig']['multilingual'])) {
+            $builder
+                ->add('locale', ChoiceType::class, array(
+                    'label' => 'label.locale',
+                    'disabled' => $disabled,
+                    'required' => true,
+                    'multiple' => false,
+                    'placeholder' => 'label.locale',
+                    'choices'  => $options['userConfig']['multilingual'],
+                    ))
+                ;
+        }
+//ADDRESS
+        if ($options['userConfig']['address'] === true) {
+            $builder
+                ->add('address', TextType::class, array(
+                    'label' => 'label.adress',
+                    'disabled' => $disabled,
+                    'required' => true,
+                    ))
+                ->add('address2', TextType::class, array(
+                    'label' => 'label.adress2',
+                    'disabled' => $disabled,
+                    'required' => true,
+                    ))
+                ->add('postal', TextType::class, array(
+                    'label' => 'label.postal',
+                    'disabled' => $disabled,
+                    'required' => true,
+                    ))
+                ->add('town', TextType::class, array(
+                    'label' => 'label.town',
+                    'disabled' => $disabled,
+                    'required' => true,
+                    ))
+                ->add('country', TextType::class, array(
+                    'label' => 'label.country',
+                    'disabled' => $disabled,
+                    'required' => true,
+                    ))
+            ;
+        }
+//BUSINESS
+        if ($options['userConfig']['business'] === true) {
+            $builder
+                ->add('businessType', ChoiceType::class, array(
+                    'label' => 'label.type',
+                    'disabled' => $disabled,
+                    'required' => true,
+                    'expanded' => true,
+                    'multiple' => false,
+                    'choices'  => array(
+                        'label.individual' => 'individual',
+                        'label.association' => 'association',
+                        'label.business' => 'business',
+                        ),
+                    'label_attr' => array(
+                        'class' => 'radio-inline'
+                    ),
+                    ))
+            ;
+            if ($user->getBusinessType() != 'individual') {
+                $builder
+                    ->add('businessName', TextType::class, array(
+                        'label' => 'label.business_name',
+                        'disabled' => $disabled,
+                        'required' => true,
+                        'attr' => array(
+                            'placeholder' => 'label.business_name',
+                        )))
+                    ->add('businessAddress', TextType::class, array(
+                        'label' => 'label.address',
+                        'disabled' => $disabled,
+                        'required' => true,
+                        'attr' => array(
+                            'placeholder' => 'label.address',
+                        )))
+                    ->add('businessAddress2', TextType::class, array(
+                        'label' => 'label.address2',
+                        'disabled' => $disabled,
+                        'required' => false,
+                        'attr' => array(
+                            'placeholder' => 'label.address2',
+                        )))
+                    ->add('businessPostal', TextType::class, array(
+                        'label' => 'label.postal',
+                        'disabled' => $disabled,
+                        'required' => true,
+                        'attr' => array(
+                            'placeholder' => 'label.postal',
+                        )))
+                    ->add('businessTown', TextType::class, array(
+                        'label' => 'label.town',
+                        'disabled' => $disabled,
+                        'required' => true,
+                        'attr' => array(
+                            'placeholder' => 'label.town',
+                        )))
+                    ->add('businessCountry', TextType::class, array(
+                        'label' => 'label.country',
+                        'disabled' => $disabled,
+                        'required' => true,
+                        'attr' => array(
+                            'placeholder' => 'label.country',
+                        )))
+                ;
+            }
+            if ($user->getBusinessType() == 'business') {
+                $builder
+                    ->add('businessSiret', TextType::class, array(
+                        'label' => 'label.siret',
+                        'disabled' => $disabled,
+                        'required' => true,
+                        'attr' => array(
+                            'placeholder' => 'label.siret',
+                        )))
+                    ->add('businessTva', TextType::class, array(
+                        'label' => 'label.tva',
+                        'disabled' => $disabled,
+                        'required' => true,
+                        'attr' => array(
+                            'placeholder' => 'label.tva',
+                        )))
+                ;
+            }
+        }
+//SOCIAL
+        if ($options['userConfig']['social'] === true) {
+            if ($user->getSocialNetwork() === true) {
+                $builder
+                    ->add('socialNetwork', TextType::class, array(
+                        'label' => 'label.social_network',
+                        'required' => false,
+                        'disabled' => true,
+                        ))
+                ;
+            }
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'c975L\UserBundle\Entity\User',
             'intention' => 'UserForm',
             'allow_extra_fields' => true,
             'translation_domain' => 'user',
         ));
+
+        $resolver->setRequired('userConfig');
     }
 }

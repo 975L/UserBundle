@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
-class UserChallenge extends Constraint
+class Tva extends Constraint
 {
-    public $message = 'Wrong answer to the challenge';
+    public $message = 'The TVA number "%string%" is not valid.';
 }

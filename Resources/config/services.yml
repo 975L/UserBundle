@@ -7,11 +7,14 @@ services:
     c975L\UserBundle\Controller\:
         resource: '../../Controller/*'
 
-    c975L\UserBundle\Listeners\:
-        resource: '../../Listeners/*'
+    c975L\UserBundle\Form\:
+        resource: '../../Form/*'
+
+    c975L\UserBundle\Listener\:
+        resource: '../../Listener/*'
+
+    c975L\UserBundle\Service\:
+        resource: '../../Service/*'
 
     c975L\UserBundle\Twig\:
         resource: '../../Twig/*'
-
-
-

@@ -10,6 +10,7 @@
 namespace c975L\UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -19,7 +20,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserRegisterType extends AbstractType
+class UserSignupType extends AbstractType
 {
     protected $session;
 
@@ -53,12 +54,6 @@ class UserRegisterType extends AbstractType
                 'attr' => array(
                     'placeholder' => 'placeholder.firstname',
                 )))
-            ->add('lastname', TextType::class, array(
-                'label' => 'label.lastname',
-                'required' => false,
-                'attr' => array(
-                    'placeholder' => 'placeholder.lastname',
-                )))
             ->add('challenge', TextType::class, array(
                 'label' => 'label.challenge',
                 'required' => true,
@@ -66,19 +61,21 @@ class UserRegisterType extends AbstractType
                     'placeholder' => $this->challenge(),
                     'value' => '',
                 )))
-            ;
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'c975L\UserBundle\Entity\User',
             'intention' => 'RegisterForm',
             'allow_extra_fields' => true,
             'translation_domain' => 'user',
         ));
 
-        $resolver->setRequired('session');
+        $resolver
+            ->setRequired('session')
+            ->setRequired('userConfig')
+        ;
     }
 
     //Defines a challenge (letters or numbers)

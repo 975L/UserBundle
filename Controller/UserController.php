@@ -13,6 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -22,12 +23,14 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use c975L\Email\Service\EmailService;
 use c975L\UserBundle\Entity\User;
+use c975L\UserBundle\Event\UserEvent;
 use c975L\UserBundle\Form\UserChangePasswordType;
 use c975L\UserBundle\Form\UserResetPasswordConfirmType;
 use c975L\UserBundle\Form\UserDeleteType;
 use c975L\UserBundle\Form\UserProfileType;
-use c975L\UserBundle\Form\UserRegisterType;
+use c975L\UserBundle\Form\UserSignupType;
 use c975L\UserBundle\Form\UserResetPasswordType;
+use c975L\UserBundle\Service\UserService;
 
 class UserController extends Controller
 {
@@ -42,7 +45,20 @@ class UserController extends Controller
         //Gets user
         $user = $this->getUser();
 
-        if ($user instanceof User) {
+        if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
+            //Switches to user preferred language
+            if (!empty($this->getParameter('c975_l_user.multilingual')) &&
+                $user->getLocale() !== null &&
+                $request->getLocale() != $user->getLocale()) {
+                return $this->redirectToRoute('user_dashboard', array('_locale' => $user->getLocale()));
+            }
+
+            //Checks profile
+            $userService = $this->get(\c975L\UserBundle\Service\UserService::class);
+            if ($userService->checkProfile($user) === false) {
+                return $this->redirectToRoute('user_modify');
+            }
+
             //Defines toolbar
             $tools  = $this->renderView('@c975LUser/tools.html.twig', array(
                 'type' => 'dashboard',
@@ -106,21 +122,48 @@ class UserController extends Controller
         }
 
         //Redirects to dashboard if user has already signed-in
-        if ($this->getUser() instanceof User) {
+        if (is_subclass_of($this->getUser(), 'c975L\UserBundle\Entity\UserAbstract')) {
             return $this->redirectToRoute('user_dashboard');
         }
 
         //Gets session
         $session = $request->getSession();
 
+        //Gets the Terms of use link
+        $userService = $this->get(\c975L\UserBundle\Service\UserService::class);
+        $touUrl = null;
+        $touUrlConfig = $this->getParameter('c975_l_user.touUrl');
+        //Calculates the url if a Route is provided
+        if (strpos($touUrlConfig, ',') !== false) {
+            $routeData = $userService->getUrlFromRoute($touUrlConfig);
+            $touUrl = $this->generateUrl($routeData['route'], $routeData['params'], UrlGeneratorInterface::ABSOLUTE_URL);
+        //An url has been provided
+        } elseif (strpos($touUrlConfig, 'http') !== false) {
+            $touUrl = $touUrlConfig;
+        }
+
         //Defines form
-        $user = new User();
-        $form = $this->createForm(UserRegisterType::class, $user, array('session' => $session));
+        $userEntity = $this->getParameter('c975_l_user.entity');
+        $user = new $userEntity();
+        $userConfig = array(
+            'action' => 'signup',
+            'social' => $this->getParameter('c975_l_user.social'),
+            'address' => $this->getParameter('c975_l_user.address'),
+            'business' => $this->getParameter('c975_l_user.business'),
+            'multilingual' => $this->getParameter('c975_l_user.multilingual'),
+        );
+        $formType = $this->getParameter('c975_l_user.signupForm') === null ? 'c975L\UserBundle\Form\UserSignupType' : $this->getParameter('c975_l_user.signupForm');
+        $form = $this->createForm($formType, $user, array('session' => $session, 'userConfig' => $userConfig));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             //Checks if challenge is ok
             if (strtoupper($session->get('challengeResult')) == strtoupper($user->getChallenge())) {
+                //Dispatch event
+                $dispatcher = $this->get('event_dispatcher');
+                $event = new UserEvent($user, $request);
+                $dispatcher->dispatch(UserEvent::USER_SIGNUP, $event);
+
                 //Adds data to user
                 $user
                     ->setPassword($passwordEncoder->encodePassword($user, $user->getPlainPassword()))
@@ -174,6 +217,7 @@ class UserController extends Controller
         //Renders the signup forms
         return $this->render('@c975LUser/forms/signup.html.twig', array(
             'form' => $form->createView(),
+            'touUrl' => $touUrl,
         ));
     }
 
@@ -208,9 +252,14 @@ class UserController extends Controller
         $repository = $em->getRepository('c975LUserBundle:User');
 
         //Loads from DB
-        $user = $repository->findByToken($token);
+        $user = $repository->findOneByToken($token);
 
-        if ($user instanceof User) {
+        if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
+            //Dispatch event
+            $dispatcher = $this->get('event_dispatcher');
+            $event = new UserEvent($user, $request);
+            $dispatcher->dispatch(UserEvent::USER_SIGNUP_CONFIRM, $event);
+
             //Updates data
             $user
                 ->setToken(null)
@@ -255,10 +304,18 @@ class UserController extends Controller
      */
     public function signinAction(Request $request, AuthenticationUtils $authUtils)
     {
+        //Gets user
+        $user = $this->getUser();
+
         //Redirects to dashboard if user has already signed-in
-        if ($this->getUser() instanceof User) {
+        if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
             return $this->redirectToRoute('user_dashboard');
         }
+
+        //Dispatch event
+        $dispatcher = $this->get('event_dispatcher');
+        $event = new UserEvent($user, $request);
+        $dispatcher->dispatch(UserEvent::USER_SIGNIN, $event);
 
         //Returns the signin form
         return $this->render('@c975LUser/forms/signin.html.twig', array(
@@ -280,9 +337,23 @@ class UserController extends Controller
         //Gets user
         $user = $this->getUser();
 
-        if ($user instanceof User) {
+        if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
+            //Checks profile
+            $userService = $this->get(\c975L\UserBundle\Service\UserService::class);
+            if ($userService->checkProfile($user) === false) {
+                return $this->redirectToRoute('user_modify');
+            }
+
             //Defines form
-            $form = $this->createForm(UserProfileType::class, $user);
+            $userConfig = array(
+                'action' => 'display',
+                'social' => $this->getParameter('c975_l_user.social'),
+                'address' => $this->getParameter('c975_l_user.address'),
+                'business' => $this->getParameter('c975_l_user.business'),
+                'multilingual' => $this->getParameter('c975_l_user.multilingual'),
+            );
+            $formType = $this->getParameter('c975_l_user.profileForm') === null ? 'c975L\UserBundle\Form\UserProfileType' : $this->getParameter('c975_l_user.profileForm');
+            $form = $this->createForm($formType, $user, array('userConfig' => $userConfig));
 
             //Defines toolbar
             $tools  = $this->renderView('@c975LUser/tools.html.twig', array(
@@ -326,10 +397,10 @@ class UserController extends Controller
             $repository = $em->getRepository('c975LUserBundle:User');
 
             //Loads from DB
-            $user = $repository->findByIdentifier($identifier);
+            $user = $repository->findOneByIdentifier($identifier);
 
             //Renders the profile
-            if ($user instanceof User) {
+            if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
                 return $this->render('@c975LUser/pages/publicProfile.html.twig', array(
                     'user' => $user,
                     ));
@@ -351,10 +422,17 @@ class UserController extends Controller
         //Gets user
         $user = $this->getUser();
 
-        if ($user instanceof User) {
+        if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
             //Defines form
-            $user->setAction('modify');
-            $form = $this->createForm(UserProfileType::class, $user);
+            $userConfig = array(
+                'action' => 'modify',
+                'social' => $this->getParameter('c975_l_user.social'),
+                'address' => $this->getParameter('c975_l_user.address'),
+                'business' => $this->getParameter('c975_l_user.business'),
+                'multilingual' => $this->getParameter('c975_l_user.multilingual'),
+            );
+            $formType = $this->getParameter('c975_l_user.profileForm') === null ? 'c975L\UserBundle\Form\UserProfileType' : $this->getParameter('c975_l_user.profileForm');
+            $form = $this->createForm($formType, $user, array('userConfig' => $userConfig));
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
@@ -395,6 +473,7 @@ class UserController extends Controller
                 'user' => $user,
                 'data' => array('gravatar' => $this->getParameter('c975_l_user.gravatar')),
                 'toolbar' => $toolbar,
+                'userConfig' => $userConfig,
             ));
         }
 
@@ -413,7 +492,7 @@ class UserController extends Controller
         //Gets user
         $user = $this->getUser();
 
-        if ($user instanceof User) {
+        if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
             //Defines form
             $form = $this->createForm(UserChangePasswordType::class, $user);
             $form->handleRequest($request);
@@ -479,7 +558,7 @@ class UserController extends Controller
 
         //Redirects signed-in user to change password
         $user = $this->getUser();
-        if ($user instanceof User) {
+        if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
             return $this->redirectToRoute('user_change_password');
         }
 
@@ -489,7 +568,7 @@ class UserController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             //Gets email value
-            $email = $request->request->get('user_reset_password')['email'];
+            $email = strtolower($request->request->get('user_reset_password')['email']);
 
             //Gets the manager
             $em = $this->getDoctrine()->getManager();
@@ -498,10 +577,10 @@ class UserController extends Controller
             $repository = $em->getRepository('c975LUserBundle:User');
 
             //Gets user
-            $user = $repository->findByEmail($email);
+            $user = $repository->findOneByEmail($email);
 
             //Updates data
-            if ($user instanceof User) {
+            if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
                 //Request not already sent or is out of time
                 if ($user->getPasswordRequest() === null || ($user->getPasswordRequest() instanceof \DateTime && $user->getPasswordRequest()->add($delayReset) < new \DateTime())) {
                     //Adds data to user
@@ -576,9 +655,9 @@ class UserController extends Controller
         $repository = $em->getRepository('c975LUserBundle:User');
 
         //Loads from DB
-        $user = $repository->findByToken($token);
+        $user = $repository->findOneByToken($token);
 
-        if ($user instanceof User) {
+        if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
             $form = $this->createForm(UserResetPasswordConfirmType::class, $user);
             $form->handleRequest($request);
 
@@ -625,7 +704,7 @@ class UserController extends Controller
      */
     public function signoutAction(Request $request)
     {
-        //This Route has to be defined for logout but everything is in \Listeners\LogoutListenr.php
+        //This Route has to be defined for logout but everything is in \Listener\LogoutListener.php
     }
 
 //DELETE
@@ -639,18 +718,48 @@ class UserController extends Controller
         //Gets the user
         $user = $this->getUser();
 
-        if ($user instanceof User) {
+        if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
             //Creates the form
-            $user->setAction('delete');
-            $form = $this->createForm(UserProfileType::class, $user);
+            $userConfig = array(
+                'action' => 'delete',
+                'social' => $this->getParameter('c975_l_user.social'),
+                'address' => $this->getParameter('c975_l_user.address'),
+                'business' => $this->getParameter('c975_l_user.business'),
+                'multilingual' => $this->getParameter('c975_l_user.multilingual'),
+            );
+            $formType = $this->getParameter('c975_l_user.profileForm') === null ? 'c975L\UserBundle\Form\UserProfileType' : $this->getParameter('c975_l_user.profileForm');
+            $form = $this->createForm($formType, $user, array('userConfig' => $userConfig));
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
+                //Dispatch event
+                $dispatcher = $this->get('event_dispatcher');
+                $event = new UserEvent($user, $request);
+                $dispatcher->dispatch(UserEvent::USER_DELETE, $event);
+
+                //Gets the manager
+                $em = $this->getDoctrine()->getManager();
+
+                //Archives user
+                if ($this->getParameter('c975_l_user.archiveUser') === true) {
+                    //Gets the connection
+                    $conn = $em->getConnection();
+
+                    //Calls the stored procedure
+                    $query = 'CALL sp_UserArchive("' . $this->getUser()->getId() . '");';
+                    $stmt = $conn->prepare($query);
+                    $stmt->execute();
+                    $stmt->closeCursor();
+                }
+
+                //Removes user
+                $em->remove($user);
+
+                //Flush DB
+                $em->flush();
+
                 //Gets the translator
                 $translator = $this->get('translator');
-
-                //Calls user's defined method if overriden
-                $this->deleteAccountUserDefinedMethod();
 
                 //Sends email
                 $subject = $translator->trans('label.delete_account', array(), 'user');
@@ -666,20 +775,6 @@ class UserController extends Controller
                     );
                 $emailService = $this->get(\c975L\EmailBundle\Service\EmailService::class);
                 $emailService->send($emailData, $this->getParameter('c975_l_user.databaseEmail'));
-
-                //Archives user
-                if ($this->getParameter('c975_l_user.archiveUser') === true) {
-                    $this->archiveUserDefinedMethod();
-                }
-
-                //Gets the manager
-                $em = $this->getDoctrine()->getManager();
-
-                //Removes user
-                $em->remove($user);
-
-                //Flush DB
-                $em->flush();
 
                 //Creates flash
                 $flash = $translator->trans('text.account_deleted', array(), 'user');
@@ -711,30 +806,6 @@ class UserController extends Controller
 
         //Access is denied
         throw $this->createAccessDeniedException();
-    }
-
-//USER DELETE ACCOUNT METHOD
-    /*
-     * Override this method in your Controller to add you own actions to deleteAccountAction
-     */
-    public function deleteAccountUserDefinedMethod()
-    {
-    }
-
-//ARCHIVE USER
-    /*
-     * Override this method in your Controller to add you own actions to archiveUser
-     */
-    public function archiveUserDefinedMethod()
-    {
-        //Gets the connection
-        $conn = $this->getDoctrine()->getManager()->getConnection();
-
-        //Calls the stored procedure
-        $query = 'CALL sp_UserArchive("' . $this->getUser()->getId() . '");';
-        $stmt = $conn->prepare($query);
-        $stmt->execute();
-        $stmt->closeCursor();
     }
 
 //CHECK EMAIL

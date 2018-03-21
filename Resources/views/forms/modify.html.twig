@@ -2,6 +2,11 @@
 {% trans_default_domain 'user' %}
 {% set title = 'label.user_profile_modify'|trans %}
 
+
+{% set urlPicture = app.user.avatar %}
+
+
+
 {% block user_content %}
 {# Toolbar #}
     {{ toolbar|raw }}
@@ -29,4 +34,32 @@
             {{ 'label.mandatory_field'|trans }}
         </em>
     </p>
+{# Includes javascript files #}
+    {% if userConfig.business == true %}
+        <script type="text/javascript">
+{# Translations #}
+            var userBusinessTrans = {
+                'user_profile_businessName': "{{ 'label.business_name'|trans }}",
+                'user_profile_businessAddress': "{{ 'label.address'|trans }}",
+                'user_profile_businessAddress2': "{{ 'label.address2'|trans }}",
+                'user_profile_businessPostal': "{{ 'label.postal'|trans }}",
+                'user_profile_businessTown': "{{ 'label.town'|trans }}",
+                'user_profile_businessCountry': "{{ 'label.country'|trans }}",
+                'user_profile_businessSiret': "{{ 'label.siret'|trans }}",
+                'user_profile_businessTva': "{{ 'label.tva'|trans }}",
+            };
+{# Values #}
+            var userBusinessValues = {
+                'user_profile_businessName': "{{ app.user.businessName }}",
+                'user_profile_businessAddress': "{{ app.user.businessAddress }}",
+                'user_profile_businessAddress2': "{{ app.user.businessAddress2 }}",
+                'user_profile_businessPostal': "{{ app.user.businessPostal }}",
+                'user_profile_businessTown': "{{ app.user.businessTown }}",
+                'user_profile_businessCountry': "{{ app.user.businessCountry }}",
+                'user_profile_businessSiret': "{{ app.user.businessSiret }}",
+                'user_profile_businessTva': "{{ app.user.businessTva }}",
+            };
+        </script>
+        {{ inc_lib(absolute_url(asset('bundles/c975luser/js/business.min.js')), 'local') }}
+    {% endif %}
 {% endblock %}

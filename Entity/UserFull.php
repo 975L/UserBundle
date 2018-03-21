@@ -10,14 +10,19 @@
 namespace c975L\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use c975L\UserBundle\Entity\UserAbstract;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use c975L\UserBundle\Validator\Constraints as c975LUserBundleAssert;
+use c975L\UserBundle\Validator\Constraints\Siret;
+use c975L\UserBundle\Validator\Constraints\Tva;
+use c975L\UserBundle\Entity\UserFullAbstract;
 
 /**
- * User
+ * UserFull
  *
  * @ORM\Table(name="user", indexes={@ORM\Index(name="un_email", columns={"name", "email"})})
  * @ORM\Entity(repositoryClass="c975L\UserBundle\Repository\UserRepository")
  */
-class User extends UserAbstract
+class UserFull extends UserFullAbstract
 {
 }

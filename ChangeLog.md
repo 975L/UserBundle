@@ -1,5 +1,27 @@
 # Changelog
 
+v1.5
+----
+- Added `Entity/UserAbstract.php` to allow extending `User` entity (15/03/2018)
+- Changed `Entity/User` to only extend `Entity/UserAbstract.php` (15/03/2018)
+- Replace if `$user instanceof User` by `is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')` as they won't pass if the Entity is extended (15/03/2018)
+- Updated `README.md` about extending entities (15/03/2018)
+- Added Siret and Tva validators (16/03/2018)
+- Added possibility to extend `UserProfileType` and `UserRegisterType` (16/03/2018)
+- Added multiples entities classes + abstract to cover differents types of usage (17/03/2018)
+- Removed `action` property form User entity and passed it in the form options array (17/03/2018)
+- Removed lastname from signup as it's not required and can be set on the modify form (17/03/2018)
+- Added Twig extension `UserDivData` to populate user's informations to be used by javascript (18/03/2018)
+- Added `UserService` (18/03/2018)
+- Renamed folder `Listeners` to `Listener` (18/03/2018)
+- Added Events (18/03/2018)
+- Added `findUserById` service (18/03/2018)
+- Re-ordered `README.md` (18/03/2018)
+- Replaced `findByXxx` repository methods by `findOneByXxx` Doctrine's ones (19/03/2018)
+- Corrected `layout.html.twig` (19/03/2018)
+- Added switch to user preferred language in `user_dashboard` Route if multilingual support is enabled (21/03/2018)
+- Made the acceptance Signup as a checkbox [BC-Break] (21/03/2018)
+
 v1.4
 ----
 - Added field "identifier" to be able to display public profile [BC-Break] (12/03/2018)

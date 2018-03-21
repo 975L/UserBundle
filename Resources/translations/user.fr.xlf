@@ -298,6 +298,74 @@
                 <source>text.password_reset_success</source>
                 <target>Le mot de passe a été réinitialisé avec succès</target>
             </trans-unit>
+            <trans-unit id="78">
+                <source>label.owner</source>
+                <target>Propriétaire</target>
+            </trans-unit>
+            <trans-unit id="79">
+                <source>label.locale</source>
+                <target>Langue préférée</target>
+            </trans-unit>
+            <trans-unit id="80">
+                <source>label.business</source>
+                <target>Entreprise</target>
+            </trans-unit>
+            <trans-unit id="81">
+                <source>label.association</source>
+                <target>Association</target>
+            </trans-unit>
+            <trans-unit id="82">
+                <source>label.business_name</source>
+                <target>Association / Entreprise</target>
+            </trans-unit>
+            <trans-unit id="83">
+                <source>label.siret</source>
+                <target>Siret</target>
+            </trans-unit>
+            <trans-unit id="84">
+                <source>label.tva</source>
+                <target>TVA</target>
+            </trans-unit>
+            <trans-unit id="85">
+                <source>label.social_network</source>
+                <target>Réseau social</target>
+            </trans-unit>
+            <trans-unit id="86">
+                <source>label.individual</source>
+                <target>Particulier</target>
+            </trans-unit>
+            <trans-unit id="87">
+                <source>label.type</source>
+                <target>Type</target>
+            </trans-unit>
+            <trans-unit id="88">
+                <source>label.address</source>
+                <target>Adresse</target>
+            </trans-unit>
+            <trans-unit id="89">
+                <source>label.address2</source>
+                <target>Adresse (suite)</target>
+            </trans-unit>
+            <trans-unit id="90">
+                <source>label.postal</source>
+                <target>Code postal</target>
+            </trans-unit>
+            <trans-unit id="91">
+                <source>label.town</source>
+                <target>Ville</target>
+            </trans-unit>
+            <trans-unit id="92">
+                <source>label.country</source>
+                <target>Pays</target>
+            </trans-unit>
+            <trans-unit id="93">
+                <source>text.update_profile_missing_info</source>
+                <target>Merci de remplir les informations manquantes et requises de votre profil</target>
+            </trans-unit>
+            <trans-unit id="94">
+                <source>label.accept_tou</source>
+                <target><![CDATA[J'accepte les <a href="%touUrl%">Conditions générales d'utilisation</a>]]></target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

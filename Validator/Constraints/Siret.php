@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
-class UserChallenge extends Constraint
+class Siret extends Constraint
 {
-    public $message = 'Wrong answer to the challenge';
+    public $message = 'The SIRET number "%string%" is not valid.';
 }

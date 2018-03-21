@@ -10,14 +10,14 @@
 namespace c975L\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use c975L\UserBundle\Entity\UserAbstract;
+use c975L\UserBundle\Entity\UserBusinessAbstract;
 
 /**
- * User
+ * UserBusiness
  *
  * @ORM\Table(name="user", indexes={@ORM\Index(name="un_email", columns={"name", "email"})})
  * @ORM\Entity(repositoryClass="c975L\UserBundle\Repository\UserRepository")
  */
-class User extends UserAbstract
+class UserBusiness extends UserBusinessAbstract
 {
 }

@@ -7,7 +7,7 @@
  * with this source code in the file LICENSE.
  */
 
-namespace c975L\UserBundle\Listeners;
+namespace c975L\UserBundle\Listener;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityManager;
@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Logout\LogoutHandlerInterface;
-use c975L\UserBundle\Entity\User;
+use c975L\UserBundle\Entity\UserAbstract;
 
 class LogoutListener implements LogoutHandlerInterface
 {
@@ -31,7 +31,7 @@ class LogoutListener implements LogoutHandlerInterface
         //Gets the user
         $user = $token->getUser();
 
-        if ($user instanceof User) {
+        if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
             //Writes signout time
             $user->setLatestSignout(new \DateTime());
             $this->em->persist($user);

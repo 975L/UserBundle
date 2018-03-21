@@ -8,26 +8,30 @@
             <meta name="format-detection" content="telephone=no" />
             <title>User ({{ title }})</title>
             <base />
-{# Css #}
-            {% block css %}
+{# Stylesheets #}
+            {% block stylesheets %}
                 {# Uses c975L/IncludeLibraryBundle #}
                 {{ inc_lib('bootstrap', 'css', '3.*') }}
                 {{ inc_lib('fontawesome', 'css', '5.*') }}
-            {% endblock %}
-{# Javascript #}
-            {% block javascript %}
-                {# Uses c975L/IncludeLibraryBundle #}
-                {{ inc_lib('jquery', 'js', '3.*') }}
-                {{ inc_lib('bootstrap', 'js', '3.*') }}
             {% endblock %}
         {% endblock %}
     </head>
 {# Body #}
     <body>
+{# jQuery #}
+        {% block jquery %}
+            {# Uses c975L/IncludeLibraryBundle #}
+            {{ inc_lib('jquery', 'js', '3.*') }}
+        {% endblock %}
         <div>
             {% block user_content %}
             {% endblock %}
         </div>
+{# Javascript #}
+        {% block javascripts %}
+            {# Uses c975L/IncludeLibraryBundle #}
+            {{ inc_lib('bootstrap', 'js', '3.*') }}
+        {% endblock %}
     </body>
 </html>
 {% endspaceless %}

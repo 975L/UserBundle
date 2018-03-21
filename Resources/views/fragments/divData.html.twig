@@ -1,0 +1,29 @@
+{% if is_granted('ROLE_USER') and app.user is defined %}
+    <div id="user"
+        data-identifier="{{ app.user.identifier }}"
+        data-email="{{ app.user.email }}"
+        data-gender="{{ app.user.gender }}"
+        data-firstname="{{ app.user.firstname }}"
+        data-lastname="{{ app.user.lastname }}"
+        data-avatar="{{ app.user.avatar }}"
+        data-locale="{{ app.user.locale }}"
+{# Address #}
+        data-address="{{ app.user.address }}"
+        data-address2="{{ app.user.address2 }}"
+        data-postal="{{ app.user.postal }}"
+        data-town="{{ app.user.town }}"
+        data-country="{{ app.user.country }}"
+{# Business #}
+        data-business_type="{{ app.user.businessType }}"
+        data-business_name="{{ app.user.businessName }}"
+        data-business_address="{{ app.user.businessAddress }}"
+        data-business_address2="{{ app.user.businessAddress2 }}"
+        data-business_postal="{{ app.user.businessPostal }}"
+        data-business_town="{{ app.user.businessTown }}"
+        data-business_country="{{ app.user.businessCountry }}"
+        data-business_siret="{{ app.user.businessSiret }}"
+        data-business_tva="{{ app.user.businessTva }}"
+{# Social #}
+        data-social_picture="{{ app.user.socialPicture }}"
+    ></div>
+{% endif %}

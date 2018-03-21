@@ -21,11 +21,14 @@ class UserGravatar extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('user_gravatar', array($this, 'userGravatar')),
+            new \Twig_SimpleFunction(
+                'user_gravatar',
+                array($this, 'gravatar')
+            ),
         );
     }
 
-    public function userGravatar()
+    public function gravatar()
     {
         return $this->container->getParameter('c975_l_user.gravatar');
     }

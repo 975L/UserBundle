@@ -7,18 +7,14 @@
  * with this source code in the file LICENSE.
  */
 
-namespace c975L\UserBundle\Listeners;
+namespace c975L\UserBundle\Listener;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\AuthenticationEvents;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
-use c975L\UserBundle\Entity\User;
+use c975L\UserBundle\Entity\UserAbstract;
 
 class AuthenticationListener implements EventSubscriberInterface
 {
@@ -26,18 +22,21 @@ class AuthenticationListener implements EventSubscriberInterface
     private $tokenStorage;
     private $authenticationUtils;
     private $requestStack;
+    private $container;
 
     public function __construct(
-        EntityManagerInterface $em,
-        TokenStorageInterface $tokenStorage,
-        AuthenticationUtils $authenticationUtils,
-        RequestStack $requestStack
+        \Doctrine\ORM\EntityManagerInterface $em,
+        \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage,
+        \Symfony\Component\Security\Http\Authentication\AuthenticationUtils $authenticationUtils,
+        \Symfony\Component\HttpFoundation\RequestStack $requestStack,
+        \Symfony\Component\DependencyInjection\ContainerInterface $container
     )
     {
         $this->em = $em;
         $this->tokenStorage = $tokenStorage;
         $this->authenticationUtils = $authenticationUtils;
-        $this->requestStack = $requestStack;
+        $this->request = $requestStack->getCurrentRequest();
+        $this->container = $container;
     }
 
     public static function getSubscribedEvents()
@@ -47,14 +46,14 @@ class AuthenticationListener implements EventSubscriberInterface
         );
     }
 
-    public function onSecurityInteractiveLogin( InteractiveLoginEvent $event )
+    public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
     {
         //Gets the user
         $user = $this->tokenStorage->getToken()->getUser();
 
-        if ($user instanceof User) {
-            //Removes challenge from session in case a user clicked on signup, canceled and then authenticate
-            $session = $this->requestStack->getCurrentRequest()->getSession();
+        if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
+            //Removes challenge from session in case a user clicked on signup, canceled and then authenticated
+            $session = $this->request->getSession();
             $session->remove('challenge');
             $session->remove('challengeResult');
 
