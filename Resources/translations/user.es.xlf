@@ -366,6 +366,10 @@
                 <source>label.accept_tou</source>
                 <target><![CDATA[Acepto los <a href="%touUrl%">Términos de uso</a>]]></target>
             </trans-unit>
+            <trans-unit id="95">
+                <source>text.token_not_found</source>
+                <target>Este token no ha sido encontrado. Tal vez ha hecho clic más de una vez en el enlace de activación.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

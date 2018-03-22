@@ -277,13 +277,19 @@ class UserController extends Controller
                 ->getFlashBag()
                 ->add('success', $flash)
                 ;
-
-            //User is not loaded so redirects to signin
-            return $this->redirectToRoute('user_signin');
+        //Token not found
+        } else {
+            //Creates flash
+            $translator = $this->get('translator');
+            $flash = $translator->trans('text.token_not_found', array(), 'user');
+            $request->getSession()
+                ->getFlashBag()
+                ->add('warning', $flash)
+                ;
         }
 
-        //Not found
-        throw $this->createNotFoundException();
+        //User is not loaded so redirects to signin
+        return $this->redirectToRoute('user_signin');
     }
 
 //SIGNIN

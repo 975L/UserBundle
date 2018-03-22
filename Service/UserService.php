@@ -54,6 +54,12 @@ class UserService
         return $this->em->getRepository('c975LUserBundle:User')->findOneById($id);
     }
 
+    //Finds user by identifier
+    public function findUserByIdentifier($identifier)
+    {
+        return $this->em->getRepository('c975LUserBundle:User')->findOneByIdentifier($identifier);
+    }
+
     //Gets url from a Route
     public function getUrlFromRoute($route)
     {

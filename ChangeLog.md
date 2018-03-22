@@ -1,5 +1,10 @@
 # Changelog
 
+v1.5.1
+------
+- Added `findUserByIdentifier()` method to `UserService` (21/03/2018)
+- Remove `NotFound` from Controller `user_signup_confirm()` and replaced by redirect to signin (+ flash), in case user click more than once on the provided link (22/03/2018)
+
 v1.5
 ----
 - Added `Entity/UserAbstract.php` to allow extending `User` entity (15/03/2018)

@@ -366,6 +366,10 @@
                 <source>label.accept_tou</source>
                 <target><![CDATA[J'accepte les <a href="%touUrl%">Conditions générales d'utilisation</a>]]></target>
             </trans-unit>
+            <trans-unit id="95">
+                <source>text.token_not_found</source>
+                <target>Ce jeton n'a pas été trouvé. Peut-être avez-vous cliqué plus d'une fois sur le lien d'activation.</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

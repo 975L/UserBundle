@@ -62,7 +62,7 @@ c975_l_user:
     #User's role needed to enable access other user's data
     roleNeeded: 'ROLE_ADMIN'
     #The location of your Terms of uses to be displayed to user, it can be a Route with parameters or an absolute url
-    touUrl: "pageedit_display, {page: terms-of-use}"
+    touUrl: 'pageedit_display, {page: terms-of-use}'
     #(Optional) If you want to display the gravatar linked to the email user's account
     gravatar: true #null(default)
     #(Optional) If you want to add social networks login using https://github.com/hwi/HWIOAuthBundle
@@ -331,9 +331,14 @@ class UserDeleteListener implements EventSubscriberInterface
 }
 ```
 
-Services
---------
-You can access UserService by calling, in a controller, `$this->get(\c975L\UserBundle\Service\UserService::class)`. For example you will get user with  `$user = $this->get(\c975L\UserBundle\Service\UserService::class)->findUserById(USER_ID);`
+Service
+-------
+There is a defined UserService, check the file `Service\UserService.php` for its methhods. For example you can retrieve a user with the following code:
+```php
+//Within a controller
+$userService = $this->get(\c975L\UserBundle\Service\UserService::class);
+$user = $userService->findUserById(USER_ID);
+```
 
 Sign in/Sign out link
 ---------------------
