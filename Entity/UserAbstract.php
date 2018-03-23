@@ -562,18 +562,6 @@ abstract class UserAbstract implements UserInterface
      */
     public function setLocale($locale)
     {
-        switch ($locale) {
-            case 'English':
-                $locale = 'en';
-                break;
-            case 'Español':
-                $locale = 'es';
-                break;
-            case 'Français':
-                $locale = 'fr';
-                break;
-        }
-
         $this->locale = $locale;
         return $this;
     }

@@ -29,7 +29,7 @@ CREATE TABLE `user` (
   `token` varchar(40) DEFAULT NULL,
   `password_request` datetime DEFAULT NULL,
   `roles` longtext DEFAULT NULL,
-  `locale` varchar(24) DEFAULT NULL
+  `locale` varchar(2) DEFAULT NULL
 -- Depending on the entity you choose, un-comment the corresping fields below
 --  ADDRESS
 --  `address` varchar(128) DEFAULT NULL,

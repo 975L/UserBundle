@@ -77,7 +77,7 @@ c975_l_user:
     address: true #false(default)
     #(Optional) If you want to use the business fields
     business: true #false(default)
-    #(Optional) If you want to use the multilingual field Check in UserAbstract > setLocale() what are the covered languages
+    #(Optional) If you want to use the multilingual field. Array of language and code on two letters
     multilingual: {} #i.e {'English': 'en', 'Français': 'fr', 'Español': 'es'} null(default)
     #(Optional) The entity you want to use
     entity: 'AppBundle\Entity\User' #null(default)

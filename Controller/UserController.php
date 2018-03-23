@@ -84,27 +84,11 @@ class UserController extends Controller
 //SIGN UP
     /**
      * @Route("/register")
-     * @Method({"GET", "HEAD"})
-     */
-    public function registerRedirectAction()
-    {
-        //Redirects to signup
-        return $this->redirectToRoute('user_signup');
-    }
-    /**
      * @Route("/user/register")
-     * @Method({"GET", "HEAD"})
-     */
-    public function userRegisterRedirectAction()
-    {
-        //Redirects to signup
-        return $this->redirectToRoute('user_signup');
-    }
-    /**
      * @Route("/signup")
      * @Method({"GET", "HEAD"})
      */
-    public function signupRedirectAction()
+    public function registerRedirectAction()
     {
         //Redirects to signup
         return $this->redirectToRoute('user_signup');

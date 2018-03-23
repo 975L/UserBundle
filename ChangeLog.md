@@ -1,5 +1,13 @@
 # Changelog
 
+v1.6
+----
+- Corrected locale field to varchar(2) in sql file (22/03/2018)
+- Removed switch for `setLocale()` in `UserAbstract()` (22/03/2018)
+- Updated `README.md` (22/03/2018)
+- Added signin option in `Resources/views/fragments/navBarMenu.html.twig` when user has not signed in (23/03/2018)
+- Simpified signup redirect Routes (23/03/2018)
+
 v1.5.1
 ------
 - Added `findUserByIdentifier()` method to `UserService` (21/03/2018)
