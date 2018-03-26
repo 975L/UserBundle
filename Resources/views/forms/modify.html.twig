@@ -2,19 +2,12 @@
 {% trans_default_domain 'user' %}
 {% set title = 'label.user_profile_modify'|trans %}
 
-
-{% set urlPicture = app.user.avatar %}
-
-
-
 {% block user_content %}
 {# Toolbar #}
     {{ toolbar|raw }}
 {# Avatar #}
     {% if user_gravatar() == true %}
-        <p class="text-center">
-            <img class="img-circle" src="{{ app.user.avatar }}" width="128" height="128" />
-        </p>
+        {% include('@c975LUser/fragments/avatar.html.twig') %}
 {# Avatar information #}
         <p class="text-center">
             {{ 'text.gravatar_picture'|trans|raw }}

@@ -1,5 +1,9 @@
 # Changelog
 
+v1.6.1
+------
+- Set `Resources/views/fragments/avatar.html.twig` to allow override display of avatar (26/03/2018)
+
 v1.6
 ----
 - Corrected locale field to varchar(2) in sql file (22/03/2018)

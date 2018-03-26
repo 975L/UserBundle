@@ -153,6 +153,7 @@ For this, simply, create the following structure `app/Resources/c975LUserBundle/
 You can also override:
 - `app/Resources/c975LUserBundle/views/fragments/deleteAccountInfo.html.twig` that will list the implications, by deleting account, for user, displayed in the delete account page.
 - `app/Resources/c975LUserBundle/views/fragments/dashboardActions.html.twig` to add your own actions (or whatever) in the dashboard i.e.
+- `app/Resources/c975LUserBundle/views/fragments/avatar.html.twig` to modify the display of avatar (26/03/2018)
 
 You can add a navbar menu via `{% include('@c975LUser/fragments/navbarMenu.html.twig') %}`. You can override it, if needed, or simply override `app/Resources/c975LUserBundle/views/fragments/navbarMenuActions.html.twig` to add actions above it.
 

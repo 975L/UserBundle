@@ -6,9 +6,7 @@
 {# Avatar #}
     {% if user_gravatar() == true %}
         <div class="col-xs-12 col-sm-4">
-            <p class="text-center">
-                <img class="img-circle" src="{{ user.avatar }}" width="128" height="128" />
-            </p>
+            {% include('@c975LUser/fragments/avatar.html.twig') %}
         </div>
         <div class="col-xs-12 col-sm-8">
     {% else %}
