@@ -8,9 +8,10 @@
 
 SET FOREIGN_KEY_CHECKS=0;
 
--- ----------------------------
--- Table structure for user
--- ----------------------------
+
+-- --------------------------
+-- Table structure for user -
+-- --------------------------
 -- DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -29,9 +30,8 @@ CREATE TABLE `user` (
   `token` varchar(40) DEFAULT NULL,
   `password_request` datetime DEFAULT NULL,
   `roles` longtext DEFAULT NULL,
-  `locale` varchar(2) DEFAULT NULL
+  `locale` varchar(2) DEFAULT NULL,
 -- Depending on the entity you choose, un-comment the corresponding fields below
--- Take care of trailing comma taht should be added/removed
 --  ADDRESS
 /*
   `address` varchar(128) DEFAULT NULL,
@@ -57,24 +57,24 @@ CREATE TABLE `user` (
   `social_network` varchar(24) DEFAULT NULL,
   `social_id` varchar(255) DEFAULT NULL,
   `social_token` varchar(255) DEFAULT NULL,
-  `social_picture` varchar(255) DEFAULT NULL
+  `social_picture` varchar(255) DEFAULT NULL,
 */
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `un_email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
--- ---------------------------------
--- Table structure for user_archives
--- ---------------------------------
+
+-- -----------------------------------
+-- Table structure for user_archives -
+-- -----------------------------------
 -- DROP TABLE IF EXISTS `user_archives`;
--- CREATE TABLE user_archives LIKE `user`;
+CREATE TABLE user_archives LIKE `user`;
 
 
--- --------------------------------------
--- sp_UserArchive
--- --------------------------------------
+-- ----------------
+-- sp_UserArchive -
+-- ----------------
 -- Archives the User
-/*
 DROP PROCEDURE IF EXISTS sp_UserArchive;
 DELIMITER $
 CREATE PROCEDURE sp_UserArchive(qId BIGINT(20))
@@ -83,8 +83,7 @@ BEGIN
     -- Inserts User in archive
     INSERT INTO user_archives
         SELECT *
-        FROM user
+        FROM `user`
         WHERE (id = qId);
 END$
 DELIMITER ;
-*/

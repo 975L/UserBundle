@@ -80,7 +80,7 @@ c975_l_user:
     social: true #false(default)
     #(Optional) If you want to save the email sent to user when deleting his/her account in the database linked to c975L/EmailBundle
     databaseEmail: true #false(default)
-    #(Optional) If you want to archive the user in `user_archives` table (you need to create this table, see below)
+    #(Optional) If you want to archive the user in `user_archives` table
     archiveUser: true #false(default)
     #(Optional) If you want to use the address fields
     address: true #false(default)
@@ -135,8 +135,7 @@ security:
 
 Step 4: Create MySql table
 --------------------------
-Use `/Resources/sql/user.sql` to create the table `user` if not already existing. The `DROP TABLE` is commented to avoid dropping by mistake. There are two tables, one for normal user, the other for extended one, choose the one you want.
-You can also create the table `user_archives` + stored procedure `sp_UserArchive` to archive the user when deleting account, for this, copy/paste the code from file `/Resources/sql/user.sql`, then set config value `archiveUser` to true.
+Use `/Resources/sql/user.sql` to create the tables `user` and `user_archives`. The `DROP TABLE` are commented to avoid dropping by mistake. It will also create a stored procedure `sp_UserArchive()`.
 
 Step 5: Enable the Routes
 -------------------------

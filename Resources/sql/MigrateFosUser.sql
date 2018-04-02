@@ -18,7 +18,7 @@
  *
  * The `username` and `groups` fields are kept but not used, so you can delete them if you don't use them'.
  *
- * If you want to use the `user_archives` table, you need to create it by using script in user.sql file.
+ * If you want to use the `user_archives` table, just do "CREATE TABLE user_archives LIKE `user`;" when you have migrated and renamed your table.
  */
 
 -- Use database

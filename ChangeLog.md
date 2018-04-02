@@ -1,5 +1,9 @@
 # Changelog
 
+v1.7.3
+------
+- Made creation of table `user_archives` by default (02/04/2018)
+
 v1.7.2
 ------
 - Added fill in for field `identifier` in `MigrationFosUser.sql` and made field as `NOT NULL` (02/04/2018)
