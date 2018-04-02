@@ -1,5 +1,11 @@
 # Changelog
 
+v1.7.2
+------
+- Added fill in for field `identifier` in `MigrationFosUser.sql` and made field as `NOT NULL` (02/04/2018)
+- Simplified `MigrationFosUser.sql` (02/04/2018)
+- Changed sql code to create user_archives, to simplfiy it (02/04/2018)
+
 v1.7.1
 ------
 - Changed throw `createNotFoundException` to redirect to `user_signin` for some Controller methods, which is more ergonomic (02/04/2018)
