@@ -1,5 +1,9 @@
 # Changelog
 
+v1.7.1
+------
+- Changed throw `createNotFoundException` to redirect to `user_signin` for some Controller methods, which is more ergonomic (02/04/2018)
+
 v1.7
 ----
 - Moved mandatory field mention in signin form (29/03/2018)

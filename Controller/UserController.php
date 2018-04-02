@@ -75,9 +75,9 @@ class UserController extends Controller
                 ));
         }
 
-        //Not found
+        //User not signed in
         if ($user === null) {
-            throw $this->createNotFoundException();
+            return $this->redirectToRoute('user_signin');
         //Access is denied
         } else {
             throw $this->createAccessDeniedException();
@@ -369,9 +369,9 @@ class UserController extends Controller
             ));
         }
 
-        //Not found
+        //User not signed in
         if ($user === null) {
-            throw $this->createNotFoundException();
+            return $this->redirectToRoute('user_signin');
         //Access is denied
         } else {
             throw $this->createAccessDeniedException();
@@ -477,9 +477,9 @@ class UserController extends Controller
             ));
         }
 
-        //Not found
+        //User not signed in
         if ($user === null) {
-            throw $this->createNotFoundException();
+            return $this->redirectToRoute('user_signin');
         //Access is denied
         } else {
             throw $this->createAccessDeniedException();
@@ -545,9 +545,9 @@ class UserController extends Controller
             ));
         }
 
-        //Not found
+        //User not signed in
         if ($user === null) {
-            throw $this->createNotFoundException();
+            return $this->redirectToRoute('user_signin');
         //Access is denied
         } else {
             throw $this->createAccessDeniedException();
@@ -812,9 +812,9 @@ class UserController extends Controller
             ));
         }
 
-        //Not found
+        //User not signed in
         if ($user === null) {
-            throw $this->createNotFoundException();
+            return $this->redirectToRoute('user_signin');
         //Access is denied
         } else {
             throw $this->createAccessDeniedException();
