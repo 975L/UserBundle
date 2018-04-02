@@ -1,6 +1,6 @@
 <?php
 /*
- * (c) 2017: 975l <contact@975l.com>
+ * (c) 2017: 975L <contact@975l.com>
  * (c) 2017: Laurent Marquet <laurent.marquet@laposte.net>
  *
  * This source file is subject to the MIT license that is bundled
@@ -32,10 +32,10 @@ class c975LUserExtension extends Extension
         $processedConfig = $this->processConfiguration($configuration, $configs);
 
         $container->setParameter('c975_l_user.site', $processedConfig['site']);
-        $container->setParameter('c975_l_user.registration', $processedConfig['registration']);
+        $container->setParameter('c975_l_user.signup', $processedConfig['signup']);
         $container->setParameter('c975_l_user.roleNeeded', $processedConfig['roleNeeded']);
         $container->setParameter('c975_l_user.touUrl', $processedConfig['touUrl']);
-        $container->setParameter('c975_l_user.gravatar', $processedConfig['gravatar']);
+        $container->setParameter('c975_l_user.avatar', $processedConfig['avatar']);
         $container->setParameter('c975_l_user.hwiOauth', $processedConfig['hwiOauth']);
         $container->setParameter('c975_l_user.databaseEmail', $processedConfig['databaseEmail']);
         $container->setParameter('c975_l_user.archiveUser', $processedConfig['archiveUser']);

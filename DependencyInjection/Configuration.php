@@ -1,6 +1,6 @@
 <?php
 /*
- * (c) 2017: 975l <contact@975l.com>
+ * (c) 2017: 975L <contact@975l.com>
  * (c) 2017: Laurent Marquet <laurent.marquet@laposte.net>
  *
  * This source file is subject to the MIT license that is bundled
@@ -23,16 +23,16 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->scalarNode('site')
                 ->end()
-                ->scalarNode('registration')
-                    ->defaultTrue()
+                ->scalarNode('signup')
+                    ->defaultFalse()
                 ->end()
                 ->scalarNode('roleNeeded')
                     ->defaultValue('ROLE_ADMIN')
                 ->end()
                 ->scalarNode('touUrl')
                 ->end()
-                ->scalarNode('gravatar')
-                    ->defaultNull()
+                ->booleanNode('avatar')
+                    ->defaultFalse()
                 ->end()
                 ->arrayNode('hwiOauth')
                     ->prototype('scalar')->end()

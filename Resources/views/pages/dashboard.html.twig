@@ -6,9 +6,7 @@
 {# Toolbar #}
     {{ toolbar|raw }}
 {# Avatar #}
-    {% if user_gravatar() == true %}
-        {% include('@c975LUser/fragments/avatar.html.twig') %}
-    {% endif %}
+    {{ user_avatar() }}
 {# Actions #}
     <div class="row">
         <div class="panel panel-primary">

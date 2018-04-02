@@ -1,6 +1,6 @@
 <?php
 /*
- * (c) 2018: 975l <contact@975l.com>
+ * (c) 2018: 975L <contact@975l.com>
  * (c) 2018: Laurent Marquet <laurent.marquet@laposte.net>
  *
  * This source file is subject to the MIT license that is bundled
@@ -48,16 +48,28 @@ class UserService
         return true;
     }
 
+    //Finds user by email
+    public function findUserByEmail($email)
+    {
+        return $this->em->getRepository($this->container->getParameter('c975_l_user.entity'))->findOneByEmail($email);
+    }
+
     //Finds user by id
     public function findUserById($id)
     {
-        return $this->em->getRepository('c975LUserBundle:User')->findOneById($id);
+        return $this->em->getRepository($this->container->getParameter('c975_l_user.entity'))->findOneById($id);
     }
 
     //Finds user by identifier
     public function findUserByIdentifier($identifier)
     {
-        return $this->em->getRepository('c975LUserBundle:User')->findOneByIdentifier($identifier);
+        return $this->em->getRepository($this->container->getParameter('c975_l_user.entity'))->findOneByIdentifier($identifier);
+    }
+
+    //Finds user by socialId
+    public function findUserBySocialId($socialId)
+    {
+        return $this->em->getRepository($this->container->getParameter('c975_l_user.entity'))->findOneBySocialId($socialId);
     }
 
     //Gets url from a Route

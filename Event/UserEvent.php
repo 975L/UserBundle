@@ -1,6 +1,6 @@
 <?php
 /*
- * (c) 2018: 975l <contact@975l.com>
+ * (c) 2018: 975L <contact@975l.com>
  * (c) 2018: Laurent Marquet <laurent.marquet@laposte.net>
  *
  * This source file is subject to the MIT license that is bundled
@@ -14,6 +14,7 @@ use Symfony\Component\EventDispatcher\Event;
 class UserEvent extends Event
 {
     const USER_SIGNUP = 'c975l_user.signup';
+    const USER_SIGNEDUP = 'c975l_user.signedup';
     const USER_SIGNUP_CONFIRM = 'c975l_user.signup.confirm';
     const USER_SIGNIN = 'c975l_user.signin';
     const USER_DELETE = 'c975l_user.delete';

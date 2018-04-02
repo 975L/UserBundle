@@ -1,6 +1,6 @@
 <?php
 /*
- * (c) 2018: 975l <contact@975l.com>
+ * (c) 2018: 975L <contact@975l.com>
  * (c) 2018: Laurent Marquet <laurent.marquet@laposte.net>
  *
  * This source file is subject to the MIT license that is bundled
@@ -152,8 +152,8 @@ abstract class UserAbstract implements UserInterface
 
 //ADDRESS
 //Mapping is done in children classes
-    protected $adress;
-    protected $adress2;
+    protected $address;
+    protected $address2;
     protected $postal;
     protected $town;
     protected $country;

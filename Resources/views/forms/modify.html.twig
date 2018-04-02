@@ -6,9 +6,9 @@
 {# Toolbar #}
     {{ toolbar|raw }}
 {# Avatar #}
-    {% if user_gravatar() == true %}
-        {% include('@c975LUser/fragments/avatar.html.twig') %}
+    {{ user_avatar() }}
 {# Avatar information #}
+    {% if 'gravatar.com' in user_avatar() %}
         <p class="text-center">
             {{ 'text.gravatar_picture'|trans|raw }}
         </p>

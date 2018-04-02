@@ -3,15 +3,23 @@ UserBundle
 
 Directly inspired from [FOSUserBundle](https://github.com/FriendsOfSymfony/FOSUserBundle), and migration of [c975L/UserFilesBundle](https://github.com/975L/UserFilesBundle/tree/master), UserBundle does the following:
 
-- Stores users in database (using doctrine),
+- Stores users in database **(using doctrine)**,
 - Provides multiples types of entities for User (see below),
+- Allows extending those entities to add your own fields,
 - Allows users to manage their profile and data,
 - Validates data such as Siret, VAT number,
 - Displays a "challenge" for sign up (no Captcha, etc.),
 - Allows the possibility to disable sign up (for registering only one or more users and then no more),
-- provides forms for Sign in, Sign up, Modify profile, Change password and Reset password,
+- Provides forms for Sign in, Sign up, Modify profile, Change password and Reset password,
+- Allows extending those forms,
 - Sends email about sign up and password reset to the user via [c975LEmailBundle](https://github.com/975L/EmailBundle) as `c975LEmailBundle` provides the possibility to save emails in a database, there is an option to NOT do so via this Bundle,
 - Integrates with [c975LToolbarBundle](https://github.com/975L/ToolbarBundle),
+- Allows to connect with social networks via [HWIOAuthBundle](https://github.com/hwi/HWIOAuthBundle),
+- Provides a sql script to migrate from FOSUserBundle,
+- Allows to display Gravatar's image linked to the email address,
+- Allows to display Social network's image linked to the account,
+- Provides a divData to allows access user's data from javascript,
+- Allows easy overridding of templates or parts of them to minimize the number of the overriden files to the essential,
 
 [User Bundle dedicated web page](https://975l.com/en/pages/user-bundle).
 
@@ -57,22 +65,23 @@ Then, in the `app/config.yml` file of your project, define the following:
 c975_l_user:
     #Name of site to be displayed
     site: 'Example.com'
-    #If registration is allowed or not
-    registration: false #true(default)
+    #If signup is allowed or not
+    signup: true #false(default)
     #User's role needed to enable access other user's data
     roleNeeded: 'ROLE_ADMIN'
     #The location of your Terms of uses to be displayed to user, it can be a Route with parameters or an absolute url
     touUrl: 'pageedit_display, {page: terms-of-use}'
-    #(Optional) If you want to display the gravatar linked to the email user's account
-    gravatar: true #null(default)
-    #(Optional) If you want to add social networks login using https://github.com/hwi/HWIOAuthBundle
+    #(Optional) If you want to display the avatar linked to user's account
+    #It can be the Gravatar's linked email image (by default) or the social network's image if enabled
+    avatar: true #false(default)
+    #(Optional) If you want to add social networks signin using https://github.com/hwi/HWIOAuthBundle
     hwiOauth: [] #i.e ['facebook', 'google', 'live'] null(default)
+    #(Optional) If you want to use the social fields
+    social: true #false(default)
     #(Optional) If you want to save the email sent to user when deleting his/her account in the database linked to c975L/EmailBundle
     databaseEmail: true #false(default)
     #(Optional) If you want to archive the user in `user_archives` table (you need to create this table, see below)
     archiveUser: true #false(default)
-    #(Optional) If you want to use the social fields
-    social: true #false(default)
     #(Optional) If you want to use the address fields
     address: true #false(default)
     #(Optional) If you want to use the business fields
@@ -143,6 +152,14 @@ c975_l_user:
     #requirements:
     #    _locale: en|fr|es
 ```
+
+Step 6: install assets to web folder
+------------------------------------
+Install assets by running
+```bash
+php bin/console assets:install --symlink
+```
+It will create a link from folder `Resources/public/` in your web folder.
 
 Overriding Templates
 --------------------
@@ -334,11 +351,22 @@ class UserDeleteListener implements EventSubscriberInterface
 
 Service
 -------
-There is a defined UserService, check the file `Service\UserService.php` for its methhods. For example you can retrieve a user with the following code:
+There is a defined UserService, check the file `Service\UserService.php` for its methhods. For example you can retrieve a user with its id, email, socialId, ...
 ```php
 //Within a controller
 $userService = $this->get(\c975L\UserBundle\Service\UserService::class);
+
+//With Id
 $user = $userService->findUserById(USER_ID);
+
+//With Email
+$user = $userService->findUserByEmail(USER_EMAIL);
+
+//With Identifier
+$user = $userService->findUserByIdentifier(USER_IDENTIFIER);
+
+//With SocialId
+$user = $userService->findUserBySocialId(USER_SOCIAL_ID);
 ```
 
 Sign in/Sign out link
@@ -367,14 +395,135 @@ $(document).ready(function() {
 ```
 Have a look at it to see the properties covered.
 
+Custom redirect after sign in
+-----------------------------
+If you want to redirect to a specific page you can use [Request Parameters](https://symfony.com/doc/current/security/form_login.html#control-the-redirect-using-request-parameters) with the following code:
+```php
+//In a Controller file
+return $this->redirectToRoute('user_signin', array('_target_path' => 'THE_ABSOLUTE_OR_RELATIVE_URL_TO_REDIRECT_TO'));
+```
+
+User's avatar
+-------------
+You can display the avatar linked to user's account (if enabled in config.yml) by calling the Twig extension where you want to place it:
+```twig
+{{ user_avatar() }}
+{# Or with specifying its size, 128 by default #}
+{{ user_avatar(64) }}
+```
+
 Using HwiOauth (Social network sign in)
----------------------------------------
-You can display links on the login page to sign in with social network/s. **This bundle doesn't implement this functionality**, it only displays button/s on the login page. You have to configure [HWIOAuthBundle](https://github.com/hwi/HWIOAuthBundle) by your own.
-If you use it, simply indicate in `app/config/confg.yml` (see above)
+=======================================
+On the sign in form you can display links to sign in with social networks via [HWIOAuthBundle](https://github.com/hwi/HWIOAuthBundle). If you want to this feature, simply add in your `app/config/config.yml`, the following:
 ```yml
 c975_l_user:
-    #Indicates the networks you want to appear on the login page
-    hwiOauth: ['facebook', 'google', 'live'] #Default null
+    hwiOauth: ['facebook', 'google', 'live']
+    social: true
 ```
-You also have to upload images on your website named `web/images/signin-[network].png` (width="200" height="50"), where `network` is the name defined in the config.yml file.
 
+**c975L/UserBundle doesn't implement the connection but provides a bridge with HWIOAuthBundle, to display buttons on the sign in page and to store users in the DB. You have to configure HWIOAuthBundle by your own.**
+
+It will mainly consist in setting differents informations in config files. As an example, they are listed below, for Facebook, but other networks will work in the same way:
+```yml
+#routing.yml
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /connect
+hwi_oauth_connect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
+    prefix:   /connect
+hwi_oauth_login:
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix:   /login
+facebook_login:
+    path: /login/facebook
+```
+
+```yml
+#parameters.yml
+#As a Best Practice, it is preferable to declare your secret parameters in parameters.yml file in place of config.yml.
+#Then you can re-use them with "%facebook_app_id%".
+parameters:
+    facebook_app_id: 'YOUR_FACEBOOK_APP_ID'
+    facebook_app_secret: 'YOUR_FACEBOOK_APP_SECRET'
+```
+
+```yml
+#parameters.yml.dist
+parameters:
+    facebook_app_id: ~
+    facebook_app_secret: ~
+```
+
+You will have to declare the account_connector `c975L\UserBundle\Security\OAuthUserProvider`
+```yml
+#config.yml
+hwi_oauth:
+    connect:
+        confirmation: true
+        account_connector: c975L\UserBundle\Security\OAuthUserProvider
+    firewall_names: [main]
+    resource_owners:
+        facebook:
+            type: facebook
+            client_id: "%facebook_app_id%"
+            client_secret: "%facebook_app_secret%"
+            scope: "email"
+            options:
+                csrf: true
+                display: popup
+```
+
+You will have to declare the oauth_user_provider `c975L\UserBundle\Security\OAuthUserProvider`
+```yml
+#security.yml
+security:
+    #...
+    firewalls:
+        main:
+            oauth:
+                resource_owners:
+                    facebook: "/login/facebook"
+                login_path: user_signin
+                failure_path: user_signin
+                use_forward: true
+                default_target_path: user_dashboard
+                oauth_user_provider:
+                    service: c975L\UserBundle\Security\OAuthUserProvider
+```
+
+Social networks images
+----------------------
+c975L/UserBundle provides images for some of the social networks, they were linked in your web folder when you have installed the assets (see above). If the network you want to use has not an image yet, you can use the file `Resources/SocialNetwork/signin.svg`` to build one and make a PR to add it to the bundle :-).
+
+You can also override  `Resources/views/fragments/socialNetworkImage.html.twig` with your own pictures set or to change the styles used.
+
+As a "Bonus" if a user has signed up with its email address and then use a social network to signin, it will get its existing user account **IF** emails addresses are the same, otherwise, it will create another account.
+
+Signing up with another social network, after having already signed up with a different one, will replace the current one by the new one.
+
+Migration from FOSUserBundle
+============================
+If you want to migrate from FOSUserBundle, you have to do the following:
+
+Remove from composer
+```bash
+composer remove friendsofsymfony/user-bundle
+```
+
+Remove from `AppKernel.php`
+```php
+<?php
+// app/AppKernel.php
+
+public function registerBundles()
+{
+    $bundles = array(
+        // ...
+        new FOS\UserBundle\FOSUserBundle(), //Remove this line
+        // ...
+    );
+}
+```
+
+Migrate your database table, by using `Resources\sql\MigrateFosUser.sql`. It will create a `user_migrate` table, will modify all the needed fields, will add missing ones, then, when you are ready, you can rename your FOSUSerBundle table to `user_fosuserbundle` (or whatever you want) and rename the `user_migrate` one to `user`. **Fields `username` and `groups` are kept but not used, so you can delete them if you don't use them.**

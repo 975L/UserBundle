@@ -1,6 +1,6 @@
 <?php
 /*
- * (c) 2018: 975l <contact@975l.com>
+ * (c) 2018: 975L <contact@975l.com>
  * (c) 2018: Laurent Marquet <laurent.marquet@laposte.net>
  *
  * This source file is subject to the MIT license that is bundled
@@ -9,8 +9,6 @@
 
 namespace c975L\UserBundle\Listener;
 
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -21,7 +19,7 @@ class LogoutListener implements LogoutHandlerInterface
 {
     private $em;
 
-    public function __construct(EntityManager $em)
+    public function __construct(\Doctrine\ORM\EntityManager $em)
     {
         $this->em = $em;
     }

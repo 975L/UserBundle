@@ -1,6 +1,6 @@
 <?php
 /*
- * (c) 2018: 975l <contact@975l.com>
+ * (c) 2018: 975L <contact@975l.com>
  * (c) 2018: Laurent Marquet <laurent.marquet@laposte.net>
  *
  * This source file is subject to the MIT license that is bundled
@@ -17,7 +17,6 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -71,14 +70,18 @@ class UserController extends Controller
             //Renders the dashboard
             return $this->render('@c975LUser/pages/dashboard.html.twig', array(
                 'user' => $user,
-                'data' => array('gravatar' => $this->getParameter('c975_l_user.gravatar')),
                 'toolbar' => $toolbar,
                 'publicProfile' => $this->getParameter('c975_l_user.publicProfile'),
                 ));
         }
 
+        //Not found
+        if ($user === null) {
+            throw $this->createNotFoundException();
         //Access is denied
-        throw $this->createAccessDeniedException();
+        } else {
+            throw $this->createAccessDeniedException();
+        }
     }
 
 //SIGN UP
@@ -100,8 +103,8 @@ class UserController extends Controller
      */
     public function signupAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
-        //Redirects if registration is disabled
-        if ($this->getParameter('c975_l_user.registration') !== true) {
+        //Redirects if signup is disabled
+        if ($this->getParameter('c975_l_user.signup') !== true) {
             return $this->redirectToRoute('user_signin');
         }
 
@@ -150,14 +153,24 @@ class UserController extends Controller
 
                 //Adds data to user
                 $user
+                    ->setIdentifier(md5($user->getEmail() . uniqid(time())))
+                    ->setCreation(new \DateTime())
+                    ->setAvatar('https://www.gravatar.com/avatar/' . hash('md5', strtolower(trim($user->getEmail()))) . '?s=512&d=mm&r=g')
+                    ->setEnabled(false)
                     ->setPassword($passwordEncoder->encodePassword($user, $user->getPlainPassword()))
                     ->setPlainPassword(null)
-                    ->setCreation(new \DateTime())
-                    ->setAvatar('https://www.gravatar.com/avatar/' . hash('md5', strtolower(trim($user->getEmail()))) . '?s=128&d=mm&r=g')
                     ->setToken(hash('sha1', $user->getEmail() . uniqid()))
-                    ->setEnabled(false)
-                    ->setIdentifier(md5($user->getEmail() . uniqid(time())))
                 ;
+
+                //Persists user in DB
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($user);
+                $em->flush();
+
+                //Dispatch event
+                $dispatcher = $this->get('event_dispatcher');
+                $event = new UserEvent($user, $request);
+                $dispatcher->dispatch(UserEvent::USER_SIGNEDUP, $event);
 
                 //Gets translator
                 $translator = $this->get('translator');
@@ -179,13 +192,6 @@ class UserController extends Controller
                 //Sends email
                 $emailService = $this->get(\c975L\EmailBundle\Service\EmailService::class);
                 $emailService->send($emailData, $this->getParameter('c975_l_user.databaseEmail'));
-
-                //Gets the manager
-                $em = $this->getDoctrine()->getManager();
-
-                //Persists data in DB
-                $em->persist($user);
-                $em->flush();
 
                 //Removes challenge from session
                 $session->remove('challenge');
@@ -224,8 +230,8 @@ class UserController extends Controller
      */
     public function signupConfirmAction(Request $request, $token)
     {
-        //Redirects if registration is disabled
-        if ($this->getParameter('c975_l_user.registration') !== true) {
+        //Redirects if signup is disabled
+        if ($this->getParameter('c975_l_user.signup') !== true) {
             return $this->redirectToRoute('user_signin');
         }
 
@@ -256,7 +262,7 @@ class UserController extends Controller
 
             //Creates flash
             $translator = $this->get('translator');
-            $flash = $translator->trans('text.registration_confirmed', array(), 'user');
+            $flash = $translator->trans('text.signup_confirmed', array(), 'user');
             $request->getSession()
                 ->getFlashBag()
                 ->add('success', $flash)
@@ -311,8 +317,9 @@ class UserController extends Controller
         return $this->render('@c975LUser/forms/signin.html.twig', array(
             'error' => $authUtils->getLastAuthenticationError(),
             'site' => $this->getParameter('c975_l_user.site'),
-            'registration' => $this->getParameter('c975_l_user.registration'),
+            'signup' => $this->getParameter('c975_l_user.signup'),
             'hwiOauth' => $this->getParameter('c975_l_user.hwiOauth'),
+            'targetPath' => $request->query->get('_target_path'),
         ));
     }
 
@@ -358,13 +365,17 @@ class UserController extends Controller
             return $this->render('@c975LUser/forms/display.html.twig', array(
                 'form' => $form->createView(),
                 'user' => $user,
-                'data' => array('gravatar' => $this->getParameter('c975_l_user.gravatar')),
                 'toolbar' => $toolbar,
             ));
         }
 
+        //Not found
+        if ($user === null) {
+            throw $this->createNotFoundException();
         //Access is denied
-        throw $this->createAccessDeniedException();
+        } else {
+            throw $this->createAccessDeniedException();
+        }
     }
 
 //PUBLIC PROFILE
@@ -427,7 +438,7 @@ class UserController extends Controller
 
             if ($form->isSubmitted() && $form->isValid()) {
                 //Updates data
-                $user->setAvatar('https://www.gravatar.com/avatar/' . hash('md5', strtolower(trim($user->getEmail()))) . '?s=128&d=mm&r=g');
+                $user->setAvatar('https://www.gravatar.com/avatar/' . hash('md5', strtolower(trim($user->getEmail()))) . '?s=512&d=mm&r=g');
 
                 //Gets the manager
                 $em = $this->getDoctrine()->getManager();
@@ -461,14 +472,18 @@ class UserController extends Controller
             return $this->render('@c975LUser/forms/modify.html.twig', array(
                 'form' => $form->createView(),
                 'user' => $user,
-                'data' => array('gravatar' => $this->getParameter('c975_l_user.gravatar')),
                 'toolbar' => $toolbar,
                 'userConfig' => $userConfig,
             ));
         }
 
+        //Not found
+        if ($user === null) {
+            throw $this->createNotFoundException();
         //Access is denied
-        throw $this->createAccessDeniedException();
+        } else {
+            throw $this->createAccessDeniedException();
+        }
     }
 
 //CHANGE PASSWORD
@@ -526,13 +541,17 @@ class UserController extends Controller
             return $this->render('@c975LUser/forms/changePassword.html.twig', array(
                 'form' => $form->createView(),
                 'user' => $user,
-                'data' => array('gravatar' => $this->getParameter('c975_l_user.gravatar')),
                 'toolbar' => $toolbar,
             ));
         }
 
+        //Not found
+        if ($user === null) {
+            throw $this->createNotFoundException();
         //Access is denied
-        throw $this->createAccessDeniedException();
+        } else {
+            throw $this->createAccessDeniedException();
+        }
     }
 
 //RESET PASSWORD
@@ -789,13 +808,17 @@ class UserController extends Controller
             return $this->render('@c975LUser/forms/delete.html.twig', array(
                 'form' => $form->createView(),
                 'user' => $user,
-                'data' => array('gravatar' => $this->getParameter('c975_l_user.gravatar')),
                 'toolbar' => $toolbar,
             ));
         }
 
+        //Not found
+        if ($user === null) {
+            throw $this->createNotFoundException();
         //Access is denied
-        throw $this->createAccessDeniedException();
+        } else {
+            throw $this->createAccessDeniedException();
+        }
     }
 
 //CHECK EMAIL

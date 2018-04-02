@@ -4,9 +4,10 @@
 
 {% block user_content %}
 {# Avatar #}
-    {% if user_gravatar() == true %}
+    {% set avatar = user_avatar() %}
+    {% if avatar != null %}
         <div class="col-xs-12 col-sm-4">
-            {% include('@c975LUser/fragments/avatar.html.twig') %}
+            {{ avatar|raw }}
         </div>
         <div class="col-xs-12 col-sm-8">
     {% else %}

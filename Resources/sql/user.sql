@@ -1,5 +1,5 @@
 /*
- * (c) 2017: 975l <contact@975l.com>
+ * (c) 2017: 975L <contact@975l.com>
  * (c) 2017: Laurent Marquet <laurent.marquet@laposte.net>
  *
  * This source file is subject to the MIT license that is bundled
@@ -16,7 +16,7 @@ CREATE TABLE `user` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `identifier` varchar(32) NOT NULL,
   `email` varchar(128) NOT NULL,
-  `gender` varchar(24) DEFAULT NULL,
+  `gender` set('woman','man') DEFAULT NULL,
   `firstname` varchar(48) DEFAULT NULL,
   `lastname` varchar(48) DEFAULT NULL,
   `creation` datetime DEFAULT NULL,
@@ -30,28 +30,35 @@ CREATE TABLE `user` (
   `password_request` datetime DEFAULT NULL,
   `roles` longtext DEFAULT NULL,
   `locale` varchar(2) DEFAULT NULL
--- Depending on the entity you choose, un-comment the corresping fields below
+-- Depending on the entity you choose, un-comment the corresponding fields below
+-- Take care of trailing comma taht should be added/removed
 --  ADDRESS
---  `address` varchar(128) DEFAULT NULL,
---  `address2` varchar(128) DEFAULT NULL,
---  `postal` varchar(10) DEFAULT NULL,
---  `town` varchar(64) DEFAULT NULL,
---  `country` varchar(64) DEFAULT NULL,
+/*
+  `address` varchar(128) DEFAULT NULL,
+  `address2` varchar(128) DEFAULT NULL,
+  `postal` varchar(10) DEFAULT NULL,
+  `town` varchar(64) DEFAULT NULL,
+  `country` varchar(64) DEFAULT NULL,
+*/
 -- BUSINESS
---  `business_type` varchar(24) DEFAULT NULL,
---  `business_name` varchar(32) DEFAULT NULL,
---  `business_address` varchar(128) DEFAULT NULL,
---  `business_address2` varchar(128) DEFAULT NULL,
---  `business_postal` varchar(10) DEFAULT NULL,
---  `business_town` varchar(64) DEFAULT NULL,
---  `business_country` varchar(64) DEFAULT NULL,
---  `business_siret` char(14) DEFAULT NULL,
---  `business_tva` char(13) DEFAULT NULL,
+/*
+  `business_type` varchar(24) DEFAULT NULL,
+  `business_name` varchar(32) DEFAULT NULL,
+  `business_address` varchar(128) DEFAULT NULL,
+  `business_address2` varchar(128) DEFAULT NULL,
+  `business_postal` varchar(10) DEFAULT NULL,
+  `business_town` varchar(64) DEFAULT NULL,
+  `business_country` varchar(64) DEFAULT NULL,
+  `business_siret` char(14) DEFAULT NULL,
+  `business_tva` char(13) DEFAULT NULL,
+*/
 -- SOCIAL
---  `social_network` varchar(64) DEFAULT NULL,
---  `social_id` varchar(255) DEFAULT NULL,
---  `social_token` varchar(255) DEFAULT NULL,
---  `social_picture` varchar(255) DEFAULT NULL
+/*
+  `social_network` varchar(64) DEFAULT NULL,
+  `social_id` varchar(255) DEFAULT NULL,
+  `social_token` varchar(255) DEFAULT NULL,
+  `social_picture` varchar(255) DEFAULT NULL
+*/
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `un_email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;

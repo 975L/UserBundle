@@ -222,10 +222,6 @@
                 <source>text.reset_password_info</source>
                 <target>Yo uso este formulario para restablecer mi contraseña</target>
             </trans-unit>
-            <trans-unit id="59">
-                <source>text.signin_social_not_concerned</source>
-                <target>Yo uso este formulario para restablecer mi contraseña</target>
-            </trans-unit>
             <trans-unit id="60">
                 <source>label.password</source>
                 <target>Contraseña</target>
@@ -247,7 +243,7 @@
                 <target>Verifica su correo</target>
             </trans-unit>
             <trans-unit id="65">
-                <source>text.registration_email</source>
+                <source>text.signup_email</source>
                 <target>Para validar su cuenta de usuario, haz clic en el botón de abajo.</target>
             </trans-unit>
             <trans-unit id="66">
@@ -259,7 +255,7 @@
                 <target>Confirma su registro</target>
             </trans-unit>
             <trans-unit id="68">
-                <source>text.registration_confirmed</source>
+                <source>text.signup_confirmed</source>
                 <target>Felicidades, su cuenta está ahora confirmada !</target>
             </trans-unit>
             <trans-unit id="69">

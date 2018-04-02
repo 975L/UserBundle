@@ -222,10 +222,6 @@
                 <source>text.reset_password_info</source>
                 <target>I use this form to reset my password</target>
             </trans-unit>
-            <trans-unit id="59">
-                <source>text.signin_social_not_concerned</source>
-                <target>I use this form to reset my password</target>
-            </trans-unit>
             <trans-unit id="60">
                 <source>label.password</source>
                 <target>Password</target>
@@ -247,7 +243,7 @@
                 <target>Check your mailbox</target>
             </trans-unit>
             <trans-unit id="65">
-                <source>text.registration_email</source>
+                <source>text.signup_email</source>
                 <target>To validate your user account, please click on the button below.</target>
             </trans-unit>
             <trans-unit id="66">
@@ -256,10 +252,10 @@
             </trans-unit>
             <trans-unit id="67">
                 <source>label.signup_email</source>
-                <target>Confirm your registration</target>
+                <target>Confirm your signup</target>
             </trans-unit>
             <trans-unit id="68">
-                <source>text.registration_confirmed</source>
+                <source>text.signup_confirmed</source>
                 <target>Congratulations, your account is now activated!</target>
             </trans-unit>
             <trans-unit id="69">

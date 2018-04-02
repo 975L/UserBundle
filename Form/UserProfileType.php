@@ -1,6 +1,6 @@
 <?php
 /*
- * (c) 2018: 975l <contact@975l.com>
+ * (c) 2018: 975L <contact@975l.com>
  * (c) 2018: Laurent Marquet <laurent.marquet@laposte.net>
  *
  * This source file is subject to the MIT license that is bundled
@@ -15,14 +15,13 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserProfileType extends AbstractType
 {
-    protected $tokenStorage;
+    private $tokenStorage;
 
-    public function __construct(TokenStorageInterface $tokenStorage)
+    public function __construct(\Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage)
     {
         $this->tokenStorage = $tokenStorage;
     }
@@ -216,7 +215,7 @@ class UserProfileType extends AbstractType
         }
 //SOCIAL
         if ($options['userConfig']['social'] === true) {
-            if ($user->getSocialNetwork() === true) {
+            if ($user->getSocialNetwork() !== null) {
                 $builder
                     ->add('socialNetwork', TextType::class, array(
                         'label' => 'label.social_network',

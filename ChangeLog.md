@@ -1,5 +1,24 @@
 # Changelog
 
+v1.7
+----
+- Moved mandatory field mention in signin form (29/03/2018)
+- Added `_target_path_` form field in signin form (29/03/2018)
+- Added info about requesting signin form and custom redirect after (29/03/2018)
+- Changed `registration` config value to `signup` to be coherent with the naming in the bundle [BC-Break] (01/04/2018)
+- Made signup config value false as default (01/04/2018)
+- Updated `README.md` (01/04/2018)
+- Added Service methods to retrieve user (01/04/2018)
+- Modified `UserController` methods to throw `createNotFoundException()` or `createAccessDeniedException()` depending if the user has been found or not (01/04/2018)
+- Corrected `UserAbstract` for address fields (01/04/2018)
+- Corrected `Service` to use the Entity defined in config.yml (01/04/2018)
+- Added event `USER_SIGNEDUP` to allow interact with its id (01/04/2018)
+- Added authentication via social networks using HWIOAuthBundle ! :-) (01/04/2018)
+- Renamed config value `gravatar` to `avatar` [BC-Break] and made it false as default (02/04/2018)
+- Renamed Twig extension `UserGravatar` to `UserAvatar` (02/04/2018)
+- Modified behaviour of Twig Extension `UserAVatar` to return the avatar (social network or Gravatar) if enabled (02/04/2018)
+- Made default size of gravatar stored in database to 512 in place of 128 (02/04/2018)
+
 v1.6.1
 ------
 - Set `Resources/views/fragments/avatar.html.twig` to allow override display of avatar (26/03/2018)
