@@ -13,9 +13,6 @@ services:
     c975L\UserBundle\Listener\:
         resource: '../../Listener/*'
 
-    c975L\UserBundle\Security\:
-        resource: '../../Security/*'
-
     c975L\UserBundle\Service\:
         resource: '../../Service/*'
 

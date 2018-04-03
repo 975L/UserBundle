@@ -1,5 +1,9 @@
 # Changelog
 
+v1.7.4
+------
+- Suppressed autowire of Security as it can't find the class `OAuthAwareUserProviderInterface` when HWIOAuth is not used (03/04/2018)
+
 v1.7.3
 ------
 - Made creation of table `user_archives` by default (02/04/2018)
