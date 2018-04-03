@@ -10,8 +10,13 @@
 {# Form #}
     {{ form_start(form) }}
         {{ form_widget(form) }}
-{# Delete account info #}
-        {% include('@c975LUser/fragments/deleteAccountInfo.html.twig') %}
+{# Delete account acceptance #}
+        <div class="checkbox">
+            <label for="deleteAccepted" class="required">
+                <input type="checkbox" id="deleteAccepted" name="deleteAccepted" required="required" />
+                {% include('@c975LUser/fragments/deleteAccountInfo.html.twig') %}
+            </label>
+        </div>
 {# Submit #}
         <div class="form-group">
             <input type="submit" id="_submit" name="_submit" value="{{ 'label.delete'|trans({}, 'toolbar') }}" class="btn btn-block btn-lg btn-danger" />

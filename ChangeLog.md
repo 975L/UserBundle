@@ -1,5 +1,11 @@
 # Changelog
 
+V1.7.5
+------
+- Corrected missing gravatar size in `OAuthUserProvider` (03/04/2018)
+- Added mention in `README.md` to add `c975L\UserBundle\Security\OAuthUserProvider` in `services.yml` (03/04/2018)
+- Replaced the warning in delete account by a madatory checkbox (03/04/2018)
+
 v1.7.4
 ------
 - Suppressed autowire of Security as it can't find the class `OAuthAwareUserProviderInterface` when HWIOAuth is not used (03/04/2018)

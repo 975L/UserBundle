@@ -93,7 +93,7 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface
                 $firstname = $response->getFirstName();
                 $firstname = $firstname != '' && $firstname != null ? $firstname : $response->getNickname();
                 $firstname = $firstname != '' && $firstname != null ? $firstname : $response->getRealName();
-                $avatar = $response->getEmail() != null ? 'https://www.gravatar.com/avatar/' . hash('md5', strtolower(trim($response->getEmail()))) . '?s=128&d=mm&r=g' : null;
+                $avatar = $response->getEmail() != null ? 'https://www.gravatar.com/avatar/' . hash('md5', strtolower(trim($response->getEmail()))) . '?s=512&d=mm&r=g' : null;
 
                 //Allows to not have an email for first authentication, it will be requested in profile update
                 $email = $response->getEmail() != null ? strtolower(trim($response->getEmail())) : $username;

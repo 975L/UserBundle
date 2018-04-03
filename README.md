@@ -104,8 +104,8 @@ security:
         #The entity you want to use
         c975L\UserBundle\Entity\User: bcrypt
     role_hierarchy:
-        ROLE_MODERATOR:   ROLE_USER
-        ROLE_ADMIN:       [ROLE_MODERATOR, ROLE_USER]
+        ROLE_MODERATOR: 'ROLE_USER'
+        ROLE_ADMIN: [ROLE_MODERATOR, ROLE_USER]
         ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_MODERATOR, ROLE_USER]
     providers:
         c975_l_userbundle:
@@ -126,7 +126,7 @@ security:
                 lifetime: 31536000
                 path: /
                 secure: true
-            anonymous:    true
+            anonymous: true
             logout_on_user_change: true
             logout:
                 path: user_signout
@@ -144,8 +144,8 @@ Then, enable the routes by adding them to the `app/config/routing.yml` file of y
 ```yml
 c975_l_user:
     resource: "@c975LUserBundle/Controller/"
-    type:     annotation
-    prefix:   /
+    type: annotation
+    prefix: /
     #Multilingual website use the following
     #prefix: /{_locale}
     #requirements:
@@ -413,16 +413,21 @@ You can display the avatar linked to user's account (if enabled in config.yml) b
 
 Using HwiOauth (Social network sign in)
 =======================================
-On the sign in form you can display links to sign in with social networks via [HWIOAuthBundle](https://github.com/hwi/HWIOAuthBundle). If you want to this feature, simply add in your `app/config/config.yml`, the following:
+On the sign in form you can add links to sign in/sign up with social networks via [HWIOAuthBundle](https://github.com/hwi/HWIOAuthBundle). If you want to this feature, simply add in your `app/config/config.yml`, the following:
 ```yml
 c975_l_user:
     hwiOauth: ['facebook', 'google', 'live']
     social: true
 ```
 
-**c975L/UserBundle doesn't implement the connection but provides a bridge with HWIOAuthBundle, to display buttons on the sign in page and to store users in the DB. You have to configure HWIOAuthBundle by your own.**
+And in you `app/config/services.yml`, the following:
+```yml
+services:
+    c975L\UserBundle\Security\OAuthUserProvider:
+        public: true
+```
 
-It will mainly consist in setting differents informations in config files. As an example, they are listed below, for Facebook, but other networks will work in the same way:
+**c975L/UserBundle doesn't implement the connection with social networks but provides a bridge with HWIOAuthBundle, to display buttons on the sign in page and to store users in the DB. You have to configure HWIOAuthBundle by your own.** This will mainly consist in setting differents informations in config files. As an example, they are listed below, for Facebook, but other networks will work in the same way:
 ```yml
 #routing.yml
 hwi_oauth_redirect:

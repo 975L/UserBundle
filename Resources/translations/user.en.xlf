@@ -192,7 +192,7 @@
             </trans-unit>
             <trans-unit id="51">
                 <source>text.delete_account_info</source>
-                <target><![CDATA[By deleting my account, I understand that everything linked to my account will de deleted. <strong>I also understand that this action is immediate and irreversible.</strong>]]></target>
+                <target><![CDATA[By deleting my account, I understand that everything linked with, will de deleted. <strong>I also understand that this action is immediate and irreversible.</strong>]]></target>
             </trans-unit>
             <trans-unit id="52">
                 <source>text.gravatar_picture</source>

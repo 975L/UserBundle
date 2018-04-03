@@ -192,7 +192,7 @@
             </trans-unit>
             <trans-unit id="51">
                 <source>text.delete_account_info</source>
-                <target><![CDATA[En supprimant mon compte, je comprends que tout ce qui est lié à mon compte sera supprimé. <strong>Je comprends aussi que cette action est immédiate et irréversible.</strong>]]></target>
+                <target><![CDATA[En supprimant mon compte, je comprends que tout ce qui est lié avec, sera supprimé. <strong>Je comprends aussi que cette action est immédiate et irréversible.</strong>]]></target>
             </trans-unit>
             <trans-unit id="52">
                 <source>text.gravatar_picture</source>
