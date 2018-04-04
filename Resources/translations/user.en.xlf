@@ -366,6 +366,18 @@
                 <source>text.token_not_found</source>
                 <target>This token has not been found. Maybe you clicked more than once on the activation link.</target>
             </trans-unit>
+            <trans-unit id="96">
+                <source>label.attempt</source>
+                <target>Attempt</target>
+            </trans-unit>
+            <trans-unit id="97">
+                <source>text.max_attempts_info</source>
+                <target>Attempts to sign in are limited</target>
+            </trans-unit>
+            <trans-unit id="98">
+                <source>text.new_attempt_time</source>
+                <target>I have to wait until %time% to sign in</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

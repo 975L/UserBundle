@@ -366,6 +366,18 @@
                 <source>text.token_not_found</source>
                 <target>Este token no ha sido encontrado. Tal vez ha hecho clic más de una vez en el enlace de activación.</target>
             </trans-unit>
+            <trans-unit id="96">
+                <source>label.attempt</source>
+                <target>Intento</target>
+            </trans-unit>
+            <trans-unit id="97">
+                <source>text.max_attempts_info</source>
+                <target>Los intentos de registrarse son limitados</target>
+            </trans-unit>
+            <trans-unit id="98">
+                <source>text.new_attempt_time</source>
+                <target>Debo esperar hasta %time% para registrarse</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

@@ -72,9 +72,23 @@
                 {% endif %}
 {# CSRF #}
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+{# Attempt #}
+                {% if attempt != null %}
+                    <div class="alert alert-warning text-center">
+                        {{ 'label.attempt'|trans }}: {{ attempt }}
+                        <br />
+{# Max Attempts info #}
+                        {% if app.session.get('userSigninNewAttemptTime') == null %}
+                            {{ 'text.max_attempts_info'|trans }}
+{# New attempt time #}
+                        {% else %}
+                            {{ 'text.new_attempt_time'|trans({'%time%': app.session.get('userSigninNewAttemptTime')|localizeddate('none', 'medium')}) }}
+                        {% endif %}
+                    </div>
+                {% endif %}
 {# Submit #}
                 <div class="form-group">
-                    <input type="submit" id="_submit" name="_submit" value="{{ 'label.signin'|trans }}" class="btn btn-block btn-lg btn-primary" />
+                    <input type="submit" id="_submit" name="_submit" value="{{ 'label.signin'|trans }}" class="btn btn-block btn-lg btn-primary" {{ disabledSubmit }}/>
                 </div>
             </form>
 {# Forget password #}

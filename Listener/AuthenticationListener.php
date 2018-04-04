@@ -57,6 +57,10 @@ class AuthenticationListener implements EventSubscriberInterface
             $session->remove('challenge');
             $session->remove('challengeResult');
 
+            //Removes sign in attempts
+            $session->remove('userSigninAttempt');
+            $session->remove('userSigninNewAttemptTime');
+
             //Writes signin time
             $user->setLatestSignin(new \DateTime());
 

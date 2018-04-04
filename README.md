@@ -20,6 +20,8 @@ Directly inspired from [FOSUserBundle](https://github.com/FriendsOfSymfony/FOSUs
 - Allows to display Social network's image linked to the account,
 - Provides a divData to allows access user's data from javascript,
 - Allows easy overridding of templates or parts of them to minimize the number of the overriden files to the essential,
+- Allows to define a number of attempts for sign in and then add a delay before being able to sign in again,
+- Resetting password form will NOT send email for inexisting accounts while displaying so, this un-allows checking for registered emails,
 
 [User Bundle dedicated web page](https://975l.com/en/pages/user-bundle).
 
@@ -71,6 +73,9 @@ c975_l_user:
     roleNeeded: 'ROLE_ADMIN'
     #The location of your Terms of uses to be displayed to user, it can be a Route with parameters or an absolute url
     touUrl: 'pageedit_display, {page: terms-of-use}'
+    #(Optional) If you want to define the allowed number of attempts for sign in and then add a delay before being able to sign in again
+    #This feature is linked to session not to accounts
+    signinAttempts: 5 #0(default) Depending on your website 5 attempts is a "good" number
     #(Optional) If you want to display the avatar linked to user's account
     #It can be the Gravatar's linked email image (by default) or the social network's image if enabled
     avatar: true #false(default)

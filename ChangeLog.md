@@ -1,6 +1,12 @@
 # Changelog
 
-V1.7.5
+v1.8
+----
+- Added cancel link below submit button in dlete form, even if already present in toolbar, it's more stress-less for user (03/04/2018)
+- Added possibility to define number of signin attempts and disbale sign in button for a delay (04/04/2018)
+- Removed `createNotFoundException()` for Route `user_reset_password` to un-allow checking which emails are registered (04/04/2018)
+
+v1.7.5
 ------
 - Corrected missing gravatar size in `OAuthUserProvider` (03/04/2018)
 - Added mention in `README.md` to add `c975L\UserBundle\Security\OAuthUserProvider` in `services.yml` (03/04/2018)

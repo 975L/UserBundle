@@ -35,6 +35,7 @@ class c975LUserExtension extends Extension
         $container->setParameter('c975_l_user.signup', $processedConfig['signup']);
         $container->setParameter('c975_l_user.roleNeeded', $processedConfig['roleNeeded']);
         $container->setParameter('c975_l_user.touUrl', $processedConfig['touUrl']);
+        $container->setParameter('c975_l_user.signinAttempts', $processedConfig['signinAttempts']);
         $container->setParameter('c975_l_user.avatar', $processedConfig['avatar']);
         $container->setParameter('c975_l_user.hwiOauth', $processedConfig['hwiOauth']);
         $container->setParameter('c975_l_user.databaseEmail', $processedConfig['databaseEmail']);

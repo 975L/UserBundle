@@ -366,6 +366,18 @@
                 <source>text.token_not_found</source>
                 <target>Ce jeton n'a pas été trouvé. Peut-être avez-vous cliqué plus d'une fois sur le lien d'activation.</target>
             </trans-unit>
+            <trans-unit id="96">
+                <source>label.attempt</source>
+                <target>Tentative</target>
+            </trans-unit>
+            <trans-unit id="97">
+                <source>text.max_attempts_info</source>
+                <target>Les tentatives de connexion sont limitées</target>
+            </trans-unit>
+            <trans-unit id="98">
+                <source>text.new_attempt_time</source>
+                <target>Je dois attendre jusque %time% pour me connecter</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

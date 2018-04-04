@@ -313,9 +313,51 @@ class UserController extends Controller
         $event = new UserEvent($user, $request);
         $dispatcher->dispatch(UserEvent::USER_SIGNIN, $event);
 
+        //Gets last error
+        $error = $authUtils->getLastAuthenticationError();
+
+        //Adds signin attempt
+        $attempt = null;
+        $disabledSubmit = '';
+        if ($this->getParameter('c975_l_user.signinAttempts') > 0) {
+            $delayDisable = '+15 minutes';
+            $session = $request->getSession();
+            $configSigninAttempts = $this->getParameter('c975_l_user.signinAttempts');
+
+            //Adds attempt if signin didn't work
+            if ($error !== null) {
+                $session->set('userSigninAttempt', $session->get('userSigninAttempt') + 1);
+            }
+
+            //Defines attempt
+            $sessionUserSigninAttempt = $session->get('userSigninAttempt');
+            if ($sessionUserSigninAttempt > 0) {
+                $attempt = $sessionUserSigninAttempt . '/' . $configSigninAttempts;
+            }
+
+            //Disables/Enables submit button
+            if ($sessionUserSigninAttempt >= $configSigninAttempts) {
+                //Defines time submit button will be re-enabled if max attempts (defined in config.yml) has been reached
+                if ($session->get('userSigninNewAttemptTime') === null) {
+                    $session->set('userSigninNewAttemptTime', new \DateTime($delayDisable));
+                }
+
+                //Disables submit button
+                if (new \DateTime() < $session->get('userSigninNewAttemptTime')) {
+                    $disabledSubmit = 'disabled="disabled"';
+                //Enables submit button if delay is finished
+                } else {
+                    $session->remove('userSigninAttempt');
+                    $session->remove('userSigninNewAttemptTime');
+                }
+            }
+        }
+
         //Returns the signin form
         return $this->render('@c975LUser/forms/signin.html.twig', array(
-            'error' => $authUtils->getLastAuthenticationError(),
+            'error' => $error,
+            'attempt' => $attempt,
+            'disabledSubmit' => $disabledSubmit,
             'site' => $this->getParameter('c975_l_user.site'),
             'signup' => $this->getParameter('c975_l_user.signup'),
             'hwiOauth' => $this->getParameter('c975_l_user.hwiOauth'),
@@ -562,14 +604,14 @@ class UserController extends Controller
      */
     public function resetPasswordAction(Request $request)
     {
-        //Define delay for reset (2 hours)
-        $delayReset = new \DateInterval('PT2H');
-
         //Redirects signed-in user to change password
         $user = $this->getUser();
         if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
             return $this->redirectToRoute('user_change_password');
         }
+
+        //Define delay for reset (2 hours)
+        $delayReset = new \DateInterval('PT2H');
 
         //Defines form
         $form = $this->createForm(UserResetPasswordType::class, $user);
@@ -628,18 +670,15 @@ class UserController extends Controller
                     $em->persist($user);
                     $em->flush();
                 }
-
-                //Redirects to the page to check email
-                $session = $request->getSession();
-                $session->set('checkEmailUser', $user->getEmail());
-                $session->set('checkEmailUserAction', 'resetPassword');
-
-                //Renders the check email page
-                return $this->redirectToRoute('user_check_email');
             }
 
-            //Not found
-            throw $this->createNotFoundException();
+            //Redirects to the page to check email
+            $session = $request->getSession();
+            $session->set('checkEmailUser', $form->getData()['email']);
+            $session->set('checkEmailUserAction', 'resetPassword');
+
+            //Renders the check email page
+            return $this->redirectToRoute('user_check_email');
         }
 
         //Renders the reset password form

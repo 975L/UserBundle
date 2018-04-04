@@ -21,5 +21,10 @@
         <div class="form-group">
             <input type="submit" id="_submit" name="_submit" value="{{ 'label.delete'|trans({}, 'toolbar') }}" class="btn btn-block btn-lg btn-danger" />
         </div>
+{# Cancel #}
+        <p class="text-center">
+            <a href="javascript:history.back()" title="{{ 'label.cancel'|trans({}, 'toolbar') }}">
+                {{ 'label.cancel'|trans({}, 'toolbar') }}</a>
+        </p>
     {{ form_end(form) }}
 {% endblock %}
