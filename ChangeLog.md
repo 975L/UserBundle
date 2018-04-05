@@ -1,5 +1,10 @@
 # Changelog
 
+v1.8.1
+------
+- Added `UserSiret` Twig extension to display formatted Siret number (05/04/2018)
+- Added `UserVat` Twig extension to display formatted VAT number (05/04/2018)
+
 v1.8
 ----
 - Added cancel link below submit button in dlete form, even if already present in toolbar, it's more stress-less for user (03/04/2018)

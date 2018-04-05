@@ -416,6 +416,14 @@ You can display the avatar linked to user's account (if enabled in config.yml) b
 {{ user_avatar(64) }}
 ```
 
+Twig extension
+--------------
+You can use Twig extensions to format VAT and Siret numbers.
+```
+{{ 'YOUR_VAT_NUMBER'|user_vat }}
+{{ 'YOUR_SIRET_NUMBER'|user_siret }}
+```
+
 Using HwiOauth (Social network sign in)
 =======================================
 On the sign in form you can add links to sign in/sign up with social networks via [HWIOAuthBundle](https://github.com/hwi/HWIOAuthBundle). If you want to this feature, simply add in your `app/config/config.yml`, the following:
