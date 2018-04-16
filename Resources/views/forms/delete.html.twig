@@ -19,7 +19,9 @@
         </div>
 {# Submit #}
         <div class="form-group">
-            <input type="submit" id="_submit" name="_submit" value="{{ 'label.delete'|trans({}, 'toolbar') }}" class="btn btn-block btn-lg btn-danger" />
+            <button type="submit" name="submit" title="{{ 'label.delete'|trans({}, 'toolbar') }}" class="btn btn-lg btn-danger btn-block">
+                {{ 'label.delete'|trans({}, 'toolbar') }}
+            </button>
         </div>
 {# Cancel #}
         <p class="text-center">
@@ -27,4 +29,10 @@
                 {{ 'label.cancel'|trans({}, 'toolbar') }}</a>
         </p>
     {{ form_end(form) }}
+{# Mandatory field #}
+    <p class="text-muted">
+        <em>
+            {{ 'label.mandatory_field'|trans }}
+        </em>
+    </p>
 {% endblock %}

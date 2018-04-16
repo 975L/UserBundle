@@ -88,7 +88,9 @@
                 {% endif %}
 {# Submit #}
                 <div class="form-group">
-                    <input type="submit" id="_submit" name="_submit" value="{{ 'label.signin'|trans }}" class="btn btn-block btn-lg btn-primary" {{ disabledSubmit }}/>
+                    <button type="submit" name="submit" title="{{ 'label.signin'|trans }}" class="btn btn-lg btn-primary btn-block" {{ disabledSubmit }}>
+                        {{ 'label.signin'|trans }}
+                    </button>
                 </div>
             </form>
 {# Forget password #}

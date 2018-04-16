@@ -1,5 +1,14 @@
 # Changelog
 
+v1.9
+----
+- Replaced submit button by `SubmitType` in some Forms Types (16/04/2018)
+- Corrected `UserChangePasswordType.php` (16/04/2018)
+- Corrected `validators.en.xlf` (16/04/2018)
+- Corrected Route `user_reset_password_confirm` (16/04/2018)
+- Corrected Repository calls to call the defined Entity in config.yml (16/04/2018)
+- Moved to `AdvancedUserInterface` instead of `UserInterface` to display message for disabled accounts (16/04/2018)
+
 v1.8.1
 ------
 - Added `UserSiret` Twig extension to display formatted Siret number (05/04/2018)

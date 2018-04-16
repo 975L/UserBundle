@@ -113,9 +113,6 @@ class UserController extends Controller
             return $this->redirectToRoute('user_dashboard');
         }
 
-        //Gets session
-        $session = $request->getSession();
-
         //Gets the Terms of use link
         $userService = $this->get(\c975L\UserBundle\Service\UserService::class);
         $touUrl = null;
@@ -140,6 +137,7 @@ class UserController extends Controller
             'multilingual' => $this->getParameter('c975_l_user.multilingual'),
         );
         $formType = $this->getParameter('c975_l_user.signupForm') === null ? 'c975L\UserBundle\Form\UserSignupType' : $this->getParameter('c975_l_user.signupForm');
+        $session = $request->getSession();
         $form = $this->createForm($formType, $user, array('session' => $session, 'userConfig' => $userConfig));
         $form->handleRequest($request);
 
@@ -239,7 +237,7 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         //Gets repository
-        $repository = $em->getRepository('c975LUserBundle:User');
+        $repository = $em->getRepository($this->getParameter('c975_l_user.entity'));
 
         //Loads from DB
         $user = $repository->findOneByToken($token);
@@ -437,7 +435,7 @@ class UserController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             //Gets repository
-            $repository = $em->getRepository('c975LUserBundle:User');
+            $repository = $em->getRepository($this->getParameter('c975_l_user.entity'));
 
             //Loads from DB
             $user = $repository->findOneByIdentifier($identifier);
@@ -625,7 +623,7 @@ class UserController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             //Gets the repository
-            $repository = $em->getRepository('c975LUserBundle:User');
+            $repository = $em->getRepository($this->getParameter('c975_l_user.entity'));
 
             //Gets user
             $user = $repository->findOneByEmail($email);
@@ -638,7 +636,7 @@ class UserController extends Controller
                     $user
                         ->setPasswordRequest(new \DateTime())
                         ->setToken(hash('sha1', $user->getEmail() . uniqid()))
-                        ;
+                    ;
 
                     //Gets translator
                     $translator = $this->get('translator');
@@ -700,12 +698,18 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         //Gets repository
-        $repository = $em->getRepository('c975LUserBundle:User');
+        $repository = $em->getRepository($this->getParameter('c975_l_user.entity'));
 
         //Loads from DB
         $user = $repository->findOneByToken($token);
 
         if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
+            //Removes challenge from session
+            $session = $request->getSession();
+            $session->remove('challenge');
+            $session->remove('challengeResult');
+
+            //Builds form
             $form = $this->createForm(UserResetPasswordConfirmType::class, $user);
             $form->handleRequest($request);
 
@@ -716,7 +720,7 @@ class UserController extends Controller
                     ->setPlainPassword(null)
                     ->setToken(null)
                     ->setPasswordRequest(null)
-                    ;
+                ;
 
                 //Persists data in DB
                 $em->persist($user);

@@ -10,7 +10,7 @@
 namespace c975L\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use c975L\UserBundle\Validator\Constraints as UserBundleAssert;
@@ -21,10 +21,9 @@ use c975L\UserBundle\Validator\Constraints\UserChallenge;
  *
  * @ORM\MappedSuperclass
  */
-abstract class UserAbstract implements UserInterface
+abstract class UserAbstract implements AdvancedUserInterface
 {
     const ROLE_DEFAULT = 'ROLE_USER';
-
     const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
 
     /**
@@ -178,12 +177,31 @@ abstract class UserAbstract implements UserInterface
     protected $socialPicture;
 
 
-//METHODS REQUESTED BY UserInterface
+//METHODS REQUESTED BY AdvancedUserInterface
     public function eraseCredentials()
     {
     }
 
-    /** @see \Serializable::serialize() */
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+
     public function serialize()
     {
         return serialize(array(
@@ -195,7 +213,6 @@ abstract class UserAbstract implements UserInterface
         ));
     }
 
-    /** @see \Serializable::unserialize() */
     public function unserialize($serialized)
     {
         list (
@@ -207,6 +224,24 @@ abstract class UserAbstract implements UserInterface
         ) = unserialize($serialized);
     }
 
+//ROLES
+    public function hasRole($role)
+    {
+        return in_array(strtoupper($role), $this->getRoles(), true);
+    }
+
+    public function addRole($role)
+    {
+        $role = strtoupper($role);
+        if ($role === static::ROLE_DEFAULT) {
+            return $this;
+        }
+
+        if (!in_array($role, $this->roles, true)) {
+            $this->roles[] = $role;
+        }
+        return $this;
+    }
 
 //GETTERS/SETTERS
     /**
@@ -506,24 +541,6 @@ abstract class UserAbstract implements UserInterface
     public function getPasswordRequest()
     {
         return $this->passwordRequest;
-    }
-
-    public function hasRole($role)
-    {
-        return in_array(strtoupper($role), $this->getRoles(), true);
-    }
-
-    public function addRole($role)
-    {
-        $role = strtoupper($role);
-        if ($role === static::ROLE_DEFAULT) {
-            return $this;
-        }
-
-        if (!in_array($role, $this->roles, true)) {
-            $this->roles[] = $role;
-        }
-        return $this;
     }
 
     /**

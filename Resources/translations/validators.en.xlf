@@ -43,10 +43,6 @@
                 <target>The password must be from 8 to 48 characters long and contain at least 1 letter, 1 digit and 1 sign within @#$%^*</target>
             </trans-unit>
             <trans-unit id="11">
-                <source>password.requirement</source>
-                <target>The password must be from 8 to 48 characters long and contain at least 1 letter, 1 digit and 1 sign within @#$%^*</target>
-            </trans-unit>
-            <trans-unit id="12">
                 <source>text.password_mismatch</source>
                 <target>The password fields must match</target>
             </trans-unit>

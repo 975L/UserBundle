@@ -12,6 +12,7 @@ namespace c975L\UserBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
@@ -28,7 +29,7 @@ class UserResetPasswordConfirmType extends AbstractType
                 'invalid_message' => 'text.password_mismatch',
                 'options' => array(
                     'attr' => array(
-                        'autocomplete' => 'new-password',
+                        'autocomplete' => 'off',
                         'class' => 'password-field',
                         )
                     ),
@@ -36,7 +37,12 @@ class UserResetPasswordConfirmType extends AbstractType
                 'first_options'  => array('label' => 'label.password'),
                 'second_options' => array('label' => 'label.password_repeat'),
                 ))
-            ;
+            ->add('submit', SubmitType::class, array(
+                'label' => 'label.validate',
+                'translation_domain' => 'toolbar',
+                'attr' => array('class' => 'btn btn-block btn-lg btn-primary'),
+            ))
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
