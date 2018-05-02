@@ -37,15 +37,19 @@ class UserAvatar extends \Twig_Extension
         );
     }
 
-    public function avatar(\Twig_Environment $environment, $size = 128)
+    public function avatar(\Twig_Environment $environment, $size = 128, $user = null)
     {
         //Avatar not enabled
         if ($this->container->getParameter('c975_l_user.avatar') !== true) {
             return null;
         }
 
+        //Defines user
+        if ($user === null) {
+            $user = $this->tokenStorage->getToken()->getUser();
+        }
+
         //Uses social network picture
-        $user = $this->tokenStorage->getToken()->getUser();
         if ($this->container->getParameter('c975_l_user.social') === true && $user->getSocialPicture() !== null) {
             $avatar = $user->getSocialPicture();
         //Uses Gravatar

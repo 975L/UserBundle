@@ -85,6 +85,8 @@ c975_l_user:
     social: true #false(default)
     #(Optional) If you want to save the email sent to user when deleting his/her account in the database linked to c975L/EmailBundle
     databaseEmail: true #false(default)
+    #(Optional) If you want to display a public profile
+    publicProfile: true #false(default)
     #(Optional) If you want to archive the user in `user_archives` table
     archiveUser: true #false(default)
     #(Optional) If you want to use the address fields

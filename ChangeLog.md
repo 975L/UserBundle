@@ -1,5 +1,10 @@
 # Changelog
 
+v1.9.1
+------
+- Added info in `README.md` about `publicProfile` config value (02/05/2018)
+- Added possibilty to provide user to Twig user_avatar() function (02/05/2018)
+
 v1.9
 ----
 - Replaced submit button by `SubmitType` in some Forms Types (16/04/2018)
