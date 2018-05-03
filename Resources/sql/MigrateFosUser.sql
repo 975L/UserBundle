@@ -78,10 +78,12 @@ ALTER TABLE user_migrate ADD address2 varchar(128) DEFAULT NULL AFTER address;
 ALTER TABLE user_migrate ADD postal varchar(10) DEFAULT NULL AFTER address2;
 ALTER TABLE user_migrate ADD town varchar(64) DEFAULT NULL AFTER postal;
 ALTER TABLE user_migrate ADD country varchar(64) DEFAULT NULL AFTER town;
+ALTER TABLE user_migrate ADD phone varchar(35) DEFAULT NULL AFTER country;
+ALTER TABLE user_migrate ADD fax varchar(35) DEFAULT NULL AFTER phone;
 */
 -- BUSINESS
 /*
-ALTER TABLE user_migrate ADD business_type varchar(24) DEFAULT NULL AFTER country;
+ALTER TABLE user_migrate ADD business_type varchar(24) DEFAULT NULL AFTER fax;
 ALTER TABLE user_migrate ADD business_name varchar(32) DEFAULT NULL AFTER business_type;
 ALTER TABLE user_migrate ADD business_address varchar(128) DEFAULT NULL AFTER business_name;
 ALTER TABLE user_migrate ADD business_address2 varchar(128) DEFAULT NULL AFTER business_address;
@@ -90,10 +92,12 @@ ALTER TABLE user_migrate ADD business_town varchar(64) DEFAULT NULL AFTER busine
 ALTER TABLE user_migrate ADD business_country varchar(64) DEFAULT NULL AFTER business_town;
 ALTER TABLE user_migrate ADD business_siret char(14) DEFAULT NULL AFTER business_country;
 ALTER TABLE user_migrate ADD business_tva char(13) DEFAULT NULL AFTER business_siret;
+ALTER TABLE user_migrate ADD business_phone varchar(35) DEFAULT NULL AFTER business_tva;
+ALTER TABLE user_migrate ADD business_fax varchar(35) DEFAULT NULL AFTER business_phone;
 */
 -- SOCIAL
 /*
-ALTER TABLE user_migrate ADD social_network varchar(24) DEFAULT NULL AFTER business_tva;
+ALTER TABLE user_migrate ADD social_network varchar(24) DEFAULT NULL AFTER business_fax;
 ALTER TABLE user_migrate ADD social_id varchar(255) DEFAULT NULL AFTER social_network;
 ALTER TABLE user_migrate ADD social_token varchar(255) DEFAULT NULL AFTER social_id;
 ALTER TABLE user_migrate ADD social_picture varchar(255) DEFAULT NULL social_token;

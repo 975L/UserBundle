@@ -20,7 +20,10 @@ use c975L\UserBundle\Entity\UserFullAbstract;
 /**
  * UserFull
  *
- * @ORM\Table(name="user", indexes={@ORM\Index(name="un_email", columns={"name", "email"})})
+ * @ORM\Table(name="user", indexes={
+ *      @ORM\Index(name="un_email", columns={"name", "email"}),
+ *      @ORM\Index(name="un_identifier", columns={"name", "identifier"}),
+ * })
  * @ORM\Entity(repositoryClass="c975L\UserBundle\Repository\UserRepository")
  */
 class UserFull extends UserFullAbstract

@@ -156,6 +156,8 @@ abstract class UserAbstract implements AdvancedUserInterface
     protected $postal;
     protected $town;
     protected $country;
+    protected $phone;
+    protected $fax;
 
 //BUSINESS
 //Mapping is done in children classes
@@ -168,6 +170,8 @@ abstract class UserAbstract implements AdvancedUserInterface
     protected $businessCountry;
     protected $businessSiret;
     protected $businessTva;
+    protected $businessPhone;
+    protected $businessFax;
 
 //SOCIAL
 //Mapping is done in children classes
@@ -733,6 +737,46 @@ abstract class UserAbstract implements AdvancedUserInterface
         return $this->country;
     }
 
+    /**
+     * Set phone
+     * @param string $phone
+     * @return User
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+        return $this;
+    }
+
+    /**
+     * Get phone
+     * @return string
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set fax
+     * @param string $fax
+     * @return User
+     */
+    public function setFax($fax)
+    {
+        $this->fax = $fax;
+        return $this;
+    }
+
+    /**
+     * Get fax
+     * @return string
+     */
+    public function getFax()
+    {
+        return $this->fax;
+    }
+
 //GETTERS/SETTERS BUSINESS
     /**
      * Set businessType
@@ -913,6 +957,46 @@ abstract class UserAbstract implements AdvancedUserInterface
     public function getBusinessTva()
     {
         return $this->businessTva;
+    }
+
+    /**
+     * Set businessPhone
+     * @param string $businessPhone
+     * @return User
+     */
+    public function setBusinessPhone($businessPhone)
+    {
+        $this->businessPhone = $businessPhone;
+        return $this;
+    }
+
+    /**
+     * Get businessPhone
+     * @return string
+     */
+    public function getBusinessPhone()
+    {
+        return $this->businessPhone;
+    }
+
+    /**
+     * Set businessFax
+     * @param string $businessFax
+     * @return User
+     */
+    public function setBusinessFax($businessFax)
+    {
+        $this->businessFax = $businessFax;
+        return $this;
+    }
+
+    /**
+     * Get businessFax
+     * @return string
+     */
+    public function getBusinessFax()
+    {
+        return $this->businessFax;
     }
 
 //GETTERS/SETTERS SOCIAL

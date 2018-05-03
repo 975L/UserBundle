@@ -1,5 +1,12 @@
 # Changelog
 
+v1.10
+-----
+- Added phone and fax fields for Address and Business (03/05/2018)
+- Added use of Misd\PhoneNumberBundle to check phone numbers (03/05/2018)
+- Added sql code for creation of archive table (03/05/2018)
+- Added key un_identifier (03/05/2018)
+
 v1.9.1
 ------
 - Added info in `README.md` about `publicProfile` config value (02/05/2018)

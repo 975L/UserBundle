@@ -39,6 +39,8 @@ CREATE TABLE `user` (
   `postal` varchar(10) DEFAULT NULL,
   `town` varchar(64) DEFAULT NULL,
   `country` varchar(64) DEFAULT NULL,
+  `phone` vachar(35) DEFAULT NULL,
+  `fax` vachar(35) DEFAULT NULL,
 */
 -- BUSINESS
 /*
@@ -51,6 +53,8 @@ CREATE TABLE `user` (
   `business_country` varchar(64) DEFAULT NULL,
   `business_siret` char(14) DEFAULT NULL,
   `business_tva` char(13) DEFAULT NULL,
+  `business_phone` varchar(35) DEFAULT NULL,
+  `business_fax` varchar(35) DEFAULT NULL,
 */
 -- SOCIAL
 /*
@@ -60,7 +64,8 @@ CREATE TABLE `user` (
   `social_picture` varchar(255) DEFAULT NULL,
 */
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `un_email` (`email`)
+  UNIQUE KEY `un_email` (`email`),
+  UNIQUE KEY `un_identifier` (`identifier`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
 
@@ -69,6 +74,9 @@ CREATE TABLE `user` (
 -- -----------------------------------
 -- DROP TABLE IF EXISTS `user_archives`;
 CREATE TABLE user_archives LIKE `user`;
+ALTER TABLE user_archives DROP KEY un_email;
+ALTER TABLE user_archives DROP KEY un_identifier;
+ALTER TABLE user_archives ENGINE=ARCHIVE;
 
 
 -- ----------------

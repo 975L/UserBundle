@@ -58,9 +58,17 @@ class AppKernel extends Kernel
 
 Step 3: Configure the Bundle
 ----------------------------
-Check [Swiftmailer](https://github.com/symfony/swiftmailer-bundle), [Doctrine](https://github.com/doctrine/DoctrineBundle) and [c975l/EmailBundle](https://github.com/975L/EmailBundle) for their specific configuration.
+Check [Swiftmailer](https://github.com/symfony/swiftmailer-bundle), [Doctrine](https://github.com/doctrine/DoctrineBundle), [Misd\PhoneNumberBundle](https://github.com/misd-service-development/phone-number-bundle) and [c975l/EmailBundle](https://github.com/975L/EmailBundle) for their specific configuration.
 
-Then, in the `app/config.yml` file of your project, define the following:
+If you use Address or Business fields, you have to the following in your `app/config.yml`:
+```yml
+doctrine:
+    dbal:
+        types:
+            phone_number: Misd\PhoneNumberBundle\Doctrine\DBAL\Types\PhoneNumberType
+```
+
+Then, in your `app/config.yml` file of your project, define the following:
 
 ```yml
 #UserBundle

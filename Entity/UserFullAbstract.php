@@ -12,6 +12,7 @@ namespace c975L\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
 use c975L\UserBundle\Validator\Constraints as c975LUserBundleAssert;
 use c975L\UserBundle\Validator\Constraints\Siret;
 use c975L\UserBundle\Validator\Constraints\Tva;
@@ -47,6 +48,20 @@ abstract class UserFullAbstract extends UserAbstract
      * @ORM\Column(name="country", type="string", nullable=true)
      */
     protected $country;
+
+    /**
+     * @AssertPhoneNumber
+     * @ORM\Column(type="phone_number")
+     * @ORM\Column(name="phone", type="string", nullable=true)
+     */
+    protected $phone;
+
+    /**
+     * @AssertPhoneNumber
+     * @ORM\Column(type="phone_number")
+     * @ORM\Column(name="fax", type="string", nullable=true)
+     */
+    protected $fax;
 
 //BUSINESS
     /**
@@ -105,6 +120,20 @@ abstract class UserFullAbstract extends UserAbstract
      * @ORM\Column(name="business_tva", type="string", length=13, nullable=true)
      */
     protected $businessTva;
+
+    /**
+     * @AssertPhoneNumber
+     * @ORM\Column(type="phone_number")
+     * @ORM\Column(name="business_phone", type="string", nullable=true)
+     */
+    protected $businessPhone;
+
+    /**
+     * @AssertPhoneNumber
+     * @ORM\Column(type="phone_number")
+     * @ORM\Column(name="business_fax", type="string", nullable=true)
+     */
+    protected $businessFax;
 
 //SOCIAL
     /**

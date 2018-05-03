@@ -10,6 +10,7 @@
 namespace c975L\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
 use c975L\UserBundle\Entity\UserAbstract;
 
 /**
@@ -41,4 +42,18 @@ abstract class UserAddressAbstract extends UserAbstract
      * @ORM\Column(name="country", type="string", nullable=true)
      */
     protected $country;
+
+    /**
+     * @AssertPhoneNumber
+     * @ORM\Column(type="phone_number")
+     * @ORM\Column(name="phone", type="string", nullable=true)
+     */
+    protected $phone;
+
+    /**
+     * @AssertPhoneNumber
+     * @ORM\Column(type="phone_number")
+     * @ORM\Column(name="fax", type="string", nullable=true)
+     */
+    protected $fax;
 }

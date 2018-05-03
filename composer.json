@@ -21,6 +21,7 @@
         "php": ">=5.5.9",
         "symfony/framework-bundle": "^3",
         "sensio/framework-extra-bundle": "^3",
+        "misd/phone-number-bundle": "^1",
         "c975l/email-bundle": "^1",
         "c975l/toolbar-bundle": "^1",
         "c975l/includelibrary-bundle": "^1"
