@@ -60,7 +60,7 @@ Step 3: Configure the Bundle
 ----------------------------
 Check [Swiftmailer](https://github.com/symfony/swiftmailer-bundle), [Doctrine](https://github.com/doctrine/DoctrineBundle), [Misd\PhoneNumberBundle](https://github.com/misd-service-development/phone-number-bundle) and [c975l/EmailBundle](https://github.com/975L/EmailBundle) for their specific configuration.
 
-If you use Address or Business fields, you have to the following in your `app/config.yml`:
+If you use Address or Business fields, you have to add the following in your `app/config.yml` to enable phone and fax verification:
 ```yml
 doctrine:
     dbal:
@@ -163,7 +163,7 @@ c975_l_user:
     prefix: /
     #Multilingual website use the following
     #prefix: /{_locale}
-    #defaults:   { _locale: %locale% }
+    #defaults:   { _locale: '%locale%' }
     #requirements:
     #    _locale: en|fr|es
 ```
@@ -242,6 +242,8 @@ ADDRESS
 - postal
 - town
 - country
+- phone
+- fax
 
 BUSINESS
 - business_type
@@ -253,6 +255,8 @@ BUSINESS
 - business_country
 - business_siret
 - business_tva
+- business_phone
+- business_fax
 
 SOCIAL
 - social_network

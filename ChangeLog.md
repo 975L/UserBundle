@@ -1,5 +1,9 @@
 # Changelog
 
+v1.10.1
+-------
+- Added information in `README.md` (03/05/2018)
+
 v1.10
 -----
 - Added phone and fax fields for Address and Business (03/05/2018)
