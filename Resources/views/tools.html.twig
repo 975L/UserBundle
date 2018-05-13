@@ -1,6 +1,9 @@
 {% trans_default_domain 'toolbar' %}
 
 {% spaceless %}
+{# Dashboard #}
+{{ toolbar_button(path('user_dashboard'), 'dashboard', 'label.user'|trans) }}
+
 {# Display #}
 {% if type == 'dashboard' or type == 'modify' or type == 'changePassword' or type == 'delete' %}
     {{ toolbar_button(path('user_display'), 'user') }}
@@ -22,7 +25,13 @@
 {% endif %}
 
 {# Help #}
-{% if is_granted('ROLE_ADMIN') and type != 'help' %}
+{% if type != 'help' %}
     {{ toolbar_button(path('user_help'), 'help') }}
 {% endif %}
+
+{# Signout #}
+{{ toolbar_button(path('user_signout'), 'signout') }}
+
+{# Other dashboards #}
+{{ toolbar_dashboards('md') }}
 {% endspaceless %}

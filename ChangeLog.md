@@ -1,5 +1,10 @@
 # Changelog
 
+v1.10.2
+-------
+- Modified toolbars calls due to modification of c975LToolbarBundle (13/05/2018)
+- Modified help (13/05/2018)
+
 v1.10.1
 -------
 - Added information in `README.md` (03/05/2018)

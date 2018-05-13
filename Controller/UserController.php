@@ -58,19 +58,9 @@ class UserController extends Controller
                 return $this->redirectToRoute('user_modify');
             }
 
-            //Defines toolbar
-            $tools  = $this->renderView('@c975LUser/tools.html.twig', array(
-                'type' => 'dashboard',
-            ));
-            $toolbar = $this->forward('c975L\ToolbarBundle\Controller\ToolbarController::displayAction', array(
-                'tools'  => $tools,
-                'dashboard'  => 'user',
-            ))->getContent();
-
             //Renders the dashboard
             return $this->render('@c975LUser/pages/dashboard.html.twig', array(
                 'user' => $user,
-                'toolbar' => $toolbar,
                 'publicProfile' => $this->getParameter('c975_l_user.publicProfile'),
                 ));
         }
@@ -392,20 +382,10 @@ class UserController extends Controller
             $formType = $this->getParameter('c975_l_user.profileForm') === null ? 'c975L\UserBundle\Form\UserProfileType' : $this->getParameter('c975_l_user.profileForm');
             $form = $this->createForm($formType, $user, array('userConfig' => $userConfig));
 
-            //Defines toolbar
-            $tools  = $this->renderView('@c975LUser/tools.html.twig', array(
-                'type' => 'display',
-            ));
-            $toolbar = $this->forward('c975L\ToolbarBundle\Controller\ToolbarController::displayAction', array(
-                'tools'  => $tools,
-                'dashboard'  => 'user',
-            ))->getContent();
-
             //Renders the profile
             return $this->render('@c975LUser/forms/display.html.twig', array(
                 'form' => $form->createView(),
                 'user' => $user,
-                'toolbar' => $toolbar,
             ));
         }
 
@@ -499,20 +479,10 @@ class UserController extends Controller
                 return $this->redirectToRoute('user_dashboard');
             }
 
-            //Defines toolbar
-            $tools  = $this->renderView('@c975LUser/tools.html.twig', array(
-                'type' => 'modify',
-            ));
-            $toolbar = $this->forward('c975L\ToolbarBundle\Controller\ToolbarController::displayAction', array(
-                'tools'  => $tools,
-                'dashboard'  => 'user',
-            ))->getContent();
-
             //Renders the profile
             return $this->render('@c975LUser/forms/modify.html.twig', array(
                 'form' => $form->createView(),
                 'user' => $user,
-                'toolbar' => $toolbar,
                 'userConfig' => $userConfig,
             ));
         }
@@ -568,20 +538,10 @@ class UserController extends Controller
                 return $this->redirectToRoute('user_dashboard');
             }
 
-            //Defines toolbar
-            $tools  = $this->renderView('@c975LUser/tools.html.twig', array(
-                'type' => 'changePassword',
-            ));
-            $toolbar = $this->forward('c975L\ToolbarBundle\Controller\ToolbarController::displayAction', array(
-                'tools'  => $tools,
-                'dashboard'  => 'user',
-            ))->getContent();
-
             //Renders the profile
             return $this->render('@c975LUser/forms/changePassword.html.twig', array(
                 'form' => $form->createView(),
                 'user' => $user,
-                'toolbar' => $toolbar,
             ));
         }
 
@@ -838,20 +798,10 @@ class UserController extends Controller
                 return $this->redirectToRoute('user_signout');
             }
 
-            //Defines toolbar
-            $tools  = $this->renderView('@c975LUser/tools.html.twig', array(
-                'type' => 'delete',
-            ));
-            $toolbar = $this->forward('c975L\ToolbarBundle\Controller\ToolbarController::displayAction', array(
-                'tools'  => $tools,
-                'dashboard'  => 'user',
-            ))->getContent();
-
             //Renders the delete form
             return $this->render('@c975LUser/forms/delete.html.twig', array(
                 'form' => $form->createView(),
                 'user' => $user,
-                'toolbar' => $toolbar,
             ));
         }
 
@@ -900,27 +850,9 @@ class UserController extends Controller
      */
     public function helpAction()
     {
-        //Gets the user
-        $user = $this->getUser();
-
-        //Returns the help content
-        if ($user !== null && $this->get('security.authorization_checker')->isGranted($this->getParameter('c975_l_user.roleNeeded'))) {
-            //Defines toolbar
-            $tools  = $this->renderView('@c975LUser/tools.html.twig', array(
-                'type' => 'help',
-            ));
-            $toolbar = $this->forward('c975L\ToolbarBundle\Controller\ToolbarController::displayAction', array(
-                'tools'  => $tools,
-                'dashboard'  => 'user',
-            ))->getContent();
-
-            //Returns the help
-            return $this->render('@c975LUser/pages/help.html.twig', array(
-                'toolbar' => $toolbar,
-            ));
+        //Returns the help
+        if ($this->getUser() !== null && $this->get('security.authorization_checker')->isGranted($this->getParameter('c975_l_user.roleNeeded'))) {
+            return $this->render('@c975LUser/pages/help.html.twig');
         }
-
-        //Access is denied
-        throw $this->createAccessDeniedException();
     }
 }

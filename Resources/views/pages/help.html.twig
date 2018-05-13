@@ -4,8 +4,7 @@
 
 {% block user_content %}
 {# Toolbar #}
-    {{ toolbar|raw }}
-
+    {{ toolbar_display('@c975LUser/tools.html.twig', 'help', 'md') }}
 {# Help content #}
     {{ include( ['@c975LUser/pages/languages/help-' ~ app.request.locale ~ '.html.twig', '@c975LUser/pages/languages/help-en.html.twig']) }}
 {% endblock %}

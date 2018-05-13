@@ -4,7 +4,7 @@
 
 {% block user_content %}
 {# Toolbar #}
-    {{ toolbar|raw }}
+    {{ toolbar_display('@c975LUser/tools.html.twig', 'dashboard', 'md', user) }}
 {# Avatar #}
     {{ user_avatar() }}
 {# Actions #}
