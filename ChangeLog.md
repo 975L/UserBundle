@@ -1,5 +1,10 @@
 # Changelog
 
+v1.10.3
+-------
+- Modified gender field to varchar(24) (15/05/2018)
+- Removed required in composer.json (22/05/2018)
+
 v1.10.2
 -------
 - Modified toolbars calls due to modification of c975LToolbarBundle (13/05/2018)

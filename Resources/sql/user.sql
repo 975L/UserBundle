@@ -17,7 +17,7 @@ CREATE TABLE `user` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `identifier` varchar(32) NOT NULL,
   `email` varchar(128) NOT NULL,
-  `gender` set('woman','man') DEFAULT NULL,
+  `gender` varchar(24) DEFAULT NULL,
   `firstname` varchar(48) DEFAULT NULL,
   `lastname` varchar(48) DEFAULT NULL,
   `creation` datetime DEFAULT NULL,
