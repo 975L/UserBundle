@@ -25,7 +25,7 @@ class AuthenticationListener implements EventSubscriberInterface
     private $container;
 
     public function __construct(
-        \Doctrine\ORM\EntityManager $em,
+        \Doctrine\ORM\EntityManagerInterface $em,
         \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage,
         \Symfony\Component\Security\Http\Authentication\AuthenticationUtils $authenticationUtils,
         \Symfony\Component\HttpFoundation\RequestStack $requestStack,

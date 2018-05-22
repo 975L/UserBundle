@@ -19,7 +19,7 @@ class LogoutListener implements LogoutHandlerInterface
 {
     private $em;
 
-    public function __construct(\Doctrine\ORM\EntityManager $em)
+    public function __construct(\Doctrine\ORM\EntityManagerInterface $em)
     {
         $this->em = $em;
     }

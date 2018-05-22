@@ -18,7 +18,7 @@ class UserService
     public function __construct(
         \Symfony\Component\DependencyInjection\ContainerInterface $container,
         \Symfony\Component\HttpFoundation\RequestStack $requestStack,
-        \Doctrine\ORM\EntityManager $em
+        \Doctrine\ORM\EntityManagerInterface $em
     )
     {
         $this->container = $container;

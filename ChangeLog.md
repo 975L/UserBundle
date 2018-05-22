@@ -1,5 +1,9 @@
 # Changelog
 
+v1.10.4
+-------
+Use of `EntityManagerInterface` (22/05/2018)
+
 v1.10.3
 -------
 - Modified gender field to varchar(24) (15/05/2018)
