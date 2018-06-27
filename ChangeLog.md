@@ -1,5 +1,11 @@
 # Changelog
 
+v1.11
+-----
+- Added Route to export user's data (JSON/XML) to answer to GDPR (27/06/2018)
+- Added DB field `allow_use` + Checkbox to allow website to store and use data provided by user, to answer GDPR (27/06/2018)
+use `ALTER TABLE user ADD allow_use tinyint(1) DEFAULT 0 AFTER id;` to add this field to your Table
+
 v1.10.4
 -------
 Use of `EntityManagerInterface` (22/05/2018)

@@ -10,6 +10,7 @@
 namespace c975L\UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -225,6 +226,12 @@ class UserProfileType extends AbstractType
                 ;
             }
         }
+//ALLOW USE
+        $builder
+            ->add('allowUse', CheckboxType::class, array(
+                'label' => 'label.allow_use',
+                'required' => false,
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)

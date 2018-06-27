@@ -10,6 +10,7 @@
 namespace c975L\UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -59,6 +60,10 @@ class UserSignupType extends AbstractType
                     'placeholder' => $this->challenge(),
                     'value' => '',
                 )))
+            ->add('allowUse', CheckboxType::class, array(
+                'label' => 'label.allow_use',
+                'required' => true,
+            ))
         ;
     }
 

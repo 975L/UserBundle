@@ -37,6 +37,15 @@
                     <a href="{{ path('user_modify') }}">
                         {{ 'label.modify_profile'|trans }}</a>
                 </p>
+{# Export data #}
+                <p>
+                    {{ 'label.export_data'|trans }}:
+                    <a href="{{ path('user_export', {'format': 'xml'}) }}">
+                        XML</a>
+                    &nbsp;-&nbsp;
+                    <a href="{{ path('user_export', {'format': 'json'}) }}">
+                        JSON</a>
+                </p>
 {# Change password #}
                 <p>
                     <a href="{{ path('user_change_password') }}">

@@ -49,6 +49,7 @@ ALTER TABLE user_migrate ADD CONSTRAINT un_identifier UNIQUE KEY (identifier);
 
 -- Modify fields
 ALTER TABLE user_migrate MODIFY COLUMN id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE user_migrate ADD allow_use tinyint(1) DEFAULT 0 AFTER id;
 ALTER TABLE user_migrate CHANGE email email varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL AFTER identifier;
 ALTER TABLE user_migrate CHANGE creation creation datetime DEFAULT NULL AFTER email;
 ALTER TABLE user_migrate CHANGE enabled enabled tinyint(1) DEFAULT 0 AFTER creation;

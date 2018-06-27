@@ -14,12 +14,18 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Exception\DisabledException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 use c975L\Email\Service\EmailService;
 use c975L\UserBundle\Entity\User;
 use c975L\UserBundle\Event\UserEvent;
@@ -44,6 +50,11 @@ class UserController extends Controller
         //Gets user
         $user = $this->getUser();
 
+        //User not signed in
+        if ($user === null) {
+            return $this->redirectToRoute('user_signin');
+        }
+
         if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
             //Switches to user preferred language
             if (!empty($this->getParameter('c975_l_user.multilingual')) &&
@@ -65,13 +76,8 @@ class UserController extends Controller
                 ));
         }
 
-        //User not signed in
-        if ($user === null) {
-            return $this->redirectToRoute('user_signin');
-        //Access is denied
-        } else {
-            throw $this->createAccessDeniedException();
-        }
+        //Access denied
+        throw $this->createAccessDeniedException();
     }
 
 //SIGN UP
@@ -307,7 +313,7 @@ class UserController extends Controller
         //Adds signin attempt
         $attempt = null;
         $disabledSubmit = '';
-        if ($this->getParameter('c975_l_user.signinAttempts') > 0) {
+        if ($this->getParameter('c975_l_user.signinAttempts') > 0 && !$error instanceof DisabledException) {
             $delayDisable = '+15 minutes';
             $session = $request->getSession();
             $configSigninAttempts = $this->getParameter('c975_l_user.signinAttempts');
@@ -364,6 +370,11 @@ class UserController extends Controller
         //Gets user
         $user = $this->getUser();
 
+        //User not signed in
+        if ($user === null) {
+            return $this->redirectToRoute('user_signin');
+        }
+
         if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
             //Checks profile
             $userService = $this->get(\c975L\UserBundle\Service\UserService::class);
@@ -389,22 +400,15 @@ class UserController extends Controller
             ));
         }
 
-        //User not signed in
-        if ($user === null) {
-            return $this->redirectToRoute('user_signin');
-        //Access is denied
-        } else {
-            throw $this->createAccessDeniedException();
-        }
+        //Access denied
+        throw $this->createAccessDeniedException();
     }
 
 //PUBLIC PROFILE
     /**
      * @Route("/user/public/{identifier}",
      *      name="user_public_profile",
-     *      requirements={
-     *          "identifier": "^([a-z0-9]{32})$"
-     *      })
+     *      requirements={"identifier": "^([a-z0-9]{32})$"})
      * @Method({"GET", "HEAD"})
      */
     public function pulicProfileAction($identifier)
@@ -443,6 +447,11 @@ class UserController extends Controller
         //Gets user
         $user = $this->getUser();
 
+        //User not signed in
+        if ($user === null) {
+            return $this->redirectToRoute('user_signin');
+        }
+
         if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
             //Defines form
             $userConfig = array(
@@ -458,7 +467,10 @@ class UserController extends Controller
 
             if ($form->isSubmitted() && $form->isValid()) {
                 //Updates data
-                $user->setAvatar('https://www.gravatar.com/avatar/' . hash('md5', strtolower(trim($user->getEmail()))) . '?s=512&d=mm&r=g');
+                $user
+                    ->setAvatar('https://www.gravatar.com/avatar/' . hash('md5', strtolower(trim($user->getEmail()))) . '?s=512&d=mm&r=g')
+                    ->setEnabled($user->getAllowUse())
+                ;
 
                 //Gets the manager
                 $em = $this->getDoctrine()->getManager();
@@ -487,14 +499,75 @@ class UserController extends Controller
             ));
         }
 
+        //Access denied
+        throw $this->createAccessDeniedException();
+    }
+
+//EXPORT
+    /**
+     * @Route("/user/export/{format}",
+     *      name="user_export",
+     *      requirements={"format": "^(json|xml)$"})
+     * @Method({"GET", "HEAD", "POST"})
+     */
+    public function exportAction(Request $request, $format)
+    {
+        //Gets user
+        $user = $this->getUser();
+//dump($user);
+//dump('here');die;
+
         //User not signed in
         if ($user === null) {
             return $this->redirectToRoute('user_signin');
-        //Access is denied
-        } else {
-            throw $this->createAccessDeniedException();
         }
+
+        if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
+            //Defines function to use for DateTime fields
+            $callback = function ($dateTime) {
+                return $dateTime instanceof \DateTime ? $dateTime->format(\DateTime::ISO8601) : '';
+            };
+
+            //Defines Normalizer
+            $normalizer = new ObjectNormalizer();
+            $normalizer
+                ->setIgnoredAttributes(array(
+                    'accountNonExpired',
+                    'accountNonLocked',
+                    'credentialsNonExpired',
+                    'salt',
+                    'password',
+                    'token',
+                    'passwordRequest',
+                    'plainPassword',
+                    'challenge',
+                ))
+                ->setCallbacks(array(
+                    'creation' => $callback,
+                    'latestSignin' => $callback,
+                    'latestSignout' => $callback,
+                    'creation' => $callback,
+                ))
+            ;
+
+            //Defines Encoder
+            $encoder = $format == 'json' ? new JsonEncoder() : new XmlEncoder();
+
+            //Defines Response
+            $serializer = new Serializer(array($normalizer), array($encoder));
+            $response = new Response($serializer->serialize($user, $format));
+            $response->headers->set('Content-Type', 'application/' . $format);
+
+            return $response;
+        }
+
+        //Access denied
+        throw $this->createAccessDeniedException();
     }
+
+
+
+
 
 //CHANGE PASSWORD
     /**
@@ -506,6 +579,11 @@ class UserController extends Controller
     {
         //Gets user
         $user = $this->getUser();
+
+        //User not signed in
+        if ($user === null) {
+            return $this->redirectToRoute('user_signin');
+        }
 
         if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
             //Defines form
@@ -545,13 +623,8 @@ class UserController extends Controller
             ));
         }
 
-        //User not signed in
-        if ($user === null) {
-            return $this->redirectToRoute('user_signin');
-        //Access is denied
-        } else {
-            throw $this->createAccessDeniedException();
-        }
+        //Access denied
+        throw $this->createAccessDeniedException();
     }
 
 //RESET PASSWORD
@@ -730,6 +803,11 @@ class UserController extends Controller
         //Gets the user
         $user = $this->getUser();
 
+        //User not signed in
+        if ($user === null) {
+            return $this->redirectToRoute('user_signin');
+        }
+
         if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
             //Creates the form
             $userConfig = array(
@@ -805,13 +883,8 @@ class UserController extends Controller
             ));
         }
 
-        //User not signed in
-        if ($user === null) {
-            return $this->redirectToRoute('user_signin');
-        //Access is denied
-        } else {
-            throw $this->createAccessDeniedException();
-        }
+        //Access denied
+        throw $this->createAccessDeniedException();
     }
 
 //CHECK EMAIL

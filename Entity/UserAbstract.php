@@ -34,6 +34,11 @@ abstract class UserAbstract implements AdvancedUserInterface
     protected $id;
 
     /**
+     * @ORM\Column(name="allow_use", type="boolean")
+     */
+    protected $allowUse;
+
+    /**
      * @ORM\Column(type="string", length=32, unique=true)
      */
     protected $identifier;
@@ -268,6 +273,26 @@ abstract class UserAbstract implements AdvancedUserInterface
     }
 
     /**
+     * Set allowUse
+     * @param string $allowUse
+     * @return User
+     */
+    public function setAllowUse($allowUse)
+    {
+        $this->allowUse = (bool) $allowUse;
+        return $this;
+    }
+
+    /**
+     * Get allowUse
+     * @return boolean
+     */
+    public function getAllowUse()
+    {
+        return $this->allowUse;
+    }
+
+    /**
      * Set identifier
      * @param string $identifier
      * @return User
@@ -420,7 +445,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Get enabled
-     * @return string
+     * @return boolean
      */
     public function getEnabled()
     {

@@ -378,6 +378,14 @@
                 <source>text.new_attempt_time</source>
                 <target>Je dois attendre jusque %time% pour me connecter</target>
             </trans-unit>
+            <trans-unit id="99">
+                <source>label.export_data</source>
+                <target>Exporter mes données</target>
+            </trans-unit>
+            <trans-unit id="100">
+                <source>label.allow_use</source>
+                <target>Je consens que ce site Web stocke les données soumises afin qu'il puisse créer et gérer mon compte</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

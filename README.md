@@ -22,6 +22,7 @@ Directly inspired from [FOSUserBundle](https://github.com/FriendsOfSymfony/FOSUs
 - Allows easy overridding of templates or parts of them to minimize the number of the overriden files to the essential,
 - Allows to define a number of attempts for sign in and then add a delay before being able to sign in again,
 - Resetting password form will NOT send email for inexisting accounts while displaying so, this un-allows checking for registered emails,
+- Allows user to removes its allowing to use its data while maintaining its account, in this case the account will be marked as NOT enabled,
 
 [User Bundle dedicated web page](https://975l.com/en/pages/user-bundle).
 
@@ -197,6 +198,7 @@ The Routes availables are:
 - user_signin
 - user_dashboard
 - user_display
+- user_export
 - user_modify
 - user_change_password
 - user_reset_password
@@ -219,6 +221,7 @@ To help you choose, the fields are the following:
 
 DEFAULT
 - id
+- allow_use
 - identifier
 - email
 - gender

@@ -15,6 +15,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `allow_use` tinyint(1) DEFAULT 0,
   `identifier` varchar(32) NOT NULL,
   `email` varchar(128) NOT NULL,
   `gender` varchar(24) DEFAULT NULL,
