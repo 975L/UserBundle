@@ -14,10 +14,10 @@
 {# Form #}
     {{ form_start(form) }}
         {{ form_widget(form) }}
-{# Sign up acceptance #}
+{# Terms of use acceptance #}
         <div class="checkbox">
-            <label for="signupAccepted" class="required">
-                <input type="checkbox" id="signupAccepted" name="signupAccepted" required="required" />
+            <label for="termsAccepted" class="required">
+                <input type="checkbox" id="termsAccepted" name="termsAccepted" required="required" />
                 {{ 'label.accept_tou'|trans({'%touUrl%': touUrl})|raw }}
             </label>
         </div>

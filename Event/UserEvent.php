@@ -13,11 +13,12 @@ use Symfony\Component\EventDispatcher\Event;
 
 class UserEvent extends Event
 {
-    const USER_SIGNUP = 'c975l_user.signup';
-    const USER_SIGNEDUP = 'c975l_user.signedup';
-    const USER_SIGNUP_CONFIRM = 'c975l_user.signup.confirm';
-    const USER_SIGNIN = 'c975l_user.signin';
     const USER_DELETE = 'c975l_user.delete';
+    const USER_MODIFY = 'c975l_user.modify';
+    const USER_SIGNEDUP = 'c975l_user.signedup';
+    const USER_SIGNIN = 'c975l_user.signin';
+    const USER_SIGNUP = 'c975l_user.signup';
+    const USER_SIGNUP_CONFIRM = 'c975l_user.signup.confirm';
 
     protected $user;
     protected $request;

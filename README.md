@@ -3,6 +3,7 @@ UserBundle
 
 Directly inspired from [FOSUserBundle](https://github.com/FriendsOfSymfony/FOSUserBundle), and migration of [c975L/UserFilesBundle](https://github.com/975L/UserFilesBundle/tree/master), UserBundle does the following:
 
+- Ensure **respect of GDPR rules** such as giving agreement to store data, exporting data,
 - Stores users in database **(using doctrine)**,
 - Provides multiples types of entities for User (see below),
 - Allows extending those entities to add your own fields,
@@ -11,6 +12,7 @@ Directly inspired from [FOSUserBundle](https://github.com/FriendsOfSymfony/FOSUs
 - Displays a "challenge" for sign up (no Captcha, etc.),
 - Allows the possibility to disable sign up (for registering only one or more users and then no more),
 - Provides forms for Sign in, Sign up, Modify profile, Change password and Reset password,
+- Provides public profile (you can disabled it in config),
 - Allows extending those forms,
 - Sends email about sign up and password reset to the user via [c975LEmailBundle](https://github.com/975L/EmailBundle) as `c975LEmailBundle` provides the possibility to save emails in a database, there is an option to NOT do so via this Bundle,
 - Integrates with [c975LToolbarBundle](https://github.com/975L/ToolbarBundle),
@@ -23,6 +25,7 @@ Directly inspired from [FOSUserBundle](https://github.com/FriendsOfSymfony/FOSUs
 - Allows to define a number of attempts for sign in and then add a delay before being able to sign in again,
 - Resetting password form will NOT send email for inexisting accounts while displaying so, this un-allows checking for registered emails,
 - Allows user to removes its allowing to use its data while maintaining its account, in this case the account will be marked as NOT enabled,
+- Sends email when user changes (or resets) passsword to allow contact website if he/she has not initiated this action,
 
 [User Bundle dedicated web page](https://975l.com/en/pages/user-bundle).
 

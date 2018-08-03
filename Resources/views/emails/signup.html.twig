@@ -6,7 +6,7 @@
         <div>
 {# Explanation #}
             <p>
-                {{ 'text.registration_email'|trans }}
+                {{ 'text.signup_email'|trans }}
             </p>
 {# Url #}
             <p class="text-center">
@@ -14,8 +14,10 @@
                     {{ 'label.signup_email'|trans }}</a>
             </p>
 {# Use only once #}
-            <p>
-                {{ 'text.use_only_once_link'|trans }}
+            <p class="text-center">
+                <strong>
+                    {{ 'text.use_only_once_link'|trans }}
+                </strong>
             </p>
         </div>
     {% endblock %}

@@ -13,6 +13,11 @@ services:
     c975L\UserBundle\Listener\:
         resource: '../../Listener/*'
 
+    c975L\UserBundle\Security\UserVoter:
+        public: true
+        bind:
+            $roleNeeded: '%c975_l_user.roleNeeded%'
+
     c975L\UserBundle\Service\:
         resource: '../../Service/*'
 

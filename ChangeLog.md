@@ -1,10 +1,19 @@
 # Changelog
 
+v1.12
+-----
+- Removed Action in controller methods (03/08/2018)
+- Split controller files (03/08/2018)
+- Made use of Voters (03/08/2018)
+- Use of Yoda-style (03/08/2018)
+- Added event USER_MODIFY (03/08/2018)
+- Added eamil sent when password has been chenged (or resetted) (03/08/2018)
+- Added checkbox on signup to accept Terms of use (03/08/2018)
+
 v1.11
 -----
 - Added Route to export user's data (JSON/XML) to answer to GDPR (27/06/2018)
-- Added DB field `allow_use` + Checkbox to allow website to store and use data provided by user, to answer GDPR (27/06/2018)
-use `ALTER TABLE user ADD allow_use tinyint(1) DEFAULT 0 AFTER id;` to add this field to your Table
+- Added DB field `allow_use` + Checkbox to allow website to store and use data provided by user, to answer GDPR (use `ALTER TABLE user ADD allow_use tinyint(1) DEFAULT 0 AFTER id;` to add this field to your Table) (27/06/2018)
 
 v1.10.4
 -------

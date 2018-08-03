@@ -190,6 +190,10 @@
                 <source>text.account_deleted</source>
                 <target>Su cuenta ha sido eliminada.</target>
             </trans-unit>
+            <trans-unit id="48">
+                <source>text.changed_password_not_requested</source>
+                <target>Si no inició esta acción, gracias por contactarnos.</target>
+            </trans-unit>
             <trans-unit id="51">
                 <source>text.delete_account_info</source>
                 <target><![CDATA[Al eliminar mi cuenta, entender que todo va ligado con, será eliminado. <strong>Entiendo que aussi cette acción es inmediata e irreversible.</strong>]]></target>
