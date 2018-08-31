@@ -25,14 +25,14 @@
         </div>
 {# Cancel #}
         <p class="text-center">
-            <a href="javascript:history.back()" title="{{ 'label.cancel'|trans({}, 'toolbar') }}">
+            <a href="#" onclick="javascript:history.back(); return false;" title="{{ 'label.cancel'|trans({}, 'toolbar') }}">
                 {{ 'label.cancel'|trans({}, 'toolbar') }}</a>
         </p>
     {{ form_end(form) }}
 {# Mandatory field #}
     <p class="text-muted">
         <em>
-            {{ 'label.mandatory_field'|trans }}
+            {{ 'label.mandatory_field'|trans({}, 'services') }}
         </em>
     </p>
 {% endblock %}

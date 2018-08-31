@@ -43,7 +43,7 @@ class PasswordController extends Controller
     public function changePassword(Request $request)
     {
         $user = $this->getUser();
-        $this->denyAccessUnlessGranted('change-password', $user);
+        $this->denyAccessUnlessGranted('c975LUser-change-password', $user);
 
         //Defines form
         $form = $this->createForm(UserChangePasswordType::class, $user);
@@ -114,7 +114,7 @@ class PasswordController extends Controller
         $user = $this->em
             ->getRepository($this->getParameter('c975_l_user.entity'))
             ->findOneByToken($token);
-        $this->denyAccessUnlessGranted('reset-password', $user);
+        $this->denyAccessUnlessGranted('c975LUser-reset-password', $user);
 
         //Removes challenge from session incase signup has been called before
         $session = $request->getSession();

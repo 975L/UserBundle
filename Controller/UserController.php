@@ -29,7 +29,7 @@ class UserController extends Controller
     public function dashboard(Request $request, UserService $userService)
     {
         $user = $this->getUser();
-        $this->denyAccessUnlessGranted('dashboard', $user);
+        $this->denyAccessUnlessGranted('c975LUser-dashboard', $user);
 
         //Switches to user preferred language
         if (!empty($this->getParameter('c975_l_user.multilingual')) &&
@@ -88,7 +88,7 @@ class UserController extends Controller
      */
     public function help()
     {
-        $this->denyAccessUnlessGranted('help', false);
+        $this->denyAccessUnlessGranted('c975LUser-help', false);
 
         //Renders the help
         return $this->render('@c975LUser/pages/help.html.twig');

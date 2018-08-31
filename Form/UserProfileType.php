@@ -101,7 +101,7 @@ class UserProfileType extends AbstractType
                 ;
         }
 //ADDRESS
-        if ($options['userConfig']['address'] === true) {
+        if ($options['userConfig']['address']) {
             $builder
                 ->add('address', TextType::class, array(
                     'label' => 'label.adress',
@@ -131,7 +131,7 @@ class UserProfileType extends AbstractType
             ;
         }
 //BUSINESS
-        if ($options['userConfig']['business'] === true) {
+        if ($options['userConfig']['business']) {
             $builder
                 ->add('businessType', ChoiceType::class, array(
                     'label' => 'label.type',
@@ -215,7 +215,7 @@ class UserProfileType extends AbstractType
             }
         }
 //SOCIAL
-        if ($options['userConfig']['social'] === true) {
+        if ($options['userConfig']['social']) {
             if ($user->getSocialNetwork() !== null) {
                 $builder
                     ->add('socialNetwork', TextType::class, array(

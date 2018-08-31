@@ -98,10 +98,6 @@
                 <source>label.managment</source>
                 <target>Managment</target>
             </trans-unit>
-            <trans-unit id="25">
-                <source>label.mandatory_field</source>
-                <target>* Mandatory field</target>
-            </trans-unit>
             <trans-unit id="26">
                 <source>label.member_since</source>
                 <target>Member since</target>

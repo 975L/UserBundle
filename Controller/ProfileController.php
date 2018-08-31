@@ -41,7 +41,7 @@ class ProfileController extends Controller
     public function display()
     {
         $user = $this->getUser();
-        $this->denyAccessUnlessGranted('display', $user);
+        $this->denyAccessUnlessGranted('c975LUser-display', $user);
 
         //Checks profile
         if ($this->userService->checkProfile($user) === false) {
@@ -75,7 +75,7 @@ class ProfileController extends Controller
     public function modify(Request $request, EventDispatcherInterface $dispatcher)
     {
         $user = $this->getUser();
-        $this->denyAccessUnlessGranted('modify', $user);
+        $this->denyAccessUnlessGranted('c975LUser-modify', $user);
 
         //Defines form
         $userConfig = array(
@@ -118,7 +118,7 @@ class ProfileController extends Controller
     public function delete(Request $request, EventDispatcherInterface $dispatcher)
     {
         $user = $this->getUser();
-        $this->denyAccessUnlessGranted('delete', $user);
+        $this->denyAccessUnlessGranted('c975LUser-delete', $user);
 
         //Defines the form
         $userConfig = array(
@@ -164,7 +164,7 @@ class ProfileController extends Controller
             ->getRepository($this->getParameter('c975_l_user.entity'))
             ->findOneByIdentifier($identifier)
             ;
-        $this->denyAccessUnlessGranted('public-profile', $user);
+        $this->denyAccessUnlessGranted('c975LUser-public-profile', $user);
 
         //Renders the public profile
         return $this->render('@c975LUser/pages/publicProfile.html.twig', array(
@@ -182,7 +182,7 @@ class ProfileController extends Controller
     public function export(Request $request, $format)
     {
         $user = $this->getUser();
-        $this->denyAccessUnlessGranted('export', $user);
+        $this->denyAccessUnlessGranted('c975LUser-export', $user);
 
         return $this->userService->export($user, $format);
     }

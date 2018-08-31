@@ -1,5 +1,11 @@
 # Changelog
 
+v1.12.1
+-------
+- Removed 'true ===' as not needed (25/08/2018)
+- Corrected nodetype for signup config value (28/08/2018)
+- Fixed Voter constants (31/08/2018)
+
 v1.12
 -----
 - Removed Action in controller methods (03/08/2018)

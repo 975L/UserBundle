@@ -98,10 +98,6 @@
                 <source>label.managment</source>
                 <target>Administración</target>
             </trans-unit>
-            <trans-unit id="25">
-                <source>label.mandatory_field</source>
-                <target>* Campo obligatorio</target>
-            </trans-unit>
             <trans-unit id="26">
                 <source>label.member_since</source>
                 <target>Miembro desde</target>

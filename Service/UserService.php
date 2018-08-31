@@ -98,7 +98,7 @@ class UserService
     //Archives the user using Stored Procedure
     public function archive($userId)
     {
-        if (true === $this->container->getParameter('c975_l_user.archiveUser')) {
+        if ($this->container->getParameter('c975_l_user.archiveUser')) {
             $conn = $this->em->getConnection();
             $query = 'CALL sp_UserArchive("' . $userId . '");';
             $stmt = $conn->prepare($query);
@@ -130,9 +130,9 @@ class UserService
     //Checks if profile is well filled
     public function checkProfile($user)
     {
-        if ((!empty($this->container->getParameter('c975_l_user.multilingual')) && $user->getLocale() === null) ||
-            ($this->container->getParameter('c975_l_user.address') === true && $user->getAddress() === null) ||
-            ($this->container->getParameter('c975_l_user.business') === true && $user->getBusinessType() === null)
+        if ((!empty($this->container->getParameter('c975_l_user.multilingual')) && null === $user->getLocale()) ||
+            ($this->container->getParameter('c975_l_user.address') && null === $user->getAddress()) ||
+            ($this->container->getParameter('c975_l_user.business') && null === $user->getBusinessType())
         ) {
             //Creates flash
             $this->createFlash('missing-info');

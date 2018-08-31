@@ -22,9 +22,12 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode('site')
+                    ->cannotBeEmpty()
+                    ->info('Name of site to be displayed')
                 ->end()
-                ->scalarNode('signup')
+                ->booleanNode('signup')
                     ->defaultFalse()
+                    ->info('If signup is allowed or not')
                 ->end()
                 ->scalarNode('roleNeeded')
                     ->defaultValue('ROLE_ADMIN')
