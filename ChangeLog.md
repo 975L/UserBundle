@@ -1,5 +1,7 @@
 # Changelog
 
+- Updated composer.json (01/09/2018)
+
 v1.12.1
 -------
 - Removed 'true ===' as not needed (25/08/2018)

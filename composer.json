@@ -20,20 +20,25 @@
     "require": {
         "php": ">=5.5.9",
         "misd/phone-number-bundle": "^1",
-        "c975l/email-bundle": "^1",
+        "c975l/email-bundle": "^2",
         "c975l/toolbar-bundle": "^1",
         "c975l/includelibrary-bundle": "^1",
+        "c975l/config-bundle": "^2",
         "c975l/services-bundle": "^1"
     },
     "minimum-stability": "dev",
     "autoload": {
-        "psr-4": { "c975L\\UserBundle\\": ""
+        "psr-4": {
+            "c975L\\UserBundle\\": ""
         }
     },
     "support": {
         "email": "contact@975l.com",
         "source": "https://github.com/975L/UserBundle",
         "issues": "https://github.com/975L/UserBundle/issues"
+    },
+    "config": {
+        "sort-packages": true
     },
     "require-dev": {
         "phpunit/phpunit": "^7.3@dev"
