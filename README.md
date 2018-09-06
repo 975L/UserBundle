@@ -39,8 +39,8 @@ Use [Composer](https://getcomposer.org) to install the library
     composer require c975l/user-bundle
 ```
 
-Step 2: Enable the Bundles
---------------------------
+Step 2: Enable the Bundle
+-------------------------
 Then, enable the bundle by adding it to the list of registered bundles in the `app/AppKernel.php` file of your project:
 
 ```php
@@ -51,9 +51,6 @@ class AppKernel extends Kernel
     {
         $bundles = [
             // ...
-            new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
-            new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
-            new c975L\EmailBundle\c975LEmailBundle(),
             new c975L\UserBundle\c975LUserBundle(),
         ];
     }
@@ -62,7 +59,11 @@ class AppKernel extends Kernel
 
 Step 3: Configure the Bundle
 ----------------------------
-Check [Swiftmailer](https://github.com/symfony/swiftmailer-bundle), [Doctrine](https://github.com/doctrine/DoctrineBundle), [Misd\PhoneNumberBundle](https://github.com/misd-service-development/phone-number-bundle) and [c975l/EmailBundle](https://github.com/975L/EmailBundle) for their specific configuration.
+Check dependencies for their configuration:
+- [Swiftmailer](https://github.com/symfony/swiftmailer-bundle)
+- [Doctrine](https://github.com/doctrine/DoctrineBundle)
+- [c975LEmailBundle](https://github.com/975L/EmailBundle)
+- [Misd\PhoneNumberBundle](https://github.com/misd-service-development/phone-number-bundle)
 
 If you use Address or Business fields, you have to add the following in your `app/config.yml` to enable phone and fax verification:
 ```yml
@@ -70,49 +71,6 @@ doctrine:
     dbal:
         types:
             phone_number: Misd\PhoneNumberBundle\Doctrine\DBAL\Types\PhoneNumberType
-```
-
-Then, in your `app/config.yml` file of your project, define the following:
-
-```yml
-#UserBundle
-c975_l_user:
-    #Name of site to be displayed
-    site: 'Example.com'
-    #If signup is allowed or not
-    signup: true #false(default)
-    #User's role needed to enable access other user's data
-    roleNeeded: 'ROLE_ADMIN'
-    #The location of your Terms of uses to be displayed to user, it can be a Route with parameters or an absolute url
-    touUrl: 'pageedit_display, {page: terms-of-use}'
-    #(Optional) If you want to define the allowed number of attempts for sign in and then add a delay before being able to sign in again
-    #This feature is linked to session not to accounts
-    signinAttempts: 5 #0(default) Depending on your website 5 attempts is a "good" number
-    #(Optional) If you want to display the avatar linked to user's account
-    #It can be the Gravatar's linked email image (by default) or the social network's image if enabled
-    avatar: true #false(default)
-    #(Optional) If you want to add social networks signin using https://github.com/hwi/HWIOAuthBundle
-    hwiOauth: [] #i.e ['facebook', 'google', 'live'] null(default)
-    #(Optional) If you want to use the social fields
-    social: true #false(default)
-    #(Optional) If you want to save the email sent to user when deleting his/her account in the database linked to c975L/EmailBundle
-    databaseEmail: true #false(default)
-    #(Optional) If you want to display a public profile
-    publicProfile: true #false(default)
-    #(Optional) If you want to archive the user in `user_archives` table
-    archiveUser: true #false(default)
-    #(Optional) If you want to use the address fields
-    address: true #false(default)
-    #(Optional) If you want to use the business fields
-    business: true #false(default)
-    #(Optional) If you want to use the multilingual field. Array of language and code on two letters
-    multilingual: {} #i.e {'English': 'en', 'Français': 'fr', 'Español': 'es'} null(default)
-    #(Optional) The entity you want to use
-    entity: 'AppBundle\Entity\User' #null(default)
-    #(Optional) If you want to use your own Signup form
-    signupForm: 'AppBundle\Form\UserSignupType' #'c975L\UserBundle\Entity\User'(default)
-    #(Optional) If you want to use your own Profile form
-    profileForm: 'AppBundle\Form\UserProfileType' #null(default)
 ```
 
 And finally in `app/security.yml`
@@ -199,6 +157,7 @@ The Routes availables are:
 - user_signup
 - user_signup_confirm
 - user_signin
+- user_config
 - user_dashboard
 - user_display
 - user_export

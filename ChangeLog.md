@@ -6,6 +6,7 @@
 - Made use of c975L/ServicesBundle (03/09/2018)
 - Added `bundle.yaml` (06/09/2018)
 - Removed declaration of parameters in Configuration class as they are end-user parameters and defined in c975L/ConfigBundle (06/09/2018)
+- Updated `README.md` (06/09/2018)
 
 
 v1.x
