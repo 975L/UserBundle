@@ -19,11 +19,16 @@ use c975L\UserBundle\Validator\Constraints\Tva;
 use c975L\UserBundle\Entity\UserAbstract;
 
 /**
- * UserBusinessAbstract
+ * Entity UserBusinessAbstract
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
  */
 abstract class UserBusinessAbstract extends UserAbstract
 {
     /**
+     * Type of bussiness
+     * @var string
+     *
      * @Assert\Regex(
      *      pattern="/^(association|business|individual)$/i"
      * )
@@ -32,6 +37,9 @@ abstract class UserBusinessAbstract extends UserAbstract
     protected $businessType;
 
     /**
+     * Name for the Business
+     * @var string
+     *
      * @Assert\Regex(
      *      pattern="/^([0-9a-zA-Z\#\.\_\-\ \*]{0,36})$/i"
      * )
@@ -40,31 +48,49 @@ abstract class UserBusinessAbstract extends UserAbstract
     protected $businessName;
 
     /**
+     * Address for the Business
+     * @var string
+     *
      * @ORM\Column(name="business_address", type="string", nullable=true)
      */
     protected $businessAddress;
 
     /**
+     * Second line for the address for the Business
+     * @var string
+     *
      * @ORM\Column(name="business_address2", type="string", nullable=true)
      */
     protected $businessAddress2;
 
     /**
+     * Postal code for the Business
+     * @var string
+     *
      * @ORM\Column(name="business_postal", type="string", nullable=true)
      */
     protected $businessPostal;
 
     /**
+     * Town for the Business
+     * @var string
+     *
      * @ORM\Column(name="business_town", type="string", nullable=true)
      */
     protected $businessTown;
 
     /**
+     * Country for the Business
+     * @var string
+     *
      * @ORM\Column(name="business_country", type="string", nullable=true)
      */
     protected $businessCountry;
 
     /**
+     * Siret for the Business
+     * @var string
+     *
      * @c975LUserBundleAssert\Siret(
      *      message = "siret.not_valid"
      * )
@@ -73,6 +99,9 @@ abstract class UserBusinessAbstract extends UserAbstract
     protected $businessSiret;
 
     /**
+     * TVA number for the Business
+     * @var string
+     *
      * @c975LUserBundleAssert\Tva(
      *      message = "tva.not_valid"
      * )
@@ -81,6 +110,9 @@ abstract class UserBusinessAbstract extends UserAbstract
     protected $businessTva;
 
     /**
+     * Phone number for the Business
+     * @var string
+     *
      * @AssertPhoneNumber
      * @ORM\Column(type="phone_number")
      * @ORM\Column(name="business_phone", type="string", nullable=true)
@@ -88,6 +120,9 @@ abstract class UserBusinessAbstract extends UserAbstract
     protected $businessPhone;
 
     /**
+     * Fax number for the Business
+     * @var string
+     *
      * @AssertPhoneNumber
      * @ORM\Column(type="phone_number")
      * @ORM\Column(name="business_fax", type="string", nullable=true)

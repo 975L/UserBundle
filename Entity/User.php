@@ -13,7 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
 use c975L\UserBundle\Entity\UserAbstract;
 
 /**
- * User
+ * Entity User (linked to DB table `user`)
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
  *
  * @ORM\Table(name="user", indexes={
  *      @ORM\Index(name="un_email", columns={"name", "email"}),

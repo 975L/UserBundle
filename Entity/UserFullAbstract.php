@@ -19,37 +19,51 @@ use c975L\UserBundle\Validator\Constraints\Tva;
 use c975L\UserBundle\Entity\UserAbstract;
 
 /**
- * UserFullAbstract
+ * Entity UserFullAbstract
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
  */
 abstract class UserFullAbstract extends UserAbstract
 {
 //ADDRESS
     /**
+     * See property in UserAddressAbstract
+     *
      * @ORM\Column(name="address", type="string", nullable=true)
      */
     protected $address;
 
     /**
+     * See property in UserAddressAbstract
+     *
      * @ORM\Column(name="address2", type="string", nullable=true)
      */
     protected $address2;
 
     /**
+     * See property in UserAddressAbstract
+     *
      * @ORM\Column(name="postal", type="string", nullable=true)
      */
     protected $postal;
 
     /**
+     * See property in UserAddressAbstract
+     *
      * @ORM\Column(name="town", type="string", nullable=true)
      */
     protected $town;
 
     /**
+     * See property in UserAddressAbstract
+     *
      * @ORM\Column(name="country", type="string", nullable=true)
      */
     protected $country;
 
     /**
+     * See property in UserAddressAbstract
+     *
      * @AssertPhoneNumber
      * @ORM\Column(type="phone_number")
      * @ORM\Column(name="phone", type="string", nullable=true)
@@ -57,6 +71,8 @@ abstract class UserFullAbstract extends UserAbstract
     protected $phone;
 
     /**
+     * See property in UserAddressAbstract
+     *
      * @AssertPhoneNumber
      * @ORM\Column(type="phone_number")
      * @ORM\Column(name="fax", type="string", nullable=true)
@@ -65,6 +81,8 @@ abstract class UserFullAbstract extends UserAbstract
 
 //BUSINESS
     /**
+     * See property in UserBusinessAbstract
+     *
      * @Assert\Regex(
      *      pattern="/^(association|business|individual)$/i"
      * )
@@ -73,6 +91,8 @@ abstract class UserFullAbstract extends UserAbstract
     protected $businessType;
 
     /**
+     * See property in UserBusinessAbstract
+     *
      * @Assert\Regex(
      *      pattern="/^([0-9a-zA-Z\#\.\_\-\ \*]{0,36})$/i"
      * )
@@ -81,31 +101,43 @@ abstract class UserFullAbstract extends UserAbstract
     protected $businessName;
 
     /**
+     * See property in UserBusinessAbstract
+     *
      * @ORM\Column(name="business_address", type="string", nullable=true)
      */
     protected $businessAddress;
 
     /**
+     * See property in UserBusinessAbstract
+     *
      * @ORM\Column(name="business_address2", type="string", nullable=true)
      */
     protected $businessAddress2;
 
     /**
+     * See property in UserBusinessAbstract
+     *
      * @ORM\Column(name="business_postal", type="string", nullable=true)
      */
     protected $businessPostal;
 
     /**
+     * See property in UserBusinessAbstract
+     *
      * @ORM\Column(name="business_town", type="string", nullable=true)
      */
     protected $businessTown;
 
     /**
+     * See property in UserBusinessAbstract
+     *
      * @ORM\Column(name="business_country", type="string", nullable=true)
      */
     protected $businessCountry;
 
     /**
+     * See property in UserBusinessAbstract
+     *
      * @c975LUserBundleAssert\Siret(
      *      message = "siret.not_valid"
      * )
@@ -114,6 +146,8 @@ abstract class UserFullAbstract extends UserAbstract
     protected $businessSiret;
 
     /**
+     * See property in UserBusinessAbstract
+     *
      * @c975LUserBundleAssert\Tva(
      *      message = "tva.not_valid"
      * )
@@ -122,6 +156,8 @@ abstract class UserFullAbstract extends UserAbstract
     protected $businessTva;
 
     /**
+     * See property in UserBusinessAbstract
+     *
      * @AssertPhoneNumber
      * @ORM\Column(type="phone_number")
      * @ORM\Column(name="business_phone", type="string", nullable=true)
@@ -129,6 +165,8 @@ abstract class UserFullAbstract extends UserAbstract
     protected $businessPhone;
 
     /**
+     * See property in UserBusinessAbstract
+     *
      * @AssertPhoneNumber
      * @ORM\Column(type="phone_number")
      * @ORM\Column(name="business_fax", type="string", nullable=true)
@@ -137,21 +175,29 @@ abstract class UserFullAbstract extends UserAbstract
 
 //SOCIAL
     /**
+     * See property in UserSocialAbstract
+     *
      * @ORM\Column(name="social_network", type="string", nullable=true)
      */
     protected $socialNetwork;
 
     /**
+     * See property in UserSocialAbstract
+     *
      * @ORM\Column(name="social_id", type="string", length=255, nullable=true)
      */
     protected $socialId;
 
     /**
+     * See property in UserSocialAbstract
+     *
      * @ORM\Column(name="social_token", type="string", length=255, nullable=true)
      */
     protected $socialToken;
 
     /**
+     * See property in UserSocialAbstract
+     *
      * @ORM\Column(name="social_picture", type="string", length=255, nullable=true)
      */
     protected $socialPicture;

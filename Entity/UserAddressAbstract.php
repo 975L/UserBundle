@@ -14,36 +14,56 @@ use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumbe
 use c975L\UserBundle\Entity\UserAbstract;
 
 /**
- * UserAddressAbstract
+ * Entity UserAddressAbstract
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
  */
 abstract class UserAddressAbstract extends UserAbstract
 {
     /**
+     * Address for the user
+     * @var string
+     *
      * @ORM\Column(name="address", type="string", nullable=true)
      */
     protected $address;
 
     /**
+     * Second line address for the user
+     * @var string
+     *
      * @ORM\Column(name="address2", type="string", nullable=true)
      */
     protected $address2;
 
     /**
+     * Postal code for the user
+     * @var string
+     *
      * @ORM\Column(name="postal", type="string", nullable=true)
      */
     protected $postal;
 
     /**
+     * Town for the user
+     * @var string
+     *
      * @ORM\Column(name="town", type="string", nullable=true)
      */
     protected $town;
 
     /**
+     * Country for the user
+     * @var string
+     *
      * @ORM\Column(name="country", type="string", nullable=true)
      */
     protected $country;
 
     /**
+     * Phone for the user
+     * @var string
+     *
      * @AssertPhoneNumber
      * @ORM\Column(type="phone_number")
      * @ORM\Column(name="phone", type="string", nullable=true)
@@ -51,6 +71,9 @@ abstract class UserAddressAbstract extends UserAbstract
     protected $phone;
 
     /**
+     * Fax for the user
+     * @var string
+     *
      * @AssertPhoneNumber
      * @ORM\Column(type="phone_number")
      * @ORM\Column(name="fax", type="string", nullable=true)
