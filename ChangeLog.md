@@ -11,6 +11,7 @@
 - Added link to BuyMeCoffee (06/09/2018)
 - Added link to apidoc (06/09/2018)
 - Added phpdoc to Entities (06/09/2018)
+- Added phpdoc to Event (06/09/2018)
 
 
 v1.x
