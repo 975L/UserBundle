@@ -13,6 +13,7 @@
 - Added phpdoc to Entities (06/09/2018)
 - Added phpdoc to Event (06/09/2018)
 - Added phpdoc to UserRepository (06/09/2018)
+- Added phpdoc to OAuthUserProvider (06/09/2018)
 
 
 v1.x
