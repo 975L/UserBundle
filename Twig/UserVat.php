@@ -9,6 +9,11 @@
 
 namespace c975L\UserBundle\Twig;
 
+/**
+ * Twig extension to display the formatted VAT number using `|user_vat`
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
+ */
 class UserVat extends \Twig_Extension
 {
     public function getFilters()
@@ -18,7 +23,10 @@ class UserVat extends \Twig_Extension
         );
     }
 
-    //Returns tva number formatted
+    /**
+     * Returns tva number formatted
+     * @return string
+     */
     public function vat($number)
     {
         return sprintf("%s %s %s %s", substr($number, 0, 4), substr($number, 4, 3), substr($number, 7, 3), substr($number, 10, 3));

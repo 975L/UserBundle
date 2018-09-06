@@ -9,6 +9,11 @@
 
 namespace c975L\UserBundle\Twig;
 
+/**
+ * Twig extension to display user's information in a div data (mainly for javascript access) using `user_divData()`
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
+ */
 class UserDivData extends \Twig_Extension
 {
     public function getFunctions()
@@ -25,6 +30,10 @@ class UserDivData extends \Twig_Extension
         );
     }
 
+    /**
+     * Returns the xhtml code for the div data
+     * @retuirn string
+     */
     public function divData(\Twig_Environment $environment)
     {
         $render = $environment->render('@c975LUser/fragments/divData.html.twig');

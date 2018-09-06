@@ -9,17 +9,34 @@
 
 namespace c975L\UserBundle\Twig;
 
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use c975L\ConfigBundle\Service\ConfigServiceInterface;
+
+/**
+ * Twig extension to return the url to be used for user's avatar using `user_avatar([$size])`
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
+ */
 class UserAvatar extends \Twig_Extension
 {
-    private $container;
+    /**
+     * Stores ConfigServiceInterface
+     * @var ConfigServiceInterface
+     */
+    private $configService;
+
+    /**
+     * Stores TokenStorageInterface
+     * @var TokenStorageInterface
+     */
     private $tokenStorage;
 
     public function __construct(
-        \Symfony\Component\DependencyInjection\ContainerInterface $container,
-        \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
-        )
+        ConfigServiceInterface $configService
+        TokenStorageInterface $tokenStorage
+    )
     {
-        $this->container = $container;
+        $this->configService = $configService;
         $this->tokenStorage = $tokenStorage;
     }
 
@@ -37,10 +54,14 @@ class UserAvatar extends \Twig_Extension
         );
     }
 
-    public function avatar(\Twig_Environment $environment, $size = 128, $user = null)
+    /**
+     * Returns the avatar's url if enabled
+     * @return string|null
+     */
+    public function avatar(\Twig_Environment $environment, int $size = 128, $user = null)
     {
         //Avatar not enabled
-        if (true !== $this->container->getParameter('c975_l_user.avatar')) {
+        if (true !== $this->configService->getParameter('c975LUser.avatar')) {
             return null;
         }
 
@@ -50,7 +71,7 @@ class UserAvatar extends \Twig_Extension
         }
 
         //Uses social network picture
-        if ($this->container->getParameter('c975_l_user.social') && null !== $user->getSocialPicture()) {
+        if ($this->configService->getParameter('c975LUser.social') && null !== $user->getSocialPicture()) {
             $avatar = $user->getSocialPicture();
         //Uses Gravatar
         } else {
