@@ -15,6 +15,7 @@
 - Added phpdoc to UserRepository (06/09/2018)
 - Added phpdoc to OAuthUserProvider (06/09/2018)
 - Added phpdoc to Twig extensions (06/09/2018)
+- Added phpdoc to Validator (06/09/2018)
 
 
 v1.x

@@ -12,9 +12,13 @@ namespace c975L\UserBundle\Validator\Constraints;
 use Symfony\Component\Validator\Constraint;
 
 /**
+ * Sets the message when VAT validation fails
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
+ *
  * @Annotation
  */
-class Tva extends Constraint
+class Vat extends Constraint
 {
-    public $message = 'The TVA number "%string%" is not valid.';
+    public $message = 'The VAT number "%string%" is not valid.';
 }

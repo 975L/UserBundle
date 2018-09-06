@@ -12,6 +12,10 @@ namespace c975L\UserBundle\Validator\Constraints;
 use Symfony\Component\Validator\Constraint;
 
 /**
+ * Sets the message when Siret validation fails
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
+ *
  * @Annotation
  */
 class Siret extends Constraint
