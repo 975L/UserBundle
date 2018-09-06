@@ -27,26 +27,5 @@ class c975LUserExtension extends Extension
             new FileLocator(__DIR__.'/../Resources/config')
         );
         $loader->load('services.yml');
-
-        $configuration = new Configuration();
-        $processedConfig = $this->processConfiguration($configuration, $configs);
-
-        $container->setParameter('c975_l_user.site', $processedConfig['site']);
-        $container->setParameter('c975_l_user.signup', $processedConfig['signup']);
-        $container->setParameter('c975_l_user.roleNeeded', $processedConfig['roleNeeded']);
-        $container->setParameter('c975_l_user.touUrl', $processedConfig['touUrl']);
-        $container->setParameter('c975_l_user.signinAttempts', $processedConfig['signinAttempts']);
-        $container->setParameter('c975_l_user.avatar', $processedConfig['avatar']);
-        $container->setParameter('c975_l_user.hwiOauth', $processedConfig['hwiOauth']);
-        $container->setParameter('c975_l_user.databaseEmail', $processedConfig['databaseEmail']);
-        $container->setParameter('c975_l_user.archiveUser', $processedConfig['archiveUser']);
-        $container->setParameter('c975_l_user.publicProfile', $processedConfig['publicProfile']);
-        $container->setParameter('c975_l_user.social', $processedConfig['social']);
-        $container->setParameter('c975_l_user.address', $processedConfig['address']);
-        $container->setParameter('c975_l_user.business', $processedConfig['business']);
-        $container->setParameter('c975_l_user.multilingual', $processedConfig['multilingual']);
-        $container->setParameter('c975_l_user.entity', $processedConfig['entity']);
-        $container->setParameter('c975_l_user.profileForm', $processedConfig['profileForm']);
-        $container->setParameter('c975_l_user.signupForm', $processedConfig['signupForm']);
     }
 }
