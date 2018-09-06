@@ -17,12 +17,22 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
+/**
+ * UserProfile FormType
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
+ */
 class UserProfileType extends AbstractType
 {
+    /**
+     * Stores TokenStorageInterface
+     * @var TokenStorageInterface
+     */
     private $tokenStorage;
 
-    public function __construct(\Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage)
+    public function __construct(TokenStorageInterface $tokenStorage)
     {
         $this->tokenStorage = $tokenStorage;
     }
@@ -31,7 +41,7 @@ class UserProfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $user = $this->tokenStorage->getToken()->getUser();
-        $disabled = $options['userConfig']['action'] == 'modify' ? false : true;
+        $disabled = 'modify' === $options['config']['action'] ? false : true;
 
         $builder
             ->remove('current_password')
@@ -88,7 +98,7 @@ class UserProfileType extends AbstractType
                 )))
         ;
 //MULTILINGUAL
-        if (!empty($options['userConfig']['multilingual'])) {
+        if (!empty($options['config']['multilingual'])) {
             $builder
                 ->add('locale', ChoiceType::class, array(
                     'label' => 'label.locale',
@@ -96,12 +106,12 @@ class UserProfileType extends AbstractType
                     'required' => true,
                     'multiple' => false,
                     'placeholder' => 'label.locale',
-                    'choices'  => $options['userConfig']['multilingual'],
+                    'choices'  => $options['config']['multilingual'],
                     ))
                 ;
         }
 //ADDRESS
-        if ($options['userConfig']['address']) {
+        if ($options['config']['address']) {
             $builder
                 ->add('address', TextType::class, array(
                     'label' => 'label.adress',
@@ -131,7 +141,7 @@ class UserProfileType extends AbstractType
             ;
         }
 //BUSINESS
-        if ($options['userConfig']['business']) {
+        if ($options['config']['business']) {
             $builder
                 ->add('businessType', ChoiceType::class, array(
                     'label' => 'label.type',
@@ -149,7 +159,7 @@ class UserProfileType extends AbstractType
                     ),
                     ))
             ;
-            if ($user->getBusinessType() != 'individual') {
+            if ('individual' !== $user->getBusinessType()) {
                 $builder
                     ->add('businessName', TextType::class, array(
                         'label' => 'label.business_name',
@@ -195,7 +205,7 @@ class UserProfileType extends AbstractType
                         )))
                 ;
             }
-            if ($user->getBusinessType() == 'business') {
+            if ('business' === $user->getBusinessType()) {
                 $builder
                     ->add('businessSiret', TextType::class, array(
                         'label' => 'label.siret',
@@ -215,8 +225,8 @@ class UserProfileType extends AbstractType
             }
         }
 //SOCIAL
-        if ($options['userConfig']['social']) {
-            if ($user->getSocialNetwork() !== null) {
+        if ($options['config']['social']) {
+            if (null !== $user->getSocialNetwork()) {
                 $builder
                     ->add('socialNetwork', TextType::class, array(
                         'label' => 'label.social_network',
@@ -237,11 +247,11 @@ class UserProfileType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'intention' => 'UserForm',
+            'intention' => 'UserProfileForm',
             'allow_extra_fields' => true,
             'translation_domain' => 'user',
         ));
 
-        $resolver->setRequired('userConfig');
+        $resolver->setRequired('config');
     }
 }

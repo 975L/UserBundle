@@ -15,6 +15,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * UserResetPassword FormType
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
+ */
 class UserResetPasswordType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)

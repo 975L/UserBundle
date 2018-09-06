@@ -19,13 +19,22 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * UserSignup FormType
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
+ */
 class UserSignupType extends AbstractType
 {
+    /**
+     * Stores current session
+     * @var string
+     */
     private $session;
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $this->session = $options['session'];
+        $this->session = $options['config']['session'];
 
         $builder
             ->add('email', EmailType::class, array(
@@ -70,18 +79,18 @@ class UserSignupType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'intention' => 'SignupForm',
+            'intention' => 'UserSignupForm',
             'allow_extra_fields' => true,
             'translation_domain' => 'user',
         ));
 
-        $resolver
-            ->setRequired('session')
-            ->setRequired('userConfig')
-        ;
+        $resolver->setRequired('session');
     }
 
-    //Defines a challenge (letters or numbers)
+    /**
+     * Defines a challenge (letters or numbers) to be resolved by user in order to avoid bots and captcha
+     * @return string
+     */
     public function challenge()
     {
         //Defines challenge if not already in session
@@ -124,7 +133,10 @@ class UserSignupType extends AbstractType
         return $challenge;
     }
 
-    //Defines a challenge with letters
+    /**
+     * Defines a challenge with letters
+     * @return array
+     */
     public function challengeLetters($operation)
     {
         if ($operation === 'subtraction') {
@@ -161,7 +173,10 @@ class UserSignupType extends AbstractType
         return array($symbolsA, $symbolsB, $resultOperation);
     }
 
-    //Defines a challenge with numbers
+    /**
+     * Defines a challenge with numbers
+     * @return array
+     */
     public function challengeNumbers($operation)
     {
         if ($operation === 'subtraction') {

@@ -18,9 +18,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+/**
+ * UserChangePassword FormType
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
+ */
 class UserChangePasswordType extends AbstractType
 {
-    //Builds the form
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
