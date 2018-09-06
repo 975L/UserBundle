@@ -9,36 +9,55 @@
 
 namespace c975L\UserBundle\Listener;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\AuthenticationEvents;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
 use c975L\UserBundle\Entity\UserAbstract;
 
+/**
+ * Class to listen to authentication event
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
+ */
 class AuthenticationListener implements EventSubscriberInterface
 {
+    /**
+     * Stores EntityManagerInterface
+     * @var EntityManagerInterface
+     */
     private $em;
+
+    /**
+     * Stores TokenStorageInterface
+     * @var TokenStorageInterface
+     */
     private $tokenStorage;
-    private $authenticationUtils;
+
+    /**
+     * Stores current Request
+     * @var Request
+     */
     private $requestStack;
-    private $container;
 
     public function __construct(
-        \Doctrine\ORM\EntityManagerInterface $em,
-        \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage,
-        \Symfony\Component\Security\Http\Authentication\AuthenticationUtils $authenticationUtils,
-        \Symfony\Component\HttpFoundation\RequestStack $requestStack,
-        \Symfony\Component\DependencyInjection\ContainerInterface $container
+        EntityManagerInterface $em,
+        RequestStack $requestStack,
+        TokenStorageInterface $tokenStorage
     )
     {
         $this->em = $em;
-        $this->tokenStorage = $tokenStorage;
-        $this->authenticationUtils = $authenticationUtils;
         $this->request = $requestStack->getCurrentRequest();
-        $this->container = $container;
+        $this->tokenStorage = $tokenStorage;
     }
 
+    /**
+     * Defines subscribed events
+     */
     public static function getSubscribedEvents()
     {
         return array(
@@ -46,11 +65,12 @@ class AuthenticationListener implements EventSubscriberInterface
         );
     }
 
+    /**
+     * Adds data to user entity and persists
+     */
     public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
     {
-        //Gets the user
         $user = $this->tokenStorage->getToken()->getUser();
-
         if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
             //Removes challenge from session in case a user clicked on signup, canceled and then authenticated
             $session = $this->request->getSession();

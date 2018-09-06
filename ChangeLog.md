@@ -17,6 +17,7 @@
 - Added phpdoc to Twig extensions (06/09/2018)
 - Added phpdoc to Validator (06/09/2018)
 - Renamed "tva" to "vat" except sql field name (06/09/2018)
+- Added phpdoc to Listener (06/09/2018)
 
 
 v1.x
