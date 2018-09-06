@@ -13,26 +13,26 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use c975L\ConfigBundle\Service\ConfigServiceInterface;
 
+/**
+ * Voter for User access
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
+ */
 class UserVoter extends Voter
 {
     /**
-     * Stores ContainerInterface
-     * @var ContainerInterface
+     * Stores ConfigServiceInterface
+     * @var ConfigServiceInterface
      */
-    private $container;
+    private $configService;
 
     /**
      * Stores AccessDecisionManagerInterface
      * @var AccessDecisionManagerInterface
      */
     private $decisionManager;
-
-    /**
-     * The role needed to be allowed access (defined in config)
-     * @var string
-     */
-    private $roleNeeded;
 
     /**
      * Used for access to change-password
@@ -105,14 +105,12 @@ class UserVoter extends Voter
     );
 
     public function __construct(
-        AccessDecisionManagerInterface $decisionManager,
-        ContainerInterface $container,
-        string $roleNeeded
+        ConfigServiceInterface $configService,
+        AccessDecisionManagerInterface $decisionManager
     )
     {
-        $this->container = $container;
+        $this->configService = $configService;
         $this->decisionManager = $decisionManager;
-        $this->roleNeeded = $roleNeeded;
     }
 
     /**
@@ -164,7 +162,7 @@ class UserVoter extends Voter
      */
     public function isAllowedPublicProfile()
     {
-        return $this->container->getParameter('c975_l_user.publicProfile');
+        return $this->configService->getParameter('c975LUser.publicProfile');
     }
 
     /**
@@ -173,7 +171,7 @@ class UserVoter extends Voter
      */
     private function isOwner($token, $user)
     {
-        return $this->isAdmin($token) ? true : $user->getId() === $token->getUser()->getId();
+        return $this->isAdmin($token) && $user->getId() === $token->getUser()->getId();
     }
 
     /**
@@ -182,6 +180,6 @@ class UserVoter extends Voter
      */
     private function isAdmin($token)
     {
-        return $this->decisionManager->decide($token, array($this->roleNeeded));
+        return $this->decisionManager->decide($token, array($this->configService->getParameter('c975LUser.roleNeeded', 'c975l/user-bundle')));
     }
 }
