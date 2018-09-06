@@ -1,0 +1,87 @@
+c975LUser:
+    roleNeeded:
+        type: string
+        required: true
+        default: ROLE_ADMIN
+        info: "User's role needed to enable access to data linked to ExceptionCheckerBundle: i.e. ROLE_ADMIN (default)"
+    signup:
+        type: bool
+        required: false
+        default: false
+        info: "If signup is allowed or not (Default false)"
+    signupForm:
+        type: string
+        required: false
+        default: null
+        info: "Define your own Signup form: i.e. AppBundle\\Form\\UserSignupType (Default null)"
+    profileForm:
+        type: string
+        required: false
+        default: null
+        info: "Define your own Profile form: i.e. AppBundle\\Form\\UserProfileType (Default null)"
+    signinAttempts:
+        type: int
+        required: true
+        default: 5
+        info: "Number of attempts for sign in (will add a delay before being able to sign in again after this number of invlid attempts) (Default 5)"
+    touUrl:
+        type: string
+        required: true
+        default: null
+        info: "The location of your Terms of use to be displayed to user, it can be a Route with parameters or an absolute url: i.e. pageedit_display, {page: terms-of-use}"
+    avatar:
+        type: bool
+        required: false
+        default: false
+        info: "If you want to display the avatar linked to user's account (Gravatar's one or social network's image if enabled) (Default false)"
+    entity:
+        type: string
+        required: true
+        default: c975L\UserBundle\Entity\User
+        info: "Define your own Entity: i.e. AppBundle\\Entity\\User (Default c975L\\UserBundle\\Entity\\User)"
+    social:
+        type: bool
+        required: false
+        default: false
+        info: "If you want to use the Social fields of the User entity (Default false)"
+    address:
+        type: bool
+        required: false
+        default: false
+        info: "If you want to use the Address fields of the User entity (Default false)"
+    business:
+        type: bool
+        required: false
+        default: false
+        info: "If you want to use the Business fields of the User entity (Default false)"
+    multilingual:
+        type: array
+        required: false
+        default: null
+        info: "Array of language and code on two letters if you want to use the Multilingual fields of the User entity: i.e. {'English': 'en', 'Français': 'fr', 'Español': 'es'} (Default null)"
+    hwiOauth:
+        type: array
+        required: false
+        default: null
+        info: "Array of social networks used to sigin in with https://github.com/hwi/HWIOAuthBundle: i.e. ['facebook', 'google', 'live'] (Default null)"
+    publicProfile:
+        type: bool
+        required: false
+        default: false
+        info: "If you want to display a public profile (Default false)"
+    databaseEmail:
+        type: bool
+        required: false
+        default: false
+        info: "If you want to save the email sent to user when deleting his/her account in the database linked to c975L/EmailBundle (Default false)"
+    archiveUser:
+        type: bool
+        required: false
+        default: false
+        info: "If you want to archive the user in `user_archives` table (Defaul false)"
+c975LCommon:
+    site:
+        type: string
+        required: false
+        default: null
+        info: "Your Tinymce Api key if you use the cloud version"
