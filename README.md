@@ -27,7 +27,9 @@ Directly inspired from [FOSUserBundle](https://github.com/FriendsOfSymfony/FOSUs
 - Allows user to removes its allowing to use its data while maintaining its account, in this case the account will be marked as NOT enabled,
 - Sends email when user changes (or resets) passsword to allow contact website if he/she has not initiated this action,
 
-[User Bundle dedicated web page](https://975l.com/en/pages/user-bundle).
+[UserBundle dedicated web page](https://975l.com/en/pages/user-bundle).
+
+[UserBundle API documentation](https://975l.com/apidoc/c975L/UserBundle.html).
 
 Bundle installation
 ===================
@@ -524,3 +526,5 @@ public function registerBundles()
 ```
 
 Migrate your database table, by using `Resources\sql\MigrateFosUser.sql`. It will create a `user_migrate` table, will modify all the needed fields, will add missing ones, then, when you are ready, you can rename your FOSUSerBundle table to `user_fosuserbundle` (or whatever you want) and rename the `user_migrate` one to `user`. **Fields `username` and `groups` are kept but not used, so you can delete them if you don't use them.**
+
+**If this project help you to reduce time to develop, you can [buy me a coffee](https://www.buymeacoffee.com/LaurentMarquet) :)**
