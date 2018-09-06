@@ -204,12 +204,12 @@ class UserProfileType extends AbstractType
                         'attr' => array(
                             'placeholder' => 'label.siret',
                         )))
-                    ->add('businessTva', TextType::class, array(
-                        'label' => 'label.tva',
+                    ->add('businessVat', TextType::class, array(
+                        'label' => 'label.vat',
                         'disabled' => $disabled,
                         'required' => true,
                         'attr' => array(
-                            'placeholder' => 'label.tva',
+                            'placeholder' => 'label.vat',
                         )))
                 ;
             }

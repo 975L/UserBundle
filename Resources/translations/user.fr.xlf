@@ -319,7 +319,7 @@
                 <target>Siret</target>
             </trans-unit>
             <trans-unit id="84">
-                <source>label.tva</source>
+                <source>label.vat</source>
                 <target>TVA</target>
             </trans-unit>
             <trans-unit id="85">

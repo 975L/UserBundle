@@ -221,7 +221,7 @@ BUSINESS
 - business_town
 - business_country
 - business_siret
-- business_tva
+- business_vat
 - business_phone
 - business_fax
 
@@ -337,22 +337,25 @@ class UserDeleteListener implements EventSubscriberInterface
 
 Service
 -------
-There is a defined UserService, check the file `Service\UserService.php` for its methhods. For example you can retrieve a user with its id, email, socialId, ...
+You can inject `c975L\UserBundle\Service\UserServiceInterface` to access its methods. For example you can retrieve a user with its id, email, socialId, ...
 ```php
 //Within a controller
-$userService = $this->get(\c975L\UserBundle\Service\UserService::class);
 
-//With Id
-$user = $userService->findUserById(USER_ID);
+    public function yourAction(UserServiceInterface $userService)
+    {
+        //With Id
+        $user = $userService->findUserById(USER_ID);
 
-//With Email
-$user = $userService->findUserByEmail(USER_EMAIL);
+        //With Email
+        $user = $userService->findUserByEmail(USER_EMAIL);
 
-//With Identifier
-$user = $userService->findUserByIdentifier(USER_IDENTIFIER);
+        //With Identifier
+        $user = $userService->findUserByIdentifier(USER_IDENTIFIER);
 
-//With SocialId
-$user = $userService->findUserBySocialId(USER_SOCIAL_ID);
+        //With SocialId
+        $user = $userService->findUserBySocialId(USER_SOCIAL_ID);
+    }
+
 ```
 
 Sign in/Sign out link

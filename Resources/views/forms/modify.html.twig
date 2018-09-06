@@ -41,7 +41,7 @@
                 'user_profile_businessTown': "{{ 'label.town'|trans }}",
                 'user_profile_businessCountry': "{{ 'label.country'|trans }}",
                 'user_profile_businessSiret': "{{ 'label.siret'|trans }}",
-                'user_profile_businessTva': "{{ 'label.tva'|trans }}",
+                'user_profile_businessVat': "{{ 'label.vat'|trans }}",
             };
 {# Values #}
             var userBusinessValues = {
@@ -52,7 +52,7 @@
                 'user_profile_businessTown': "{{ app.user.businessTown }}",
                 'user_profile_businessCountry': "{{ app.user.businessCountry }}",
                 'user_profile_businessSiret': "{{ app.user.businessSiret }}",
-                'user_profile_businessTva': "{{ app.user.businessTva }}",
+                'user_profile_businessVat': "{{ app.user.businessVat }}",
             };
         </script>
         {{ inc_lib(absolute_url(asset('bundles/c975luser/js/business.min.js')), 'local') }}

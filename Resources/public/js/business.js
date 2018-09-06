@@ -42,7 +42,7 @@ $(document).ready(function ($) {
             'user_profile_businessTown',
             'user_profile_businessCountry',
             'user_profile_businessSiret',
-            'user_profile_businessTva'
+            'user_profile_businessVat'
         ];
 
         fields.forEach(function(field) {
@@ -88,7 +88,7 @@ $(document).ready(function ($) {
     function displayBusiness() {
         var fields = [
             'user_profile_businessSiret',
-            'user_profile_businessTva'
+            'user_profile_businessVat'
         ];
 
         fields.forEach(function(field) {

@@ -102,12 +102,12 @@ abstract class UserBusinessAbstract extends UserAbstract
      * TVA number for the Business
      * @var string
      *
-     * @c975LUserBundleAssert\Tva(
-     *      message = "tva.not_valid"
+     * @c975LUserBundleAssert\Vat(
+     *      message = "vat.not_valid"
      * )
      * @ORM\Column(name="business_tva", type="string", length=13, nullable=true)
      */
-    protected $businessTva;
+    protected $businessVat;
 
     /**
      * Phone number for the Business

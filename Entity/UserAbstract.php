@@ -298,7 +298,7 @@ abstract class UserAbstract implements AdvancedUserInterface
     /**
      * See property in UserBusinessAbstract
      */
-    protected $businessTva;
+    protected $businessVat;
 
     /**
      * See property in UserBusinessAbstract
@@ -1139,23 +1139,23 @@ abstract class UserAbstract implements AdvancedUserInterface
     }
 
     /**
-     * Set businessTva
+     * Set businessVat
      * @param string
      * @return User
      */
-    public function setBusinessTva($businessTva)
+    public function setBusinessVat($businessVat)
     {
-        $this->businessTva = str_replace(array(' ', '.', '-', ',', ', '), '', trim(strtoupper($businessTva)));
+        $this->businessVat = str_replace(array(' ', '.', '-', ',', ', '), '', trim(strtoupper($businessVat)));
         return $this;
     }
 
     /**
-     * Get businessTva
+     * Get businessVat
      * @return string
      */
-    public function getBusinessTva()
+    public function getBusinessVat()
     {
-        return $this->businessTva;
+        return $this->businessVat;
     }
 
     /**

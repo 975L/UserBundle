@@ -148,12 +148,12 @@ abstract class UserFullAbstract extends UserAbstract
     /**
      * See property in UserBusinessAbstract
      *
-     * @c975LUserBundleAssert\Tva(
-     *      message = "tva.not_valid"
+     * @c975LUserBundleAssert\Vat(
+     *      message = "vat.not_valid"
      * )
      * @ORM\Column(name="business_tva", type="string", length=13, nullable=true)
      */
-    protected $businessTva;
+    protected $businessVat;
 
     /**
      * See property in UserBusinessAbstract

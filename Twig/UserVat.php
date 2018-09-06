@@ -24,7 +24,7 @@ class UserVat extends \Twig_Extension
     }
 
     /**
-     * Returns tva number formatted
+     * Returns vat number formatted
      * @return string
      */
     public function vat($number)
