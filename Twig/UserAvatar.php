@@ -32,7 +32,7 @@ class UserAvatar extends \Twig_Extension
     private $tokenStorage;
 
     public function __construct(
-        ConfigServiceInterface $configService
+        ConfigServiceInterface $configService,
         TokenStorageInterface $tokenStorage
     )
     {
