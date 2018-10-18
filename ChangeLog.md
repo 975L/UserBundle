@@ -1,5 +1,7 @@
 # Changelog
 
+v2.0
+----
 - Updated composer.json (01/09/2018)
 - Created branch 1.x (02/09/2018)
 - Made use of c975L/ConfigBundle (03/09/2018)
