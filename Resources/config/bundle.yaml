@@ -78,7 +78,12 @@ c975LUser:
         type: bool
         required: false
         default: false
-        info: "If you want to archive the user in `user_archives` table (Defaul false)"
+        info: "If you want to archive the user in `user_archives` table (Default false)"
+    formLayout:
+        type: string
+        required: false
+        default: 'bootstrap_3_layout'
+        info: "The template used for your form rendering` table (Default bootstrap_3_layout)"
 c975LCommon:
     site:
         type: string

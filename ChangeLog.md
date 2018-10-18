@@ -19,7 +19,10 @@
 - Renamed "tva" to "vat" except sql field name (06/09/2018)
 - Added phpdoc to Listener (06/09/2018)
 - Added phpdoc to Form (06/09/2018)
-
+- Added `UserFormFactory` (04/10/2018)
+- Removed Submit buttons from FormTypes (04/10/2018)
+- Added config route (04/10/2018)
+- Moved signin and signout to UserController (18/10/2018)
 
 v1.x
 ====

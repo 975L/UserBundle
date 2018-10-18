@@ -31,11 +31,6 @@ class UserResetPasswordType extends AbstractType
                 'attr' => array(
                     'placeholder' => 'placeholder.email',
                 )))
-            ->add('submit', SubmitType::class, array(
-                'label' => 'label.validate',
-                'translation_domain' => 'toolbar',
-                'attr' => array('class' => 'btn btn-block btn-lg btn-primary'),
-            ))
         ;
     }
 
@@ -45,5 +40,7 @@ class UserResetPasswordType extends AbstractType
             'intention' => 'UserResetPasswordForm',
             'translation_domain' => 'user',
         ));
+
+        $resolver->setRequired('config');
     }
 }

@@ -41,6 +41,12 @@ class UserVoter extends Voter
     public const CHANGE_PASSWORD = 'c975LUser-change-password';
 
     /**
+     * Used for access to config
+     * @var string
+     */
+    public const CONFIG = 'c975LUser-config';
+
+    /**
      * Used for access to dashboard
      * @var string
      */
@@ -89,11 +95,18 @@ class UserVoter extends Voter
     public const RESET_PASSWORD = 'c975LUser-reset-password';
 
     /**
+     * Used for access to signup-confirm
+     * @var string
+     */
+    public const SIGNUP_CONFIRM = 'c975LUser-signup-confirm';
+
+    /**
      * Contains all the available attributes to check with in supports()
      * @var array
      */
     private const ATTRIBUTES = array(
         self::CHANGE_PASSWORD,
+        self::CONFIG,
         self::DASHBOARD,
         self::DELETE,
         self::DISPLAY,
@@ -102,6 +115,7 @@ class UserVoter extends Voter
         self::MODIFY,
         self::PUBLIC_PROFILE,
         self::RESET_PASSWORD,
+        self::SIGNUP_CONFIRM,
     );
 
     public function __construct(
@@ -135,12 +149,14 @@ class UserVoter extends Voter
     {
         //Defines access rights
         switch ($attribute) {
+            case self::CONFIG:
+                return $this->isAdmin($token);
+                break;
             case self::CHANGE_PASSWORD:
             case self::DASHBOARD:
             case self::DELETE:
             case self::DISPLAY:
             case self::EXPORT:
-            case self::HELP:
             case self::MODIFY:
                 return $this->isOwner($token, $subject);
                 break;
@@ -148,7 +164,9 @@ class UserVoter extends Voter
                 return $this->isAllowedPublicProfile($token, $subject);
                 break;
             //User class has been checked at the supports() level
+            case self::HELP:
             case self::RESET_PASSWORD:
+            case self::SIGNUP_CONFIRM:
                 return true;
                 break;
         }

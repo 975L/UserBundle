@@ -16,12 +16,19 @@
 {# Form #}
     {{ form_start(form) }}
         {{ form_widget(form) }}
+{# Form layout #}
+        <div><input id="formLayout" type="hidden" value="{{ config('c975LUser.formLayout') }}" /></div>
 {# Submit #}
         <div class="form-group">
             <button type="submit" name="submit" title="{{ 'label.validate'|trans({}, 'toolbar') }}" class="btn btn-lg btn-primary btn-block">
                 {{ 'label.validate'|trans({}, 'toolbar') }}
             </button>
         </div>
+{# Cancel #}
+        <p class="text-center">
+            <a href="#" onclick="javascript:history.back(); return false;" title="{{ 'label.cancel'|trans({}, 'toolbar') }}">
+                {{ 'label.cancel'|trans({}, 'toolbar') }}</a>
+        </p>
     {{ form_end(form) }}
 {# Mandatory field #}
     <p class="text-muted">
@@ -30,7 +37,7 @@
         </em>
     </p>
 {# Includes javascript files #}
-    {% if userConfig.business == true %}
+    {% if userBusiness == true %}
         <script type="text/javascript">
 {# Translations #}
             var userBusinessTrans = {

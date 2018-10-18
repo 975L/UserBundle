@@ -84,7 +84,7 @@ class UserSignupType extends AbstractType
             'translation_domain' => 'user',
         ));
 
-        $resolver->setRequired('session');
+        $resolver->setRequired('config');
     }
 
     /**

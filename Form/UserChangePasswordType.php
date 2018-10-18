@@ -53,11 +53,6 @@ class UserChangePasswordType extends AbstractType
                 'first_options'  => array('label' => 'label.password'),
                 'second_options' => array('label' => 'label.password_repeat'),
                 ))
-            ->add('submit', SubmitType::class, array(
-                'label' => 'label.validate',
-                'translation_domain' => 'toolbar',
-                'attr' => array('class' => 'btn btn-block btn-lg btn-primary'),
-            ))
         ;
     }
 
@@ -67,5 +62,7 @@ class UserChangePasswordType extends AbstractType
             'intention' => 'UserChangePasswordForm',
             'translation_domain' => 'user',
         ));
+
+        $resolver->setRequired('config');
     }
 }

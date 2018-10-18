@@ -40,8 +40,8 @@ CREATE TABLE `user` (
   `postal` varchar(10) DEFAULT NULL,
   `town` varchar(64) DEFAULT NULL,
   `country` varchar(64) DEFAULT NULL,
-  `phone` vachar(35) DEFAULT NULL,
-  `fax` vachar(35) DEFAULT NULL,
+  `phone` varchar(35) DEFAULT NULL,
+  `fax` varchar(35) DEFAULT NULL,
 */
 -- BUSINESS
 /*

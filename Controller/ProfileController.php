@@ -15,25 +15,61 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use c975L\ConfigBundle\Service\ConfigServiceInterface;
 use c975L\UserBundle\Event\UserEvent;
-use c975L\UserBundle\Form\UserProfileType;
+use c975L\UserBundle\Form\UserFormFactoryInterface;
+use c975L\UserBundle\Service\UserServiceInterface;
 
+/**
+ * Profile Controller class
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
+ */
 class ProfileController extends Controller
 {
-    private $em;
+    /**
+     * Stores ConfigServiceInterface
+     * @var ConfigServiceInterface
+     */
+    private $configService;
+
+    /**
+     * Stores EventDispatcherInterface
+     * @var EventDispatcherInterface
+     */
+    private $dispatcher;
+
+    /**
+     * Stores UserFormFactoryInterface
+     * @var UserFormFactoryInterface
+     */
+    private $userFormFactory;
+
+    /**
+     * Stores UserServiceInterface
+     * @var UserServiceInterface
+     */
     private $userService;
 
     public function __construct(
-        \Doctrine\ORM\EntityManagerInterface $em,
-        \c975L\UserBundle\Service\UserService $userService
+        ConfigServiceInterface $configService,
+        EventDispatcherInterface $dispatcher,
+        UserFormFactoryInterface $userFormFactory,
+        UserServiceInterface $userService
     )
     {
-        $this->em = $em;
+        $this->configService = $configService;
+        $this->dispatcher = $dispatcher;
+        $this->userFormFactory = $userFormFactory;
         $this->userService = $userService;
     }
 
 //DISPLAY
     /**
+     * Displays the user's profile
+     * @return Response
+     * @throws AccessDeniedException
+     *
      * @Route("/user/display",
      *      name="user_display")
      * @Method({"GET", "HEAD"})
@@ -44,20 +80,12 @@ class ProfileController extends Controller
         $this->denyAccessUnlessGranted('c975LUser-display', $user);
 
         //Checks profile
-        if ($this->userService->checkProfile($user) === false) {
+        if (!$this->userService->checkProfile($user)) {
             return $this->redirectToRoute('user_modify');
         }
 
         //Defines form
-        $userConfig = array(
-            'action' => 'display',
-            'social' => $this->getParameter('c975_l_user.social'),
-            'address' => $this->getParameter('c975_l_user.address'),
-            'business' => $this->getParameter('c975_l_user.business'),
-            'multilingual' => $this->getParameter('c975_l_user.multilingual'),
-        );
-        $formType = $this->getParameter('c975_l_user.profileForm') === null ? 'c975L\UserBundle\Form\UserProfileType' : $this->getParameter('c975_l_user.profileForm');
-        $form = $this->createForm($formType, $user, array('userConfig' => $userConfig));
+        $form = $this->userFormFactory->create('display', $user);
 
         //Renders the profile
         return $this->render('@c975LUser/forms/display.html.twig', array(
@@ -68,31 +96,27 @@ class ProfileController extends Controller
 
 //MODIFY
     /**
+     * Displays the form to modify the profile
+     * @return Response
+     * @throws AccessDeniedException
+     *
      * @Route("/user/modify",
      *      name="user_modify")
      * @Method({"GET", "HEAD", "POST"})
      */
-    public function modify(Request $request, EventDispatcherInterface $dispatcher)
+    public function modify(Request $request)
     {
         $user = $this->getUser();
         $this->denyAccessUnlessGranted('c975LUser-modify', $user);
 
         //Defines form
-        $userConfig = array(
-            'action' => 'modify',
-            'social' => $this->getParameter('c975_l_user.social'),
-            'address' => $this->getParameter('c975_l_user.address'),
-            'business' => $this->getParameter('c975_l_user.business'),
-            'multilingual' => $this->getParameter('c975_l_user.multilingual'),
-        );
-        $formType = $this->getParameter('c975_l_user.profileForm') === null ? 'c975L\UserBundle\Form\UserProfileType' : $this->getParameter('c975_l_user.profileForm');
-        $form = $this->createForm($formType, $user, array('userConfig' => $userConfig));
+        $form = $this->userFormFactory->create('modify', $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             //Dispatch event
             $event = new UserEvent($user, $request);
-            $dispatcher->dispatch(UserEvent::USER_MODIFY, $event);
+            $this->dispatcher->dispatch(UserEvent::USER_MODIFY, $event);
 
             //Modify user
             $this->userService->modify($user);
@@ -105,7 +129,7 @@ class ProfileController extends Controller
         return $this->render('@c975LUser/forms/modify.html.twig', array(
             'form' => $form->createView(),
             'user' => $user,
-            'userConfig' => $userConfig,
+            'userBusiness' => $this->configService->getParameter('c975LUser.business'),
         ));
     }
 
@@ -115,27 +139,19 @@ class ProfileController extends Controller
      *      name="user_delete")
      * @Method({"GET", "HEAD", "POST"})
      */
-    public function delete(Request $request, EventDispatcherInterface $dispatcher)
+    public function delete(Request $request)
     {
         $user = $this->getUser();
         $this->denyAccessUnlessGranted('c975LUser-delete', $user);
 
-        //Defines the form
-        $userConfig = array(
-            'action' => 'delete',
-            'social' => $this->getParameter('c975_l_user.social'),
-            'address' => $this->getParameter('c975_l_user.address'),
-            'business' => $this->getParameter('c975_l_user.business'),
-            'multilingual' => $this->getParameter('c975_l_user.multilingual'),
-        );
-        $formType = $this->getParameter('c975_l_user.profileForm') === null ? 'c975L\UserBundle\Form\UserProfileType' : $this->getParameter('c975_l_user.profileForm');
-        $form = $this->createForm($formType, $user, array('userConfig' => $userConfig));
+        //Defines form
+        $form = $this->userFormFactory->create('delete', $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             //Dispatch event
             $event = new UserEvent($user, $request);
-            $dispatcher->dispatch(UserEvent::USER_DELETE, $event);
+            $this->dispatcher->dispatch(UserEvent::USER_DELETE, $event);
 
             //Deletes user
             $this->userService->delete($user);
@@ -160,8 +176,11 @@ class ProfileController extends Controller
      */
     public function pulicProfile($identifier)
     {
+
+//utiliser @ParamConverter
+
         $user = $this->em
-            ->getRepository($this->getParameter('c975_l_user.entity'))
+            ->getRepository($this->configService->getParameter('c975LUser.entity'))
             ->findOneByIdentifier($identifier)
             ;
         $this->denyAccessUnlessGranted('c975LUser-public-profile', $user);

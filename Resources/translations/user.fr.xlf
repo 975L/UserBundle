@@ -98,6 +98,10 @@
                 <source>label.managment</source>
                 <target>Gestion</target>
             </trans-unit>
+            <trans-unit id="25">
+                <source>text.link_has_expired</source>
+                <target>Le lien a expiré</target>
+            </trans-unit>
             <trans-unit id="26">
                 <source>label.member_since</source>
                 <target>Membre depuis</target>

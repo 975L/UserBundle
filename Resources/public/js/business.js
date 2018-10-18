@@ -9,8 +9,7 @@
 $(document).ready(function ($) {
 //Adds details div used to display user specific data
     $('#user_profile_businessType_0')
-        .parent()
-        .parent()
+        .closest('.form-group')
         .after('<div id="details"></div>')
     ;
 //Adds specific fields for Individual
@@ -47,7 +46,8 @@ $(document).ready(function ($) {
 
         fields.forEach(function(field) {
             $('#' + field)
-                .parent()
+                .closest('.form-group')
+                .hide()
                 .empty()
             ;
         });
@@ -62,6 +62,17 @@ $(document).ready(function ($) {
             var requiredForm = '';
         }
 
+        //bootstrap_3_horizontal_layout
+        if ($('#formLayout').val() == 'bootstrap_3_horizontal_layout') {
+            return '<div class="form-group">\
+                        <label for="' + field + '" class="col-sm-2 control-label' + requiredLabel + '">' + userBusinessTrans[field] + '</label>\
+                        <div class="col-sm-10">\
+                            <input type="text" id="' + field + '" name="user_profile[' + field.replace('user_profile_', '') + ']" placeholder="' + userBusinessTrans[field] + '" value="' + userBusinessValues[field] + '" class="form-control"' +  requiredForm + '" />\
+                        </div>\
+                    </div>';
+        }
+
+        //bootstrap_3_layout
         return '<div class="form-group">\
                     <label for="' + field + '" class="control-label' + requiredLabel + '">' + userBusinessTrans[field] + '</label>\
                     <input type="text" id="' + field + '" name="user_profile[' + field.replace('user_profile_', '') + ']" placeholder="' + userBusinessTrans[field] + '" value="' + userBusinessValues[field] + '" class="form-control"' +  requiredForm + '" />\

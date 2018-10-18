@@ -37,7 +37,6 @@ class UserProfileType extends AbstractType
         $this->tokenStorage = $tokenStorage;
     }
 
-    //Builds the form
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $user = $this->tokenStorage->getToken()->getUser();
