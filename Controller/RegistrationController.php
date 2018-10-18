@@ -109,6 +109,7 @@ class RegistrationController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $session = $request->getSession();
             //Checks if challenge is ok
             if (strtoupper($session->get('challengeResult')) == strtoupper($user->getChallenge())) {
                 //Dispatch event

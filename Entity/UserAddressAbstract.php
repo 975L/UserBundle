@@ -26,7 +26,7 @@ abstract class UserAddressAbstract extends UserAbstract
      *
      * @ORM\Column(name="address", type="string", nullable=true)
      */
-    protected $address;
+    private $address;
 
     /**
      * Second line address for the user
@@ -34,7 +34,7 @@ abstract class UserAddressAbstract extends UserAbstract
      *
      * @ORM\Column(name="address2", type="string", nullable=true)
      */
-    protected $address2;
+    private $address2;
 
     /**
      * Postal code for the user
@@ -42,7 +42,7 @@ abstract class UserAddressAbstract extends UserAbstract
      *
      * @ORM\Column(name="postal", type="string", nullable=true)
      */
-    protected $postal;
+    private $postal;
 
     /**
      * Town for the user
@@ -50,7 +50,7 @@ abstract class UserAddressAbstract extends UserAbstract
      *
      * @ORM\Column(name="town", type="string", nullable=true)
      */
-    protected $town;
+    private $town;
 
     /**
      * Country for the user
@@ -58,7 +58,7 @@ abstract class UserAddressAbstract extends UserAbstract
      *
      * @ORM\Column(name="country", type="string", nullable=true)
      */
-    protected $country;
+    private $country;
 
     /**
      * Phone for the user
@@ -68,7 +68,7 @@ abstract class UserAddressAbstract extends UserAbstract
      * @ORM\Column(type="phone_number")
      * @ORM\Column(name="phone", type="string", nullable=true)
      */
-    protected $phone;
+    private $phone;
 
     /**
      * Fax for the user
@@ -78,5 +78,5 @@ abstract class UserAddressAbstract extends UserAbstract
      * @ORM\Column(type="phone_number")
      * @ORM\Column(name="fax", type="string", nullable=true)
      */
-    protected $fax;
+    private $fax;
 }

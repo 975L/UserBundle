@@ -34,7 +34,7 @@ abstract class UserBusinessAbstract extends UserAbstract
      * )
      * @ORM\Column(name="business_type", type="string", nullable=true)
      */
-    protected $businessType;
+    private $businessType;
 
     /**
      * Name for the Business
@@ -45,7 +45,7 @@ abstract class UserBusinessAbstract extends UserAbstract
      * )
      * @ORM\Column(name="business_name", type="string", nullable=true)
      */
-    protected $businessName;
+    private $businessName;
 
     /**
      * Address for the Business
@@ -53,7 +53,7 @@ abstract class UserBusinessAbstract extends UserAbstract
      *
      * @ORM\Column(name="business_address", type="string", nullable=true)
      */
-    protected $businessAddress;
+    private $businessAddress;
 
     /**
      * Second line for the address for the Business
@@ -61,7 +61,7 @@ abstract class UserBusinessAbstract extends UserAbstract
      *
      * @ORM\Column(name="business_address2", type="string", nullable=true)
      */
-    protected $businessAddress2;
+    private $businessAddress2;
 
     /**
      * Postal code for the Business
@@ -69,7 +69,7 @@ abstract class UserBusinessAbstract extends UserAbstract
      *
      * @ORM\Column(name="business_postal", type="string", nullable=true)
      */
-    protected $businessPostal;
+    private $businessPostal;
 
     /**
      * Town for the Business
@@ -77,7 +77,7 @@ abstract class UserBusinessAbstract extends UserAbstract
      *
      * @ORM\Column(name="business_town", type="string", nullable=true)
      */
-    protected $businessTown;
+    private $businessTown;
 
     /**
      * Country for the Business
@@ -85,7 +85,7 @@ abstract class UserBusinessAbstract extends UserAbstract
      *
      * @ORM\Column(name="business_country", type="string", nullable=true)
      */
-    protected $businessCountry;
+    private $businessCountry;
 
     /**
      * Siret for the Business
@@ -96,7 +96,7 @@ abstract class UserBusinessAbstract extends UserAbstract
      * )
      * @ORM\Column(name="business_siret", type="string", length=14, nullable=true)
      */
-    protected $businessSiret;
+    private $businessSiret;
 
     /**
      * TVA number for the Business
@@ -107,7 +107,7 @@ abstract class UserBusinessAbstract extends UserAbstract
      * )
      * @ORM\Column(name="business_tva", type="string", length=13, nullable=true)
      */
-    protected $businessVat;
+    private $businessVat;
 
     /**
      * Phone number for the Business
@@ -117,7 +117,7 @@ abstract class UserBusinessAbstract extends UserAbstract
      * @ORM\Column(type="phone_number")
      * @ORM\Column(name="business_phone", type="string", nullable=true)
      */
-    protected $businessPhone;
+    private $businessPhone;
 
     /**
      * Fax number for the Business
@@ -127,5 +127,5 @@ abstract class UserBusinessAbstract extends UserAbstract
      * @ORM\Column(type="phone_number")
      * @ORM\Column(name="business_fax", type="string", nullable=true)
      */
-    protected $businessFax;
+    private $businessFax;
 }

@@ -1,5 +1,10 @@
 # Changelog
 
+v2.0.1
+------
+- Corrected missing $session variable (18/10/2018)
+- Made all entities properties private (18/10/2018)
+
 v2.0
 ----
 - Updated composer.json (01/09/2018)
