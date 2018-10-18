@@ -25,7 +25,7 @@ abstract class UserSocialAbstract extends UserAbstract
      *
      * @ORM\Column(name="social_network", type="string", nullable=true)
      */
-    protected $socialNetwork;
+    private $socialNetwork;
 
     /**
      * Social id for the user
@@ -33,7 +33,7 @@ abstract class UserSocialAbstract extends UserAbstract
      *
      * @ORM\Column(name="social_id", type="string", length=255, nullable=true)
      */
-    protected $socialId;
+    private $socialId;
 
     /**
      * Social token for the user
@@ -41,7 +41,7 @@ abstract class UserSocialAbstract extends UserAbstract
      *
      * @ORM\Column(name="social_token", type="string", length=255, nullable=true)
      */
-    protected $socialToken;
+    private $socialToken;
 
     /**
      * Social picture url for the user
@@ -49,5 +49,5 @@ abstract class UserSocialAbstract extends UserAbstract
      *
      * @ORM\Column(name="social_picture", type="string", length=255, nullable=true)
      */
-    protected $socialPicture;
+    private $socialPicture;
 }

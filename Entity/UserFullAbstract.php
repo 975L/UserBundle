@@ -31,35 +31,35 @@ abstract class UserFullAbstract extends UserAbstract
      *
      * @ORM\Column(name="address", type="string", nullable=true)
      */
-    protected $address;
+    private $address;
 
     /**
      * See property in UserAddressAbstract
      *
      * @ORM\Column(name="address2", type="string", nullable=true)
      */
-    protected $address2;
+    private $address2;
 
     /**
      * See property in UserAddressAbstract
      *
      * @ORM\Column(name="postal", type="string", nullable=true)
      */
-    protected $postal;
+    private $postal;
 
     /**
      * See property in UserAddressAbstract
      *
      * @ORM\Column(name="town", type="string", nullable=true)
      */
-    protected $town;
+    private $town;
 
     /**
      * See property in UserAddressAbstract
      *
      * @ORM\Column(name="country", type="string", nullable=true)
      */
-    protected $country;
+    private $country;
 
     /**
      * See property in UserAddressAbstract
@@ -68,7 +68,7 @@ abstract class UserFullAbstract extends UserAbstract
      * @ORM\Column(type="phone_number")
      * @ORM\Column(name="phone", type="string", nullable=true)
      */
-    protected $phone;
+    private $phone;
 
     /**
      * See property in UserAddressAbstract
@@ -77,7 +77,7 @@ abstract class UserFullAbstract extends UserAbstract
      * @ORM\Column(type="phone_number")
      * @ORM\Column(name="fax", type="string", nullable=true)
      */
-    protected $fax;
+    private $fax;
 
 //BUSINESS
     /**
@@ -88,7 +88,7 @@ abstract class UserFullAbstract extends UserAbstract
      * )
      * @ORM\Column(name="business_type", type="string", nullable=true)
      */
-    protected $businessType;
+    private $businessType;
 
     /**
      * See property in UserBusinessAbstract
@@ -98,42 +98,42 @@ abstract class UserFullAbstract extends UserAbstract
      * )
      * @ORM\Column(name="business_name", type="string", nullable=true)
      */
-    protected $businessName;
+    private $businessName;
 
     /**
      * See property in UserBusinessAbstract
      *
      * @ORM\Column(name="business_address", type="string", nullable=true)
      */
-    protected $businessAddress;
+    private $businessAddress;
 
     /**
      * See property in UserBusinessAbstract
      *
      * @ORM\Column(name="business_address2", type="string", nullable=true)
      */
-    protected $businessAddress2;
+    private $businessAddress2;
 
     /**
      * See property in UserBusinessAbstract
      *
      * @ORM\Column(name="business_postal", type="string", nullable=true)
      */
-    protected $businessPostal;
+    private $businessPostal;
 
     /**
      * See property in UserBusinessAbstract
      *
      * @ORM\Column(name="business_town", type="string", nullable=true)
      */
-    protected $businessTown;
+    private $businessTown;
 
     /**
      * See property in UserBusinessAbstract
      *
      * @ORM\Column(name="business_country", type="string", nullable=true)
      */
-    protected $businessCountry;
+    private $businessCountry;
 
     /**
      * See property in UserBusinessAbstract
@@ -143,7 +143,7 @@ abstract class UserFullAbstract extends UserAbstract
      * )
      * @ORM\Column(name="business_siret", type="string", length=14, nullable=true)
      */
-    protected $businessSiret;
+    private $businessSiret;
 
     /**
      * See property in UserBusinessAbstract
@@ -153,7 +153,7 @@ abstract class UserFullAbstract extends UserAbstract
      * )
      * @ORM\Column(name="business_tva", type="string", length=13, nullable=true)
      */
-    protected $businessVat;
+    private $businessVat;
 
     /**
      * See property in UserBusinessAbstract
@@ -162,7 +162,7 @@ abstract class UserFullAbstract extends UserAbstract
      * @ORM\Column(type="phone_number")
      * @ORM\Column(name="business_phone", type="string", nullable=true)
      */
-    protected $businessPhone;
+    private $businessPhone;
 
     /**
      * See property in UserBusinessAbstract
@@ -171,7 +171,7 @@ abstract class UserFullAbstract extends UserAbstract
      * @ORM\Column(type="phone_number")
      * @ORM\Column(name="business_fax", type="string", nullable=true)
      */
-    protected $businessFax;
+    private $businessFax;
 
 //SOCIAL
     /**
@@ -179,26 +179,26 @@ abstract class UserFullAbstract extends UserAbstract
      *
      * @ORM\Column(name="social_network", type="string", nullable=true)
      */
-    protected $socialNetwork;
+    private $socialNetwork;
 
     /**
      * See property in UserSocialAbstract
      *
      * @ORM\Column(name="social_id", type="string", length=255, nullable=true)
      */
-    protected $socialId;
+    private $socialId;
 
     /**
      * See property in UserSocialAbstract
      *
      * @ORM\Column(name="social_token", type="string", length=255, nullable=true)
      */
-    protected $socialToken;
+    private $socialToken;
 
     /**
      * See property in UserSocialAbstract
      *
      * @ORM\Column(name="social_picture", type="string", length=255, nullable=true)
      */
-    protected $socialPicture;
+    private $socialPicture;
 }

@@ -36,7 +36,7 @@ abstract class UserAbstract implements AdvancedUserInterface
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(name="id", type="integer")
      */
-    protected $id;
+    private $id;
 
     /**
      * If the user allows use of its account (GDPR)
@@ -44,7 +44,7 @@ abstract class UserAbstract implements AdvancedUserInterface
      *
      * @ORM\Column(name="allow_use", type="boolean")
      */
-    protected $allowUse;
+    private $allowUse;
 
     /**
      * Unique user identifier
@@ -52,7 +52,7 @@ abstract class UserAbstract implements AdvancedUserInterface
      *
      * @ORM\Column(type="string", length=32, unique=true)
      */
-    protected $identifier;
+    private $identifier;
 
     /**
      * Email for the user
@@ -65,7 +65,7 @@ abstract class UserAbstract implements AdvancedUserInterface
      *     checkMX = true
      * )
      */
-    protected $email;
+    private $email;
 
     /**
      * Gender for the user
@@ -77,7 +77,7 @@ abstract class UserAbstract implements AdvancedUserInterface
      *      message = "gender.choose_valid"
      * )
      */
-    protected $gender;
+    private $gender;
 
     /**
      * Firstname for the user
@@ -91,7 +91,7 @@ abstract class UserAbstract implements AdvancedUserInterface
      *      maxMessage = "firstname.max_length"
      * )
      */
-    protected $firstname;
+    private $firstname;
 
     /**
      * Lastname for the user
@@ -105,7 +105,7 @@ abstract class UserAbstract implements AdvancedUserInterface
      *      maxMessage = "lastname.max_length"
      * )
      */
-    protected $lastname;
+    private $lastname;
 
     /**
      * DateTime for the creation
@@ -113,7 +113,7 @@ abstract class UserAbstract implements AdvancedUserInterface
      *
      * @ORM\Column(name="creation", type="datetime", nullable=true)
      */
-    protected $creation;
+    private $creation;
 
     /**
      * url used for the Avatar for the user
@@ -121,7 +121,7 @@ abstract class UserAbstract implements AdvancedUserInterface
      *
      * @ORM\Column(name="avatar", type="string", length=255, nullable=true)
      */
-    protected $avatar;
+    private $avatar;
 
     /**
      * If account is enabled
@@ -129,7 +129,7 @@ abstract class UserAbstract implements AdvancedUserInterface
      *
      * @ORM\Column(name="enabled", type="boolean")
      */
-    protected $enabled;
+    private $enabled;
 
     /**
      * Salt used to hash the password
@@ -137,7 +137,7 @@ abstract class UserAbstract implements AdvancedUserInterface
      *
      * @ORM\Column(name="salt", length=255, type="string")
      */
-    protected $salt;
+    private $salt;
 
     /**
      * Password hashed
@@ -145,7 +145,7 @@ abstract class UserAbstract implements AdvancedUserInterface
      *
      * @ORM\Column(name="password", length=255, type="string")
      */
-    protected $password;
+    private $password;
 
     /**
      * DateTime of latest sign-in
@@ -153,7 +153,7 @@ abstract class UserAbstract implements AdvancedUserInterface
      *
      * @ORM\Column(name="latest_signin", type="datetime", nullable=true)
      */
-    protected $latestSignin;
+    private $latestSignin;
 
     /**
      * DateTime of latest sign-out
@@ -161,7 +161,7 @@ abstract class UserAbstract implements AdvancedUserInterface
      *
      * @ORM\Column(name="latest_signout", type="datetime", nullable=true)
      */
-    protected $latestSignout;
+    private $latestSignout;
 
     /**
      * Token used for sign-up and password recovery
@@ -169,7 +169,7 @@ abstract class UserAbstract implements AdvancedUserInterface
      *
      * @ORM\Column(name="token", length=40, type="string")
      */
-    protected $token;
+    private $token;
 
     /**
      * DateTime of request for password recovery
@@ -177,7 +177,7 @@ abstract class UserAbstract implements AdvancedUserInterface
      *
      * @ORM\Column(name="password_request", type="datetime")
      */
-    protected $passwordRequest;
+    private $passwordRequest;
 
     /**
      * Roles for the user
@@ -185,7 +185,7 @@ abstract class UserAbstract implements AdvancedUserInterface
      *
      * @ORM\Column(name="roles", type="string")
      */
-    protected $roles;
+    private $roles;
 
     /**
      * Locale for the user
@@ -193,7 +193,7 @@ abstract class UserAbstract implements AdvancedUserInterface
      *
      * @ORM\Column(name="locale", type="string", nullable=true)
      */
-    protected $locale;
+    private $locale;
 
     /**
      * Plain password (not strored, used only at sign-up and password chnage times)
@@ -204,7 +204,7 @@ abstract class UserAbstract implements AdvancedUserInterface
      *      message="password.requirement"
      * )
      */
-    protected $plainPassword;
+    private $plainPassword;
 
     /**
      * Answer to the proposed challenge to avoid bots
@@ -214,123 +214,123 @@ abstract class UserAbstract implements AdvancedUserInterface
      *      message = "label.error_challenge"
      * )
      */
-    protected $challenge;
+    private $challenge;
 
 //ADDRESS
 //Mapping is done in children classes
     /**
      * See property in UserAddressAbstract
      */
-    protected $address;
+    private $address;
 
     /**
      * See property in UserAddressAbstract
      */
-    protected $address2;
+    private $address2;
 
     /**
      * See property in UserAddressAbstract
      */
-    protected $postal;
+    private $postal;
 
     /**
      * See property in UserAddressAbstract
      */
-    protected $town;
+    private $town;
 
     /**
      * See property in UserAddressAbstract
      */
-    protected $country;
+    private $country;
 
     /**
      * See property in UserAddressAbstract
      */
-    protected $phone;
+    private $phone;
 
     /**
      * See property in UserAddressAbstract
      */
-    protected $fax;
+    private $fax;
 
 //BUSINESS
 //Mapping is done in children classes
     /**
      * See property in UserBusinessAbstract
      */
-    protected $businessType;
+    private $businessType;
 
     /**
      * See property in UserBusinessAbstract
      */
-    protected $businessName;
+    private $businessName;
 
     /**
      * See property in UserBusinessAbstract
      */
-    protected $businessAddress;
+    private $businessAddress;
 
     /**
      * See property in UserBusinessAbstract
      */
-    protected $businessAddress2;
+    private $businessAddress2;
 
     /**
      * See property in UserBusinessAbstract
      */
-    protected $businessPostal;
+    private $businessPostal;
 
     /**
      * See property in UserBusinessAbstract
      */
-    protected $businessTown;
+    private $businessTown;
 
     /**
      * See property in UserBusinessAbstract
      */
-    protected $businessCountry;
+    private $businessCountry;
 
     /**
      * See property in UserBusinessAbstract
      */
-    protected $businessSiret;
+    private $businessSiret;
 
     /**
      * See property in UserBusinessAbstract
      */
-    protected $businessVat;
+    private $businessVat;
 
     /**
      * See property in UserBusinessAbstract
      */
-    protected $businessPhone;
+    private $businessPhone;
 
     /**
      * See property in UserBusinessAbstract
      */
-    protected $businessFax;
+    private $businessFax;
 
 //SOCIAL
 //Mapping is done in children classes
     /**
      * See property in UserSocialAbstract
      */
-    protected $socialNetwork;
+    private $socialNetwork;
 
     /**
      * See property in UserSocialAbstract
      */
-    protected $socialId;
+    private $socialId;
 
     /**
      * See property in UserSocialAbstract
      */
-    protected $socialToken;
+    private $socialToken;
 
     /**
      * See property in UserSocialAbstract
      */
-    protected $socialPicture;
+    private $socialPicture;
 
 
 //METHODS REQUESTED BY AdvancedUserInterface
