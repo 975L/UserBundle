@@ -24,6 +24,11 @@
     {{ toolbar_button(path('user_change_password'), 'change_password') }}
 {% endif %}
 
+{# Config #}
+{% if type != 'config' and is_granted('ROLE_ADMIN') %}
+    {{ toolbar_button(path('user_config'), 'config') }}
+{% endif %}
+
 {# Help #}
 {% if type != 'help' %}
     {{ toolbar_button(path('user_help'), 'help') }}

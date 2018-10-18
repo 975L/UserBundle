@@ -16,12 +16,19 @@
 {# Form #}
     {{ form_start(form) }}
         {{ form_widget(form) }}
+{# Form layout #}
+        <div><input id="formLayout" type="hidden" value="{{ config('c975LUser.formLayout') }}" /></div>
 {# Submit #}
         <div class="form-group">
             <button type="submit" name="submit" title="{{ 'label.validate'|trans({}, 'toolbar') }}" class="btn btn-lg btn-primary btn-block">
                 {{ 'label.validate'|trans({}, 'toolbar') }}
             </button>
         </div>
+{# Cancel #}
+        <p class="text-center">
+            <a href="#" onclick="javascript:history.back(); return false;" title="{{ 'label.cancel'|trans({}, 'toolbar') }}">
+                {{ 'label.cancel'|trans({}, 'toolbar') }}</a>
+        </p>
     {{ form_end(form) }}
 {# Mandatory field #}
     <p class="text-muted">
@@ -30,7 +37,7 @@
         </em>
     </p>
 {# Includes javascript files #}
-    {% if userConfig.business == true %}
+    {% if userBusiness == true %}
         <script type="text/javascript">
 {# Translations #}
             var userBusinessTrans = {
@@ -41,7 +48,7 @@
                 'user_profile_businessTown': "{{ 'label.town'|trans }}",
                 'user_profile_businessCountry': "{{ 'label.country'|trans }}",
                 'user_profile_businessSiret': "{{ 'label.siret'|trans }}",
-                'user_profile_businessTva': "{{ 'label.tva'|trans }}",
+                'user_profile_businessVat': "{{ 'label.vat'|trans }}",
             };
 {# Values #}
             var userBusinessValues = {
@@ -52,7 +59,7 @@
                 'user_profile_businessTown': "{{ app.user.businessTown }}",
                 'user_profile_businessCountry': "{{ app.user.businessCountry }}",
                 'user_profile_businessSiret': "{{ app.user.businessSiret }}",
-                'user_profile_businessTva': "{{ app.user.businessTva }}",
+                'user_profile_businessVat': "{{ app.user.businessVat }}",
             };
         </script>
         {{ inc_lib(absolute_url(asset('bundles/c975luser/js/business.min.js')), 'local') }}

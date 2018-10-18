@@ -98,6 +98,10 @@
                 <source>label.managment</source>
                 <target>Administración</target>
             </trans-unit>
+            <trans-unit id="25">
+                <source>text.link_has_expired</source>
+                <target>El enlace ha caducado</target>
+            </trans-unit>
             <trans-unit id="26">
                 <source>label.member_since</source>
                 <target>Miembro desde</target>
@@ -319,7 +323,7 @@
                 <target>Siret</target>
             </trans-unit>
             <trans-unit id="84">
-                <source>label.tva</source>
+                <source>label.vat</source>
                 <target>TVA</target>
             </trans-unit>
             <trans-unit id="85">

@@ -12,9 +12,16 @@ namespace c975L\UserBundle\Validator\Constraints;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
+/**
+ * Class to validate the Siret number
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
+ */
 class SiretValidator extends ConstraintValidator
 {
-    //Validates the siret - http://devblog.lexik.fr/symfony/1-4-x/validation-dun-numero-siret-sfvalidatorsiret-1159
+    /**
+     * Validates the siret - http://devblog.lexik.fr/symfony/1-4-x/validation-dun-numero-siret-sfvalidatorsiret-1159
+     */
     public function validate($value, Constraint $constraint)
     {
         $siret = str_replace(array(' ', '.', '-', ',', ', '), '', trim($value));

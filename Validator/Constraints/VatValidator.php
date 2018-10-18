@@ -12,27 +12,34 @@ namespace c975L\UserBundle\Validator\Constraints;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-class TvaValidator extends ConstraintValidator
+/**
+ * Class to validate the VAT number
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
+ */
+class VatValidator extends ConstraintValidator
 {
-    //Validates the tva number - http://devblog.lexik.fr/symfony/un-validator-tva-bien-pratique-1123
+    /**
+     * Validates the vat number - http://devblog.lexik.fr/symfony/un-validator-tva-bien-pratique-1123
+     */
     public function validate($value, Constraint $constraint)
     {
         //Sample number (pages jaunes) FR 12 444 212 955
-        $tva = str_replace(array(' ', '.', '-', ',', ', '), '', trim(strtoupper($value)));
+        $vat = str_replace(array(' ', '.', '-', ',', ', '), '', trim(strtoupper($value)));
 
-        if (!empty($tva) && !preg_match('/^([A-Z]{2}[0-9A-Z]{2,12})$/i', $tva)) {
+        if (!empty($vat) && !preg_match('/^([A-Z]{2}[0-9A-Z]{2,12})$/i', $vat)) {
             $this->context
                 ->buildViolation($constraint->message)
                 ->setParameter('%string%', $value)
                 ->addViolation();
-        } elseif (!empty($tva)) {
+        } elseif (!empty($vat)) {
             //Defines data
-            $countryCode = substr($tva, 0, 2);
-            $tvaNumber = substr($tva, 2);
+            $countryCode = substr($vat, 0, 2);
+            $vatNumber = substr($vat, 2);
 
             //Calls webservice
             $client = new \SoapClient('http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl');
-            $params = array('countryCode' => $countryCode, 'vatNumber' => $tvaNumber);
+            $params = array('countryCode' => $countryCode, 'tvaNumber' => $vatNumber);
             $result = $client->checkVat($params);
 
             //Checks validity

@@ -1,5 +1,34 @@
 # Changelog
 
+v2.0
+----
+- Updated composer.json (01/09/2018)
+- Created branch 1.x (02/09/2018)
+- Made use of c975L/ConfigBundle (03/09/2018)
+- Made use of c975L/ServicesBundle (03/09/2018)
+- Added `bundle.yaml` (06/09/2018)
+- Removed declaration of parameters in Configuration class as they are end-user parameters and defined in c975L/ConfigBundle (06/09/2018)
+- Updated `README.md` (06/09/2018)
+- Updated `UserVoter` (06/09/2018)
+- Added link to BuyMeCoffee (06/09/2018)
+- Added link to apidoc (06/09/2018)
+- Added phpdoc to Entities (06/09/2018)
+- Added phpdoc to Event (06/09/2018)
+- Added phpdoc to UserRepository (06/09/2018)
+- Added phpdoc to OAuthUserProvider (06/09/2018)
+- Added phpdoc to Twig extensions (06/09/2018)
+- Added phpdoc to Validator (06/09/2018)
+- Renamed "tva" to "vat" except sql field name (06/09/2018)
+- Added phpdoc to Listener (06/09/2018)
+- Added phpdoc to Form (06/09/2018)
+- Added `UserFormFactory` (04/10/2018)
+- Removed Submit buttons from FormTypes (04/10/2018)
+- Added config route (04/10/2018)
+- Moved signin and signout to UserController (18/10/2018)
+
+v1.x
+====
+
 v1.12.1
 -------
 - Removed 'true ===' as not needed (25/08/2018)

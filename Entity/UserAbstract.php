@@ -17,7 +17,9 @@ use c975L\UserBundle\Validator\Constraints as UserBundleAssert;
 use c975L\UserBundle\Validator\Constraints\UserChallenge;
 
 /**
- * UserAbstract
+ * Entity UserAbstract
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
  *
  * @ORM\MappedSuperclass
  */
@@ -27,6 +29,9 @@ abstract class UserAbstract implements AdvancedUserInterface
     const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
 
     /**
+     * User unique id
+     * @var int
+     *
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(name="id", type="integer")
@@ -34,16 +39,25 @@ abstract class UserAbstract implements AdvancedUserInterface
     protected $id;
 
     /**
+     * If the user allows use of its account (GDPR)
+     * @var bool
+     *
      * @ORM\Column(name="allow_use", type="boolean")
      */
     protected $allowUse;
 
     /**
+     * Unique user identifier
+     * @var string
+     *
      * @ORM\Column(type="string", length=32, unique=true)
      */
     protected $identifier;
 
     /**
+     * Email for the user
+     * @var string
+     *
      * @Assert\NotBlank()
      * @ORM\Column(type="string", length=128, unique=true)
      * @Assert\Email(
@@ -54,6 +68,9 @@ abstract class UserAbstract implements AdvancedUserInterface
     protected $email;
 
     /**
+     * Gender for the user
+     * @var string
+     *
      * @ORM\Column(name="gender", type="string")
      * @Assert\Choice(
      *      choices = {"woman", "man"},
@@ -63,6 +80,9 @@ abstract class UserAbstract implements AdvancedUserInterface
     protected $gender;
 
     /**
+     * Firstname for the user
+     * @var string
+     *
      * @ORM\Column(name="firstname", length=48, type="string")
      * @Assert\Length(
      *      min = 2,
@@ -74,6 +94,9 @@ abstract class UserAbstract implements AdvancedUserInterface
     protected $firstname;
 
     /**
+     * Lastname for the user
+     * @var string
+     *
      * @ORM\Column(name="lastname", length=48, type="string")
      * @Assert\Length(
      *      min = 2,
@@ -85,61 +108,97 @@ abstract class UserAbstract implements AdvancedUserInterface
     protected $lastname;
 
     /**
+     * DateTime for the creation
+     * @var DateTime
+     *
      * @ORM\Column(name="creation", type="datetime", nullable=true)
      */
     protected $creation;
 
     /**
+     * url used for the Avatar for the user
+     * @var string
+     *
      * @ORM\Column(name="avatar", type="string", length=255, nullable=true)
      */
     protected $avatar;
 
     /**
+     * If account is enabled
+     * @var bool
+     *
      * @ORM\Column(name="enabled", type="boolean")
      */
     protected $enabled;
 
     /**
+     * Salt used to hash the password
+     * @var string
+     *
      * @ORM\Column(name="salt", length=255, type="string")
      */
     protected $salt;
 
     /**
+     * Password hashed
+     * @var string
+     *
      * @ORM\Column(name="password", length=255, type="string")
      */
     protected $password;
 
     /**
+     * DateTime of latest sign-in
+     * @var DateTime
+     *
      * @ORM\Column(name="latest_signin", type="datetime", nullable=true)
      */
     protected $latestSignin;
 
     /**
+     * DateTime of latest sign-out
+     * @var DateTime
+     *
      * @ORM\Column(name="latest_signout", type="datetime", nullable=true)
      */
     protected $latestSignout;
 
     /**
+     * Token used for sign-up and password recovery
+     * @var string
+     *
      * @ORM\Column(name="token", length=40, type="string")
      */
     protected $token;
 
     /**
+     * DateTime of request for password recovery
+     * @var DateTime
+     *
      * @ORM\Column(name="password_request", type="datetime")
      */
     protected $passwordRequest;
 
     /**
+     * Roles for the user
+     * @var string
+     *
      * @ORM\Column(name="roles", type="string")
      */
     protected $roles;
 
     /**
+     * Locale for the user
+     * @var string
+     *
      * @ORM\Column(name="locale", type="string", nullable=true)
      */
     protected $locale;
 
     /**
+     * Plain password (not strored, used only at sign-up and password chnage times)
+     * @var string
+     *
      * @Assert\Regex(
      *      pattern="/(?=.*[A-Za-z])(?=.*[@#$%^*])(?=.*[0-9]).{8,48}/",
      *      message="password.requirement"
@@ -148,6 +207,9 @@ abstract class UserAbstract implements AdvancedUserInterface
     protected $plainPassword;
 
     /**
+     * Answer to the proposed challenge to avoid bots
+     * @var string
+     *
      * @UserBundleAssert\UserChallenge(
      *      message = "label.error_challenge"
      * )
@@ -156,61 +218,164 @@ abstract class UserAbstract implements AdvancedUserInterface
 
 //ADDRESS
 //Mapping is done in children classes
+    /**
+     * See property in UserAddressAbstract
+     */
     protected $address;
+
+    /**
+     * See property in UserAddressAbstract
+     */
     protected $address2;
+
+    /**
+     * See property in UserAddressAbstract
+     */
     protected $postal;
+
+    /**
+     * See property in UserAddressAbstract
+     */
     protected $town;
+
+    /**
+     * See property in UserAddressAbstract
+     */
     protected $country;
+
+    /**
+     * See property in UserAddressAbstract
+     */
     protected $phone;
+
+    /**
+     * See property in UserAddressAbstract
+     */
     protected $fax;
 
 //BUSINESS
 //Mapping is done in children classes
+    /**
+     * See property in UserBusinessAbstract
+     */
     protected $businessType;
+
+    /**
+     * See property in UserBusinessAbstract
+     */
     protected $businessName;
+
+    /**
+     * See property in UserBusinessAbstract
+     */
     protected $businessAddress;
+
+    /**
+     * See property in UserBusinessAbstract
+     */
     protected $businessAddress2;
+
+    /**
+     * See property in UserBusinessAbstract
+     */
     protected $businessPostal;
+
+    /**
+     * See property in UserBusinessAbstract
+     */
     protected $businessTown;
+
+    /**
+     * See property in UserBusinessAbstract
+     */
     protected $businessCountry;
+
+    /**
+     * See property in UserBusinessAbstract
+     */
     protected $businessSiret;
-    protected $businessTva;
+
+    /**
+     * See property in UserBusinessAbstract
+     */
+    protected $businessVat;
+
+    /**
+     * See property in UserBusinessAbstract
+     */
     protected $businessPhone;
+
+    /**
+     * See property in UserBusinessAbstract
+     */
     protected $businessFax;
 
 //SOCIAL
 //Mapping is done in children classes
+    /**
+     * See property in UserSocialAbstract
+     */
     protected $socialNetwork;
+
+    /**
+     * See property in UserSocialAbstract
+     */
     protected $socialId;
+
+    /**
+     * See property in UserSocialAbstract
+     */
     protected $socialToken;
+
+    /**
+     * See property in UserSocialAbstract
+     */
     protected $socialPicture;
 
 
 //METHODS REQUESTED BY AdvancedUserInterface
+    /**
+     * {@inheritdoc}
+     */
     public function eraseCredentials()
     {
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function isAccountNonExpired()
     {
         return true;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function isAccountNonLocked()
     {
         return true;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function isCredentialsNonExpired()
     {
         return true;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function isEnabled()
     {
         return $this->enabled;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function serialize()
     {
         return serialize(array(
@@ -222,6 +387,9 @@ abstract class UserAbstract implements AdvancedUserInterface
         ));
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function unserialize($serialized)
     {
         list (
@@ -234,11 +402,17 @@ abstract class UserAbstract implements AdvancedUserInterface
     }
 
 //ROLES
+    /**
+     * {@inheritdoc}
+     */
     public function hasRole($role)
     {
         return in_array(strtoupper($role), $this->getRoles(), true);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function addRole($role)
     {
         $role = strtoupper($role);
@@ -274,7 +448,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set allowUse
-     * @param string $allowUse
+     * @param string
      * @return User
      */
     public function setAllowUse($allowUse)
@@ -285,7 +459,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Get allowUse
-     * @return boolean
+     * @return bool
      */
     public function getAllowUse()
     {
@@ -294,7 +468,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set identifier
-     * @param string $identifier
+     * @param string
      * @return User
      */
     public function setIdentifier($identifier)
@@ -314,7 +488,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set email
-     * @param string $email
+     * @param string
      * @return User
      */
     public function setEmail($email)
@@ -334,7 +508,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set gender
-     * @param string $gender
+     * @param string
      * @return User
      */
     public function setGender($gender)
@@ -354,7 +528,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set firstname
-     * @param string $firstname
+     * @param string
      * @return User
      */
     public function setFirstname($firstname)
@@ -374,7 +548,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set lastname
-     * @param string $lastname
+     * @param string
      * @return User
      */
     public function setLastname($lastname)
@@ -394,7 +568,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set creation
-     * @param DateTime $creation
+     * @param \DateTime
      * @return User
      */
     public function setCreation($creation)
@@ -405,7 +579,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Get creation
-     * @return DateTime
+     * @return \DateTime
      */
     public function getCreation()
     {
@@ -414,7 +588,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set avatar
-     * @param string $avatar
+     * @param string
      * @return User
      */
     public function setAvatar($avatar)
@@ -434,7 +608,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set enabled
-     * @param string $enabled
+     * @param bool
      * @return User
      */
     public function setEnabled($enabled)
@@ -445,11 +619,22 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Get enabled
-     * @return boolean
+     * @return bool
      */
     public function getEnabled()
     {
         return $this->enabled;
+    }
+
+    /**
+     * Set salt
+     * @param string
+     * @return User
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+        return $this;
     }
 
     /**
@@ -462,13 +647,13 @@ abstract class UserAbstract implements AdvancedUserInterface
     }
 
     /**
-     * Set salt
-     * @param string $salt
+     * Set password
+     * @param string
      * @return User
      */
-    public function setSalt($salt)
+    public function setPassword($password)
     {
-        $this->salt = $salt;
+        $this->password = $password;
         return $this;
     }
 
@@ -482,19 +667,8 @@ abstract class UserAbstract implements AdvancedUserInterface
     }
 
     /**
-     * Set password
-     * @param string $password
-     * @return User
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-        return $this;
-    }
-
-    /**
      * Set latestSignin
-     * @param DateTime $latestSignin
+     * @param DateTime
      * @return User
      */
     public function setLatestSignin($latestSignin)
@@ -505,7 +679,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Get latestSignin
-     * @return datetime
+     * @return \DateTime
      */
     public function getLatestSignin()
     {
@@ -514,7 +688,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set latestSignout
-     * @param DateTime $latestSignout
+     * @param \DateTime
      * @return User
      */
     public function setLatestSignout($latestSignout)
@@ -525,7 +699,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Get latestSignout
-     * @return DateTime
+     * @return \DateTime
      */
     public function getLatestSignout()
     {
@@ -534,7 +708,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set token
-     * @param string $token
+     * @param string
      * @return User
      */
     public function setToken($token)
@@ -554,7 +728,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set passwordRequest
-     * @param DateTime $passwordRequest
+     * @param \DateTime
      * @return User
      */
     public function setPasswordRequest($passwordRequest)
@@ -565,7 +739,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Get passwordRequest
-     * @return datetime
+     * @return \DateTime
      */
     public function getPasswordRequest()
     {
@@ -574,7 +748,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set roles
-     * @param string $roles
+     * @param string
      * @return User
      */
     public function setRoles($roles)
@@ -603,7 +777,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set locale
-     * @param string $locale
+     * @param string
      * @return User
      */
     public function setLocale($locale)
@@ -623,7 +797,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set plainPassword
-     * @param string $plainPassword
+     * @param string
      * @return User
      */
     public function setPlainPassword($plainPassword)
@@ -643,7 +817,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set challenge
-     * @param string $challenge
+     * @param string
      * @return User
      */
     public function setChallenge($challenge)
@@ -664,7 +838,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 //GETTERS/SETTERS ADDRESS
     /**
      * Set address
-     * @param string $address
+     * @param string
      * @return User
      */
     public function setAddress($address)
@@ -684,7 +858,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set address2
-     * @param string $address2
+     * @param string
      * @return User
      */
     public function setAddress2($address2)
@@ -704,7 +878,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set postal
-     * @param string $postal
+     * @param string
      * @return User
      */
     public function setPostal($postal)
@@ -724,7 +898,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set town
-     * @param string $town
+     * @param string
      * @return User
      */
     public function setTown($town)
@@ -744,7 +918,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set country
-     * @param string $country
+     * @param string
      * @return User
      */
     public function setCountry($country)
@@ -764,7 +938,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set phone
-     * @param string $phone
+     * @param string
      * @return User
      */
     public function setPhone($phone)
@@ -784,7 +958,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set fax
-     * @param string $fax
+     * @param string
      * @return User
      */
     public function setFax($fax)
@@ -805,7 +979,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 //GETTERS/SETTERS BUSINESS
     /**
      * Set businessType
-     * @param string $businessType
+     * @param string
      * @return User
      */
     public function setBusinessType($businessType)
@@ -826,7 +1000,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set businessName
-     * @param string $businessName
+     * @param string
      * @return User
      */
     public function setBusinessName($businessName)
@@ -846,7 +1020,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set businessAddress
-     * @param string $businessAddress
+     * @param string
      * @return User
      */
     public function setBusinessAddress($businessAddress)
@@ -866,7 +1040,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set businessAddress2
-     * @param string $businessAddress2
+     * @param string
      * @return User
      */
     public function setBusinessAddress2($businessAddress2)
@@ -886,7 +1060,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set businessPostal
-     * @param string $businessPostal
+     * @param string
      * @return User
      */
     public function setBusinessPostal($businessPostal)
@@ -906,7 +1080,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set businessTown
-     * @param string $businessTown
+     * @param string
      * @return User
      */
     public function setBusinessTown($businessTown)
@@ -926,7 +1100,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set businessCountry
-     * @param string $businessCountry
+     * @param string
      * @return User
      */
     public function setBusinessCountry($businessCountry)
@@ -946,7 +1120,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set businessSiret
-     * @param string $businessSiret
+     * @param string
      * @return User
      */
     public function setBusinessSiret($businessSiret)
@@ -965,28 +1139,28 @@ abstract class UserAbstract implements AdvancedUserInterface
     }
 
     /**
-     * Set businessTva
-     * @param string $businessTva
+     * Set businessVat
+     * @param string
      * @return User
      */
-    public function setBusinessTva($businessTva)
+    public function setBusinessVat($businessVat)
     {
-        $this->businessTva = str_replace(array(' ', '.', '-', ',', ', '), '', trim(strtoupper($businessTva)));
+        $this->businessVat = str_replace(array(' ', '.', '-', ',', ', '), '', trim(strtoupper($businessVat)));
         return $this;
     }
 
     /**
-     * Get businessTva
+     * Get businessVat
      * @return string
      */
-    public function getBusinessTva()
+    public function getBusinessVat()
     {
-        return $this->businessTva;
+        return $this->businessVat;
     }
 
     /**
      * Set businessPhone
-     * @param string $businessPhone
+     * @param string
      * @return User
      */
     public function setBusinessPhone($businessPhone)
@@ -1006,7 +1180,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set businessFax
-     * @param string $businessFax
+     * @param string
      * @return User
      */
     public function setBusinessFax($businessFax)
@@ -1027,7 +1201,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 //GETTERS/SETTERS SOCIAL
     /**
      * Set socialNetwork
-     * @param string $socialNetwork
+     * @param string
      * @return User
      */
     public function setSocialNetwork($socialNetwork)
@@ -1047,7 +1221,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set socialId
-     * @param string $socialId
+     * @param string
      * @return User
      */
     public function setSocialId($socialId)
@@ -1067,7 +1241,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set socialToken
-     * @param string $socialToken
+     * @param string
      * @return User
      */
     public function setSocialToken($socialToken)
@@ -1087,7 +1261,7 @@ abstract class UserAbstract implements AdvancedUserInterface
 
     /**
      * Set socialPicture
-     * @param string $socialPicture
+     * @param string
      * @return User
      */
     public function setSocialPicture($socialPicture)

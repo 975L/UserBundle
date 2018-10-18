@@ -13,14 +13,20 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use c975L\ConfigBundle\Service\ConfigServiceInterface;
 
+/**
+ * Voter for User access
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
+ */
 class UserVoter extends Voter
 {
     /**
-     * Stores ContainerInterface
-     * @var ContainerInterface
+     * Stores ConfigServiceInterface
+     * @var ConfigServiceInterface
      */
-    private $container;
+    private $configService;
 
     /**
      * Stores AccessDecisionManagerInterface
@@ -29,16 +35,16 @@ class UserVoter extends Voter
     private $decisionManager;
 
     /**
-     * The role needed to be allowed access (defined in config)
-     * @var string
-     */
-    private $roleNeeded;
-
-    /**
      * Used for access to change-password
      * @var string
      */
     public const CHANGE_PASSWORD = 'c975LUser-change-password';
+
+    /**
+     * Used for access to config
+     * @var string
+     */
+    public const CONFIG = 'c975LUser-config';
 
     /**
      * Used for access to dashboard
@@ -89,11 +95,18 @@ class UserVoter extends Voter
     public const RESET_PASSWORD = 'c975LUser-reset-password';
 
     /**
+     * Used for access to signup-confirm
+     * @var string
+     */
+    public const SIGNUP_CONFIRM = 'c975LUser-signup-confirm';
+
+    /**
      * Contains all the available attributes to check with in supports()
      * @var array
      */
     private const ATTRIBUTES = array(
         self::CHANGE_PASSWORD,
+        self::CONFIG,
         self::DASHBOARD,
         self::DELETE,
         self::DISPLAY,
@@ -102,17 +115,16 @@ class UserVoter extends Voter
         self::MODIFY,
         self::PUBLIC_PROFILE,
         self::RESET_PASSWORD,
+        self::SIGNUP_CONFIRM,
     );
 
     public function __construct(
-        AccessDecisionManagerInterface $decisionManager,
-        ContainerInterface $container,
-        string $roleNeeded
+        ConfigServiceInterface $configService,
+        AccessDecisionManagerInterface $decisionManager
     )
     {
-        $this->container = $container;
+        $this->configService = $configService;
         $this->decisionManager = $decisionManager;
-        $this->roleNeeded = $roleNeeded;
     }
 
     /**
@@ -137,12 +149,14 @@ class UserVoter extends Voter
     {
         //Defines access rights
         switch ($attribute) {
+            case self::CONFIG:
+                return $this->isAdmin($token);
+                break;
             case self::CHANGE_PASSWORD:
             case self::DASHBOARD:
             case self::DELETE:
             case self::DISPLAY:
             case self::EXPORT:
-            case self::HELP:
             case self::MODIFY:
                 return $this->isOwner($token, $subject);
                 break;
@@ -150,7 +164,9 @@ class UserVoter extends Voter
                 return $this->isAllowedPublicProfile($token, $subject);
                 break;
             //User class has been checked at the supports() level
+            case self::HELP:
             case self::RESET_PASSWORD:
+            case self::SIGNUP_CONFIRM:
                 return true;
                 break;
         }
@@ -164,7 +180,7 @@ class UserVoter extends Voter
      */
     public function isAllowedPublicProfile()
     {
-        return $this->container->getParameter('c975_l_user.publicProfile');
+        return $this->configService->getParameter('c975LUser.publicProfile');
     }
 
     /**
@@ -173,7 +189,7 @@ class UserVoter extends Voter
      */
     private function isOwner($token, $user)
     {
-        return $this->isAdmin($token) ? true : $user->getId() === $token->getUser()->getId();
+        return $this->isAdmin($token) && $user->getId() === $token->getUser()->getId();
     }
 
     /**
@@ -182,6 +198,6 @@ class UserVoter extends Voter
      */
     private function isAdmin($token)
     {
-        return $this->decisionManager->decide($token, array($this->roleNeeded));
+        return $this->decisionManager->decide($token, array($this->configService->getParameter('c975LUser.roleNeeded', 'c975l/user-bundle')));
     }
 }

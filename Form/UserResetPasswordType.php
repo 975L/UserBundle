@@ -15,6 +15,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * UserResetPassword FormType
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
+ */
 class UserResetPasswordType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -26,11 +31,6 @@ class UserResetPasswordType extends AbstractType
                 'attr' => array(
                     'placeholder' => 'placeholder.email',
                 )))
-            ->add('submit', SubmitType::class, array(
-                'label' => 'label.validate',
-                'translation_domain' => 'toolbar',
-                'attr' => array('class' => 'btn btn-block btn-lg btn-primary'),
-            ))
         ;
     }
 
@@ -40,5 +40,7 @@ class UserResetPasswordType extends AbstractType
             'intention' => 'UserResetPasswordForm',
             'translation_domain' => 'user',
         ));
+
+        $resolver->setRequired('config');
     }
 }

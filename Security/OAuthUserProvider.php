@@ -9,40 +9,82 @@
 
 namespace c975L\UserBundle\Security;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthAwareUserProviderInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
+use c975L\ConfigBundle\Service\ConfigServiceInterface;
 use c975L\UserBundle\Event\UserEvent;
+use c975L\UserBundle\Service\UserServiceInterface;
 
+/**
+ * Bridge to use hwiOAuth
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
+ */
 class OAuthUserProvider implements OAuthAwareUserProviderInterface
 {
-    private $container;
-    private $request;
+    /**
+     * Stores ConfigServiceInterface
+     * @var ConfigServiceInterface
+     */
+    private $configService;
+
+    /**
+     * Stores EventDispatcherInterface
+     * @var EventDispatcherInterface
+     */
+    private $dispatcher;
+
+    /**
+     * Stores EntityManagerInterface
+     * @var EntityManagerInterface
+     */
     private $em;
 
+    /**
+     * Stores current Request
+     * @var Request
+     */
+    private $request;
+
+    /**
+     * Stores UserServiceInterface
+     * @var UserServiceInterface
+     */
+    private $userService;
+
     public function __construct(
-        \Symfony\Component\DependencyInjection\ContainerInterface $container,
-        \Symfony\Component\HttpFoundation\RequestStack $requestStack,
-        \Doctrine\ORM\EntityManager $em
+        ConfigServiceInterface $configService,
+        EventDispatcherInterface $dispatcher,
+        EntityManagerInterface $em,
+        RequestStack $requestStack,
+        UserServiceInterface $userService
     )
     {
-        $this->container = $container;
-        $this->request = $requestStack->getCurrentRequest();
+        $this->configService = $configService;
+        $this->dispatcher = $dispatcher;
         $this->em = $em;
+        $this->request = $requestStack->getCurrentRequest();
+        $this->userService = $userService;
     }
 
+    /**
+     * Loads user
+     * @return User|null
+     */
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
         //Gets username
         $username = $response->getUsername();
 
         //Authentication suceeded
-        if ($username !== null) {
+        if (null !== $username) {
             //Checks if user exists
-            $userService = $this->container->get(\c975L\UserBundle\Service\UserService::class);
-            $user = $userService->findUserBySocialId($username);
+            $user = $this->userService->findUserBySocialId($username);
 
             //User has been found
             if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
@@ -57,10 +99,10 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface
             }
 
             //Creates user OR link account to existing one
-            if ($user === null) {
+            if (null === $user) {
                 //Checks if an account already exists with the same email address
-                if ($response->getEmail() !== null) {
-                    $user = $userService->findUserByEmail($response->getEmail());
+                if (null !== $response->getEmail()) {
+                    $user = $this->userService->findUserByEmail($response->getEmail());
                 }
 
                 //Links account to existing one to allow sign in with both
@@ -81,22 +123,21 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface
                 }
 
                 //Creates the user
-                $userEntity = $this->container->getParameter('c975_l_user.entity');
+                $userEntity = $this->configService->getParameter('c975LUser.entity');
                 $user = new $userEntity();
 
-                //Dispatch event
-                $dispatcher = $this->container->get('event_dispatcher');
+                //Dispatch event USER_SIGNUP
                 $event = new UserEvent($user, $this->request);
-                $dispatcher->dispatch(UserEvent::USER_SIGNUP, $event);
+                $this->dispatcher->dispatch(UserEvent::USER_SIGNUP, $event);
 
                 //Defines data for user
                 $firstname = $response->getFirstName();
-                $firstname = $firstname != '' && $firstname != null ? $firstname : $response->getNickname();
-                $firstname = $firstname != '' && $firstname != null ? $firstname : $response->getRealName();
-                $avatar = $response->getEmail() != null ? 'https://www.gravatar.com/avatar/' . hash('md5', strtolower(trim($response->getEmail()))) . '?s=512&d=mm&r=g' : null;
+                $firstname = '' !== $firstname && null !== $firstname ? $firstname : $response->getNickname();
+                $firstname = '' !== $firstname && null !== $firstname ? $firstname : $response->getRealName();
+                $avatar = null !== $response->getEmail() ? 'https://www.gravatar.com/avatar/' . hash('md5', strtolower(trim($response->getEmail()))) . '?s=512&d=mm&r=g' : null;
 
                 //Allows to not have an email for first authentication, it will be requested in profile update
-                $email = $response->getEmail() != null ? strtolower(trim($response->getEmail())) : $username;
+                $email = null !== $response->getEmail() ? strtolower(trim($response->getEmail())) : $username;
 
                 $user
                     ->setIdentifier(md5($user->getEmail() . uniqid(time())))
@@ -117,13 +158,14 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface
                 $this->em->persist($user);
                 $this->em->flush();
 
-                //Dispatch event
-                $dispatcher = $this->container->get('event_dispatcher');
+                //Dispatch event USER_SIGNEDUP
                 $event = new UserEvent($user, $this->request);
-                $dispatcher->dispatch(UserEvent::USER_SIGNEDUP, $event);
+                $this->dispatcher->dispatch(UserEvent::USER_SIGNEDUP, $event);
 
                 return $user;
             }
         }
+
+        return null;
     }
 }

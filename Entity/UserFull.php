@@ -18,7 +18,9 @@ use c975L\UserBundle\Validator\Constraints\Tva;
 use c975L\UserBundle\Entity\UserFullAbstract;
 
 /**
- * UserFull
+ * Entity UserFull (linked to DB table `user`)
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
  *
  * @ORM\Table(name="user", indexes={
  *      @ORM\Index(name="un_email", columns={"name", "email"}),

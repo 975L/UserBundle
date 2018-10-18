@@ -7,18 +7,18 @@
  * with this source code in the file LICENSE.
  */
 
-namespace c975L\UserBundle\Validator\Constraints;
-
-use Symfony\Component\Validator\Constraint;
+namespace c975L\UserBundle\Service\Email;
 
 /**
- * Sets the message when Challenge validation fails
+ * Interface to be called for DI for User Email related services
  * @author Laurent Marquet <laurent.marquet@laposte.net>
  * @copyright 2018 975L <contact@975l.com>
- *
- * @Annotation
  */
-class UserChallenge extends Constraint
+interface UserEmailInterface
 {
-    public $message = 'Wrong answer to the challenge';
+    /**
+     * Sends emails
+     * @return bool
+     */
+    public function send($object, $user, $options = array());
 }

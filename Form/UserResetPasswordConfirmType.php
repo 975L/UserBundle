@@ -18,9 +18,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+/**
+ * UserResetPasswordConfirm FormType
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
+ */
 class UserResetPasswordConfirmType extends AbstractType
 {
-    //Builds the form
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -37,19 +41,16 @@ class UserResetPasswordConfirmType extends AbstractType
                 'first_options'  => array('label' => 'label.password'),
                 'second_options' => array('label' => 'label.password_repeat'),
                 ))
-            ->add('submit', SubmitType::class, array(
-                'label' => 'label.validate',
-                'translation_domain' => 'toolbar',
-                'attr' => array('class' => 'btn btn-block btn-lg btn-primary'),
-            ))
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'intention' => 'UserChangePasswordForm',
+            'intention' => 'UserResetPasswordConfirmForm',
             'translation_domain' => 'user',
         ));
+
+        $resolver->setRequired('config');
     }
 }

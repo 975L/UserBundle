@@ -13,9 +13,17 @@ use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Doctrine\ORM\EntityRepository;
 use c975L\UserBundle\Entity\User;
 
+/**
+ * Repository for User Entity
+ * @author Laurent Marquet <laurent.marquet@laposte.net>
+ * @copyright 2018 975L <contact@975l.com>
+ */
 class UserRepository extends EntityRepository implements UserLoaderInterface
 {
-    //Loads User
+    /**
+     * Loads User
+     * @return mixed
+     */
     public function loadUserByUsername($email)
     {
         return $this->createQueryBuilder('u')

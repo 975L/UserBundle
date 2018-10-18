@@ -14,7 +14,7 @@
                     </p>
                     {% for network in hwiOauth %}
                         <p class="text-center">
-                            <a href="{{ path('hwi_oauth_service_redirect', {service: network}) }}" rel="nofollow">
+                            <a href="{{ path('hwi_oauth_service_redirect', {service: network|trim}) }}" rel="nofollow">
                                 {% include('@c975LUser/fragments/socialNetworkImage.html.twig') %}
                             </a>
                         </p>
