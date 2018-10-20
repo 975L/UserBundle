@@ -1,5 +1,11 @@
 # Changelog
 
+v2.1
+----
+- Added API (19/10/2018)
+- Added Entity UserLight for minimum requirements (19/10/2018)
+- Added methods for sf4 (20/10/2018)
+
 v2.0.1
 ------
 - Corrected missing $session variable (18/10/2018)

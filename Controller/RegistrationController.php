@@ -77,7 +77,11 @@ class RegistrationController extends Controller
 
 //SIGN UP
     /**
-     * @Route("/signup")
+     * Redirects to signup Route
+     * @return Redirect
+     *
+     * @Route("/signup",
+     *      methods={"GET", "HEAD", "POST"})
      * @Method({"GET", "HEAD"})
      */
     public function registerRedirect()
@@ -86,8 +90,13 @@ class RegistrationController extends Controller
         return $this->redirectToRoute('user_signup');
     }
     /**
+     * Renders the signup form
+     * @return Response
+     * @throws AccessDeniedException
+     *
      * @Route("/user/signup",
-     *      name="user_signup")
+     *      name="user_signup",
+     *      methods={"GET", "HEAD", "POST"})
      * @Method({"GET", "HEAD", "POST"})
      */
     public function signup(Request $request)
@@ -98,13 +107,15 @@ class RegistrationController extends Controller
         }
 
         //Redirects to dashboard if user has already signed-in
-        if (is_subclass_of($this->getUser(), 'c975L\UserBundle\Entity\UserAbstract')) {
+        if (is_subclass_of($this->getUser(), 'c975L\UserBundle\Entity\UserLightAbstract')) {
             return $this->redirectToRoute('user_dashboard');
         }
 
-        //Defines form
         $userEntity = $this->configService->getParameter('c975LUser.entity');
         $user = new $userEntity();
+        $this->denyAccessUnlessGranted('c975LUser-signup', $user);
+
+        //Defines form
         $form = $this->userFormFactory->create('signup', $user);
         $form->handleRequest($request);
 
@@ -141,10 +152,12 @@ class RegistrationController extends Controller
     /**
      * Confirms signup and redirects to user signin
      * @return Redirect
+     * @throws AccessDeniedException
      *
      * @Route("/user/signup/{token}",
      *      name="user_signup_confirm",
-     *      requirements={"token": "^[a-zA-Z0-9]{40}$"})
+     *      requirements={"token": "^[a-zA-Z0-9]{40}$"},
+     *      methods={"GET", "HEAD"})
      * @Method({"GET", "HEAD"})
      */
     public function signupConfirm(Request $request, $token)

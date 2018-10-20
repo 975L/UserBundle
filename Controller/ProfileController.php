@@ -15,6 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use c975L\ConfigBundle\Service\ConfigServiceInterface;
 use c975L\UserBundle\Event\UserEvent;
 use c975L\UserBundle\Form\UserFormFactoryInterface;
@@ -71,7 +72,8 @@ class ProfileController extends Controller
      * @throws AccessDeniedException
      *
      * @Route("/user/display",
-     *      name="user_display")
+     *      name="user_display",
+     *      methods={"GET", "HEAD", "POST"})
      * @Method({"GET", "HEAD"})
      */
     public function display()
@@ -101,7 +103,8 @@ class ProfileController extends Controller
      * @throws AccessDeniedException
      *
      * @Route("/user/modify",
-     *      name="user_modify")
+     *      name="user_modify",
+     *      methods={"GET", "HEAD", "POST"})
      * @Method({"GET", "HEAD", "POST"})
      */
     public function modify(Request $request)
@@ -135,8 +138,13 @@ class ProfileController extends Controller
 
 //DELETE
     /**
+     * Deletes the user
+     * @return REsponse
+     * @throws AccessDeniedException
+     *
      * @Route("/user/delete",
-     *      name="user_delete")
+     *      name="user_delete",
+     *      methods={"GET", "HEAD", "POST"})
      * @Method({"GET", "HEAD", "POST"})
      */
     public function delete(Request $request)
@@ -169,16 +177,18 @@ class ProfileController extends Controller
 
 //PUBLIC PROFILE
     /**
+     * Displays the public profile if enabled
+     * @return Response
+     * @throws AccessDeniedException
+     *
      * @Route("/user/public/{identifier}",
      *      name="user_public_profile",
-     *      requirements={"identifier": "^([a-z0-9]{32})$"})
+     *      requirements={"identifier": "^([a-z0-9]{32})$"},
+     *      methods={"GET", "HEAD"})
      * @Method({"GET", "HEAD"})
      */
     public function pulicProfile($identifier)
     {
-
-//utiliser @ParamConverter
-
         $user = $this->em
             ->getRepository($this->configService->getParameter('c975LUser.entity'))
             ->findOneByIdentifier($identifier)
@@ -193,9 +203,14 @@ class ProfileController extends Controller
 
 //EXPORT
     /**
+     * Export the user's data in JSON or XML
+     * @return Response
+     * @throws AccessDeniedException
+     *
      * @Route("/user/export/{format}",
      *      name="user_export",
-     *      requirements={"format": "^(json|xml)$"})
+     *      requirements={"format": "^(json|xml)$"},
+     *      methods={"GET", "HEAD", "POST"})
      * @Method({"GET", "HEAD", "POST"})
      */
     public function export(Request $request, $format)

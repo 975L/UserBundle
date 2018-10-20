@@ -84,6 +84,16 @@ c975LUser:
         required: false
         default: 'bootstrap_3_layout'
         info: "The template used for your form rendering` table (Default bootstrap_3_layout)"
+    api:
+        type: bool
+        required: false
+        default: false
+        info: "If you wish to use the API (Default false)"
+    apiOnly:
+        type: bool
+        required: false
+        default: false
+        info: "If you wish to use ONLY the API (Default false)"
 c975LCommon:
     site:
         type: string

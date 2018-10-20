@@ -58,44 +58,64 @@ class UserProfileType extends AbstractType
                 'disabled' => true,
                 'required' => false,
                 ))
-            ->add('latestSignin', DateTimeType::class, array(
-                'label' => 'label.latest_signin',
-                'date_widget' => 'single_text',
-                'time_widget' => 'single_text',
-                'disabled' => true,
-                'required' => false,
-                ))
-            ->add('latestSignout', DateTimeType::class, array(
-                'label' => 'label.latest_signout',
-                'date_widget' => 'single_text',
-                'time_widget' => 'single_text',
-                'disabled' => true,
-                'required' => false,
-                ))
-            ->add('gender', ChoiceType::class, array(
-                'label' => 'label.gender',
-                'disabled' => $disabled,
-                'required' => false,
-                'choices'  => array(
-                    'label.gender' => null,
-                    'label.woman' => 'woman',
-                    'label.man' => 'man',
-                )))
-            ->add('firstname', TextType::class, array(
-                'label' => 'label.firstname',
-                'disabled' => $disabled,
-                'required' => true,
-                'attr' => array(
-                    'placeholder' => 'placeholder.firstname',
-                )))
-            ->add('lastname', TextType::class, array(
-                'label' => 'label.lastname',
-                'disabled' => $disabled,
-                'required' => false,
-                'attr' => array(
-                    'placeholder' => 'placeholder.lastname',
-                )))
         ;
+        if (method_exists($options['data'], 'setLatestSignin')) {
+            $builder
+                ->add('latestSignin', DateTimeType::class, array(
+                    'label' => 'label.latest_signin',
+                    'date_widget' => 'single_text',
+                    'time_widget' => 'single_text',
+                    'disabled' => true,
+                    'required' => false,
+                    ))
+            ;
+        }
+        if (method_exists($options['data'], 'setLatestSignout')) {
+            $builder
+                ->add('latestSignout', DateTimeType::class, array(
+                    'label' => 'label.latest_signout',
+                    'date_widget' => 'single_text',
+                    'time_widget' => 'single_text',
+                    'disabled' => true,
+                    'required' => false,
+                    ))
+            ;
+        }
+        if (method_exists($options['data'], 'setGender')) {
+            $builder
+                ->add('gender', ChoiceType::class, array(
+                    'label' => 'label.gender',
+                    'disabled' => $disabled,
+                    'required' => false,
+                    'choices'  => array(
+                        'label.gender' => null,
+                        'label.woman' => 'woman',
+                        'label.man' => 'man',
+                    )))
+            ;
+        }
+        if (method_exists($options['data'], 'setFirstname')) {
+            $builder
+                ->add('firstname', TextType::class, array(
+                    'label' => 'label.firstname',
+                    'disabled' => $disabled,
+                    'required' => true,
+                    'attr' => array(
+                        'placeholder' => 'placeholder.firstname',
+                    )))
+            ;
+        }
+        if (method_exists($options['data'], 'setLastname')) {
+            $builder
+                ->add('lastname', TextType::class, array(
+                    'label' => 'label.lastname',
+                    'disabled' => $disabled,
+                    'required' => false,
+                    'attr' => array(
+                        'placeholder' => 'placeholder.lastname',
+                    )))
+            ;
+        }
 //MULTILINGUAL
         if (!empty($options['config']['multilingual'])) {
             $builder
@@ -107,7 +127,7 @@ class UserProfileType extends AbstractType
                     'placeholder' => 'label.locale',
                     'choices'  => $options['config']['multilingual'],
                     ))
-                ;
+            ;
         }
 //ADDRESS
         if ($options['config']['address']) {

@@ -74,16 +74,10 @@ class UserFormFactory implements UserFormFactoryInterface
                 $config = array();
                 break;
             case 'delete':
-                $form = null !== $this->configService->getParameter('c975LUser.profileForm') ? $this->configService->getParameter('c975LUser.profileForm') : UserProfileType::class;
-                $config['action'] = 'delete';
-                break;
             case 'display':
-                $form = null !== $this->configService->getParameter('c975LUser.profileForm') ? $this->configService->getParameter('c975LUser.profileForm') : UserProfileType::class;
-                $config['action'] = 'display';
-                break;
             case 'modify':
                 $form = null !== $this->configService->getParameter('c975LUser.profileForm') ? $this->configService->getParameter('c975LUser.profileForm') : UserProfileType::class;
-                $config['action'] = 'modify';
+                $config['action'] = $name;
                 break;
             case 'reset-password':
                 $form = UserResetPasswordType::class;
@@ -94,7 +88,7 @@ class UserFormFactory implements UserFormFactoryInterface
                 break;
             case 'signup':
                 $form = null !== $this->configService->getParameter('c975LUser.signupForm') ? $this->configService->getParameter('c975LUser.signupForm') : UserSignupType::class;
-                $config['action'] = 'signup';
+                $config['action'] = $name;
                 $config['session'] = $this->request->getSession();
                 break;
             default:

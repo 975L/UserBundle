@@ -95,6 +95,12 @@ class UserVoter extends Voter
     public const RESET_PASSWORD = 'c975LUser-reset-password';
 
     /**
+     * Used for access to signup
+     * @var string
+     */
+    public const SIGNUP = 'c975LUser-signup';
+
+    /**
      * Used for access to signup-confirm
      * @var string
      */
@@ -115,6 +121,7 @@ class UserVoter extends Voter
         self::MODIFY,
         self::PUBLIC_PROFILE,
         self::RESET_PASSWORD,
+        self::SIGNUP,
         self::SIGNUP_CONFIRM,
     );
 
@@ -134,7 +141,7 @@ class UserVoter extends Voter
     protected function supports($attribute, $subject)
     {
         if (false !== $subject) {
-            return is_subclass_of($subject, 'c975L\UserBundle\Entity\UserAbstract') && in_array($attribute, self::ATTRIBUTES);
+            return is_subclass_of($subject, 'c975L\UserBundle\Entity\UserLightAbstract') && in_array($attribute, self::ATTRIBUTES);
         }
 
         return in_array($attribute, self::ATTRIBUTES);
@@ -147,10 +154,15 @@ class UserVoter extends Voter
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
+        //If access is restricted to API only
+        if ($this->configService->getParameter('c975LUser.apiOnly')) {
+            return false;
+        }
+
         //Defines access rights
         switch ($attribute) {
             case self::CONFIG:
-                return $this->isAdmin($token);
+                return $this->isAllowed($token);
                 break;
             case self::CHANGE_PASSWORD:
             case self::DASHBOARD:
@@ -166,12 +178,22 @@ class UserVoter extends Voter
             //User class has been checked at the supports() level
             case self::HELP:
             case self::RESET_PASSWORD:
+            case self::SIGNUP:
             case self::SIGNUP_CONFIRM:
                 return true;
                 break;
         }
 
         throw new \LogicException('Invalid attribute: ' . $attribute);
+    }
+
+    /**
+     * Checks if user has sufficient rights
+     * @return bool
+     */
+    private function isAllowed($token)
+    {
+        return $this->decisionManager->decide($token, array($this->configService->getParameter('c975LUser.roleNeeded', 'c975l/user-bundle')));
     }
 
     /**
@@ -184,20 +206,11 @@ class UserVoter extends Voter
     }
 
     /**
-     * Checks if user is owner or has admin rights
+     * Checks if user is owner or has sufficient rights
      * @return bool
      */
-    private function isOwner($token, $user)
+    private function isOwner($token, $subject)
     {
-        return $this->isAdmin($token) && $user->getId() === $token->getUser()->getId();
-    }
-
-    /**
-     * Checks if user has admin rights
-     * @return bool
-     */
-    private function isAdmin($token)
-    {
-        return $this->decisionManager->decide($token, array($this->configService->getParameter('c975LUser.roleNeeded', 'c975l/user-bundle')));
+        return $this->isAllowed($token) || (method_exists($token->getUser(), 'getId') && $subject->getId() === $token->getUser()->getId());
     }
 }
