@@ -10,6 +10,7 @@
 namespace c975L\UserBundle\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -91,6 +92,27 @@ class UserService implements UserServiceInterface
         $this->router = $router;
         $this->serviceTools = $serviceTools;
         $this->userEmail = $userEmail;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function add($user)
+    {
+        //UserLight Entity
+        $user
+            ->setIdentifier(md5($user->getEmail() . uniqid(time())))
+            ->setCreation(new \DateTime())
+            ->setEnabled(false)
+            ->setPassword($this->passwordEncoder->encodePassword($user, $user->getPlainPassword()))
+            ->setPlainPassword(null)
+            ->setToken(hash('sha1', $user->getEmail() . uniqid()))
+        ;
+
+        //For other entities
+        if (method_exists($user, 'setAvatar')) {
+            $user->setAvatar('https://www.gravatar.com/avatar/' . hash('md5', strtolower(trim($user->getEmail()))) . '?s=512&d=mm&r=g');
+        }
     }
 
     /**
@@ -237,7 +259,11 @@ class UserService implements UserServiceInterface
      */
     public function findUserByEmail($email)
     {
-        return $this->em->getRepository($this->configService->getParameter('c975LUser.entity'))->findOneByEmail($email);
+        return $this
+            ->em
+            ->getRepository($this->getUserEntity())
+            ->findOneByEmail($email)
+        ;
     }
 
     /**
@@ -245,7 +271,11 @@ class UserService implements UserServiceInterface
      */
     public function findUserById($id)
     {
-        return $this->em->getRepository($this->configService->getParameter('c975LUser.entity'))->findOneById($id);
+        return $this
+            ->em
+            ->getRepository($this->getUserEntity())
+            ->findOneById($id)
+        ;
     }
 
     /**
@@ -253,7 +283,11 @@ class UserService implements UserServiceInterface
      */
     public function findUserByIdentifier($identifier)
     {
-        return $this->em->getRepository($this->configService->getParameter('c975LUser.entity'))->findOneByIdentifier($identifier);
+        return $this
+            ->em
+            ->getRepository($this->getUserEntity())
+            ->findOneByIdentifier($identifier)
+        ;
     }
 
     /**
@@ -261,7 +295,11 @@ class UserService implements UserServiceInterface
      */
     public function findUserBySocialId($socialId)
     {
-        return $this->em->getRepository($this->configService->getParameter('c975LUser.entity'))->findOneBySocialId($socialId);
+        return $this
+            ->em
+            ->getRepository($this->getUserEntity())
+            ->findOneBySocialId($socialId)
+        ;
     }
 
     /**
@@ -269,7 +307,11 @@ class UserService implements UserServiceInterface
      */
     public function findUserByToken($token)
     {
-        return $this->em->getRepository($this->configService->getParameter('c975LUser.entity'))->findOneByToken($token);
+        return $this
+            ->em
+            ->getRepository($this->getUserEntity())
+            ->findOneByToken($token)
+        ;
     }
 
     /**
@@ -304,16 +346,7 @@ class UserService implements UserServiceInterface
      */
     public function signup($user)
     {
-        //Adds data to user
-        $user
-            ->setIdentifier(md5($user->getEmail() . uniqid(time())))
-            ->setCreation(new \DateTime())
-            ->setAvatar('https://www.gravatar.com/avatar/' . hash('md5', strtolower(trim($user->getEmail()))) . '?s=512&d=mm&r=g')
-            ->setEnabled(false)
-            ->setPassword($this->passwordEncoder->encodePassword($user, $user->getPlainPassword()))
-            ->setPlainPassword(null)
-            ->setToken(hash('sha1', $user->getEmail() . uniqid()))
-        ;
+        $this->add($user);
 
         //Sends email
         $this->userEmail->send('signup', $user);

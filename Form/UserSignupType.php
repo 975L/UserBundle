@@ -56,12 +56,17 @@ class UserSignupType extends AbstractType
                 'first_options'  => array('label' => 'label.password'),
                 'second_options' => array('label' => 'label.password_repeat'),
                 ))
-            ->add('firstname', TextType::class, array(
-                'label' => 'label.firstname',
-                'required' => true,
-                'attr' => array(
-                    'placeholder' => 'placeholder.firstname',
-                )))
+        ;
+        if (method_exists($options['data'], 'setFirstname')) {
+            $builder
+                ->add('firstname', TextType::class, array(
+                    'label' => 'label.firstname',
+                    'required' => true,
+                    'attr' => array(
+                        'placeholder' => 'placeholder.firstname',
+                    )));
+        }
+        $builder
             ->add('challenge', TextType::class, array(
                 'label' => 'label.challenge',
                 'required' => true,

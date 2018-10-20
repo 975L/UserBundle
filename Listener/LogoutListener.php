@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Logout\LogoutHandlerInterface;
-use c975L\UserBundle\Entity\UserAbstract;
+use c975L\UserBundle\Entity\UserLightAbstract;
 
 /**
  * Class to listen to logout event

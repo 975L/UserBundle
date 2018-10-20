@@ -10,7 +10,7 @@
 namespace c975L\UserBundle\Service;
 
 use Symfony\Component\HttpFoundation\Response;
-
+use Symfony\Component\HttpFoundation\ParameterBag;
 
 /**
  * Interface to be called for DI for User Main related services
@@ -19,6 +19,11 @@ use Symfony\Component\HttpFoundation\Response;
  */
 interface UserServiceInterface
 {
+    /**
+     * Adds the user
+     */
+    public function add($user);
+
     /**
      * Adds attempt for signin
      * @return array

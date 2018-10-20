@@ -87,7 +87,7 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface
             $user = $this->userService->findUserBySocialId($username);
 
             //User has been found
-            if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
+            if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserLightAbstract')) {
                 //Updates access token
                 $user->setSocialToken($response->getAccessToken());
 
@@ -107,7 +107,7 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface
 
                 //Links account to existing one to allow sign in with both
                 //Sign up with another social network, using the same email address, will replace the existing social network
-                if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
+                if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserLightAbstract')) {
                     $user
                         ->setSocialNetwork(strtolower($response->getResourceOwner()->getName()))
                         ->setSocialId($username)

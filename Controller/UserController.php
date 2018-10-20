@@ -14,10 +14,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Core\Exception\DisabledException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use c975L\ConfigBundle\Service\ConfigServiceInterface;
 use c975L\UserBundle\Service\UserServiceInterface;
 use c975L\UserBundle\Event\UserEvent;
@@ -78,8 +81,13 @@ class UserController extends Controller
     {
         //Redirects to dashboard if user has already signed-in
         $user = $this->getUser();
-        if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
+        if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserLightAbstract')) {
             return $this->redirectToRoute('user_dashboard');
+        }
+
+        if ($this->configService->getParameter('c975LUser.apiOnly')) {
+            return new JsonResponse('service disabled');
+            exit;
         }
 
         //Dispatch event

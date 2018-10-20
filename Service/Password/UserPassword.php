@@ -175,7 +175,7 @@ class UserPassword implements UserPasswordInterface
         ;
 
         //Updates data
-        if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
+        if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserLightAbstract')) {
             //Request not already sent or is out of time
             $delayReset = new \DateInterval(self::DELAY);
             if (null === $user->getPasswordRequest() ||

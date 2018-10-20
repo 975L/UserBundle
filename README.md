@@ -26,6 +26,7 @@ Directly inspired from [FOSUserBundle](https://github.com/FriendsOfSymfony/FOSUs
 - Resetting password form will NOT send email for inexisting accounts while displaying so, this un-allows checking for registered emails,
 - Allows user to removes its allowing to use its data while maintaining its account, in this case the account will be marked as NOT enabled,
 - Sends email when user changes (or resets) passsword to allow contact website if he/she has not initiated this action,
+- integrates an **API** to authenticate/create/display/modify/delete users in json format,
 
 [UserBundle dedicated web page](https://975l.com/en/pages/user-bundle).
 
@@ -175,6 +176,7 @@ Entities
 --------
 You must choose an entity linked to your needs and specify it in the `app/security.yml` and `app/config.yml`. Available entities are the following:
 
+- `c975L/UserBundle/Entity/UserLight`: light user with minimum requirements
 - `c975L/UserBundle/Entity/User`: default user
 - `c975L/UserBundle/Entity/UserAddress`: default user + address fields
 - `c975L/UserBundle/Entity/UserBusiness`: default user + business/association fields
@@ -183,24 +185,26 @@ You must choose an entity linked to your needs and specify it in the `app/securi
 
 To help you choose, the fields are the following:
 
-DEFAULT
+LIGHT
 - id
 - allow_use
 - identifier
 - email
-- gender
-- firstname
-- lastname
 - creation
-- avatar
 - enabled
 - salt
 - password
-- latest_signin
-- latest_signout
 - token
 - password_request
 - roles
+
+DEFAULT
+- gender
+- firstname
+- lastname
+- avatar
+- latest_signin
+- latest_signout
 - locale
 
 ADDRESS
@@ -503,6 +507,22 @@ You can also override  `Resources/views/fragments/socialNetworkImage.html.twig` 
 As a "Bonus" if a user has signed up with its email address and then use a social network to signin, it will get its existing user account **IF** emails addresses are the same, otherwise, it will create another account.
 
 Signing up with another social network, after having already signed up with a different one, will replace the current one by the new one.
+
+API
+===
+c975LUserBundle integrates an API that you can use to authenticate(GET)/create(POST)/display(GET)/modify(POST)/delete(DELETE) your users. You have to set the config parameter `api` to true in the config Route or in the `config_bundles.yaml` file and then in your `security.yaml` add the following
+
+```yml
+security:
+    firewalls:
+        main:
+            json_login:
+                check_path: user_api_authenticate
+            guard:
+                authenticators:
+                    - c975L\UserBundle\Security\TokenAuthenticator
+```
+Then simply call the Route with appropriate method. If you wish to only use API and not the web forms, set the config parameter `apiOnly` to true.
 
 Migration from FOSUserBundle
 ============================

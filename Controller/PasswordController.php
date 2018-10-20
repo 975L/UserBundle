@@ -65,7 +65,8 @@ class PasswordController extends Controller
      * @throws AccessDeniedException
      *
      * @Route("/user/change-password",
-     *      name="user_change_password")
+     *      name="user_change_password",
+     *      methods={"GET", "HEAD", "POST"})
      * @Method({"GET", "HEAD", "POST"})
      */
     public function changePassword(Request $request)
@@ -97,14 +98,15 @@ class PasswordController extends Controller
      * @return Response
      *
      * @Route("/user/reset-password",
-     *      name="user_reset_password")
+     *      name="user_reset_password",
+     *      methods={"GET", "HEAD", "POST"})
      * @Method({"GET", "HEAD", "POST"})
      */
     public function resetPasswordRequest(Request $request)
     {
         //Redirects signed-in user to change password
         $user = $this->getUser();
-        if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
+        if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserLightAbstract')) {
             return $this->redirectToRoute('user_change_password');
         }
 
@@ -134,7 +136,8 @@ class PasswordController extends Controller
      *
      * @Route("/user/reset-password/{token}",
      *      name="user_reset_password_confirm",
-     *      requirements={"token": "^[a-zA-Z0-9]{40}$"})
+     *      requirements={"token": "^[a-zA-Z0-9]{40}$"},
+     *      methods={"GET", "HEAD", "POST"})
      * @Method({"GET", "HEAD", "POST"})
      */
     public function resetPasswordConfirm(Request $request, $token)

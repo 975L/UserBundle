@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
-use c975L\UserBundle\Entity\UserAbstract;
+use c975L\UserBundle\Entity\UserLightAbstract;
 
 /**
  * Class to listen to authentication event
@@ -71,7 +71,7 @@ class AuthenticationListener implements EventSubscriberInterface
     public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
     {
         $user = $this->tokenStorage->getToken()->getUser();
-        if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
+        if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserLightAbstract')) {
             //Removes challenge from session in case a user clicked on signup, canceled and then authenticated
             $session = $this->request->getSession();
             $session->remove('challenge');
@@ -82,10 +82,12 @@ class AuthenticationListener implements EventSubscriberInterface
             $session->remove('userSigninNewAttemptTime');
 
             //Writes signin time
-            $user->setLatestSignin(new \DateTime());
+            if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
+                $user->setLatestSignin(new \DateTime());
 
-            $this->em->persist($user);
-            $this->em->flush();
+                $this->em->persist($user);
+                $this->em->flush();
+            }
         }
     }
 }
