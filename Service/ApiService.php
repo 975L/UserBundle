@@ -57,18 +57,22 @@ class ApiService implements ApiServiceInterface
      */
     public function create($user, ParameterBag $parameters)
     {
-        $this->hydrate($user, $parameters);
-        $this->userService->add($user);
-        $user
-            ->setAllowUse(true)
-            ->setEnabled(true)
-            ->setToken(null)
-        ;
+        if (null !== $parameters->get('email') && null !== $parameters->get('plainPassword')) {
+            $this->hydrate($user, $parameters);
+            $this->userService->add($user);
+            $user
+                ->setAllowUse(true)
+                ->setEnabled(true)
+                ->setToken(null)
+            ;
 
-        $this->em->persist($user);
-        $this->em->flush();
+            $this->em->persist($user);
+            $this->em->flush();
 
-        return $user->toArray();
+            return $user->toArray();
+        }
+
+        return false;
     }
 
     /**
