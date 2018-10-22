@@ -1,5 +1,9 @@
 # Changelog
 
+v2.1.1
+------
+- Added condition to create user using API (22/10/2018)
+
 v2.1
 ----
 - Added API (19/10/2018)
