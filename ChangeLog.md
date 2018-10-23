@@ -1,5 +1,10 @@
 # Changelog
 
+v2.1.2
+------
+- Added voter for authentication (23/10/2018)
+- Added if user is well loaded on authentication (23/10/2018)
+
 v2.1.1
 ------
 - Added condition to create user using API (22/10/2018)

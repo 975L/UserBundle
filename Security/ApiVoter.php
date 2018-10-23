@@ -42,6 +42,12 @@ class ApiVoter extends Voter
     private $request;
 
     /**
+     * Used for access to api authenticate
+     * @var string
+     */
+    public const API_AUTHENTICATE = 'c975LUser-api-authenticate';
+
+    /**
      * Used for access to api create
      * @var string
      */
@@ -70,6 +76,7 @@ class ApiVoter extends Voter
      * @var array
      */
     private const ATTRIBUTES = array(
+        self::API_AUTHENTICATE,
         self::API_CREATE,
         self::API_DELETE,
         self::API_DISPLAY,
@@ -115,6 +122,7 @@ class ApiVoter extends Voter
             case self::API_CREATE:
                 return $this->isSignupAllowed();
                 break;
+            case self::API_AUTHENTICATE:
             case self::API_DISPLAY:
                 return $this->decisionManager->decide($token, array('ROLE_USER'));
                 break;

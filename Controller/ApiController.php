@@ -104,12 +104,17 @@ class ApiController extends Controller
     public function authenticate(Request $request)
     {
         $user = $this->getUser();
+        $this->denyAccessUnlessGranted('c975LUser-api-authenticate', $user);
 
-        //Dispatch event
-        $event = new UserEvent($user, $request);
-        $this->dispatcher->dispatch(UserEvent::USER_SIGNIN, $event);
+        if (null !== $user) {
+            //Dispatch event
+            $event = new UserEvent($user, $request);
+            $this->dispatcher->dispatch(UserEvent::USER_SIGNIN, $event);
 
-        return new JsonResponse($user->toArray());
+            return new JsonResponse($user->toArray());
+        }
+
+        return new JsonResponse(false);
     }
 
 //DISPLAY
