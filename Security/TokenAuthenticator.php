@@ -19,6 +19,7 @@ use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
+use c975L\ConfigBundle\Service\ConfigServiceInterface;
 use c975L\UserBundle\Service\UserServiceInterface;
 
 /**
@@ -28,6 +29,16 @@ use c975L\UserBundle\Service\UserServiceInterface;
  */
 class TokenAuthenticator extends AbstractGuardAuthenticator
 {
+    /**
+     * Stores ConfigServiceInterface
+     * @var ConfigServiceInterface
+     */
+    private $configService;
+
+    /**
+     * Stores UserPasswordEncoderInterface
+     * @var UserPasswordEncoderInterface
+     */
     private $passwordEncoder;
 
     /**
@@ -37,17 +48,19 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     private $userService;
 
     public function __construct(
+        ConfigServiceInterface $configService,
         UserPasswordEncoderInterface $passwordEncoder,
         UserServiceInterface $userService
     )
     {
+        $this->configService = $configService;
         $this->passwordEncoder = $passwordEncoder;
         $this->userService = $userService;
     }
 
     public function supports(Request $request)
     {
-        return $request->headers->has('X-AUTH-TOKEN');
+        return $this->configService->getParameter('c975LUser.authToken') && $request->headers->has('X-AUTH-TOKEN');
     }
 
     public function getCredentials(Request $request)

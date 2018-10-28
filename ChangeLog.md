@@ -1,5 +1,7 @@
 # Changelog
 
+- Added config parameter `authToken` to enable/disable the use of header X-AUTH-TOKEN (28/10/2018)
+
 v2.1.2
 ------
 - Added voter for authentication (23/10/2018)

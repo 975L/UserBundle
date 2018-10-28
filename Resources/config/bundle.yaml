@@ -94,6 +94,11 @@ c975LUser:
         required: false
         default: false
         info: "If you wish to use ONLY the API (Default false)"
+    authToken:
+        type: bool
+        required: false
+        default: false
+        info: "If you wish to use the header X-AUTH-TOKEN to authenticate through the identifier key (Default false)"
 c975LCommon:
     site:
         type: string
