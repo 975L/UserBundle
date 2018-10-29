@@ -20,7 +20,6 @@
     "require": {
         "php": ">=5.5.9",
         "misd/phone-number-bundle": "^1",
-        "symfony/templating": "^3",
         "c975l/email-bundle": "^2",
         "c975l/toolbar-bundle": "^1",
         "c975l/includelibrary-bundle": "^1",
