@@ -81,11 +81,11 @@ class PasswordController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $this->userPassword->change($user);
 
-            //Redirects to display profile
+            //Redirects to dashboard
             return $this->redirectToRoute('user_dashboard');
         }
 
-        //Renders the change password form
+        //Renders the changePassword form
         return $this->render('@c975LUser/forms/changePassword.html.twig', array(
             'form' => $form->createView(),
             'user' => $user,
@@ -106,7 +106,7 @@ class PasswordController extends Controller
     {
         //Redirects signed-in user to change password
         $user = $this->getUser();
-        if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserLightAbstract')) {
+        if ($user instanceof \Symfony\Component\Security\Core\User\AdvancedUserInterface) {
             return $this->redirectToRoute('user_change_password');
         }
 
@@ -122,7 +122,7 @@ class PasswordController extends Controller
             return $this->redirectToRoute('user_check_email');
         }
 
-        //Renders the reset password form
+        //Renders the resetPassword form
         return $this->render('@c975LUser/forms/resetPasswordRequest.html.twig', array(
             'form' => $form->createView(),
         ));
@@ -162,7 +162,7 @@ class PasswordController extends Controller
             return $this->redirectToRoute('user_signin');
         }
 
-        //Renders the reset password form
+        //Renders the resetPasswordConfirm form
         return $this->render('@c975LUser/forms/resetPasswordConfirm.html.twig', array(
             'form' => $form->createView(),
         ));

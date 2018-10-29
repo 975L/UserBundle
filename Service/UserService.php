@@ -163,6 +163,28 @@ class UserService implements UserServiceInterface
     /**
      * {@inheritdoc}
      */
+    public function addRole($user, string $role)
+    {
+        $user->addRole($role);
+
+        $this->em->persist($user);
+        $this->em->flush();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function deleteRole($user, string $role)
+    {
+        $user->deleteRole($role);
+
+        $this->em->persist($user);
+        $this->em->flush();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function archive($userId)
     {
         if ($this->configService->getParameter('c975LUser.archiveUser')) {
@@ -311,6 +333,17 @@ class UserService implements UserServiceInterface
             ->em
             ->getRepository($this->getUserEntity())
             ->findOneByToken($token)
+        ;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getUsersAll()
+    {
+        return $this->em
+            ->getRepository($this->getUserEntity())
+            ->findAll()
         ;
     }
 

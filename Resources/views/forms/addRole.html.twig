@@ -1,0 +1,31 @@
+{% extends "@c975LUser/layout.html.twig" %}
+{% trans_default_domain 'user' %}
+{% set title = 'label.add_role'|trans({}, 'toolbar') %}
+
+{% block user_content %}
+{# Toolbar #}
+    {{ toolbar_display('@c975LUser/tools.html.twig', 'addRole', 'md', user) }}
+{# Avatar #}
+    {{ user_avatar() }}
+{# Form #}
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+{# Submit #}
+        <div class="form-group">
+            <button type="submit" name="submit" title="{{ 'label.validate'|trans({}, 'toolbar') }}" class="btn btn-lg btn-primary btn-block">
+                {{ 'label.validate'|trans({}, 'toolbar') }}
+            </button>
+        </div>
+{# Cancel #}
+        <p class="text-center">
+            <a href="#" onclick="javascript:history.back(); return false;" title="{{ 'label.cancel'|trans({}, 'toolbar') }}">
+                {{ 'label.cancel'|trans({}, 'toolbar') }}</a>
+        </p>
+    {{ form_end(form) }}
+{# Mandatory field #}
+    <p class="text-muted">
+        <em>
+            {{ 'label.mandatory_field'|trans({}, 'services') }}
+        </em>
+    </p>
+{% endblock %}

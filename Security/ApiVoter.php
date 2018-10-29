@@ -42,6 +42,12 @@ class ApiVoter extends Voter
     private $request;
 
     /**
+     * Used for access to api add-role
+     * @var string
+     */
+    public const API_ADD_ROLE = 'c975LUser-api-add-role';
+
+    /**
      * Used for access to api authenticate
      * @var string
      */
@@ -60,6 +66,12 @@ class ApiVoter extends Voter
     public const API_DELETE = 'c975LUser-api-delete';
 
     /**
+     * Used for access to api delete-role
+     * @var string
+     */
+    public const API_DELETE_ROLE = 'c975LUser-api-delete-role';
+
+    /**
      * Used for access to api display
      * @var string
      */
@@ -76,9 +88,11 @@ class ApiVoter extends Voter
      * @var array
      */
     private const ATTRIBUTES = array(
+        self::API_ADD_ROLE,
         self::API_AUTHENTICATE,
         self::API_CREATE,
         self::API_DELETE,
+        self::API_DELETE_ROLE,
         self::API_DISPLAY,
         self::API_MODIFY,
     );
@@ -101,9 +115,9 @@ class ApiVoter extends Voter
     protected function supports($attribute, $subject)
     {
         if (false !== $subject) {
-            return is_subclass_of($subject, 'c975L\UserBundle\Entity\UserLightAbstract')
-                && in_array($attribute, self::ATTRIBUTES)
-                && $this->isApiEnabled()
+            return $subject instanceof \Symfony\Component\Security\Core\User\AdvancedUserInterface &&
+                in_array($attribute, self::ATTRIBUTES) &&
+                $this->isApiEnabled()
             ;
         }
 
@@ -119,6 +133,10 @@ class ApiVoter extends Voter
     {
         //Defines access rights
         switch ($attribute) {
+            case self::API_ADD_ROLE:
+            case self::API_DELETE_ROLE:
+                return $this->isAllowed($token);
+                break;
             case self::API_CREATE:
                 return $this->isSignupAllowed();
                 break;

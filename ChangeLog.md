@@ -1,6 +1,16 @@
 # Changelog
 
+v2.2
+----
 - Added config parameter `authToken` to enable/disable the use of header X-AUTH-TOKEN (28/10/2018)
+- Corrected and set up to assign roles to user (UI + API) (28/10/2018)
+- Removed constant `ROLE_SUPER_ADMIN` as not used (28/10/2018)
+- Denied access to UI Routes when `apiOnly` === true (28/10/2018)
+- Added Manage Routes to manage users (29/10/2018)
+- Made use of Traits for Entities (29/10/2018)
+- Replaced `is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')`  by `instanceof \Symfony\Component\Security\Core\User\AdvancedUserInterface` as Entity classes don't extends anymore (29/10/2018)
+- Replaced links in dashboard by buttons (29/10/2018)
+- Corrected public Profile display (29/10/2018)
 
 v2.1.2
 ------

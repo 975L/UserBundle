@@ -40,7 +40,7 @@ class LogoutListener implements LogoutHandlerInterface
     public function logout(Request $request, Response $response, TokenInterface $token)
     {
         $user = $token->getUser();
-        if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
+        if (method_exists($user, 'setLatestSignout')) {
             //Writes signout time
             $user->setLatestSignout(new \DateTime());
 

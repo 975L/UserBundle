@@ -3,7 +3,7 @@
 
 {# i.e. link to PageEdit dashboard #}
 {#
-{% if is_granted('ROLE_ADMIN') %}
+{% if is_granted(config('c975LUser.roleNeeded')) %}
     <li>
         <a href="{{ path('pageedit_dashboard') }}">PageEdit</a>
     </li>

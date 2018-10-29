@@ -390,6 +390,14 @@
                 <source>label.allow_use</source>
                 <target>Acepto que este sitio web almacena los datos enviados para que pueda crear y administrar mi cuenta</target>
             </trans-unit>
+            <trans-unit id="101">
+                <source>label.role</source>
+                <target>Rol</target>
+            </trans-unit>
+            <trans-unit id="102">
+                <source>placeholder.role</source>
+                <target>ROLE_XXX</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

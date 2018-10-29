@@ -172,7 +172,7 @@ class ProfileController extends Controller
         return $this->render('@c975LUser/forms/delete.html.twig', array(
             'form' => $form->createView(),
             'user' => $user,
-            ));
+        ));
     }
 
 //PUBLIC PROFILE
@@ -187,18 +187,15 @@ class ProfileController extends Controller
      *      methods={"GET", "HEAD"})
      * @Method({"GET", "HEAD"})
      */
-    public function pulicProfile($identifier)
+    public function publicProfile($identifier)
     {
-        $user = $this->em
-            ->getRepository($this->configService->getParameter('c975LUser.entity'))
-            ->findOneByIdentifier($identifier)
-            ;
+        $user = $this->userService->findUserByIdentifier($identifier);
         $this->denyAccessUnlessGranted('c975LUser-public-profile', $user);
 
         //Renders the public profile
         return $this->render('@c975LUser/pages/publicProfile.html.twig', array(
             'user' => $user,
-            ));
+        ));
     }
 
 //EXPORT

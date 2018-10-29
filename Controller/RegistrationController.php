@@ -107,7 +107,7 @@ class RegistrationController extends Controller
         }
 
         //Redirects to dashboard if user has already signed-in
-        if (is_subclass_of($this->getUser(), 'c975L\UserBundle\Entity\UserLightAbstract')) {
+        if ($user instanceof \Symfony\Component\Security\Core\User\AdvancedUserInterface) {
             return $this->redirectToRoute('user_dashboard');
         }
 

@@ -26,20 +26,9 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
  */
 class UserProfileType extends AbstractType
 {
-    /**
-     * Stores TokenStorageInterface
-     * @var TokenStorageInterface
-     */
-    private $tokenStorage;
-
-    public function __construct(TokenStorageInterface $tokenStorage)
-    {
-        $this->tokenStorage = $tokenStorage;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $user = $this->tokenStorage->getToken()->getUser();
+        $user = $options['config']['user'];
         $disabled = 'modify' === $options['config']['action'] ? false : true;
 
         $builder

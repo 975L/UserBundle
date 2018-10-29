@@ -31,6 +31,11 @@ interface UserServiceInterface
     public function addAttempt($error);
 
     /**
+     * Adds role to user
+     */
+    public function addRole($user, string $role);
+
+    /**
      * Archives the user using Stored Procedure
      */
     public function archive($userId);
@@ -44,6 +49,11 @@ interface UserServiceInterface
      * Deletes the user
      */
     public function delete($user);
+
+    /**
+     * Deletes role to user
+     */
+    public function deleteRole($user, string $role);
 
     /**
      * Exports user's data
@@ -82,7 +92,13 @@ interface UserServiceInterface
     public function findUserByToken($token);
 
     /**
-     * Get the User entity used
+     * Gets all the users
+     * @return array
+     */
+    public function getUsersAll();
+
+    /**
+     * Gets the User entity used
      * @return string
      */
     public function getUserEntity();

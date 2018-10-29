@@ -9,26 +9,35 @@
 
 namespace c975L\UserBundle\Form;
 
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * UserResetPassword FormType
+ * UserAddRoleType FormType
  * @author Laurent Marquet <laurent.marquet@laposte.net>
  * @copyright 2018 975L <contact@975l.com>
  */
-class UserResetPasswordType extends AbstractType
+class UserAddRoleType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class, array(
-                'label' => 'label.email',
+            ->add('user', TextType::class, array(
+                'label' => 'label.user',
                 'required' => true,
+                'mapped' => false,
+                'data' => $options['config']['user']->getEmail(),
                 'attr' => array(
-                    'placeholder' => 'placeholder.email',
+                    'readonly' => true,
+                )))
+            ->add('role', TextType::class, array(
+                'label' => 'label.role',
+                'required' => true,
+                'mapped' => false,
+                'attr' => array(
+                    'placeholder' => 'placeholder.role',
                 )))
         ;
     }
@@ -36,7 +45,7 @@ class UserResetPasswordType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'intention' => 'UserResetPasswordForm',
+            'intention' => 'UserAddRoleForm',
             'translation_domain' => 'user',
         ));
 
