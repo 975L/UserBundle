@@ -1,5 +1,9 @@
 # Changelog
 
+v2.2.1
+------
+- Removed symfony/templating from composer.json (29/10/2018)
+
 v2.2
 ----
 - Added config parameter `authToken` to enable/disable the use of header X-AUTH-TOKEN (28/10/2018)
