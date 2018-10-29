@@ -10,73 +10,33 @@
 namespace c975L\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
-use c975L\UserBundle\Entity\UserAbstract;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use c975L\UserBundle\Entity\Traits\UserLightTrait;
+use c975L\UserBundle\Entity\Traits\UserDefaultTrait;
+use c975L\UserBundle\Entity\Traits\UserAddressTrait;
 
 /**
  * Entity UserAddressAbstract
  * @author Laurent Marquet <laurent.marquet@laposte.net>
  * @copyright 2018 975L <contact@975l.com>
+ *
+ * @ORM\MappedSuperclass
  */
-abstract class UserAddressAbstract extends UserAbstract
+abstract class UserAddressAbstract implements AdvancedUserInterface
 {
-    /**
-     * Address for the user
-     * @var string
-     *
-     * @ORM\Column(name="address", type="string", nullable=true)
-     */
-    private $address;
+    use UserLightTrait;
+    use UserDefaultTrait;
+    use UserAddressTrait;
+
+    const ROLE_DEFAULT = 'ROLE_USER';
 
     /**
-     * Second line address for the user
-     * @var string
+     * User unique id
+     * @var int
      *
-     * @ORM\Column(name="address2", type="string", nullable=true)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(name="id", type="integer")
      */
-    private $address2;
-
-    /**
-     * Postal code for the user
-     * @var string
-     *
-     * @ORM\Column(name="postal", type="string", nullable=true)
-     */
-    private $postal;
-
-    /**
-     * Town for the user
-     * @var string
-     *
-     * @ORM\Column(name="town", type="string", nullable=true)
-     */
-    private $town;
-
-    /**
-     * Country for the user
-     * @var string
-     *
-     * @ORM\Column(name="country", type="string", nullable=true)
-     */
-    private $country;
-
-    /**
-     * Phone for the user
-     * @var string
-     *
-     * @AssertPhoneNumber
-     * @ORM\Column(type="phone_number")
-     * @ORM\Column(name="phone", type="string", nullable=true)
-     */
-    private $phone;
-
-    /**
-     * Fax for the user
-     * @var string
-     *
-     * @AssertPhoneNumber
-     * @ORM\Column(type="phone_number")
-     * @ORM\Column(name="fax", type="string", nullable=true)
-     */
-    private $fax;
+    private $id;
 }

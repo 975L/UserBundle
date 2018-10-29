@@ -10,122 +10,33 @@
 namespace c975L\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
-use c975L\UserBundle\Validator\Constraints as c975LUserBundleAssert;
-use c975L\UserBundle\Validator\Constraints\Siret;
-use c975L\UserBundle\Validator\Constraints\Tva;
-use c975L\UserBundle\Entity\UserAbstract;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use c975L\UserBundle\Entity\Traits\UserLightTrait;
+use c975L\UserBundle\Entity\Traits\UserDefaultTrait;
+use c975L\UserBundle\Entity\Traits\UserBusinessTrait;
 
 /**
  * Entity UserBusinessAbstract
  * @author Laurent Marquet <laurent.marquet@laposte.net>
  * @copyright 2018 975L <contact@975l.com>
+ *
+ * @ORM\MappedSuperclass
  */
-abstract class UserBusinessAbstract extends UserAbstract
+abstract class UserBusinessAbstract implements AdvancedUserInterface
 {
-    /**
-     * Type of bussiness
-     * @var string
-     *
-     * @Assert\Regex(
-     *      pattern="/^(association|business|individual)$/i"
-     * )
-     * @ORM\Column(name="business_type", type="string", nullable=true)
-     */
-    private $businessType;
+    use UserLightTrait;
+    use UserDefaultTrait;
+    use UserBusinessTrait;
+
+    const ROLE_DEFAULT = 'ROLE_USER';
 
     /**
-     * Name for the Business
-     * @var string
+     * User unique id
+     * @var int
      *
-     * @Assert\Regex(
-     *      pattern="/^([0-9a-zA-Z\#\.\_\-\ \*]{0,36})$/i"
-     * )
-     * @ORM\Column(name="business_name", type="string", nullable=true)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(name="id", type="integer")
      */
-    private $businessName;
-
-    /**
-     * Address for the Business
-     * @var string
-     *
-     * @ORM\Column(name="business_address", type="string", nullable=true)
-     */
-    private $businessAddress;
-
-    /**
-     * Second line for the address for the Business
-     * @var string
-     *
-     * @ORM\Column(name="business_address2", type="string", nullable=true)
-     */
-    private $businessAddress2;
-
-    /**
-     * Postal code for the Business
-     * @var string
-     *
-     * @ORM\Column(name="business_postal", type="string", nullable=true)
-     */
-    private $businessPostal;
-
-    /**
-     * Town for the Business
-     * @var string
-     *
-     * @ORM\Column(name="business_town", type="string", nullable=true)
-     */
-    private $businessTown;
-
-    /**
-     * Country for the Business
-     * @var string
-     *
-     * @ORM\Column(name="business_country", type="string", nullable=true)
-     */
-    private $businessCountry;
-
-    /**
-     * Siret for the Business
-     * @var string
-     *
-     * @c975LUserBundleAssert\Siret(
-     *      message = "siret.not_valid"
-     * )
-     * @ORM\Column(name="business_siret", type="string", length=14, nullable=true)
-     */
-    private $businessSiret;
-
-    /**
-     * TVA number for the Business
-     * @var string
-     *
-     * @c975LUserBundleAssert\Vat(
-     *      message = "vat.not_valid"
-     * )
-     * @ORM\Column(name="business_tva", type="string", length=13, nullable=true)
-     */
-    private $businessVat;
-
-    /**
-     * Phone number for the Business
-     * @var string
-     *
-     * @AssertPhoneNumber
-     * @ORM\Column(type="phone_number")
-     * @ORM\Column(name="business_phone", type="string", nullable=true)
-     */
-    private $businessPhone;
-
-    /**
-     * Fax number for the Business
-     * @var string
-     *
-     * @AssertPhoneNumber
-     * @ORM\Column(type="phone_number")
-     * @ORM\Column(name="business_fax", type="string", nullable=true)
-     */
-    private $businessFax;
+    private $id;
 }

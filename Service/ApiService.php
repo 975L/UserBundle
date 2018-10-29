@@ -108,12 +108,11 @@ class ApiService implements ApiServiceInterface
     {
         $this->hydrate($user, $parameters);
 
-        if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
-            $user
-                ->setAvatar('https://www.gravatar.com/avatar/' . hash('md5', strtolower(trim($user->getEmail()))) . '?s=512&d=mm&r=g')
-                ->setEnabled($user->getAllowUse())
-            ;
+        if (method_exists($user, 'setAvatar')) {
+            $user->setAvatar('https://www.gravatar.com/avatar/' . hash('md5', strtolower(trim($user->getEmail()))) . '?s=512&d=mm&r=g');
         }
+
+        $user->setEnabled($user->getAllowUse());
 
         //Persists in DB
         $this->em->persist($user);

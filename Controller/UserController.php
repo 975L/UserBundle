@@ -63,6 +63,9 @@ class UserController extends Controller
 
 //SIGNIN
     /**
+     * Shortcuts to signin Route
+     * @return Redirect
+     *
      * @Route("/login")
      * @Route("/signin")
      * @Method({"GET", "HEAD"})
@@ -73,21 +76,26 @@ class UserController extends Controller
         return $this->redirectToRoute('user_signin');
     }
     /**
+     * Signin Route
+     * @return Response|JsonResponse
+     *
      * @Route("/user/signin",
-     *      name="user_signin")
+     *      name="user_signin",
+     *      methods={"GET", "HEAD", "POST"})
      * @Method({"GET", "HEAD", "POST"})
      */
     public function signin(Request $request, AuthenticationUtils $authUtils)
     {
-        //Redirects to dashboard if user has already signed-in
-        $user = $this->getUser();
-        if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserLightAbstract')) {
-            return $this->redirectToRoute('user_dashboard');
-        }
-
+        //Disable access if restricted to API only
         if ($this->configService->getParameter('c975LUser.apiOnly')) {
             return new JsonResponse('service disabled');
             exit;
+        }
+
+        //Redirects to dashboard if user has already signed-in
+        $user = $this->getUser();
+        if ($user instanceof \Symfony\Component\Security\Core\User\AdvancedUserInterface) {
+            return $this->redirectToRoute('user_dashboard');
         }
 
         //Dispatch event
@@ -117,7 +125,8 @@ class UserController extends Controller
      * @throws AccessDeniedException
      *
      * @Route("/user/dashboard",
-     *      name="user_dashboard")
+     *      name="user_dashboard",
+     *      methods={"GET", "HEAD"})
      * @Method({"GET", "HEAD"})
      */
     public function dashboard(Request $request, UserServiceInterface $userService)
@@ -151,7 +160,8 @@ class UserController extends Controller
      * @return Response
      *
      * @Route("/user/check-email",
-     *      name="user_check_email")
+     *      name="user_check_email",
+     *      methods={"GET", "HEAD"})
      * @Method({"GET", "HEAD"})
      */
     public function checkEmail(Request $request)
@@ -184,7 +194,8 @@ class UserController extends Controller
      * @throws AccessDeniedException
      *
      * @Route("/user/config",
-     *      name="user_config")
+     *      name="user_config",
+     *      methods={"GET", "HEAD", "POST"})
      * @Method({"GET", "HEAD", "POST"})
      */
     public function config(Request $request)
@@ -215,7 +226,8 @@ class UserController extends Controller
      * Route to be defined for logout but everything is in \Listener\LogoutListener.php
      *
      * @Route("/user/signout",
-     *      name="user_signout")
+     *      name="user_signout",
+     *      methods={"GET", "HEAD"})
      * @Method({"GET", "HEAD"})
      */
     public function signout(Request $request)
@@ -229,7 +241,8 @@ class UserController extends Controller
      * @throws AccessDeniedException
      *
      * @Route("/user/help",
-     *      name="user_help")
+     *      name="user_help",
+     *      methods={"GET", "HEAD"})
      * @Method({"GET", "HEAD"})
      */
     public function help()

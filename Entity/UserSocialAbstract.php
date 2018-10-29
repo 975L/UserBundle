@@ -10,44 +10,33 @@
 namespace c975L\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use c975L\UserBundle\Entity\UserAbstract;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use c975L\UserBundle\Entity\Traits\UserLightTrait;
+use c975L\UserBundle\Entity\Traits\UserDefaultTrait;
+use c975L\UserBundle\Entity\Traits\UserSocialTrait;
 
 /**
  * Entity UserSocialAbstract
  * @author Laurent Marquet <laurent.marquet@laposte.net>
  * @copyright 2018 975L <contact@975l.com>
+ *
+ * @ORM\MappedSuperclass
  */
-abstract class UserSocialAbstract extends UserAbstract
+abstract class UserSocialAbstract implements AdvancedUserInterface
 {
-    /**
-     * Social network for the user
-     * @var string
-     *
-     * @ORM\Column(name="social_network", type="string", nullable=true)
-     */
-    private $socialNetwork;
+    use UserLightTrait;
+    use UserDefaultTrait;
+    use UserSocialTrait;
+
+    const ROLE_DEFAULT = 'ROLE_USER';
 
     /**
-     * Social id for the user
-     * @var string
+     * User unique id
+     * @var int
      *
-     * @ORM\Column(name="social_id", type="string", length=255, nullable=true)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(name="id", type="integer")
      */
-    private $socialId;
-
-    /**
-     * Social token for the user
-     * @var string
-     *
-     * @ORM\Column(name="social_token", type="string", length=255, nullable=true)
-     */
-    private $socialToken;
-
-    /**
-     * Social picture url for the user
-     * @var string
-     *
-     * @ORM\Column(name="social_picture", type="string", length=255, nullable=true)
-     */
-    private $socialPicture;
+    private $id;
 }

@@ -10,11 +10,6 @@
 namespace c975L\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use c975L\UserBundle\Validator\Constraints as c975LUserBundleAssert;
-use c975L\UserBundle\Validator\Constraints\Siret;
-use c975L\UserBundle\Validator\Constraints\Tva;
 use c975L\UserBundle\Entity\UserFullAbstract;
 
 /**

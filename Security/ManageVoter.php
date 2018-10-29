@@ -20,7 +20,7 @@ use c975L\ConfigBundle\Service\ConfigServiceInterface;
  * @author Laurent Marquet <laurent.marquet@laposte.net>
  * @copyright 2018 975L <contact@975l.com>
  */
-class UserVoter extends Voter
+class ManageVoter extends Voter
 {
     /**
      * Stores ConfigServiceInterface
@@ -35,87 +35,59 @@ class UserVoter extends Voter
     private $decisionManager;
 
     /**
-     * Used for access to change-password
+     * Used for access to manage
      * @var string
      */
-    public const CHANGE_PASSWORD = 'c975LUser-change-password';
+    public const MANAGE = 'c975LUser-manage';
 
     /**
-     * Used for access to dashboard
+     * Used for access to manage-add-role
      * @var string
      */
-    public const DASHBOARD = 'c975LUser-dashboard';
+    public const MANAGE_ADD_ROLE = 'c975LUser-manage-add-role';
 
     /**
-     * Used for access to delete
+     * Used for access to manage-config
      * @var string
      */
-    public const DELETE = 'c975LUser-delete';
+    public const MANAGE_CONFIG = 'c975LUser-manage-config';
 
     /**
-     * Used for access to display
+     * Used for access to manage-display
      * @var string
      */
-    public const DISPLAY = 'c975LUser-display';
+    public const MANAGE_DISPLAY = 'c975LUser-manage-display';
 
     /**
-     * Used for access to export
+     * Used for access to manage-delete
      * @var string
      */
-    public const EXPORT = 'c975LUser-export';
+    public const MANAGE_DELETE = 'c975LUser-manage-delete';
 
     /**
-     * Used for access to help
+     * Used for access to manage-delete-role
      * @var string
      */
-    public const HELP = 'c975LUser-help';
+    public const MANAGE_DELETE_ROLE = 'c975LUser-manage-delete-role';
 
     /**
-     * Used for access to modify
+     * Used for access to manage-modify
      * @var string
      */
-    public const MODIFY = 'c975LUser-modify';
-
-    /**
-     * Used for access to public-profile
-     * @var string
-     */
-    public const PUBLIC_PROFILE = 'c975LUser-public-profile';
-
-    /**
-     * Used for access to reset-password
-     * @var string
-     */
-    public const RESET_PASSWORD = 'c975LUser-reset-password';
-
-    /**
-     * Used for access to signup
-     * @var string
-     */
-    public const SIGNUP = 'c975LUser-signup';
-
-    /**
-     * Used for access to signup-confirm
-     * @var string
-     */
-    public const SIGNUP_CONFIRM = 'c975LUser-signup-confirm';
+    public const MANAGE_MODIFY = 'c975LUser-manage-modify';
 
     /**
      * Contains all the available attributes to check with in supports()
      * @var array
      */
     private const ATTRIBUTES = array(
-        self::CHANGE_PASSWORD,
-        self::DASHBOARD,
-        self::DELETE,
-        self::DISPLAY,
-        self::EXPORT,
-        self::HELP,
-        self::MODIFY,
-        self::PUBLIC_PROFILE,
-        self::RESET_PASSWORD,
-        self::SIGNUP,
-        self::SIGNUP_CONFIRM,
+        self::MANAGE,
+        self::MANAGE_ADD_ROLE,
+        self::MANAGE_CONFIG,
+        self::MANAGE_DISPLAY,
+        self::MANAGE_DELETE,
+        self::MANAGE_DELETE_ROLE,
+        self::MANAGE_MODIFY,
     );
 
     public function __construct(
@@ -154,23 +126,14 @@ class UserVoter extends Voter
 
         //Defines access rights
         switch ($attribute) {
-            case self::CHANGE_PASSWORD:
-            case self::DASHBOARD:
-            case self::DELETE:
-            case self::DISPLAY:
-            case self::EXPORT:
-            case self::MODIFY:
-                return $this->isOwner($token, $subject);
-                break;
-            case self::PUBLIC_PROFILE:
-                return $this->isAllowedPublicProfile($token, $subject);
-                break;
-            //User class has been checked at the supports() level
-            case self::HELP:
-            case self::RESET_PASSWORD:
-            case self::SIGNUP:
-            case self::SIGNUP_CONFIRM:
-                return true;
+            case self::MANAGE:
+            case self::MANAGE_ADD_ROLE:
+            case self::MANAGE_CONFIG:
+            case self::MANAGE_DISPLAY:
+            case self::MANAGE_DELETE:
+            case self::MANAGE_DELETE_ROLE:
+            case self::MANAGE_MODIFY:
+                return $this->isAllowed($token);
                 break;
         }
 
@@ -184,23 +147,5 @@ class UserVoter extends Voter
     private function isAllowed($token)
     {
         return $this->decisionManager->decide($token, array($this->configService->getParameter('c975LUser.roleNeeded', 'c975l/user-bundle')));
-    }
-
-    /**
-     * Checks if public profile is allowed by website
-     * @return bool
-     */
-    public function isAllowedPublicProfile()
-    {
-        return $this->configService->getParameter('c975LUser.publicProfile');
-    }
-
-    /**
-     * Checks if user is owner or has sufficient rights
-     * @return bool
-     */
-    private function isOwner($token, $subject)
-    {
-        return $this->isAllowed($token) || (method_exists($token->getUser(), 'getId') && $subject->getId() === $token->getUser()->getId());
     }
 }

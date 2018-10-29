@@ -71,7 +71,7 @@ class AuthenticationListener implements EventSubscriberInterface
     public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
     {
         $user = $this->tokenStorage->getToken()->getUser();
-        if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserLightAbstract')) {
+        if ($user instanceof \Symfony\Component\Security\Core\User\AdvancedUserInterface) {
             //Removes challenge from session in case a user clicked on signup, canceled and then authenticated
             $session = $this->request->getSession();
             $session->remove('challenge');
@@ -82,7 +82,7 @@ class AuthenticationListener implements EventSubscriberInterface
             $session->remove('userSigninNewAttemptTime');
 
             //Writes signin time
-            if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
+            if (method_exists($user, 'setLatestSignin')) {
                 $user->setLatestSignin(new \DateTime());
 
                 $this->em->persist($user);

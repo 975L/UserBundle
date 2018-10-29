@@ -77,7 +77,8 @@ class ApiController extends Controller
      * @throws AccessDeniedException
      *
      * @Route("/user/api/create",
-     *      name="user_api_create", methods={"HEAD", "POST"})
+     *      name="user_api_create",
+     *      methods={"HEAD", "POST"})
      * @Method({"HEAD", "POST"})
      */
     public function create(Request $request)
@@ -98,7 +99,8 @@ class ApiController extends Controller
      * @throws AccessDeniedException
      *
      * @Route("/user/api/authenticate",
-     *      name="user_api_authenticate", methods={"HEAD", "POST"})
+     *      name="user_api_authenticate",
+     *      methods={"HEAD", "POST"})
      * @Method({"HEAD", "POST"})
      */
     public function authenticate(Request $request)
@@ -139,7 +141,7 @@ class ApiController extends Controller
 
 //MODIFY
     /**
-     * Modify specific child using "/child/modify/{identifier}"
+     * Modifies specific user using "/user/api/modify/{identifier}"
      * @return JsonResponse
      * @throws AccessDeniedException
      *
@@ -161,7 +163,7 @@ class ApiController extends Controller
 
 //DELETE
     /**
-     * Deletes specific child using "/child/delete/{identifier}"
+     * Deletes specific user using "/user/api/delete/{identifier}"
      * @return JsonResponse
      * @throws AccessDeniedException
      *
@@ -179,5 +181,55 @@ class ApiController extends Controller
         $this->apiService->delete($user);
 
         return new JsonResponse(true);
+    }
+
+//ADD ROLE
+    /**
+     * Adds role to specific user using "/user/api/add-role/{identifier}/{role}"
+     * @return JsonResponse
+     * @throws AccessDeniedException
+     *
+     * @Route("/user/api/add-role/{identifier}/{role}",
+     *    name="user_api_add_role",
+     *    requirements={
+     *        "identifier": "^([0-9a-z]{32})",
+     *        "role": "^([a-zA-Z\_]+)"
+     *    },
+     *    methods={"HEAD", "POST"})
+     * @Method({"HEAD", "POST"})
+     */
+    public function addRole(Request $request, $identifier, $role)
+    {
+        $user = $this->userService->findUserByIdentifier($identifier);
+        $this->denyAccessUnlessGranted('c975LUser-api-add-role', $this->getUser());
+
+        $this->userService->addRole($user, $role);
+
+        return new JsonResponse($user->toArray());
+    }
+
+//DELETE ROLE
+    /**
+     * Adds role to specific user using "/user/api/delete-role/{identifier}/{role}"
+     * @return JsonResponse
+     * @throws AccessDeniedException
+     *
+     * @Route("/user/api/delete-role/{identifier}/{role}",
+     *    name="user_api_delete_role",
+     *    requirements={
+     *        "identifier": "^([0-9a-z]{32})",
+     *        "role": "^([a-zA-Z\_]+)"
+     *    },
+     *    methods={"HEAD", "POST"})
+     * @Method({"HEAD", "POST"})
+     */
+    public function deleteRole(Request $request, $identifier, $role)
+    {
+        $user = $this->userService->findUserByIdentifier($identifier);
+        $this->denyAccessUnlessGranted('c975LUser-api-delete-role', $this->getUser());
+
+        $this->userService->deleteRole($user, $role);
+
+        return new JsonResponse($user->toArray());
     }
 }

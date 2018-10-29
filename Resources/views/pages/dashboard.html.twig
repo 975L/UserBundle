@@ -22,49 +22,45 @@
                 </h3>
 {# View profile #}
                 <p>
-                    <a href="{{ path('user_display') }}">
-                        {{ 'label.view_profile'|trans }}</a>
+                    {{ toolbar_button_text(path('user_display'), 'display') }}
                 </p>
 {# View public profile #}
                 {% if publicProfile == true %}
                     <p>
-                        <a href="{{ path('user_public_profile', {'identifier': user.identifier}) }}">
-                            {{ 'label.view_public_profile'|trans }}</a>
+                        {{ toolbar_button_text(path('user_public_profile', {'identifier': user.identifier}), 'public_profile') }}
                     </p>
                 {% endif %}
 {# Modify profile #}
                 <p>
-                    <a href="{{ path('user_modify') }}">
-                        {{ 'label.modify_profile'|trans }}</a>
+                    {{ toolbar_button_text(path('user_modify'), 'modify') }}
                 </p>
 {# Export data #}
                 <p>
-                    {{ 'label.export_data'|trans }}:
-                    <a href="{{ path('user_export', {'format': 'xml'}) }}">
-                        XML</a>
-                    &nbsp;-&nbsp;
-                    <a href="{{ path('user_export', {'format': 'json'}) }}">
-                        JSON</a>
+                    {{ toolbar_button_text(path('user_export', {'format': 'xml'}), 'export_xml') }}
+                    {{ toolbar_button_text(path('user_export', {'format': 'json'}), 'export_json') }}
                 </p>
 {# Change password #}
                 <p>
-                    <a href="{{ path('user_change_password') }}">
-                        <span class="text-warning">
-                            {{ 'label.change_password'|trans }}
-                        </span></a>
+                    {{ toolbar_button_text(path('user_change_password'), 'change_password') }}
                 </p>
 {# Delete account #}
                 <p>
-                    <a href="{{ path('user_delete') }}">
-                        <span class="text-danger">
-                            {{ 'label.delete_account'|trans }}
-                        </span></a>
+                    {{ toolbar_button_text(path('user_delete'), 'delete') }}
                 </p>
 {# Sign out #}
                 <p>
-                    <a href="{{ path('user_signout') }}">
-                        {{ 'label.signout'|trans }}</a>
+                    {{ toolbar_button_text(path('user_signout'), 'signout') }}
                 </p>
+{# Manage title #}
+                <h3>
+                    {{ 'label.manage'|trans({}, 'toolbar') }}
+                </h3>
+{# User's managment #}
+                {% if is_granted(config('c975LUser.roleNeeded')) %}
+                    <p>
+                        {{ toolbar_button_text(path('user_manage'), 'users') }}
+                    </p>
+                {% endif %}
             </div>
         </div>
     </div>

@@ -14,7 +14,9 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use c975L\ConfigBundle\Service\ConfigServiceInterface;
 use c975L\UserBundle\Form\UserFormFactoryInterface;
+use c975L\UserBundle\Form\UserAddRoleType;
 use c975L\UserBundle\Form\UserChangePasswordType;
+use c975L\UserBundle\Form\UserDeleteRoleType;
 use c975L\UserBundle\Form\UserResetPasswordConfirmType;
 use c975L\UserBundle\Form\UserResetPasswordType;
 use c975L\UserBundle\Form\UserProfileType;
@@ -69,15 +71,24 @@ class UserFormFactory implements UserFormFactoryInterface
         );
 
         switch ($name) {
+            case 'add-role':
+                $form = UserAddRoleType::class;
+                $config = array('user' => $user);
+                break;
             case 'change-password':
                 $form = UserChangePasswordType::class;
                 $config = array();
+                break;
+            case 'delete-role':
+                $form = UserDeleteRoleType::class;
+                $config = array('user' => $user);
                 break;
             case 'delete':
             case 'display':
             case 'modify':
                 $form = null !== $this->configService->getParameter('c975LUser.profileForm') ? $this->configService->getParameter('c975LUser.profileForm') : UserProfileType::class;
                 $config['action'] = $name;
+                $config['user'] = $user;
                 break;
             case 'reset-password':
                 $form = UserResetPasswordType::class;

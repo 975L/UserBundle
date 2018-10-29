@@ -332,7 +332,7 @@ class UserDeleteListener implements EventSubscriberInterface
     {
         $user = $event->getUser();
 
-        if (is_subclass_of($user, 'c975L\UserBundle\Entity\UserAbstract')) {
+        if ($user instanceof \Symfony\Component\Security\Core\User\AdvancedUserInterface) {
             //Do your stuff...
         }
     }
