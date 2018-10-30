@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\DisabledException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Exception\NotFoundHttpException;
 use Knp\Component\Pager\PaginatorInterface;
 use c975L\ConfigBundle\Service\ConfigServiceInterface;
 use c975L\UserBundle\Event\UserEvent;
@@ -100,6 +101,7 @@ class ManageController extends Controller
      * Adds a role to the user
      * @return Response
      * @throws AccessDeniedException
+     * @throws NotFoundHttpException
      *
      * @Route("/user/manage/display/{identifier}",
      *      name="user_manage_display",
@@ -114,6 +116,9 @@ class ManageController extends Controller
 
         //Gets managed user
         $managedUser = $this->userService->findUserByIdentifier($identifier);
+        if (null === $managedUser) {
+            throw $this->createNotFoundException();
+        }
 
         //Defines form
         $form = $this->userFormFactory->create('display', $managedUser);
@@ -130,6 +135,7 @@ class ManageController extends Controller
      * Adds a role to the user
      * @return Response
      * @throws AccessDeniedException
+     * @throws NotFoundHttpException
      *
      * @Route("/user/manage/modify/{identifier}",
      *      name="user_manage_modify",
@@ -144,6 +150,9 @@ class ManageController extends Controller
 
         //Gets managed user
         $managedUser = $this->userService->findUserByIdentifier($identifier);
+        if (null === $managedUser) {
+            throw $this->createNotFoundException();
+        }
 
         //Defines form
         $form = $this->userFormFactory->create('modify', $managedUser);
@@ -170,6 +179,7 @@ class ManageController extends Controller
      * Adds a role to the user
      * @return Response
      * @throws AccessDeniedException
+     * @throws NotFoundHttpException
      *
      * @Route("/user/manage/add-role/{identifier}",
      *      name="user_manage_add_role",
@@ -184,6 +194,9 @@ class ManageController extends Controller
 
         //Gets managed user
         $managedUser = $this->userService->findUserByIdentifier($identifier);
+        if (null === $managedUser) {
+            throw $this->createNotFoundException();
+        }
 
         //Defines form
         $form = $this->userFormFactory->create('add-role', $managedUser);
@@ -208,6 +221,7 @@ class ManageController extends Controller
      * Displays the dashboard
      * @return Response
      * @throws AccessDeniedException
+     * @throws NotFoundHttpException
      *
      * @Route("/user/manage/delete-role/{identifier}",
      *      name="user_manage_delete_role",
@@ -222,6 +236,9 @@ class ManageController extends Controller
 
         //Gets managed user
         $managedUser = $this->userService->findUserByIdentifier($identifier);
+        if (null === $managedUser) {
+            throw $this->createNotFoundException();
+        }
 
         //Defines form
         $form = $this->userFormFactory->create('delete-role', $managedUser);
@@ -246,6 +263,7 @@ class ManageController extends Controller
      * Adds a role to the user
      * @return Response
      * @throws AccessDeniedException
+     * @throws NotFoundHttpException
      *
      * @Route("/user/manage/delete/{identifier}",
      *      name="user_manage_delete",
@@ -260,6 +278,9 @@ class ManageController extends Controller
 
         //Gets managed user
         $managedUser = $this->userService->findUserByIdentifier($identifier);
+        if (null === $managedUser) {
+            throw $this->createNotFoundException();
+        }
 
         //Defines form
         $form = $this->userFormFactory->create('delete', $managedUser);
