@@ -1,5 +1,7 @@
 # Changelog
 
+- Removed condition after api authentication as not needed because done by the Voter (30/10/2018)
+
 v2.2.2
 ------
 - Added NotFoundHttpException for Manage Routes (30/10/2018)
