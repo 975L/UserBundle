@@ -1,6 +1,9 @@
 # Changelog
 
+v2.2.2.1
+--------
 - Removed condition after api authentication as not needed because done by the Voter (30/10/2018)
+- Corrected the retrieval of the POST data for API that were the GET ones (30/10/2018)
 
 v2.2.2
 ------

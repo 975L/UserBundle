@@ -96,7 +96,7 @@ class ApiService implements ApiServiceInterface
         foreach ($parameters as $key => $value) {
             $method = 'set' . ucfirst($key);
             if ('setIdentifier' !== $method && method_exists($user, $method)) {
-                $user->$method($value);
+                $user->$method(htmlspecialchars($value));
             }
         }
     }
