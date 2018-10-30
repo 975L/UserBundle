@@ -87,7 +87,7 @@ class ApiController extends Controller
         $user = new $userEntity();
         $this->denyAccessUnlessGranted('c975LUser-api-create', $user);
 
-        $userData = $this->apiService->create($user, $request->query);
+        $userData = $this->apiService->create($user, $request->request);
 
         return new JsonResponse($userData);
     }
@@ -108,15 +108,11 @@ class ApiController extends Controller
         $user = $this->getUser();
         $this->denyAccessUnlessGranted('c975LUser-api-authenticate', $user);
 
-        if (null !== $user) {
-            //Dispatch event
-            $event = new UserEvent($user, $request);
-            $this->dispatcher->dispatch(UserEvent::USER_SIGNIN, $event);
+        //Dispatch event
+        $event = new UserEvent($user, $request);
+        $this->dispatcher->dispatch(UserEvent::USER_SIGNIN, $event);
 
-            return new JsonResponse($user->toArray());
-        }
-
-        return new JsonResponse(false);
+        return new JsonResponse($user->toArray());
     }
 
 //DISPLAY
@@ -156,7 +152,7 @@ class ApiController extends Controller
         $user = $this->userService->findUserByIdentifier($identifier);
         $this->denyAccessUnlessGranted('c975LUser-api-modify', $user);
 
-        $this->apiService->modify($user, $request->query);
+        $this->apiService->modify($user, $request->request);
 
         return new JsonResponse($user->toArray());
     }
