@@ -94,11 +94,16 @@ c975LUser:
         required: false
         default: false
         info: "If you wish to use ONLY the API (Default false)"
-    authToken:
-        type: bool
+    privateKey:
+        type: string
         required: false
-        default: false
-        info: "If you wish to use the header X-AUTH-TOKEN to authenticate through the identifier key (Default false)"
+        default: null
+        info: "The path to your private RSA key: i.e 'config/jwt/private.pem' (Default null)"
+    publicKey:
+        type: string
+        required: false
+        default: null
+        info: "The path to your public RSA key: i.e 'config/jwt/public.pem' (Default null)"
 c975LCommon:
     site:
         type: string

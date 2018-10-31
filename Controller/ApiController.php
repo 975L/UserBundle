@@ -94,7 +94,7 @@ class ApiController extends Controller
 
 //AUTHENTICATE
     /**
-     * Authenticates the user using the API
+     * Authenticates the user using the API and returns the JWToken
      * @return json
      * @throws AccessDeniedException
      *
@@ -112,7 +112,7 @@ class ApiController extends Controller
         $event = new UserEvent($user, $request);
         $this->dispatcher->dispatch(UserEvent::USER_SIGNIN, $event);
 
-        return new JsonResponse($user->toArray());
+        return new JsonResponse($this->apiService->getToken($user));
     }
 
 //DISPLAY
