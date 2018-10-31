@@ -20,6 +20,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use c975L\ConfigBundle\Service\ConfigServiceInterface;
+use c975L\UserBundle\Service\ApiServiceInterface;
 use c975L\UserBundle\Service\UserServiceInterface;
 
 /**
@@ -29,6 +30,12 @@ use c975L\UserBundle\Service\UserServiceInterface;
  */
 class TokenAuthenticator extends AbstractGuardAuthenticator
 {
+    /**
+     * Stores ApiServiceInterface
+     * @var ApiServiceInterface
+     */
+    private $apiService;
+
     /**
      * Stores ConfigServiceInterface
      * @var ConfigServiceInterface
@@ -48,11 +55,13 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     private $userService;
 
     public function __construct(
+        ApiServiceInterface $apiService,
         ConfigServiceInterface $configService,
         UserPasswordEncoderInterface $passwordEncoder,
         UserServiceInterface $userService
     )
     {
+        $this->apiService = $apiService;
         $this->configService = $configService;
         $this->passwordEncoder = $passwordEncoder;
         $this->userService = $userService;
@@ -60,25 +69,29 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 
     public function supports(Request $request)
     {
-        return $this->configService->getParameter('c975LUser.authToken') && $request->headers->has('X-AUTH-TOKEN');
+        return $request->headers->has('X-AUTH-TOKEN') || $request->headers->has('Authorization');
     }
 
     public function getCredentials(Request $request)
     {
+        $token = null !== $request->headers->get('Authorization') && 'Bearer ' === substr($request->headers->get('Authorization'), 0, 7)
+            ? str_replace('Bearer ', '', $request->headers->get('Authorization'))
+            : $request->headers->get('X-AUTH-TOKEN');
+
         return array(
-            'identifier' => $request->headers->get('X-AUTH-TOKEN'),
+            'token' => $token,
         );
     }
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        $identifier = $credentials['identifier'];
+        $token = $this->apiService->validateToken($credentials['token']);
 
-        if (null === $identifier) {
+        if (null === $token) {
             return;
         }
 
-        return $this->userService->findUserByIdentifier($identifier);
+        return $this->userService->findUserByIdentifier($token->getClaim('sub'));
     }
 
     public function checkCredentials($credentials, UserInterface $user)

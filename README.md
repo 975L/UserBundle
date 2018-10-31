@@ -550,4 +550,43 @@ public function registerBundles()
 
 Migrate your database table, by using `Resources\sql\MigrateFosUser.sql`. It will create a `user_migrate` table, will modify all the needed fields, will add missing ones, then, when you are ready, you can rename your FOSUSerBundle table to `user_fosuserbundle` (or whatever you want) and rename the `user_migrate` one to `user`. **Fields `username` and `groups` are kept but not used, so you can delete them if you don't use them.**
 
+API Documentation
+=================
+You can also use the API provided in c975LUserBundle with the following:
+
+You have to install `https://github.com/lcobucci/jwt` (openssl extension is required) using `composer require lcobucci/jwt`.
+
+Then create your RSA keys:
+```bash
+cd <your_root_project_dir>;
+mkdir -p config/jwt;
+openssl genrsa -out config/jwt/private.pem -aes256 4096;
+#If it requires passPhrase then enter one and un-comment and run the following
+#openssl rsa -in config/jwt/private.pem -out config/jwt/private2.pem;
+#mv config/jwt/private.pem config/jwt/private.pem-back;
+#mv config/jwt/private2.pem config/jwt/private.pem;
+#rm config/jwt/private.pem-back;
+openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem;
+```
+Add those paths to `config\config_bundles.yaml` or using c975L\ConfigBundle :
+
+c975LUser:
+    privateKey: 'config/jwt/private.pem'
+    publicKey: 'config/jwt/public.pem'
+
+Define the JSON end point in your `security.yaml`:
+```yml
+security:
+    firewalls:
+        main:
+            json_login:
+                check_path: user_api_authenticate
+            anonymous: true
+            guard:
+                authenticators:
+                    - c975L\UserBundle\Security\TokenAuthenticator
+```
+
+To authenticate, call the Route `user_api_authenticate` with the JSON body `{"username": "<email>", "password": "<password>"}` in a `POST` request, with the header `Content-Type: application/json`, you will receive a token. This token has to be sent at each request in the header `Authorization: Bearer <token>` (recommended) or in the header `X-AUTH-TOKEN: <token>`.
+
 **If this project help you to reduce time to develop, you can [buy me a coffee](https://www.buymeacoffee.com/LaurentMarquet) :)**

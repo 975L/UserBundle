@@ -1,5 +1,11 @@
 # Changelog
 
+v2.2.3
+------
+- Added `Authorization Bearer` header as accepted for JSON login (31/10/2018)
+- Added API Documentation (31/10/2018)
+- Removed config value `authToken` as not needed anymore (31/10/2018)
+
 v2.2.2.1
 --------
 - Removed condition after api authentication as not needed because done by the Voter (30/10/2018)

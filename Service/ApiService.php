@@ -13,6 +13,11 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Exception\DisabledException;
+use Lcobucci\JWT\Builder;
+use Lcobucci\JWT\Parser;
+use Lcobucci\JWT\Signer\Keychain;
+use Lcobucci\JWT\Signer\Rsa\Sha512;
+use c975L\ConfigBundle\Service\ConfigServiceInterface;
 use c975L\UserBundle\Service\ApiServiceInterface;
 use c975L\UserBundle\Service\UserServiceInterface;
 
@@ -24,10 +29,22 @@ use c975L\UserBundle\Service\UserServiceInterface;
 class ApiService implements ApiServiceInterface
 {
     /**
+     * Stores ConfigServiceInterface
+     * @var ConfigServiceInterface
+     */
+    private $configService;
+
+    /**
      * Stores EntityManagerInterface
      * @var EntityManagerInterface
      */
     private $em;
+
+    /**
+     * Stores Keychain
+     * @var Keychain
+     */
+    private $keychain;
 
     /**
      * Stores RouterInterface
@@ -36,19 +53,29 @@ class ApiService implements ApiServiceInterface
     private $router;
 
     /**
+     * Stores Sha512
+     * @var Sha512
+     */
+    private $signer;
+
+    /**
      * Stores UserServiceInterface
      * @var UserServiceInterface
      */
     private $userService;
 
     public function __construct(
+        ConfigServiceInterface $configService,
         EntityManagerInterface $em,
         RouterInterface $router,
         UserServiceInterface $userService
     )
     {
+        $this->configService = $configService;
         $this->em = $em;
+        $this->keychain = new Keychain();
         $this->router = $router;
+        $this->signer = new Sha512();
         $this->userService = $userService;
     }
 
@@ -86,6 +113,46 @@ class ApiService implements ApiServiceInterface
         //Removes user from DB
         $this->em->remove($user);
         $this->em->flush();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getToken($user)
+    {
+        $builder = new Builder();
+        $privateKey = $this->configService->getParameter('c975LUser.privateKey');
+        $privateKey = '/' === substr($privateKey, 0, 1) ? $privateKey : '/' . $privateKey;
+        $privateKey = $this->configService->getContainerParameter('kernel.project_dir') . $privateKey;
+
+        $token = $builder
+            ->setIssuer($this->configService->getParameter('c975LCommon.site'))
+            ->setId(sha1($user->getIdentifier()), true)
+            ->setIssuedAt(time())
+            ->setExpiration(time() + 4 * 60 * 60)
+            ->set('sub', $user->getIdentifier())
+            ->sign($this->signer,  $this->keychain->getPrivateKey('file://' . $privateKey))
+            ->getToken();
+
+        return array('token' => $token->__toString());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function validateToken(string $token)
+    {
+        $parser = new Parser();
+        $token = $parser->parse((string) $token);
+        $publicKey = $this->configService->getParameter('c975LUser.publicKey');
+        $publicKey = '/' === substr($publicKey, 0, 1) ? $publicKey : '/' . $publicKey;
+        $publicKey = $this->configService->getContainerParameter('kernel.project_dir') . $publicKey;
+
+        if ($token->verify($this->signer, $this->keychain->getPublicKey('file://' . $publicKey))) {
+            return $token;
+        }
+
+        return null;
     }
 
     /**

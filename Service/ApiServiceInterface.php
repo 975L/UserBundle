@@ -30,6 +30,12 @@ interface ApiServiceInterface
     public function delete($user);
 
     /**
+     * Encodes the JSON Web Token
+     * @return string
+     */
+    public function getToken($user);
+
+    /**
      * Hydrates the user with given parameters
      */
     public function hydrate($user, ParameterBag $parameters);
@@ -38,4 +44,10 @@ interface ApiServiceInterface
      * Modifies the user
      */
     public function modify($user);
+
+    /**
+     * Validates the JWToken
+     * @return array|null
+     */
+    public function validateToken(string $token);
 }
