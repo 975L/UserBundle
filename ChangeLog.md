@@ -1,5 +1,9 @@
 # Changelog
 
+v2.2.4
+------
+- Added return of user when authenticating and not only token (01/11/2018)
+
 v2.2.3
 ------
 - Added `Authorization Bearer` header as accepted for JSON login (31/10/2018)

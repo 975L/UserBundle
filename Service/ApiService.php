@@ -134,7 +134,7 @@ class ApiService implements ApiServiceInterface
             ->sign($this->signer,  $this->keychain->getPrivateKey('file://' . $privateKey))
             ->getToken();
 
-        return array('token' => $token->__toString());
+        return $token->__toString();
     }
 
     /**

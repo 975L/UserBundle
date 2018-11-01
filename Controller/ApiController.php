@@ -112,7 +112,12 @@ class ApiController extends Controller
         $event = new UserEvent($user, $request);
         $this->dispatcher->dispatch(UserEvent::USER_SIGNIN, $event);
 
-        return new JsonResponse($this->apiService->getToken($user));
+        $authenticate = array(
+            'user' => $user->toArray(),
+            'token' => $this->apiService->getToken($user),
+        );
+
+        return new JsonResponse($authenticate);
     }
 
 //DISPLAY
