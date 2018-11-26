@@ -1,5 +1,10 @@
 # Changelog
 
+v2.2.5
+------
+- Moved to alphabetical order the method validateToken() (06/11/2018)
+- Added filter on`$user->toArray()` to avoid displaying unNeeded data (26/11/2018)
+
 v2.2.4
 ------
 - Added return of user when authenticating and not only token (01/11/2018)
