@@ -140,24 +140,6 @@ class ApiService implements ApiServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function validateToken(string $token)
-    {
-        $parser = new Parser();
-        $token = $parser->parse((string) $token);
-        $publicKey = $this->configService->getParameter('c975LUser.publicKey');
-        $publicKey = '/' === substr($publicKey, 0, 1) ? $publicKey : '/' . $publicKey;
-        $publicKey = $this->configService->getContainerParameter('kernel.project_dir') . $publicKey;
-
-        if ($token->verify($this->signer, $this->keychain->getPublicKey('file://' . $publicKey))) {
-            return $token;
-        }
-
-        return null;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function hydrate($user, ParameterBag $parameters)
     {
         foreach ($parameters as $key => $value) {
@@ -184,5 +166,23 @@ class ApiService implements ApiServiceInterface
         //Persists in DB
         $this->em->persist($user);
         $this->em->flush();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function validateToken(string $token)
+    {
+        $parser = new Parser();
+        $token = $parser->parse((string) $token);
+        $publicKey = $this->configService->getParameter('c975LUser.publicKey');
+        $publicKey = '/' === substr($publicKey, 0, 1) ? $publicKey : '/' . $publicKey;
+        $publicKey = $this->configService->getContainerParameter('kernel.project_dir') . $publicKey;
+
+        if ($token->verify($this->signer, $this->keychain->getPublicKey('file://' . $publicKey))) {
+            return $token;
+        }
+
+        return null;
     }
 }

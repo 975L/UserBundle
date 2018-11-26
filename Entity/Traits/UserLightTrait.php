@@ -305,7 +305,23 @@ trait UserLightTrait
      */
     public function toArray()
     {
-        return get_object_vars($this);
+        $userArray = get_object_vars($this);
+
+        //Unsets unneeded data
+        $unNeededData = array (
+            'id',
+            'salt',
+            'password',
+            'token',
+            'passwordRequest',
+            'plainPassword',
+            'challenge',
+        );
+        foreach ($unNeededData as $data) {
+            unset($userArray[$data]);
+        }
+
+        return $userArray;
     }
 
 //GETTERS/SETTERS
