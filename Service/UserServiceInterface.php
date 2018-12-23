@@ -9,6 +9,7 @@
 
 namespace c975L\UserBundle\Service;
 
+use c975L\UserBundle\Entity\UserLight;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
@@ -63,31 +64,31 @@ interface UserServiceInterface
 
     /**
      * Finds user by email
-     * @return User
+     * @return UserLight
      */
     public function findUserByEmail($email);
 
     /**
      * Finds user by id
-     * @return User
+     * @return UserLight
      */
     public function findUserById($id);
 
     /**
      * Finds user by identifier
-     * @return User
+     * @return UserLight
      */
     public function findUserByIdentifier($identifier);
 
     /**
      * Finds user by socialId
-     * @return User
+     * @return UserLight
      */
     public function findUserBySocialId($socialId);
 
     /**
      * Finds user by token
-     * @return User|null
+     * @return UserLight
      */
     public function findUserByToken($token);
 

@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
 use Symfony\Component\Validator\Constraints as Assert;
 use c975L\UserBundle\Validator\Constraints as c975LUserBundleAssert;
+use c975L\UserBundle\Entity\UserLight;
 
 /**
  * Trait UserBusinessTrait
@@ -130,7 +131,7 @@ trait UserBusinessTrait
     /**
      * Set businessType
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setBusinessType($businessType)
     {
@@ -150,7 +151,7 @@ trait UserBusinessTrait
     /**
      * Set businessName
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setBusinessName($businessName)
     {
@@ -170,7 +171,7 @@ trait UserBusinessTrait
     /**
      * Set businessAddress
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setBusinessAddress($businessAddress)
     {
@@ -190,7 +191,7 @@ trait UserBusinessTrait
     /**
      * Set businessAddress2
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setBusinessAddress2($businessAddress2)
     {
@@ -210,7 +211,7 @@ trait UserBusinessTrait
     /**
      * Set businessPostal
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setBusinessPostal($businessPostal)
     {
@@ -230,7 +231,7 @@ trait UserBusinessTrait
     /**
      * Set businessTown
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setBusinessTown($businessTown)
     {
@@ -250,7 +251,7 @@ trait UserBusinessTrait
     /**
      * Set businessCountry
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setBusinessCountry($businessCountry)
     {
@@ -270,7 +271,7 @@ trait UserBusinessTrait
     /**
      * Set businessSiret
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setBusinessSiret($businessSiret)
     {
@@ -290,7 +291,7 @@ trait UserBusinessTrait
     /**
      * Set businessVat
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setBusinessVat($businessVat)
     {
@@ -310,7 +311,7 @@ trait UserBusinessTrait
     /**
      * Set businessPhone
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setBusinessPhone($businessPhone)
     {
@@ -330,7 +331,7 @@ trait UserBusinessTrait
     /**
      * Set businessFax
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setBusinessFax($businessFax)
     {

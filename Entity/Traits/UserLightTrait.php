@@ -12,6 +12,7 @@ namespace c975L\UserBundle\Entity\Traits;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use c975L\UserBundle\Validator\Constraints as c975LUserBundleAssert;
+use c975L\UserBundle\Entity\UserLight;
 
 /**
  * Trait UserAddressTrait
@@ -208,7 +209,7 @@ trait UserLightTrait
 
     /**
      * Adds the role to the user
-     * @return User
+     * @return UserLight
      */
     public function addRole($role)
     {
@@ -236,7 +237,7 @@ trait UserLightTrait
 
     /**
      * Deletes the role to the user
-     * @return User
+     * @return UserLight
      */
     public function deleteRole($role)
     {
@@ -262,7 +263,7 @@ trait UserLightTrait
     /**
      * Set roles
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setRoles($roles)
     {
@@ -347,7 +348,7 @@ trait UserLightTrait
     /**
      * Set allowUse
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setAllowUse($allowUse)
     {
@@ -367,7 +368,7 @@ trait UserLightTrait
     /**
      * Set identifier
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setIdentifier($identifier)
     {
@@ -387,7 +388,7 @@ trait UserLightTrait
     /**
      * Set email
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setEmail($email)
     {
@@ -407,7 +408,7 @@ trait UserLightTrait
     /**
      * Set creation
      * @param \DateTime
-     * @return User
+     * @return UserLight
      */
     public function setCreation($creation)
     {
@@ -427,7 +428,7 @@ trait UserLightTrait
     /**
      * Set enabled
      * @param bool
-     * @return User
+     * @return UserLight
      */
     public function setEnabled($enabled)
     {
@@ -447,7 +448,7 @@ trait UserLightTrait
     /**
      * Set salt
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setSalt($salt)
     {
@@ -467,7 +468,7 @@ trait UserLightTrait
     /**
      * Set password
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setPassword($password)
     {
@@ -487,7 +488,7 @@ trait UserLightTrait
     /**
      * Set token
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setToken($token)
     {
@@ -507,7 +508,7 @@ trait UserLightTrait
     /**
      * Set passwordRequest
      * @param \DateTime
-     * @return User
+     * @return UserLight
      */
     public function setPasswordRequest($passwordRequest)
     {
@@ -527,7 +528,7 @@ trait UserLightTrait
     /**
      * Set plainPassword
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setPlainPassword($plainPassword)
     {
@@ -547,7 +548,7 @@ trait UserLightTrait
     /**
      * Set challenge
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setChallenge($challenge)
     {

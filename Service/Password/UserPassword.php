@@ -45,7 +45,7 @@ class UserPassword implements UserPasswordInterface
 
     /**
      * Stores curent Request
-     * @var RequestStack
+     * @var Request
      */
     private $request;
 

@@ -11,6 +11,7 @@ namespace c975L\UserBundle\Listener;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\AuthenticationEvents;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -42,7 +43,7 @@ class AuthenticationListener implements EventSubscriberInterface
      * Stores current Request
      * @var Request
      */
-    private $requestStack;
+    private $request;
 
     public function __construct(
         EntityManagerInterface $em,

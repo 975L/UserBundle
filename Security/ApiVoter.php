@@ -9,6 +9,7 @@
 
 namespace c975L\UserBundle\Security;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -37,7 +38,7 @@ class ApiVoter extends Voter
 
     /**
      * Stores curent Request
-     * @var RequestStack
+     * @var Request
      */
     private $request;
 

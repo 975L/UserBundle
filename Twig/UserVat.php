@@ -9,12 +9,14 @@
 
 namespace c975L\UserBundle\Twig;
 
+use Twig_Extension;
+
 /**
  * Twig extension to display the formatted VAT number using `|user_vat`
  * @author Laurent Marquet <laurent.marquet@laposte.net>
  * @copyright 2018 975L <contact@975l.com>
  */
-class UserVat extends \Twig_Extension
+class UserVat extends Twig_Extension
 {
     public function getFilters()
     {

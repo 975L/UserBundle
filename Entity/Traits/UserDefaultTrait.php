@@ -11,6 +11,7 @@ namespace c975L\UserBundle\Entity\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use c975L\UserBundle\Entity\UserLight;
 
 /**
  * Trait UserAddressTrait
@@ -96,7 +97,7 @@ trait UserDefaultTrait
     /**
      * Set gender
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setGender($gender)
     {
@@ -116,7 +117,7 @@ trait UserDefaultTrait
     /**
      * Set firstname
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setFirstname($firstname)
     {
@@ -136,7 +137,7 @@ trait UserDefaultTrait
     /**
      * Set lastname
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setLastname($lastname)
     {
@@ -156,7 +157,7 @@ trait UserDefaultTrait
     /**
      * Set avatar
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setAvatar($avatar)
     {
@@ -176,7 +177,7 @@ trait UserDefaultTrait
     /**
      * Set latestSignin
      * @param DateTime
-     * @return User
+     * @return UserLight
      */
     public function setLatestSignin($latestSignin)
     {
@@ -196,7 +197,7 @@ trait UserDefaultTrait
     /**
      * Set latestSignout
      * @param \DateTime
-     * @return User
+     * @return UserLight
      */
     public function setLatestSignout($latestSignout)
     {
@@ -216,7 +217,7 @@ trait UserDefaultTrait
     /**
      * Set locale
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setLocale($locale)
     {

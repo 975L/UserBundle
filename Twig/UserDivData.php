@@ -9,12 +9,14 @@
 
 namespace c975L\UserBundle\Twig;
 
+use Twig_Extension;
+
 /**
  * Twig extension to display user's information in a div data (mainly for javascript access) using `user_divData()`
  * @author Laurent Marquet <laurent.marquet@laposte.net>
  * @copyright 2018 975L <contact@975l.com>
  */
-class UserDivData extends \Twig_Extension
+class UserDivData extends Twig_Extension
 {
     public function getFunctions()
     {

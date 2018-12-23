@@ -13,10 +13,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthAwareUserProviderInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use c975L\ConfigBundle\Service\ConfigServiceInterface;
+use c975L\UserBundle\Entity\UserLight;
 use c975L\UserBundle\Event\UserEvent;
 use c975L\UserBundle\Service\UserServiceInterface;
 
@@ -74,7 +76,7 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface
 
     /**
      * Loads user
-     * @return User|null
+     * @return UserLight
      */
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {

@@ -9,6 +9,7 @@
 
 namespace c975L\UserBundle\Event;
 
+use c975L\UserBundle\Entity\UserLight;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\EventDispatcher\Event;
 
@@ -69,7 +70,7 @@ class UserEvent extends Event
 
     /**
      * Get User
-     * @return User
+     * @return UserLight
      */
     public function getUser()
     {

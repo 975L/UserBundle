@@ -11,13 +11,14 @@ namespace c975L\UserBundle\Twig;
 
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use c975L\ConfigBundle\Service\ConfigServiceInterface;
+use Twig_Extension;
 
 /**
  * Twig extension to return the url to be used for user's avatar using `user_avatar([$size])`
  * @author Laurent Marquet <laurent.marquet@laposte.net>
  * @copyright 2018 975L <contact@975l.com>
  */
-class UserAvatar extends \Twig_Extension
+class UserAvatar extends Twig_Extension
 {
     /**
      * Stores ConfigServiceInterface

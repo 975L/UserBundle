@@ -11,6 +11,7 @@ namespace c975L\UserBundle\Form;
 
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use c975L\ConfigBundle\Service\ConfigServiceInterface;
 use c975L\UserBundle\Form\UserFormFactoryInterface;
@@ -43,7 +44,7 @@ class UserFormFactory implements UserFormFactoryInterface
 
     /**
      * Stores curent Request
-     * @var RequestStack
+     * @var Request
      */
     private $request;
 

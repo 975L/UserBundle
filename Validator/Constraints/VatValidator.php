@@ -11,6 +11,7 @@ namespace c975L\UserBundle\Validator\Constraints;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use SoapClient;
 
 /**
  * Class to validate the VAT number
@@ -38,7 +39,7 @@ class VatValidator extends ConstraintValidator
             $vatNumber = substr($vat, 2);
 
             //Calls webservice
-            $client = new \SoapClient('http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl');
+            $client = new SoapClient('http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl');
             $params = array('countryCode' => $countryCode, 'tvaNumber' => $vatNumber);
             $result = $client->checkVat($params);
 

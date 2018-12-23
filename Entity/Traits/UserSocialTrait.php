@@ -9,6 +9,7 @@
 
 namespace c975L\UserBundle\Entity\Traits;
 
+use c975L\UserBundle\Entity\UserLight;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -55,7 +56,7 @@ trait UserSocialTrait
     /**
      * Set socialNetwork
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setSocialNetwork($socialNetwork)
     {
@@ -75,7 +76,7 @@ trait UserSocialTrait
     /**
      * Set socialId
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setSocialId($socialId)
     {
@@ -95,7 +96,7 @@ trait UserSocialTrait
     /**
      * Set socialToken
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setSocialToken($socialToken)
     {
@@ -115,7 +116,7 @@ trait UserSocialTrait
     /**
      * Set socialPicture
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setSocialPicture($socialPicture)
     {

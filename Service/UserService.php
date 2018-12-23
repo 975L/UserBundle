@@ -11,6 +11,7 @@ namespace c975L\UserBundle\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -53,7 +54,7 @@ class UserService implements UserServiceInterface
 
     /**
      * Stores curent Request
-     * @var RequestStack
+     * @var Request
      */
     private $request;
 

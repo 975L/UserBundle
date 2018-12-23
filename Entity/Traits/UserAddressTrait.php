@@ -9,6 +9,7 @@
 
 namespace c975L\UserBundle\Entity\Traits;
 
+use c975L\UserBundle\Entity\UserLight;
 use Doctrine\ORM\Mapping as ORM;
 use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
 
@@ -84,7 +85,7 @@ trait UserAddressTrait
     /**
      * Set address
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setAddress($address)
     {
@@ -104,7 +105,7 @@ trait UserAddressTrait
     /**
      * Set address2
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setAddress2($address2)
     {
@@ -124,7 +125,7 @@ trait UserAddressTrait
     /**
      * Set postal
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setPostal($postal)
     {
@@ -144,7 +145,7 @@ trait UserAddressTrait
     /**
      * Set town
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setTown($town)
     {
@@ -164,7 +165,7 @@ trait UserAddressTrait
     /**
      * Set country
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setCountry($country)
     {
@@ -184,7 +185,7 @@ trait UserAddressTrait
     /**
      * Set phone
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setPhone($phone)
     {
@@ -204,7 +205,7 @@ trait UserAddressTrait
     /**
      * Set fax
      * @param string
-     * @return User
+     * @return UserLight
      */
     public function setFax($fax)
     {

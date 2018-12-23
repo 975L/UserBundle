@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use c975L\UserBundle\Entity\Traits\UserLightTrait;
 use c975L\UserBundle\Entity\Traits\UserDefaultTrait;
+use c975L\UserBundle\Entity\UserLight;
 
 /**
  * Entity UserAbstract

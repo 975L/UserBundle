@@ -9,12 +9,14 @@
 
 namespace c975L\UserBundle\Twig;
 
+use Twig_Extension;
+
 /**
  * Twig extension to display the formatted Siret number using `|user_siret`
  * @author Laurent Marquet <laurent.marquet@laposte.net>
  * @copyright 2018 975L <contact@975l.com>
  */
-class UserSiret extends \Twig_Extension
+class UserSiret extends Twig_Extension
 {
     public function getFilters()
     {

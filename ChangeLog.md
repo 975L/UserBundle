@@ -1,6 +1,8 @@
 # Changelog
 
 - Corrected `UPGRADE.md` for `php bin/console config:create` (03/12/2018)
+- Added rector to composer dev part (23/12/2018)
+- Modified required versions in composer (23/12/2018)
 
 v2.2.5
 ------
