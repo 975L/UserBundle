@@ -1,5 +1,9 @@
 # Changelog
 
+v2.2.7
+------
+- Added missing use (25/12/2018)
+
 v2.2.6
 ------
 - Corrected `UPGRADE.md` for `php bin/console config:create` (03/12/2018)

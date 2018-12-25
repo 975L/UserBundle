@@ -10,6 +10,7 @@
 namespace c975L\UserBundle\Twig;
 
 use Twig_Extension;
+use Twig_SimpleFilter;
 
 /**
  * Twig extension to display the formatted VAT number using `|user_vat`
@@ -21,7 +22,7 @@ class UserVat extends Twig_Extension
     public function getFilters()
     {
         return array(
-            new \Twig_SimpleFilter('user_vat', array($this, 'vat')),
+            new Twig_SimpleFilter('user_vat', array($this, 'vat')),
         );
     }
 

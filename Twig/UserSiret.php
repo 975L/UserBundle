@@ -10,6 +10,7 @@
 namespace c975L\UserBundle\Twig;
 
 use Twig_Extension;
+use Twig_SimpleFilter;
 
 /**
  * Twig extension to display the formatted Siret number using `|user_siret`
@@ -21,7 +22,7 @@ class UserSiret extends Twig_Extension
     public function getFilters()
     {
         return array(
-            new \Twig_SimpleFilter('user_siret', array($this, 'siret')),
+            new Twig_SimpleFilter('user_siret', array($this, 'siret')),
         );
     }
 

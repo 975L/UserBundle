@@ -12,6 +12,7 @@ namespace c975L\UserBundle\Twig;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use c975L\ConfigBundle\Service\ConfigServiceInterface;
 use Twig_Extension;
+use Twig_SimpleFunction;
 
 /**
  * Twig extension to return the url to be used for user's avatar using `user_avatar([$size])`
@@ -44,7 +45,7 @@ class UserAvatar extends Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction(
+            new Twig_SimpleFunction(
                 'user_avatar',
                 array($this, 'avatar'),
                 array(

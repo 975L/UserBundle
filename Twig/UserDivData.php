@@ -10,6 +10,7 @@
 namespace c975L\UserBundle\Twig;
 
 use Twig_Extension;
+use Twig_SimpleFunction;
 
 /**
  * Twig extension to display user's information in a div data (mainly for javascript access) using `user_divData()`
@@ -21,7 +22,7 @@ class UserDivData extends Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction(
+            new Twig_SimpleFunction(
                 'user_divData',
                 array($this, 'divData'),
                 array(
