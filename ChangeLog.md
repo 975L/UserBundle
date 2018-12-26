@@ -1,5 +1,9 @@
 # Changelog
 
+v2.2.9.1
+--------
+- Updated `README.md` (26/12/2018)
+
 v2.2.9
 ------
 - Modifed `POST` method to `PUT` for Routes `user_api_modify`, `user_api_add_role` and `user_api_delete_role` (26/12/2018)

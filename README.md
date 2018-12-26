@@ -507,22 +507,6 @@ As a "Bonus" if a user has signed up with its email address and then use a socia
 
 Signing up with another social network, after having already signed up with a different one, will replace the current one by the new one.
 
-API
-===
-c975LUserBundle integrates an API that you can use to authenticate(GET)/create(POST)/display(GET)/modify(POST)/delete(DELETE) your users. You have to set the config parameter `api` to true in the config Route or in the `config_bundles.yaml` file and then in your `security.yaml` add the following
-
-```yml
-security:
-    firewalls:
-        main:
-            json_login:
-                check_path: user_api_authenticate
-            guard:
-                authenticators:
-                    - c975L\UserBundle\Security\TokenAuthenticator
-```
-Then simply call the Route with appropriate method. If you wish to only use API and not the web forms, set the config parameter `apiOnly` to true.
-
 Migration from FOSUserBundle
 ============================
 If you want to migrate from FOSUserBundle, you have to do the following:
@@ -572,6 +556,8 @@ Add those paths to `config\config_bundles.yaml` or using c975L\ConfigBundle :
 c975LUser:
     privateKey: 'config/jwt/private.pem'
     publicKey: 'config/jwt/public.pem'
+    api: true
+    apiOnly: true #If you wish to only use API and not the web forms
 
 Define the JSON end point in your `security.yaml`:
 ```yml
