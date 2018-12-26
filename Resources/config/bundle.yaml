@@ -94,6 +94,11 @@ c975LUser:
         required: false
         default: false
         info: "If you wish to use ONLY the API (Default false)"
+    apiPassword:
+        type: string
+        required: false
+        default: null
+        info: "Your secret password that will added to the user's email and crypted to check if action is authorized' (Default null)"
     privateKey:
         type: string
         required: false

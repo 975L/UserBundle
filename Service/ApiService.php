@@ -84,7 +84,7 @@ class ApiService implements ApiServiceInterface
      */
     public function create($user, ParameterBag $parameters)
     {
-        if (null !== $parameters->get('email') && null !== $parameters->get('plainPassword')) {
+        if (null !== $parameters->get('plainPassword')) {
             $this->hydrate($user, $parameters);
             $this->userService->add($user);
             $user

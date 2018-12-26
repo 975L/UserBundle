@@ -139,7 +139,7 @@ class ApiVoter extends Voter
                 return $this->isAllowed($token);
                 break;
             case self::API_CREATE:
-                return $this->isSignupAllowed();
+                return $this->isSignupAllowed() && $this->isApiKeyValid($subject);
                 break;
             case self::API_AUTHENTICATE:
             case self::API_DISPLAY:
@@ -164,12 +164,21 @@ class ApiVoter extends Voter
     }
 
     /**
-     * Checks if api is enabled
+     * Checks if API is enabled
      * @return bool
      */
     private function isApiEnabled()
     {
         return $this->configService->getParameter('c975LUser.api');
+    }
+
+    /**
+     * Checks if API is valid
+     * @return bool
+     */
+    private function isApiKeyValid($subject)
+    {
+        return sha1($subject->getEmail() . $this->configService->getParameter('c975LUser.apiPassword')) === $this->request->request->get('apiKey');
     }
 
     /**

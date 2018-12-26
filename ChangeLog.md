@@ -1,5 +1,11 @@
 # Changelog
 
+v2.2.9
+------
+- Modifed `POST` method to `PUT` for Routes `user_api_modify`, `user_api_add_role` and `user_api_delete_role` (26/12/2018)
+- Added documentation for API (26/12/2018)
+- Added parameter `apiPassword` to check that the call for creating user is valid (26/12/2018)
+
 v2.2.8
 ------
 - Modified required versions in `composer.json` (25/12/2018)
