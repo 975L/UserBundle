@@ -1,5 +1,9 @@
 # Changelog
 
+v2.2.9.2
+--------
+- Updated `README.md` (26/12/2018)
+
 v2.2.9.1
 --------
 - Updated `README.md` (26/12/2018)

@@ -578,30 +578,30 @@ Except for `user_api_create` and `user_api_authenticate` you need to send the JW
 
 `/user/api/create`
 ------------------
-@Method({"HEAD", "POST"}). To create the user, call the Route `user_api_create` with the POST data needed by the User entity chosen (see above). Fields `email` and `plainPassword` are mandatory any other will be added to the Entity if the Method exists. You also need to add a field `apiKey` which consists of `sha1($email . apiPassword)`, `apiPassword` is defined in the `user_config` Route. It is also recommended to define CORS access.
+`@Method({"HEAD", "POST"})`. To create the user, call the Route `user_api_create` with the POST data needed by the User entity chosen (see above). Fields `email` and `plainPassword` are mandatory any other will be added to the Entity if the Method exists. You also need to add a field `apiKey` which consists of `sha1($email . apiPassword)`, `apiPassword` is defined in the `user_config` Route. It is also recommended to define CORS access.
 
 `/user/api/authenticate`
 ------------------------
-@Method({"HEAD", "POST"}). To authenticate, call the Route `user_api_authenticate` with the JSON body `{"username": "<email>", "password": "<password>"}` in a `POST` request, with the header `Content-Type: application/json`, you will receive a token.
+`@Method({"HEAD", "POST"})`. To authenticate, call the Route `user_api_authenticate` with the JSON body `{"username": "<email>", "password": "<password>"}` in a `POST` request, with the header `Content-Type: application/json`, you will receive a token.
 
 `/user/api/display/{identifier}`
 --------------------------------
-@Method({"HEAD", "GET"}), {identifier} -> [0-9a-z]{32}. To display the user, call the Route `user_api_display` with the `identifier` of the user. The user defined in JWT must have sufficients rights, as configured in `user_config` Route or be the user itself.
+`@Method({"HEAD", "GET"})`, `{identifier} -> [0-9a-z]{32}`. To display the user, call the Route `user_api_display` with the `identifier` of the user. The user defined in JWT must have sufficients rights, as configured in `user_config` Route or be the user itself.
 
 `/user/api/modify/{identifier}`
 -------------------------------
-@Method({"HEAD", "PUT"}), {identifier} -> [0-9a-z]{32}. To modify the user, call the Route `user_api_modify` with the `identifier` of the user and the POST data needed by the User entity chosen (see above). The user defined in JWT must have sufficients rights, as configured in `user_config` Route or be the user itself.
+`@Method({"HEAD", "PUT"})`, `{identifier} -> [0-9a-z]{32}`. To modify the user, call the Route `user_api_modify` with the `identifier` of the user and the POST data needed by the User entity chosen (see above). The user defined in JWT must have sufficients rights, as configured in `user_config` Route or be the user itself.
 
 `/user/api/delete/{identifier}`
 -------------------------------
-@Method({"HEAD", "DELETE"}), {identifier} -> [0-9a-z]{32}. To delete the user, call the Route `user_api_delete` with the `identifier` of the user. the user will be archived if you have defined it in the Config parameters. The user defined in JWT must have sufficients rights, as configured in `user_config` Route or be the user itself.
+`@Method({"HEAD", "DELETE"})`, `{identifier} -> [0-9a-z]{32}`. To delete the user, call the Route `user_api_delete` with the `identifier` of the user. the user will be archived if you have defined it in the Config parameters. The user defined in JWT must have sufficients rights, as configured in `user_config` Route or be the user itself.
 
 `/user/api/add-role/{identifier}/{role}`
 ----------------------------------------
-@Method({"HEAD", "PUT"}), {identifier} -> [0-9a-z]{32}, {role} -> [a-zA-Z\_]+. To add a Role to the user, call the Route `user_api_add_role` with the `identifier` of the user and the `role` you want to assign. The user defined in JWT must have sufficients rights, as configured in `user_config` Route.
+`@Method({"HEAD", "PUT"})`, `{identifier} -> [0-9a-z]{32}`, `{role} -> [a-zA-Z\_]+`. To add a Role to the user, call the Route `user_api_add_role` with the `identifier` of the user and the `role` you want to assign. The user defined in JWT must have sufficients rights, as configured in `user_config` Route.
 
 `/user/api/delete-role/{identifier}/{role}`
 -------------------------------------------
-@Method({"HEAD", "PUT"}), {identifier} -> [0-9a-z]{32}, {role} -> [a-zA-Z\_]+. To display the user, call the Route `user_api_delete_role` with the `identifier` of the user and the `role` you want to delete. The user defined in JWT must have sufficients rights, as configured in `user_config` Route.
+`@Method({"HEAD", "PUT"})`, `{identifier} -> [0-9a-z]{32}`, `{role} -> [a-zA-Z\_]+`. To display the user, call the Route `user_api_delete_role` with the `identifier` of the user and the `role` you want to delete. The user defined in JWT must have sufficients rights, as configured in `user_config` Route.
 
 **If this project help you to reduce time to develop, you can [buy me a coffee](https://www.buymeacoffee.com/LaurentMarquet) :)**
