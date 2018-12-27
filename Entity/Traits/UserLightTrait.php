@@ -392,7 +392,7 @@ trait UserLightTrait
      */
     public function setEmail($email)
     {
-        $this->email = strtolower($email);
+        $this->email = $email;
         return $this;
     }
 
@@ -402,7 +402,7 @@ trait UserLightTrait
      */
     public function getEmail()
     {
-        return strtolower($this->email);
+        return $this->email;
     }
 
     /**

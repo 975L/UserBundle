@@ -1,5 +1,9 @@
 # Changelog
 
+v2.3.1
+------
+- Suppressed `strtolower` for email has it causes problems when submitting not lowercased emails when submitting via API (27/12/2018)
+
 v2.3
 ----
 - Added Route `user_api_list` (27/12/2018)
