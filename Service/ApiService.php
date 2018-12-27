@@ -116,6 +116,30 @@ class ApiService implements ApiServiceInterface
     }
 
     /**
+     * Returns the list of all users in the array format
+     * @return array
+     */
+    public function findAll()
+    {
+        return $this->em
+            ->getRepository($this->configService->getParameter('c975LUser.entity'))
+            ->findAll()
+        ;
+    }
+
+    /**
+     * Searches the term in the User collection
+     * @return array
+     */
+    public function findAllSearch(string $term)
+    {
+        return $this->em
+            ->getRepository($this->configService->getParameter('c975LUser.entity'))
+            ->findAllSearch($term)
+        ;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getToken($user)

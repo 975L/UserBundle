@@ -1,5 +1,11 @@
 # Changelog
 
+v2.3
+----
+- Added Route `user_api_list` (27/12/2018)
+- Added Route `user_api_search` (27/12/2018)
+- Added `knplabs/knp-paginator-bundle` to `composer.json` (27/12/2018)
+
 v2.2.9.2
 --------
 - Updated `README.md` (26/12/2018)

@@ -588,6 +588,14 @@ Except for `user_api_create` and `user_api_authenticate` you need to send the JW
 --------------------------------
 `@Method({"HEAD", "GET"})`, `{identifier} -> [0-9a-z]{32}`. To display the user, call the Route `user_api_display` with the `identifier` of the user. The user defined in JWT must have sufficients rights, as configured in `user_config` Route or be the user itself.
 
+`/user/api/list[?page=1&size=50]`
+---------------------------------
+`@Method({"HEAD", "GET"})`. To list the users, call the Route `user_api_list`. You can use the query parameters `page` (default 1) to define which page and `size` (default 50) to define the number of records to display. The user defined in JWT must have sufficients rights, as configured in `user_config` Route.
+
+`/user/api/search/{term}[?page=1&size=50]`
+------------------------------------------
+`@Method({"HEAD", "GET"})`, `{term} -> [0-9a-zA-Z]+`. To search within the users, call the Route `user_api_search` with the `term` searched that will be matched as `%term%` with the email field of the User entity. You can use the query parameters `page` (default 1) to define which page and `size` (default 50) to define the number of records to display. The user defined in JWT must have sufficients rights, as configured in `user_config` Route.
+
 `/user/api/modify/{identifier}`
 -------------------------------
 `@Method({"HEAD", "PUT"})`, `{identifier} -> [0-9a-z]{32}`. To modify the user, call the Route `user_api_modify` with the `identifier` of the user and the POST data needed by the User entity chosen (see above). The user defined in JWT must have sufficients rights, as configured in `user_config` Route or be the user itself.

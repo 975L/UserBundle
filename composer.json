@@ -24,6 +24,7 @@
         "c975l/includelibrary-bundle": "^1",
         "c975l/services-bundle": "^1",
         "c975l/toolbar-bundle": "^1",
+        "knplabs/knp-paginator-bundle": "^2",
         "lcobucci/jwt": "^3",
         "misd/phone-number-bundle": "^1",
         "symfony/form": "*",

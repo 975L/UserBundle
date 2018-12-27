@@ -79,10 +79,22 @@ class ApiVoter extends Voter
     public const API_DISPLAY = 'c975LUser-api-display';
 
     /**
+     * Used for access to api list
+     * @var string
+     */
+    public const API_LIST = 'c975LUser-api-list';
+
+    /**
      * Used for access to api modify
      * @var string
      */
     public const API_MODIFY = 'c975LUser-api-modify';
+
+    /**
+     * Used for access to api search
+     * @var string
+     */
+    public const API_SEARCH = 'c975LUser-api-search';
 
     /**
      * Contains all the available attributes to check with in supports()
@@ -95,7 +107,9 @@ class ApiVoter extends Voter
         self::API_DELETE,
         self::API_DELETE_ROLE,
         self::API_DISPLAY,
+        self::API_LIST,
         self::API_MODIFY,
+        self::API_SEARCH,
     );
 
     public function __construct(
@@ -136,6 +150,8 @@ class ApiVoter extends Voter
         switch ($attribute) {
             case self::API_ADD_ROLE:
             case self::API_DELETE_ROLE:
+            case self::API_LIST:
+            case self::API_SEARCH:
                 return $this->isAllowed($token);
                 break;
             case self::API_CREATE:

@@ -21,6 +21,32 @@ use c975L\UserBundle\Entity\User;
 class UserRepository extends EntityRepository implements UserLoaderInterface
 {
     /**
+     * Returns all the users in an array
+     */
+    public function findAll()
+    {
+        return $this->createQueryBuilder('u')
+            ->orderBy('u.email', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * Returns all the users corresponding to the searched term in th email field
+     */
+    public function findAllSearch(string $term)
+    {
+        return $this->createQueryBuilder('u')
+            ->where('LOWER(u.email) LIKE :term')
+            ->orderBy('u.email', 'ASC')
+            ->setParameter('term', '%' . strtolower($term) . '%')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
      * Loads User
      * @return mixed
      */

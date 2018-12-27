@@ -9,6 +9,7 @@
 
 namespace c975L\UserBundle\Controller;
 
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -68,6 +69,67 @@ class ApiController extends Controller
         $this->configService = $configService;
         $this->dispatcher = $dispatcher;
         $this->userService = $userService;
+    }
+
+//LIST
+
+    /**
+     * Lists all the users
+     * @return json
+     * @throws AccessDeniedException
+     *
+     * @Route("/user/api/list",
+     *    name="user_api_list",
+     *    methods={"HEAD", "GET"})
+     * @Method({"HEAD", "GET"})
+     */
+    public function listAll(Request $request, PaginatorInterface $paginator)
+    {
+        $this->denyAccessUnlessGranted('c975LUser-api-list', false);
+
+        $users = $paginator->paginate(
+            $this->apiService->findAll(),
+            $request->query->getInt('page', 1),
+            $request->query->getInt('size', 50)
+        );
+
+        $usersArray = array();
+        foreach ($users->getItems() as $user) {
+            $usersArray[] = $user->toArray();
+        };
+
+        return new JsonResponse($usersArray);
+    }
+
+//SEARCH
+
+    /**
+     * Searches for %{term}% in email
+     * @return json
+     * @throws AccessDeniedException
+     *
+     * @Route("/user/api/search/{term}",
+     *    name="user_api_search",
+     *    requirements={"term": "^([0-9a-zA-Z]+)"},
+     *    methods={"HEAD", "GET"})
+     * @Method({"HEAD", "GET"})
+     */
+    public function search(Request $request, PaginatorInterface $paginator, string $term)
+    {
+        $this->denyAccessUnlessGranted('c975LUser-api-search', false);
+
+        $users = $paginator->paginate(
+            $this->apiService->findAllSearch($term),
+            $request->query->getInt('page', 1),
+            $request->query->getInt('size', 50)
+        );
+
+        $usersArray = array();
+        foreach ($users->getItems() as $user) {
+            $usersArray[] = $user->toArray();
+        };
+
+        return new JsonResponse($usersArray);
     }
 
 //CREATE
