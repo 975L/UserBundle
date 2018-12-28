@@ -22,6 +22,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use c975L\ConfigBundle\Service\ConfigServiceInterface;
 use c975L\UserBundle\Service\ApiServiceInterface;
 use c975L\UserBundle\Service\UserServiceInterface;
@@ -144,13 +145,18 @@ class ApiController extends Controller
      *    methods={"HEAD", "POST"})
      * @Method({"HEAD", "POST"})
      */
-    public function create(Request $request)
+    public function create(Request $request, ValidatorInterface $validator)
     {
         $userEntity = $this->configService->getParameter('c975LUser.entity');
         $user = new $userEntity();
         $email = $request->request->get('email');
         if (null !== $email) {
             $user->setEmail($email);
+            //Validates entity
+            if (count($validator->validate($user)) > 0) {
+                return new JsonResponse(array('error' => (string) $validator->validate($user)));
+            }
+
             $this->denyAccessUnlessGranted('c975LUser-api-create', $user);
 
             $userData = $this->apiService->create($user, $request->request);

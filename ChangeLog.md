@@ -1,5 +1,9 @@
 # Changelog
 
+v2.3.2
+------
+- Added validation on user entity when creating via API as wrong emails were passing (28/12/2018)
+
 v2.3.1
 ------
 - Suppressed `strtolower` for email has it causes problems when submitting not lowercased emails when submitting via API (27/12/2018)
