@@ -38,12 +38,12 @@ interface ApiServiceInterface
     /**
      * Hydrates the user with given parameters
      */
-    public function hydrate($user, ParameterBag $parameters);
+    public function hydrate($user, $parameters);
 
     /**
      * Modifies the user
      */
-    public function modify($user);
+    public function modify($user, $parameters);
 
     /**
      * Validates the JWToken

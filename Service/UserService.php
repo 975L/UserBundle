@@ -362,10 +362,10 @@ class UserService implements UserServiceInterface
     public function modify($user)
     {
         //Updates data
-        $user
-            ->setAvatar('https://www.gravatar.com/avatar/' . hash('md5', strtolower(trim($user->getEmail()))) . '?s=512&d=mm&r=g')
-            ->setEnabled($user->getAllowUse())
-        ;
+        if (method_exists($user, 'setAvatar')) {
+            $user->setAvatar('https://www.gravatar.com/avatar/' . hash('md5', strtolower(trim($user->getEmail()))) . '?s=512&d=mm&r=g');
+        }
+        $user->setEnabled($user->getAllowUse());
 
         //Creates flash
         $this->serviceTools->createFlash('user', 'text.profile_modified');

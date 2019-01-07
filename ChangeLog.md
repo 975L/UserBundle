@@ -1,5 +1,9 @@
 # Changelog
 
+v2.3.3.1
+--------
+- Corrected API `modify()` to take parameters from Body's request (07/01/2019)
+
 v2.3.3
 ------
 - Added Route to update Roles with an array that erase all the existing roles (07/01/2019)

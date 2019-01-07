@@ -235,7 +235,7 @@ class ApiController extends Controller
         $user = $this->userService->findUserByIdentifier($identifier);
         $this->denyAccessUnlessGranted('c975LUser-api-modify', $user);
 
-        $this->apiService->modify($user, $request->request);
+        $this->apiService->modify($user, $request->getContent());
 
         return new JsonResponse($user->toArray());
     }

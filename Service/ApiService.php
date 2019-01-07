@@ -164,7 +164,7 @@ class ApiService implements ApiServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function hydrate($user, ParameterBag $parameters)
+    public function hydrate($user, $parameters)
     {
         foreach ($parameters as $key => $value) {
             $method = 'set' . ucfirst($key);
@@ -177,19 +177,11 @@ class ApiService implements ApiServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function modify($user, ParameterBag $parameters = null)
+    public function modify($user, $parameters)
     {
+        $parameters = json_decode($parameters, true);
         $this->hydrate($user, $parameters);
-
-        if (method_exists($user, 'setAvatar')) {
-            $user->setAvatar('https://www.gravatar.com/avatar/' . hash('md5', strtolower(trim($user->getEmail()))) . '?s=512&d=mm&r=g');
-        }
-
-        $user->setEnabled($user->getAllowUse());
-
-        //Persists in DB
-        $this->em->persist($user);
-        $this->em->flush();
+        $this->userService->modify($user);
     }
 
     /**
