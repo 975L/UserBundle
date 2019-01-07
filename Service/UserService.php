@@ -175,17 +175,6 @@ class UserService implements UserServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function deleteRole($user, string $role)
-    {
-        $user->deleteRole($role);
-
-        $this->em->persist($user);
-        $this->em->flush();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function archive($userId)
     {
         if ($this->configService->getParameter('c975LUser.archiveUser')) {
@@ -232,6 +221,17 @@ class UserService implements UserServiceInterface
 
         //Creates flash
         $this->serviceTools->createFlash('user', 'text.account_deleted', 'danger');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function deleteRole($user, string $role)
+    {
+        $user->deleteRole($role);
+
+        $this->em->persist($user);
+        $this->em->flush();
     }
 
     /**
@@ -373,6 +373,19 @@ class UserService implements UserServiceInterface
         //Persists data in DB
         $this->em->persist($user);
         $this->em->flush();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function modifyRoles($user, $roles)
+    {
+        $roles = json_decode($roles, true);
+        if (isset($roles['roles'])) {
+            $user->setRoles($roles['roles']);
+            $this->em->persist($user);
+            $this->em->flush();
+        }
     }
 
     /**

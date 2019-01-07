@@ -279,7 +279,7 @@ class ApiController extends Controller
      *    methods={"HEAD", "PUT"})
      * @Method({"HEAD", "PUT"})
      */
-    public function addRole(Request $request, $identifier, $role)
+    public function addRole($identifier, $role)
     {
         $user = $this->userService->findUserByIdentifier($identifier);
         $this->denyAccessUnlessGranted('c975LUser-api-add-role', $this->getUser());
@@ -305,12 +305,35 @@ class ApiController extends Controller
      *    methods={"HEAD", "PUT"})
      * @Method({"HEAD", "PUT"})
      */
-    public function deleteRole(Request $request, $identifier, $role)
+    public function deleteRole($identifier, $role)
     {
         $user = $this->userService->findUserByIdentifier($identifier);
         $this->denyAccessUnlessGranted('c975LUser-api-delete-role', $this->getUser());
 
         $this->userService->deleteRole($user, $role);
+
+        return new JsonResponse($user->toArray());
+    }
+
+//MODIFY ROLES
+
+    /**
+     * Modifies roles to specific user using "/user/api/modify-role/{identifier}"
+     * @return JsonResponse
+     * @throws AccessDeniedException
+     *
+     * @Route("/user/api/modify-roles/{identifier}",
+     *    name="user_api_modify_roles",
+     *    requirements={"identifier": "^([0-9a-z]{32})"},
+     *    methods={"HEAD", "PUT", "POST"})
+     * @Method({"HEAD", "PUT", "POST"})
+     */
+    public function modifyRoles(Request $request, $identifier)
+    {
+        $user = $this->userService->findUserByIdentifier($identifier);
+        $this->denyAccessUnlessGranted('c975LUser-api-modify-role', $this->getUser());
+
+        $this->userService->modifyRoles($user, $request->getContent());
 
         return new JsonResponse($user->toArray());
     }

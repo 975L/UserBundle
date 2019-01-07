@@ -91,6 +91,12 @@ class ApiVoter extends Voter
     public const API_MODIFY = 'c975LUser-api-modify';
 
     /**
+     * Used for access to api create
+     * @var string
+     */
+    public const API_MODIFY_ROLE = 'c975LUser-api-modify-role';
+
+    /**
      * Used for access to api search
      * @var string
      */
@@ -109,6 +115,7 @@ class ApiVoter extends Voter
         self::API_DISPLAY,
         self::API_LIST,
         self::API_MODIFY,
+        self::API_MODIFY_ROLE,
         self::API_SEARCH,
     );
 
@@ -151,6 +158,7 @@ class ApiVoter extends Voter
             case self::API_ADD_ROLE:
             case self::API_DELETE_ROLE:
             case self::API_LIST:
+            case self::API_MODIFY_ROLE:
             case self::API_SEARCH:
                 return $this->isAllowed($token);
                 break;

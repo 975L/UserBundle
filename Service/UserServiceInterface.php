@@ -110,6 +110,11 @@ interface UserServiceInterface
     public function modify($user);
 
     /**
+     * Modifies role to user
+     */
+    public function modifyRoles($user, array $roles);
+
+    /**
      * Registers the user
      */
     public function signup($user);

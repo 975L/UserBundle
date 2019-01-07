@@ -1,5 +1,9 @@
 # Changelog
 
+v2.3.3
+------
+- Added Route to update Roles with an array that erase all the existing roles (07/01/2019)
+
 v2.3.2
 ------
 - Added validation on user entity when creating via API as wrong emails were passing (28/12/2018)
