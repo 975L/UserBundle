@@ -1,5 +1,11 @@
 # Changelog
 
+v2.3.4
+------
+- Added Events for API (07/01/2019)
+- Modified ApiVoter (07/01/2019)
+- Added possibility to stop instructions if Event propagation is stopped (08/01/2019)
+
 v2.3.3.1
 --------
 - Corrected API `modify()` to take parameters from Body's request (07/01/2019)

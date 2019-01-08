@@ -46,77 +46,77 @@ class ApiVoter extends Voter
      * Used for access to api add-role
      * @var string
      */
-    public const API_ADD_ROLE = 'c975LUser-api-add-role';
+    public const API_USER_ADD_ROLE = 'c975LUser-api-add-role';
 
     /**
      * Used for access to api authenticate
      * @var string
      */
-    public const API_AUTHENTICATE = 'c975LUser-api-authenticate';
+    public const API_USER_AUTHENTICATE = 'c975LUser-api-authenticate';
 
     /**
      * Used for access to api create
      * @var string
      */
-    public const API_CREATE = 'c975LUser-api-create';
+    public const API_USER_CREATE = 'c975LUser-api-create';
 
     /**
      * Used for access to api delete
      * @var string
      */
-    public const API_DELETE = 'c975LUser-api-delete';
+    public const API_USER_DELETE = 'c975LUser-api-delete';
 
     /**
      * Used for access to api delete-role
      * @var string
      */
-    public const API_DELETE_ROLE = 'c975LUser-api-delete-role';
+    public const API_USER_DELETE_ROLE = 'c975LUser-api-delete-role';
 
     /**
      * Used for access to api display
      * @var string
      */
-    public const API_DISPLAY = 'c975LUser-api-display';
+    public const API_USER_DISPLAY = 'c975LUser-api-display';
 
     /**
      * Used for access to api list
      * @var string
      */
-    public const API_LIST = 'c975LUser-api-list';
+    public const API_USER_LIST = 'c975LUser-api-list';
 
     /**
      * Used for access to api modify
      * @var string
      */
-    public const API_MODIFY = 'c975LUser-api-modify';
+    public const API_USER_MODIFY = 'c975LUser-api-modify';
 
     /**
      * Used for access to api create
      * @var string
      */
-    public const API_MODIFY_ROLE = 'c975LUser-api-modify-role';
+    public const API_USER_MODIFY_ROLE = 'c975LUser-api-modify-role';
 
     /**
      * Used for access to api search
      * @var string
      */
-    public const API_SEARCH = 'c975LUser-api-search';
+    public const API_USER_SEARCH = 'c975LUser-api-search';
 
     /**
      * Contains all the available attributes to check with in supports()
      * @var array
      */
     private const ATTRIBUTES = array(
-        self::API_ADD_ROLE,
-        self::API_AUTHENTICATE,
-        self::API_CREATE,
-        self::API_DELETE,
-        self::API_DELETE_ROLE,
-        self::API_DISPLAY,
-        self::API_LIST,
-        self::API_MODIFY,
-        self::API_MODIFY_ROLE,
-        self::API_SEARCH,
+        self::API_USER_ADD_ROLE,
+        self::API_USER_AUTHENTICATE,
+        self::API_USER_CREATE,
+        self::API_USER_DELETE,
+        self::API_USER_DELETE_ROLE,
+        self::API_USER_DISPLAY,
+        self::API_USER_LIST,
+        self::API_USER_MODIFY,
+        self::API_USER_MODIFY_ROLE,
+        self::API_USER_SEARCH,
     );
 
     public function __construct(
@@ -155,22 +155,22 @@ class ApiVoter extends Voter
     {
         //Defines access rights
         switch ($attribute) {
-            case self::API_ADD_ROLE:
-            case self::API_DELETE_ROLE:
-            case self::API_LIST:
-            case self::API_MODIFY_ROLE:
-            case self::API_SEARCH:
+            case self::API_USER_ADD_ROLE:
+            case self::API_USER_DELETE_ROLE:
+            case self::API_USER_LIST:
+            case self::API_USER_MODIFY_ROLE:
+            case self::API_USER_SEARCH:
                 return $this->isAllowed($token);
                 break;
-            case self::API_CREATE:
+            case self::API_USER_CREATE:
                 return $this->isSignupAllowed() && $this->isApiKeyValid($subject);
                 break;
-            case self::API_AUTHENTICATE:
-            case self::API_DISPLAY:
+            case self::API_USER_AUTHENTICATE:
+            case self::API_USER_DISPLAY:
                 return $this->decisionManager->decide($token, array('ROLE_USER'));
                 break;
-            case self::API_DELETE:
-            case self::API_MODIFY:
+            case self::API_USER_DELETE:
+            case self::API_USER_MODIFY:
                 return $this->isOwner($token, $subject);
                 break;
         }

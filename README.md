@@ -333,6 +333,9 @@ class UserDeleteListener implements EventSubscriberInterface
 
         if ($user instanceof \Symfony\Component\Security\Core\User\AdvancedUserInterface) {
             //Do your stuff...
+
+            //Use the following is you want to stop propagation of the Event, any following instructions will be stopped
+            //$event->stopPropagation();
         }
     }
 }

@@ -21,6 +21,26 @@ use Symfony\Component\EventDispatcher\Event;
 class UserEvent extends Event
 {
     /**
+     * Used to dispatch event API "authenticate"
+     */
+    const API_USER_AUTHENTICATE = 'c975l_user.api.authenticate';
+
+    /**
+     * Used to dispatch event API "created"
+     */
+    const API_USER_CREATED = 'c975l_user.api.created';
+
+    /**
+     * Used to dispatch event API "delete"
+     */
+    const API_USER_DELETE = 'c975l_user.api.delete';
+
+    /**
+     * Used to dispatch event API "modify"
+     */
+    const API_USER_MODIFY = 'c975l_user.api.modify';
+
+    /**
      * Used to dispatch event "delete"
      */
     const USER_DELETE = 'c975l_user.delete';

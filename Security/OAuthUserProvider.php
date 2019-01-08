@@ -133,36 +133,38 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface
                 $this->dispatcher->dispatch(UserEvent::USER_SIGNUP, $event);
 
                 //Defines data for user
-                $firstname = $response->getFirstName();
-                $firstname = '' !== $firstname && null !== $firstname ? $firstname : $response->getNickname();
-                $firstname = '' !== $firstname && null !== $firstname ? $firstname : $response->getRealName();
-                $avatar = null !== $response->getEmail() ? 'https://www.gravatar.com/avatar/' . hash('md5', strtolower(trim($response->getEmail()))) . '?s=512&d=mm&r=g' : null;
+                if (!$event->isPropagationStopped()) {
+                    $firstname = $response->getFirstName();
+                    $firstname = '' !== $firstname && null !== $firstname ? $firstname : $response->getNickname();
+                    $firstname = '' !== $firstname && null !== $firstname ? $firstname : $response->getRealName();
+                    $avatar = null !== $response->getEmail() ? 'https://www.gravatar.com/avatar/' . hash('md5', strtolower(trim($response->getEmail()))) . '?s=512&d=mm&r=g' : null;
 
-                //Allows to not have an email for first authentication, it will be requested in profile update
-                $email = null !== $response->getEmail() ? strtolower(trim($response->getEmail())) : $username;
+                    //Allows to not have an email for first authentication, it will be requested in profile update
+                    $email = null !== $response->getEmail() ? strtolower(trim($response->getEmail())) : $username;
 
-                $user
-                    ->setIdentifier(md5($user->getEmail() . uniqid(time())))
-                    ->setEmail($email)
-                    ->setFirstname($firstname)
-                    ->setLastname($response->getLastName())
-                    ->setCreation(new \DateTime())
-                    ->setAvatar($avatar)
-                    ->setEnabled(true)
-                    ->setPassword($username)
-                    ->setSocialNetwork(strtolower($response->getResourceOwner()->getName()))
-                    ->setSocialId($username)
-                    ->setSocialToken($response->getAccessToken())
-                    ->setSocialPicture($response->getProfilePicture())
-                ;
+                    $user
+                        ->setIdentifier(md5($user->getEmail() . uniqid(time())))
+                        ->setEmail($email)
+                        ->setFirstname($firstname)
+                        ->setLastname($response->getLastName())
+                        ->setCreation(new \DateTime())
+                        ->setAvatar($avatar)
+                        ->setEnabled(true)
+                        ->setPassword($username)
+                        ->setSocialNetwork(strtolower($response->getResourceOwner()->getName()))
+                        ->setSocialId($username)
+                        ->setSocialToken($response->getAccessToken())
+                        ->setSocialPicture($response->getProfilePicture())
+                    ;
 
-                //Persist user in DB
-                $this->em->persist($user);
-                $this->em->flush();
+                    //Persist user in DB
+                    $this->em->persist($user);
+                    $this->em->flush();
 
-                //Dispatch event USER_SIGNEDUP
-                $event = new UserEvent($user, $this->request);
-                $this->dispatcher->dispatch(UserEvent::USER_SIGNEDUP, $event);
+                    //Dispatch event USER_SIGNEDUP
+                    $event = new UserEvent($user, $this->request);
+                    $this->dispatcher->dispatch(UserEvent::USER_SIGNEDUP, $event);
+                }
 
                 return $user;
             }

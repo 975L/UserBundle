@@ -122,7 +122,9 @@ class ProfileController extends Controller
             $this->dispatcher->dispatch(UserEvent::USER_MODIFY, $event);
 
             //Modify user
-            $this->userService->modify($user);
+            if (!$event->isPropagationStopped()) {
+                $this->userService->modify($user);
+            }
 
             //Redirects to dashboard
             return $this->redirectToRoute('user_dashboard');
@@ -162,7 +164,9 @@ class ProfileController extends Controller
             $this->dispatcher->dispatch(UserEvent::USER_DELETE, $event);
 
             //Deletes user
-            $this->userService->delete($user);
+            if (!$event->isPropagationStopped()) {
+                $this->userService->delete($user);
+            }
 
             //Sign out
             return $this->redirectToRoute('user_signout');

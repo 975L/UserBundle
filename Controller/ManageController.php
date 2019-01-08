@@ -292,7 +292,9 @@ class ManageController extends Controller
             $this->dispatcher->dispatch(UserEvent::USER_DELETE, $event);
 
             //Deletes managedUser
-            $this->userService->delete($managedUser);
+            if (!$event->isPropagationStopped()) {
+                $this->userService->delete($managedUser);
+            }
 
             //Redirects to manage users
             return $this->redirectToRoute('user_manage');

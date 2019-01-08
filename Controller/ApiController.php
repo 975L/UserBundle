@@ -159,7 +159,15 @@ class ApiController extends Controller
 
             $this->denyAccessUnlessGranted('c975LUser-api-create', $user);
 
-            $userData = $this->apiService->create($user, $request->request);
+            //Dispatch event
+            $event = new UserEvent($user, $request);
+            $this->dispatcher->dispatch(UserEvent::API_USER_CREATED, $event);
+
+            //Creates the User
+            $userData = null;
+            if (!$event->isPropagationStopped()) {
+                $userData = $this->apiService->create($user, $request->request);
+            }
 
             return new JsonResponse($userData);
         }
@@ -186,12 +194,16 @@ class ApiController extends Controller
 
         //Dispatch event
         $event = new UserEvent($user, $request);
-        $this->dispatcher->dispatch(UserEvent::USER_SIGNIN, $event);
+        $this->dispatcher->dispatch(UserEvent::API_USER_AUTHENTICATE, $event);
 
-        $authenticate = array(
-            'user' => $user->toArray(),
-            'token' => $this->apiService->getToken($user),
-        );
+        //Authenticates
+        $authenticate = null;
+        if (!$event->isPropagationStopped()) {
+            $authenticate = array(
+                'user' => $user->toArray(),
+                'token' => $this->apiService->getToken($user),
+            );
+        }
 
         return new JsonResponse($authenticate);
     }
@@ -235,7 +247,14 @@ class ApiController extends Controller
         $user = $this->userService->findUserByIdentifier($identifier);
         $this->denyAccessUnlessGranted('c975LUser-api-modify', $user);
 
-        $this->apiService->modify($user, $request->getContent());
+        //Dispatch event
+        $event = new UserEvent($user, $request);
+        $this->dispatcher->dispatch(UserEvent::API_USER_MODIFY, $event);
+
+        //Modifies the User
+        if (!$event->isPropagationStopped()) {
+            $this->apiService->modify($user, $request->getContent());
+        }
 
         return new JsonResponse($user->toArray());
     }
@@ -253,12 +272,18 @@ class ApiController extends Controller
      *    methods={"HEAD", "DELETE"})
      * @Method({"HEAD", "DELETE"})
      */
-    public function delete($identifier)
+    public function delete(Request $request, $identifier)
     {
         $user = $this->userService->findUserByIdentifier($identifier);
         $this->denyAccessUnlessGranted('c975LUser-api-delete', $user);
 
-        $this->apiService->delete($user);
+        //Dispatch event
+        $event = new UserEvent($user, $request);
+        $this->dispatcher->dispatch(UserEvent::API_USER_DELETE, $event);
+
+        if (!$event->isPropagationStopped()) {
+            $this->apiService->delete($user);
+        }
 
         return new JsonResponse(true);
     }

@@ -103,8 +103,11 @@ class UserController extends Controller
         $this->dispatcher->dispatch(UserEvent::USER_SIGNIN, $event);
 
         //Adds signin attempt
-        $error = $authUtils->getLastAuthenticationError();
-        extract($this->userService->addAttempt($error));
+        $error = '';
+        if (!$event->isPropagationStopped()) {
+            $error = $authUtils->getLastAuthenticationError();
+            extract($this->userService->addAttempt($error));
+        }
 
         //Returns the signin form
         return $this->render('@c975LUser/forms/signin.html.twig', array(

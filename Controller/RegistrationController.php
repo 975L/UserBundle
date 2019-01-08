@@ -76,6 +76,7 @@ class RegistrationController extends Controller
     }
 
 //SIGN UP
+
     /**
      * Redirects to signup Route
      * @return Redirect
@@ -128,11 +129,13 @@ class RegistrationController extends Controller
                 $this->dispatcher->dispatch(UserEvent::USER_SIGNUP, $event);
 
                 //Registers user
-                $this->userService->signup($user);
+                if (!$event->isPropagationStopped()) {
+                    $this->userService->signup($user);
 
-                //Dispatch event
-                $event = new UserEvent($user, $request);
-                $this->dispatcher->dispatch(UserEvent::USER_SIGNEDUP, $event);
+                    //Dispatch event
+                    $event = new UserEvent($user, $request);
+                    $this->dispatcher->dispatch(UserEvent::USER_SIGNEDUP, $event);
+                }
 
                 //Renders the check email page
                 $session->set('checkEmailUser', $user->getEmail());
@@ -149,6 +152,7 @@ class RegistrationController extends Controller
     }
 
 //SIGN UP CONFIRM (FROM EMAIL LINK)
+
     /**
      * Confirms signup and redirects to user signin
      * @return Redirect
@@ -176,7 +180,9 @@ class RegistrationController extends Controller
         $this->dispatcher->dispatch(UserEvent::USER_SIGNUP_CONFIRM, $event);
 
         //Confirms registration
-        $this->userService->signupConfirm($user);
+        if (!$event->isPropagationStopped()) {
+            $this->userService->signupConfirm($user);
+        }
 
         //User is not loaded so redirects to signin
         return $this->redirectToRoute('user_signin');
