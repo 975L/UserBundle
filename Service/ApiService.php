@@ -107,9 +107,6 @@ class ApiService implements ApiServiceInterface
      */
     public function delete($user)
     {
-dump($user);
-dump('here');die;
-
         //Archives user
         $this->userService->archive($user->getId());
 

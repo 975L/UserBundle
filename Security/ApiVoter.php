@@ -79,6 +79,12 @@ class ApiVoter extends Voter
     public const API_USER_DISPLAY = 'c975LUser-api-display';
 
     /**
+     * Used for access to api export
+     * @var string
+     */
+    public const API_USER_EXPORT = 'c975LUser-api-export';
+
+    /**
      * Used for access to api list
      * @var string
      */
@@ -113,6 +119,7 @@ class ApiVoter extends Voter
         self::API_USER_DELETE,
         self::API_USER_DELETE_ROLE,
         self::API_USER_DISPLAY,
+        self::API_USER_EXPORT,
         self::API_USER_LIST,
         self::API_USER_MODIFY,
         self::API_USER_MODIFY_ROLE,
@@ -170,6 +177,7 @@ class ApiVoter extends Voter
                 return $this->decisionManager->decide($token, array('ROLE_USER'));
                 break;
             case self::API_USER_DELETE:
+            case self::API_USER_EXPORT:
             case self::API_USER_MODIFY:
                 return $this->isOwner($token, $subject);
                 break;

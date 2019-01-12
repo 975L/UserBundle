@@ -9,6 +9,10 @@
 
 namespace c975L\UserBundle\Security;
 
+use c975L\ConfigBundle\Service\ConfigServiceInterface;
+use c975L\UserBundle\Entity\UserLight;
+use c975L\UserBundle\Event\UserEvent;
+use c975L\UserBundle\Service\UserServiceInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthAwareUserProviderInterface;
@@ -16,11 +20,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
-use Symfony\Component\Security\Core\User\UserInterface;
-use c975L\ConfigBundle\Service\ConfigServiceInterface;
-use c975L\UserBundle\Entity\UserLight;
-use c975L\UserBundle\Event\UserEvent;
-use c975L\UserBundle\Service\UserServiceInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
  * Bridge to use hwiOAuth
@@ -89,7 +89,7 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface
             $user = $this->userService->findUserBySocialId($username);
 
             //User has been found
-            if ($user instanceof \Symfony\Component\Security\Core\User\AdvancedUserInterface) {
+            if ($user instanceof AdvancedUserInterface) {
                 //Updates access token
                 $user->setSocialToken($response->getAccessToken());
 
@@ -109,7 +109,7 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface
 
                 //Links account to existing one to allow sign in with both
                 //Sign up with another social network, using the same email address, will replace the existing social network
-                if ($user instanceof \Symfony\Component\Security\Core\User\AdvancedUserInterface) {
+                if ($user instanceof AdvancedUserInterface) {
                     $user
                         ->setSocialNetwork(strtolower($response->getResourceOwner()->getName()))
                         ->setSocialId($username)

@@ -251,6 +251,7 @@ class UserService implements UserServiceInterface
                 'accountNonExpired',
                 'accountNonLocked',
                 'credentialsNonExpired',
+                'id',
                 'salt',
                 'password',
                 'token',

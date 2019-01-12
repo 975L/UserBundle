@@ -11,6 +11,7 @@ namespace c975L\UserBundle\Event;
 
 use c975L\UserBundle\Entity\UserLight;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
@@ -34,6 +35,11 @@ class UserEvent extends Event
      * Used to dispatch event API "delete"
      */
     const API_USER_DELETE = 'c975l_user.api.delete';
+
+    /**
+     * Used to dispatch event API "export"
+     */
+    const API_USER_EXPORT = 'c975l_user.api.export';
 
     /**
      * Used to dispatch event API "modify"
@@ -82,14 +88,21 @@ class UserEvent extends Event
      */
     protected $request;
 
-    public function __construct($user, Request $request)
+    /**
+     * Stores Response
+     * @var Response
+     */
+    protected $reponse;
+
+    public function __construct($user, Request $request, Response $response = null)
     {
         $this->user = $user;
         $this->request = $request;
+        $this->response = $response;
     }
 
     /**
-     * Get User
+     * Gets User
      * @return UserLight
      */
     public function getUser()
@@ -98,11 +111,31 @@ class UserEvent extends Event
     }
 
     /**
-     * Get Request
+     * Gets Request
      * @return Request
      */
-    public function getRequest()
+    public function getRequest(): ?Request
     {
         return $this->request;
+    }
+
+    /**
+     * Gets Response
+     * @return Response
+     */
+    public function getResponse(): ?Response
+    {
+        return $this->response;
+    }
+
+    /**
+     * Sets Response
+     * @return Request
+     */
+    public function setResponse(?Response $response)
+    {
+        $this->response = $response;
+
+        return $this;
     }
 }

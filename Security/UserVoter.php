@@ -9,11 +9,12 @@
 
 namespace c975L\UserBundle\Security;
 
+use c975L\ConfigBundle\Service\ConfigServiceInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use c975L\ConfigBundle\Service\ConfigServiceInterface;
 
 /**
  * Voter for User access
@@ -134,7 +135,7 @@ class UserVoter extends Voter
     protected function supports($attribute, $subject)
     {
         if (false !== $subject) {
-            return ($subject instanceof \Symfony\Component\Security\Core\User\AdvancedUserInterface) && in_array($attribute, self::ATTRIBUTES);
+            return ($subject instanceof AdvancedUserInterface) && in_array($attribute, self::ATTRIBUTES);
         }
 
         return in_array($attribute, self::ATTRIBUTES);

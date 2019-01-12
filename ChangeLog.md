@@ -1,5 +1,11 @@
 # Changelog
 
+v2.3.5
+------
+- Made use of `use Symfony\Component\Security\Core\User\AdvancedUserInterface;` (12/01/2019)
+- Added Route for `api_user_export` (12/01/2019)
+- Corrected ApiService->delete() (12/01/2019)
+
 v2.3.4
 ------
 - Added Events for API (07/01/2019)

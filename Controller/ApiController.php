@@ -362,4 +362,32 @@ class ApiController extends Controller
 
         return new JsonResponse($user->toArray());
     }
+
+//EXPORT
+
+    /**
+     * Export the user's data in JSON
+     * @return JsonResponse
+     * @throws AccessDeniedException
+     *
+     * @Route("/user/api/export",
+     *      name="user_api_export",
+     *      methods={"GET", "HEAD"})
+     * @Method({"GET", "HEAD"})
+     */
+    public function export(Request $request)
+    {
+        $user = $this->getUser();
+        $this->denyAccessUnlessGranted('c975LUser-api-export', $user);
+
+        //Dispatch event
+        $event = new UserEvent($user, $request);
+        $this->dispatcher->dispatch(UserEvent::API_USER_EXPORT, $event);
+
+        if (!$event->isPropagationStopped()) {
+            return $this->userService->export($user, 'json');
+        }
+
+        return $event->getResponse();
+    }
 }

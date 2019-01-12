@@ -314,9 +314,10 @@ Multiples events are fired to help you fit your needs, they are all defined in `
 
 namespace AppBundle\Listener;
 
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use c975L\UserBundle\Entity\UserAbstract;
 use c975L\UserBundle\Event\UserEvent;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 class UserDeleteListener implements EventSubscriberInterface
 {
@@ -331,7 +332,7 @@ class UserDeleteListener implements EventSubscriberInterface
     {
         $user = $event->getUser();
 
-        if ($user instanceof \Symfony\Component\Security\Core\User\AdvancedUserInterface) {
+        if ($user instanceof AdvancedUserInterface) {
             //Do your stuff...
 
             //Use the following is you want to stop propagation of the Event, any following instructions will be stopped
@@ -618,5 +619,42 @@ Except for `user_api_create` and `user_api_authenticate` you need to send the JW
 `/user/api/modify-roles/{identifier}`
 -------------------------------------------
 `@Method({"HEAD", "PUT"})`, `{identifier} -> [0-9a-z]{32}`. To modify the Roles of the user, call the Route `user_api_modify_roles` in a `PUT` request, with the `identifier` of the user and an array of roles in the body of the request i.e. `{"roles": ["ROLE_ADMIN", "ROLE_USER"]}`. The user defined in JWT must have sufficients rights, as configured in `user_config` Route.
+
+`/user/api/export`
+-------------------------------------------
+`@Method({"HEAD", "GET"})`. To export user's (signed in) data, call the Route `user_api_export` in a `GET` request. Only the user defined in JWT can access its data. If you wish to add data you can liste to `UserEvent::API_USER_EXPORT` and update the user or you can export your own foramtted dat by using the following in an EventListener:
+
+```php
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+
+class UserListener implements EventSubscriberInterface
+{
+    public static function getSubscribedEvents()
+    {
+        return array(
+            UserEvent::API_USER_EXPORT => 'userApiExport',
+        );
+    }
+
+    public function userApiExport($event)
+    {
+        $response = null;
+        $user = $event->getUser();
+        if ($user instanceof AdvancedUserInterface) {
+            $userFormattedData = array();
+
+            $response = new Response(json_encode($userFormattedData));
+            $response->headers->set('Content-Type', 'application/json');
+        }
+
+        $event
+            ->setResponse($response)
+            ->stopPropagation()
+        ;
+    }
+}
+```
 
 **If this project help you to reduce time to develop, you can [buy me a coffee](https://www.buymeacoffee.com/LaurentMarquet) :)**

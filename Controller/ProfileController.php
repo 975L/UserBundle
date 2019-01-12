@@ -66,6 +66,7 @@ class ProfileController extends Controller
     }
 
 //DISPLAY
+
     /**
      * Displays the user's profile
      * @return Response
@@ -97,6 +98,7 @@ class ProfileController extends Controller
     }
 
 //MODIFY
+
     /**
      * Displays the form to modify the profile
      * @return Response
@@ -139,6 +141,7 @@ class ProfileController extends Controller
     }
 
 //DELETE
+
     /**
      * Deletes the user
      * @return REsponse
@@ -180,6 +183,7 @@ class ProfileController extends Controller
     }
 
 //PUBLIC PROFILE
+
     /**
      * Displays the public profile if enabled
      * @return Response
@@ -203,6 +207,7 @@ class ProfileController extends Controller
     }
 
 //EXPORT
+
     /**
      * Export the user's data in JSON or XML
      * @return Response
