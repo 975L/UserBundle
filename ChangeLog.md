@@ -1,5 +1,9 @@
 # Changelog
 
+v2.3.5.1
+--------
+- Modified message when not authenticated (05/02/2019)
+
 v2.3.5
 ------
 - Made use of `use Symfony\Component\Security\Core\User\AdvancedUserInterface;` (12/01/2019)

@@ -88,7 +88,7 @@ class UserController extends Controller
     {
         //Disable access if restricted to API only
         if ($this->configService->getParameter('c975LUser.apiOnly')) {
-            return new JsonResponse('service disabled');
+            return new JsonResponse('You have to be authenticated to use this API');
             exit;
         }
 
