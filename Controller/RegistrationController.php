@@ -9,26 +9,26 @@
 
 namespace c975L\UserBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
 use c975L\ConfigBundle\Service\ConfigServiceInterface;
 use c975L\ServicesBundle\Service\ServiceToolsInterface;
 use c975L\UserBundle\Event\UserEvent;
 use c975L\UserBundle\Form\UserFormFactoryInterface;
 use c975L\UserBundle\Service\UserServiceInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Registration Controller class
  * @author Laurent Marquet <laurent.marquet@laposte.net>
  * @copyright 2018 975L <contact@975l.com>
  */
-class RegistrationController extends Controller
+class RegistrationController extends AbstractController
 {
     /**
      * Stores ConfigServiceInterface
@@ -83,7 +83,6 @@ class RegistrationController extends Controller
      *
      * @Route("/signup",
      *      methods={"GET", "HEAD", "POST"})
-     * @Method({"GET", "HEAD"})
      */
     public function registerRedirect()
     {
@@ -98,7 +97,6 @@ class RegistrationController extends Controller
      * @Route("/user/signup",
      *      name="user_signup",
      *      methods={"GET", "HEAD", "POST"})
-     * @Method({"GET", "HEAD", "POST"})
      */
     public function signup(Request $request)
     {
@@ -108,7 +106,7 @@ class RegistrationController extends Controller
         }
 
         //Redirects to dashboard if user has already signed-in
-        if ($user instanceof \Symfony\Component\Security\Core\User\AdvancedUserInterface) {
+        if ($user instanceof UserInterface) {
             return $this->redirectToRoute('user_dashboard');
         }
 
@@ -162,7 +160,6 @@ class RegistrationController extends Controller
      *      name="user_signup_confirm",
      *      requirements={"token": "^[a-zA-Z0-9]{40}$"},
      *      methods={"GET", "HEAD"})
-     * @Method({"GET", "HEAD"})
      */
     public function signupConfirm(Request $request, $token)
     {

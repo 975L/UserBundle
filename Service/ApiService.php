@@ -11,6 +11,7 @@ namespace c975L\UserBundle\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Exception\DisabledException;
 use Lcobucci\JWT\Builder;
@@ -142,18 +143,23 @@ class ApiService implements ApiServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function getToken($user)
+    public function getToken($user, Request $request)
     {
         $builder = new Builder();
         $privateKey = $this->configService->getParameter('c975LUser.privateKey');
         $privateKey = '/' === substr($privateKey, 0, 1) ? $privateKey : '/' . $privateKey;
         $privateKey = $this->configService->getContainerParameter('kernel.project_dir') . $privateKey;
 
+        //Sets expiration time for JWT using default OR data sent to authenticte Route
+        $dataRequest = json_decode($request->getContent(), true);
+        $expiration = array_key_exists('expiration', $dataRequest) && 0 < $dataRequest['expiration'] ? $dataRequest['expiration'] : time() + 4 * 60 * 60;
+
+        //Builds token
         $token = $builder
             ->setIssuer($this->configService->getParameter('c975LCommon.site'))
             ->setId(sha1($user->getIdentifier()), true)
             ->setIssuedAt(time())
-            ->setExpiration(time() + 4 * 60 * 60)
+            ->setExpiration($expiration)
             ->set('sub', $user->getIdentifier())
             ->sign($this->signer,  $this->keychain->getPrivateKey('file://' . $privateKey))
             ->getToken();

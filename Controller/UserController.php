@@ -9,28 +9,28 @@
 
 namespace c975L\UserBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use c975L\ConfigBundle\Service\ConfigServiceInterface;
+use c975L\UserBundle\Service\UserServiceInterface;
+use c975L\UserBundle\Event\UserEvent;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Exception\DisabledException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use c975L\ConfigBundle\Service\ConfigServiceInterface;
-use c975L\UserBundle\Service\UserServiceInterface;
-use c975L\UserBundle\Event\UserEvent;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Main User Controller class
  * @author Laurent Marquet <laurent.marquet@laposte.net>
  * @copyright 2018 975L <contact@975l.com>
  */
-class UserController extends Controller
+class UserController extends AbstractController
 {
     /**
      * Stores ConfigServiceInterface
@@ -66,9 +66,10 @@ class UserController extends Controller
      * Shortcuts to signin Route
      * @return Redirect
      *
-     * @Route("/login")
-     * @Route("/signin")
-     * @Method({"GET", "HEAD"})
+     * @Route("/login",
+     *      methods={"GET", "HEAD"})
+     * @Route("/signin",
+     *      methods={"GET", "HEAD"})
      */
     public function signinRedirect()
     {
@@ -82,7 +83,6 @@ class UserController extends Controller
      * @Route("/user/signin",
      *      name="user_signin",
      *      methods={"GET", "HEAD", "POST"})
-     * @Method({"GET", "HEAD", "POST"})
      */
     public function signin(Request $request, AuthenticationUtils $authUtils)
     {
@@ -94,7 +94,7 @@ class UserController extends Controller
 
         //Redirects to dashboard if user has already signed-in
         $user = $this->getUser();
-        if ($user instanceof \Symfony\Component\Security\Core\User\AdvancedUserInterface) {
+        if ($user instanceof UserInterface) {
             return $this->redirectToRoute('user_dashboard');
         }
 
@@ -112,8 +112,8 @@ class UserController extends Controller
         //Returns the signin form
         return $this->render('@c975LUser/forms/signin.html.twig', array(
             'error' => $error,
-            'attempt' => $attempt,
-            'disabledSubmit' => $disabledSubmit,
+            'attempt' => $attempt, //got from $this->userService->addAttempt()
+            'disabledSubmit' => $disabledSubmit, //got from $this->userService->addAttempt()
             'site' => $this->configService->getParameter('c975LCommon.site'),
             'signup' => $this->configService->getParameter('c975LUser.signup'),
             'hwiOauth' => $this->configService->getParameter('c975LUser.hwiOauth'),
@@ -130,7 +130,6 @@ class UserController extends Controller
      * @Route("/user/dashboard",
      *      name="user_dashboard",
      *      methods={"GET", "HEAD"})
-     * @Method({"GET", "HEAD"})
      */
     public function dashboard(Request $request, UserServiceInterface $userService)
     {
@@ -165,7 +164,6 @@ class UserController extends Controller
      * @Route("/user/check-email",
      *      name="user_check_email",
      *      methods={"GET", "HEAD"})
-     * @Method({"GET", "HEAD"})
      */
     public function checkEmail(Request $request)
     {
@@ -199,7 +197,6 @@ class UserController extends Controller
      * @Route("/user/config",
      *      name="user_config",
      *      methods={"GET", "HEAD", "POST"})
-     * @Method({"GET", "HEAD", "POST"})
      */
     public function config(Request $request)
     {
@@ -231,7 +228,6 @@ class UserController extends Controller
      * @Route("/user/signout",
      *      name="user_signout",
      *      methods={"GET", "HEAD"})
-     * @Method({"GET", "HEAD"})
      */
     public function signout(Request $request)
     {
@@ -246,7 +242,6 @@ class UserController extends Controller
      * @Route("/user/help",
      *      name="user_help",
      *      methods={"GET", "HEAD"})
-     * @Method({"GET", "HEAD"})
      */
     public function help()
     {

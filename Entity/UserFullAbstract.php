@@ -9,8 +9,9 @@
 
 namespace c975L\UserBundle\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use c975L\UserBundle\Entity\Traits\UserLightTrait;
 use c975L\UserBundle\Entity\Traits\UserDefaultTrait;
 use c975L\UserBundle\Entity\Traits\UserAddressTrait;
@@ -24,7 +25,7 @@ use c975L\UserBundle\Entity\Traits\UserSocialTrait;
  *
  * @ORM\MappedSuperclass
  */
-abstract class UserFullAbstract implements AdvancedUserInterface
+abstract class UserFullAbstract implements UserInterface
 {
     use UserLightTrait;
     use UserDefaultTrait;

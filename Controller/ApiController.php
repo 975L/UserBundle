@@ -9,31 +9,30 @@
 
 namespace c975L\UserBundle\Controller;
 
+use c975L\ConfigBundle\Service\ConfigServiceInterface;
+use c975L\UserBundle\Event\UserEvent;
+use c975L\UserBundle\Service\ApiServiceInterface;
+use c975L\UserBundle\Service\UserServiceInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use c975L\ConfigBundle\Service\ConfigServiceInterface;
-use c975L\UserBundle\Service\ApiServiceInterface;
-use c975L\UserBundle\Service\UserServiceInterface;
-use c975L\UserBundle\Event\UserEvent;
 
 /**
  * Api Controller class
  * @author Laurent Marquet <laurent.marquet@laposte.net>
  * @copyright 2018 975L <contact@975l.com>
  */
-class ApiController extends Controller
+class ApiController extends AbstractController
 {
     /**
      * Stores ApiServiceInterface
@@ -82,7 +81,6 @@ class ApiController extends Controller
      * @Route("/user/api/list",
      *    name="user_api_list",
      *    methods={"HEAD", "GET"})
-     * @Method({"HEAD", "GET"})
      */
     public function listAll(Request $request, PaginatorInterface $paginator)
     {
@@ -113,7 +111,6 @@ class ApiController extends Controller
      *    name="user_api_search",
      *    requirements={"term": "^([0-9a-zA-Z]+)"},
      *    methods={"HEAD", "GET"})
-     * @Method({"HEAD", "GET"})
      */
     public function search(Request $request, PaginatorInterface $paginator, string $term)
     {
@@ -143,7 +140,6 @@ class ApiController extends Controller
      * @Route("/user/api/create",
      *    name="user_api_create",
      *    methods={"HEAD", "POST"})
-     * @Method({"HEAD", "POST"})
      */
     public function create(Request $request, ValidatorInterface $validator)
     {
@@ -185,7 +181,6 @@ class ApiController extends Controller
      * @Route("/user/api/authenticate",
      *    name="user_api_authenticate",
      *    methods={"HEAD", "POST"})
-     * @Method({"HEAD", "POST"})
      */
     public function authenticate(Request $request)
     {
@@ -201,7 +196,7 @@ class ApiController extends Controller
         if (!$event->isPropagationStopped()) {
             $authenticate = array(
                 'user' => $user->toArray(),
-                'token' => $this->apiService->getToken($user),
+                'token' => $this->apiService->getToken($user, $request),
             );
         }
 
@@ -219,7 +214,6 @@ class ApiController extends Controller
      *    name="user_api_display",
      *    requirements={"identifier": "^([0-9a-z]{32})"},
      *    methods={"HEAD", "GET"})
-     * @Method({"HEAD", "GET"})
      */
     public function display($identifier)
     {
@@ -240,7 +234,6 @@ class ApiController extends Controller
      *    name="user_api_modify",
      *    requirements={"identifier": "^([0-9a-z]{32})"},
      *    methods={"HEAD", "PUT"})
-     * @Method({"HEAD", "PUT"})
      */
     public function modify(Request $request, $identifier)
     {
@@ -270,7 +263,6 @@ class ApiController extends Controller
      *    name="user_api_delete",
      *    requirements={"identifier": "^([0-9a-z]{32})"},
      *    methods={"HEAD", "DELETE"})
-     * @Method({"HEAD", "DELETE"})
      */
     public function delete(Request $request, $identifier)
     {
@@ -302,7 +294,6 @@ class ApiController extends Controller
      *        "role": "^([a-zA-Z\_]+)"
      *    },
      *    methods={"HEAD", "PUT"})
-     * @Method({"HEAD", "PUT"})
      */
     public function addRole($identifier, $role)
     {
@@ -328,7 +319,6 @@ class ApiController extends Controller
      *        "role": "^([a-zA-Z\_]+)"
      *    },
      *    methods={"HEAD", "PUT"})
-     * @Method({"HEAD", "PUT"})
      */
     public function deleteRole($identifier, $role)
     {
@@ -351,7 +341,6 @@ class ApiController extends Controller
      *    name="user_api_modify_roles",
      *    requirements={"identifier": "^([0-9a-z]{32})"},
      *    methods={"HEAD", "PUT", "POST"})
-     * @Method({"HEAD", "PUT", "POST"})
      */
     public function modifyRoles(Request $request, $identifier)
     {
@@ -373,7 +362,6 @@ class ApiController extends Controller
      * @Route("/user/api/export",
      *      name="user_api_export",
      *      methods={"GET", "HEAD"})
-     * @Method({"GET", "HEAD"})
      */
     public function export(Request $request)
     {

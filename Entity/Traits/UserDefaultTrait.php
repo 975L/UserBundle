@@ -9,6 +9,8 @@
 
 namespace c975L\UserBundle\Entity\Traits;
 
+use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use c975L\UserBundle\Entity\UserLight;
@@ -96,10 +98,10 @@ trait UserDefaultTrait
 //GETTERS/SETTERS
     /**
      * Set gender
-     * @param string
+     * @param string $gender Gender
      * @return UserLight
      */
-    public function setGender($gender)
+    public function setGender(?string $gender)
     {
         $this->gender = $gender;
         return $this;
@@ -109,17 +111,17 @@ trait UserDefaultTrait
      * Get gender
      * @return string
      */
-    public function getGender()
+    public function getGender(): ?string
     {
         return $this->gender;
     }
 
     /**
      * Set firstname
-     * @param string
+     * @param string $firstname Firstname
      * @return UserLight
      */
-    public function setFirstname($firstname)
+    public function setFirstname(?string $firstname)
     {
         $this->firstname = $firstname;
         return $this;
@@ -129,17 +131,17 @@ trait UserDefaultTrait
      * Get firstname
      * @return string
      */
-    public function getFirstname()
+    public function getFirstname(): ?string
     {
         return $this->firstname;
     }
 
     /**
      * Set lastname
-     * @param string
+     * @param string $lastname Lastname
      * @return UserLight
      */
-    public function setLastname($lastname)
+    public function setLastname(?string $lastname)
     {
         $this->lastname = $lastname;
         return $this;
@@ -149,17 +151,17 @@ trait UserDefaultTrait
      * Get lastname
      * @return string
      */
-    public function getLastname()
+    public function getLastname(): ?string
     {
         return $this->lastname;
     }
 
     /**
      * Set avatar
-     * @param string
+     * @param string $avatar Avatar url
      * @return UserLight
      */
-    public function setAvatar($avatar)
+    public function setAvatar(?string $avatar)
     {
         $this->avatar = $avatar;
         return $this;
@@ -169,17 +171,17 @@ trait UserDefaultTrait
      * Get avatar
      * @return string
      */
-    public function getAvatar()
+    public function getAvatar(): ?string
     {
         return $this->avatar;
     }
 
     /**
      * Set latestSignin
-     * @param DateTime
+     * @param DateTime $latestSignin Datetime for latest signin
      * @return UserLight
      */
-    public function setLatestSignin($latestSignin)
+    public function setLatestSignin(?DateTimeInterface $latestSignin)
     {
         $this->latestSignin = $latestSignin;
         return $this;
@@ -187,19 +189,19 @@ trait UserDefaultTrait
 
     /**
      * Get latestSignin
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getLatestSignin()
+    public function getLatestSignin(): ?DateTimeInterface
     {
         return $this->latestSignin;
     }
 
     /**
      * Set latestSignout
-     * @param \DateTime
+     * @param DateTime $latestSignout Datetime for latest signout
      * @return UserLight
      */
-    public function setLatestSignout($latestSignout)
+    public function setLatestSignout(?DateTimeInterface $latestSignout)
     {
         $this->latestSignout = $latestSignout;
         return $this;
@@ -207,19 +209,19 @@ trait UserDefaultTrait
 
     /**
      * Get latestSignout
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getLatestSignout()
+    public function getLatestSignout(): DateTimeInterface
     {
         return $this->latestSignout;
     }
 
     /**
      * Set locale
-     * @param string
+     * @param string $locale Locale
      * @return UserLight
      */
-    public function setLocale($locale)
+    public function setLocale(?string $locale)
     {
         $this->locale = $locale;
         return $this;
@@ -229,7 +231,7 @@ trait UserDefaultTrait
      * Get locale
      * @return string
      */
-    public function getLocale()
+    public function getLocale(): ?string
     {
         return $this->locale;
     }

@@ -263,7 +263,6 @@ class UserService implements UserServiceInterface
                 'creation' => $callback,
                 'latestSignin' => $callback,
                 'latestSignout' => $callback,
-                'creation' => $callback,
             ))
         ;
 

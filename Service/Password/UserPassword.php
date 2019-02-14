@@ -9,14 +9,17 @@
 
 namespace c975L\UserBundle\Service\Password;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Doctrine\ORM\EntityManagerInterface;
 use c975L\ConfigBundle\Service\ConfigServiceInterface;
 use c975L\ServicesBundle\Service\ServiceToolsInterface;
 use c975L\UserBundle\Service\Password\UserPasswordInterface;
 use c975L\UserBundle\Service\Email\UserEmailInterface;
+use DateInterval;
+use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Password services related to User
@@ -117,8 +120,8 @@ class UserPassword implements UserPasswordInterface
         $session->remove('challengeResult');
 
         //Request not already sent or is out of <time datetime="_"></time>
-        $delayReset = new \DateInterval(self::DELAY);
-        if ($user->getPasswordRequest() instanceof \DateTime && $user->getPasswordRequest()->add($delayReset) < new \DateTime()) {
+        $delayReset = new DateInterval(self::DELAY);
+        if ($user->getPasswordRequest() instanceof DateTime && $user->getPasswordRequest()->add($delayReset) < new DateTime()) {
             //Removes data from user
             $user
                 ->setToken(null)
@@ -175,15 +178,15 @@ class UserPassword implements UserPasswordInterface
         ;
 
         //Updates data
-        if ($user instanceof \Symfony\Component\Security\Core\User\AdvancedUserInterface) {
+        if ($user instanceof UserInterface) {
             //Request not already sent or is out of time
-            $delayReset = new \DateInterval(self::DELAY);
+            $delayReset = new DateInterval(self::DELAY);
             if (null === $user->getPasswordRequest() ||
-                ($user->getPasswordRequest() instanceof \DateTime && $user->getPasswordRequest()->add($delayReset) < new \DateTime())
+                ($user->getPasswordRequest() instanceof DateTime && $user->getPasswordRequest()->add($delayReset) < new DateTime())
             ) {
                 //Adds data to user
                 $user
-                    ->setPasswordRequest(new \DateTime())
+                    ->setPasswordRequest(new DateTime())
                     ->setToken(hash('sha1', $user->getEmail() . uniqid()))
                 ;
 

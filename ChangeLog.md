@@ -1,5 +1,17 @@
 # Changelog
 
+v2.4
+----
+- Removed deprecations for @Method (13/02/2019)
+- Implemented AstractController instead of Controller (13/02/2019)
+- Removed deprecated checkMX (13/02/2019)
+- Replaced AdvancedUserInterface by UserInterface as deprecated (13/02/2019)
+- Corrected phpdoc params (13/02/2019)
+- Made use of typehint for entities (13/02/2019)
+- Corrected things found with phpstan (13/02/2019)
+- Modified Dependencyinjection rootNode to be not empty (13/02/2019)
+- Added possibility to fix the expiration for the JWT by adding field in submitted json to authenticate (14/02/2019)
+
 v2.3.5.1
 --------
 - Modified message when not authenticated (05/02/2019)

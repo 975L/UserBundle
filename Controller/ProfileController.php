@@ -9,24 +9,23 @@
 
 namespace c975L\UserBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use c975L\ConfigBundle\Service\ConfigServiceInterface;
 use c975L\UserBundle\Event\UserEvent;
 use c975L\UserBundle\Form\UserFormFactoryInterface;
 use c975L\UserBundle\Service\UserServiceInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Profile Controller class
  * @author Laurent Marquet <laurent.marquet@laposte.net>
  * @copyright 2018 975L <contact@975l.com>
  */
-class ProfileController extends Controller
+class ProfileController extends AbstractController
 {
     /**
      * Stores ConfigServiceInterface
@@ -75,7 +74,6 @@ class ProfileController extends Controller
      * @Route("/user/display",
      *      name="user_display",
      *      methods={"GET", "HEAD", "POST"})
-     * @Method({"GET", "HEAD"})
      */
     public function display()
     {
@@ -107,7 +105,6 @@ class ProfileController extends Controller
      * @Route("/user/modify",
      *      name="user_modify",
      *      methods={"GET", "HEAD", "POST"})
-     * @Method({"GET", "HEAD", "POST"})
      */
     public function modify(Request $request)
     {
@@ -150,7 +147,6 @@ class ProfileController extends Controller
      * @Route("/user/delete",
      *      name="user_delete",
      *      methods={"GET", "HEAD", "POST"})
-     * @Method({"GET", "HEAD", "POST"})
      */
     public function delete(Request $request)
     {
@@ -193,7 +189,6 @@ class ProfileController extends Controller
      *      name="user_public_profile",
      *      requirements={"identifier": "^([a-z0-9]{32})$"},
      *      methods={"GET", "HEAD"})
-     * @Method({"GET", "HEAD"})
      */
     public function publicProfile($identifier)
     {
@@ -217,7 +212,6 @@ class ProfileController extends Controller
      *      name="user_export",
      *      requirements={"format": "^(json|xml)$"},
      *      methods={"GET", "HEAD", "POST"})
-     * @Method({"GET", "HEAD", "POST"})
      */
     public function export(Request $request, $format)
     {

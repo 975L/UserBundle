@@ -20,7 +20,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
-use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Bridge to use hwiOAuth
@@ -89,7 +89,7 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface
             $user = $this->userService->findUserBySocialId($username);
 
             //User has been found
-            if ($user instanceof AdvancedUserInterface) {
+            if ($user instanceof UserInterface) {
                 //Updates access token
                 $user->setSocialToken($response->getAccessToken());
 
@@ -109,7 +109,7 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface
 
                 //Links account to existing one to allow sign in with both
                 //Sign up with another social network, using the same email address, will replace the existing social network
-                if ($user instanceof AdvancedUserInterface) {
+                if ($user instanceof UserInterface) {
                     $user
                         ->setSocialNetwork(strtolower($response->getResourceOwner()->getName()))
                         ->setSocialId($username)

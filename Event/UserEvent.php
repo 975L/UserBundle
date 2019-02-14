@@ -92,7 +92,7 @@ class UserEvent extends Event
      * Stores Response
      * @var Response
      */
-    protected $reponse;
+    protected $response;
 
     public function __construct($user, Request $request, Response $response = null)
     {

@@ -84,10 +84,10 @@ trait UserAddressTrait
 //GETTERS/SETTERS
     /**
      * Set address
-     * @param string
+     * @param string $address Address
      * @return UserLight
      */
-    public function setAddress($address)
+    public function setAddress(?string $address)
     {
         $this->address = $address;
         return $this;
@@ -97,17 +97,17 @@ trait UserAddressTrait
      * Get address
      * @return string
      */
-    public function getAddress()
+    public function getAddress(): ?string
     {
         return $this->address;
     }
 
     /**
      * Set address2
-     * @param string
+     * @param string $address2 Address 2
      * @return UserLight
      */
-    public function setAddress2($address2)
+    public function setAddress2(?string $address2)
     {
         $this->address2 = $address2;
         return $this;
@@ -117,17 +117,17 @@ trait UserAddressTrait
      * Get address2
      * @return string
      */
-    public function getAddress2()
+    public function getAddress2(): ?string
     {
         return $this->address2;
     }
 
     /**
      * Set postal
-     * @param string
+     * @param string $postal Postal code
      * @return UserLight
      */
-    public function setPostal($postal)
+    public function setPostal(?string $postal)
     {
         $this->postal = $postal;
         return $this;
@@ -137,17 +137,17 @@ trait UserAddressTrait
      * Get postal
      * @return string
      */
-    public function getPostal()
+    public function getPostal(): ?string
     {
         return $this->postal;
     }
 
     /**
      * Set town
-     * @param string
+     * @param string $town Town
      * @return UserLight
      */
-    public function setTown($town)
+    public function setTown(?string $town)
     {
         $this->town = $town;
         return $this;
@@ -157,17 +157,17 @@ trait UserAddressTrait
      * Get town
      * @return string
      */
-    public function getTown()
+    public function getTown(): ?string
     {
         return $this->town;
     }
 
     /**
      * Set country
-     * @param string
+     * @param string $country Country
      * @return UserLight
      */
-    public function setCountry($country)
+    public function setCountry(?string $country)
     {
         $this->country = $country;
         return $this;
@@ -177,17 +177,17 @@ trait UserAddressTrait
      * Get country
      * @return string
      */
-    public function getCountry()
+    public function getCountry(): ?string
     {
         return $this->country;
     }
 
     /**
      * Set phone
-     * @param string
+     * @param string $phone Phone
      * @return UserLight
      */
-    public function setPhone($phone)
+    public function setPhone(?string $phone)
     {
         $this->phone = $phone;
         return $this;
@@ -197,17 +197,17 @@ trait UserAddressTrait
      * Get phone
      * @return string
      */
-    public function getPhone()
+    public function getPhone(): ?string
     {
         return $this->phone;
     }
 
     /**
      * Set fax
-     * @param string
+     * @param string $fax Fax
      * @return UserLight
      */
-    public function setFax($fax)
+    public function setFax(?string $fax)
     {
         $this->fax = $fax;
         return $this;
@@ -217,7 +217,7 @@ trait UserAddressTrait
      * Get fax
      * @return string
      */
-    public function getFax()
+    public function getFax(): ?string
     {
         return $this->fax;
     }

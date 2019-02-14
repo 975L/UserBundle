@@ -9,6 +9,7 @@
 
 namespace c975L\UserBundle\Service;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
@@ -33,7 +34,7 @@ interface ApiServiceInterface
      * Encodes the JSON Web Token
      * @return string
      */
-    public function getToken($user);
+    public function getToken($user, Request $request);
 
     /**
      * Hydrates the user with given parameters

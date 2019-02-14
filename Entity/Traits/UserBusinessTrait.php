@@ -130,10 +130,10 @@ trait UserBusinessTrait
 //GETTERS/SETTERS
     /**
      * Set businessType
-     * @param string
+     * @param string $businessType Business type
      * @return UserLight
      */
-    public function setBusinessType($businessType)
+    public function setBusinessType(?string $businessType)
     {
         $this->businessType = $businessType;
         return $this;
@@ -143,17 +143,17 @@ trait UserBusinessTrait
      * Get businessType
      * @return string
      */
-    public function getBusinessType()
+    public function getBusinessType(): ?string
     {
         return $this->businessType;
     }
 
     /**
      * Set businessName
-     * @param string
+     * @param string $businessName Business name
      * @return UserLight
      */
-    public function setBusinessName($businessName)
+    public function setBusinessName(?string $businessName)
     {
         $this->businessName = $businessName;
         return $this;
@@ -163,17 +163,17 @@ trait UserBusinessTrait
      * Get businessName
      * @return string
      */
-    public function getBusinessName()
+    public function getBusinessName(): ?string
     {
         return $this->businessName;
     }
 
     /**
      * Set businessAddress
-     * @param string
+     * @param string $businessAddress Business address
      * @return UserLight
      */
-    public function setBusinessAddress($businessAddress)
+    public function setBusinessAddress(?string $businessAddress)
     {
         $this->businessAddress = $businessAddress;
         return $this;
@@ -183,17 +183,17 @@ trait UserBusinessTrait
      * Get businessAddress
      * @return string
      */
-    public function getBusinessAddress()
+    public function getBusinessAddress(): ?string
     {
         return $this->businessAddress;
     }
 
     /**
      * Set businessAddress2
-     * @param string
+     * @param string $businessAddress2 Business Address 2
      * @return UserLight
      */
-    public function setBusinessAddress2($businessAddress2)
+    public function setBusinessAddress2(?string $businessAddress2)
     {
         $this->businessAddress2 = $businessAddress2;
         return $this;
@@ -203,17 +203,17 @@ trait UserBusinessTrait
      * Get businessAddress2
      * @return string
      */
-    public function getBusinessAddress2()
+    public function getBusinessAddress2(): ?string
     {
         return $this->businessAddress2;
     }
 
     /**
      * Set businessPostal
-     * @param string
+     * @param string $businessPostal Business postal code
      * @return UserLight
      */
-    public function setBusinessPostal($businessPostal)
+    public function setBusinessPostal(?string $businessPostal)
     {
         $this->businessPostal = $businessPostal;
         return $this;
@@ -223,17 +223,17 @@ trait UserBusinessTrait
      * Get businessPostal
      * @return string
      */
-    public function getBusinessPostal()
+    public function getBusinessPostal(): ?string
     {
         return $this->businessPostal;
     }
 
     /**
      * Set businessTown
-     * @param string
+     * @param string $businessTown Business town
      * @return UserLight
      */
-    public function setBusinessTown($businessTown)
+    public function setBusinessTown(?string $businessTown)
     {
         $this->businessTown = $businessTown;
         return $this;
@@ -243,17 +243,17 @@ trait UserBusinessTrait
      * Get businessTown
      * @return string
      */
-    public function getBusinessTown()
+    public function getBusinessTown(): ?string
     {
         return $this->businessTown;
     }
 
     /**
      * Set businessCountry
-     * @param string
+     * @param string $businessCountry Business country
      * @return UserLight
      */
-    public function setBusinessCountry($businessCountry)
+    public function setBusinessCountry(?string $businessCountry)
     {
         $this->businessCountry = $businessCountry;
         return $this;
@@ -263,17 +263,17 @@ trait UserBusinessTrait
      * Get businessCountry
      * @return string
      */
-    public function getBusinessCountry()
+    public function getBusinessCountry(): ?string
     {
         return $this->businessCountry;
     }
 
     /**
      * Set businessSiret
-     * @param string
+     * @param string $businessSiret Business siret number
      * @return UserLight
      */
-    public function setBusinessSiret($businessSiret)
+    public function setBusinessSiret(?string $businessSiret)
     {
         $this->businessSiret = str_replace(array(' ', '.', '-', ',', ', '), '', trim($businessSiret));
         return $this;
@@ -283,17 +283,17 @@ trait UserBusinessTrait
      * Get businessSiret
      * @return string
      */
-    public function getBusinessSiret()
+    public function getBusinessSiret(): ?string
     {
         return $this->businessSiret;
     }
 
     /**
      * Set businessVat
-     * @param string
+     * @param string $businessVat Business vat number
      * @return UserLight
      */
-    public function setBusinessVat($businessVat)
+    public function setBusinessVat(?string $businessVat)
     {
         $this->businessVat = str_replace(array(' ', '.', '-', ',', ', '), '', trim(strtoupper($businessVat)));
         return $this;
@@ -303,17 +303,17 @@ trait UserBusinessTrait
      * Get businessVat
      * @return string
      */
-    public function getBusinessVat()
+    public function getBusinessVat(): ?string
     {
         return $this->businessVat;
     }
 
     /**
      * Set businessPhone
-     * @param string
+     * @param string $businessPhone Business phone
      * @return UserLight
      */
-    public function setBusinessPhone($businessPhone)
+    public function setBusinessPhone(?string $businessPhone)
     {
         $this->businessPhone = $businessPhone;
         return $this;
@@ -323,17 +323,17 @@ trait UserBusinessTrait
      * Get businessPhone
      * @return string
      */
-    public function getBusinessPhone()
+    public function getBusinessPhone(): ?string
     {
         return $this->businessPhone;
     }
 
     /**
      * Set businessFax
-     * @param string
+     * @param string $businessFax Business fax
      * @return UserLight
      */
-    public function setBusinessFax($businessFax)
+    public function setBusinessFax(?string $businessFax)
     {
         $this->businessFax = $businessFax;
         return $this;
@@ -343,7 +343,7 @@ trait UserBusinessTrait
      * Get businessFax
      * @return string
      */
-    public function getBusinessFax()
+    public function getBusinessFax(): ?string
     {
         return $this->businessFax;
     }

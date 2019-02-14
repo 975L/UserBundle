@@ -104,9 +104,12 @@ class UserFormFactory implements UserFormFactoryInterface
                 $config['session'] = $this->request->getSession();
                 break;
             default:
+                $form = null;
                 break;
         }
 
-        return $this->formFactory->create($form, $user, array('config' => $config));
+        if (null !== $form) {
+            return $this->formFactory->create($form, $user, array('config' => $config));
+        }
     }
 }

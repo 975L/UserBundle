@@ -9,25 +9,25 @@
 
 namespace c975L\UserBundle\Controller;
 
+use c975L\UserBundle\Form\UserFormFactoryInterface;
+use c975L\UserBundle\Service\Password\UserPasswordInterface;
+use c975L\UserBundle\Service\UserServiceInterface;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use c975L\UserBundle\Form\UserFormFactoryInterface;
-use c975L\UserBundle\Service\UserServiceInterface;
-use c975L\UserBundle\Service\Password\UserPasswordInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Password Controller class
  * @author Laurent Marquet <laurent.marquet@laposte.net>
  * @copyright 2018 975L <contact@975l.com>
  */
-class PasswordController extends Controller
+class PasswordController extends AbstractController
 {
     /**
      * Stores UserFormFactoryInterface
@@ -67,7 +67,6 @@ class PasswordController extends Controller
      * @Route("/user/change-password",
      *      name="user_change_password",
      *      methods={"GET", "HEAD", "POST"})
-     * @Method({"GET", "HEAD", "POST"})
      */
     public function changePassword(Request $request)
     {
@@ -100,13 +99,12 @@ class PasswordController extends Controller
      * @Route("/user/reset-password",
      *      name="user_reset_password",
      *      methods={"GET", "HEAD", "POST"})
-     * @Method({"GET", "HEAD", "POST"})
      */
     public function resetPasswordRequest(Request $request)
     {
         //Redirects signed-in user to change password
         $user = $this->getUser();
-        if ($user instanceof \Symfony\Component\Security\Core\User\AdvancedUserInterface) {
+        if ($user instanceof UserInterface) {
             return $this->redirectToRoute('user_change_password');
         }
 
@@ -138,7 +136,6 @@ class PasswordController extends Controller
      *      name="user_reset_password_confirm",
      *      requirements={"token": "^[a-zA-Z0-9]{40}$"},
      *      methods={"GET", "HEAD", "POST"})
-     * @Method({"GET", "HEAD", "POST"})
      */
     public function resetPasswordConfirm(Request $request, $token)
     {

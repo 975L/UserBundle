@@ -9,6 +9,8 @@
 
 namespace c975L\UserBundle\Entity\Traits;
 
+use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use c975L\UserBundle\Validator\Constraints as c975LUserBundleAssert;
@@ -44,8 +46,7 @@ trait UserLightTrait
      * @Assert\NotBlank()
      * @ORM\Column(type="string", length=128, unique=true)
      * @Assert\Email(
-     *     message = "email.not_valid",
-     *     checkMX = true
+     *     message = "email.not_valid"
      * )
      */
     private $email;
@@ -127,7 +128,6 @@ trait UserLightTrait
      */
     private $challenge;
 
-//METHODS REQUESTED BY AdvancedUserInterface
     /**
      * {@inheritdoc}
      */
@@ -140,7 +140,7 @@ trait UserLightTrait
      */
     public function isAccountNonExpired()
     {
-        return true;
+        return $this->enabled;
     }
 
     /**
@@ -148,7 +148,7 @@ trait UserLightTrait
      */
     public function isAccountNonLocked()
     {
-        return true;
+        return $this->enabled;
     }
 
     /**
@@ -156,7 +156,7 @@ trait UserLightTrait
      */
     public function isCredentialsNonExpired()
     {
-        return true;
+        return $this->enabled;
     }
 
     /**
@@ -262,7 +262,7 @@ trait UserLightTrait
 
     /**
      * Set roles
-     * @param string
+     * @param string $roles Roles
      * @return UserLight
      */
     public function setRoles($roles)
@@ -330,7 +330,7 @@ trait UserLightTrait
      * Get id
      * @return int
      */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -340,19 +340,19 @@ trait UserLightTrait
      * Kept for compatibility, returns email value as specified in Symfony docs
      * @return string
      */
-    public function getUsername()
+    public function getUsername(): ?string
     {
         return strtolower($this->email);
     }
 
     /**
      * Set allowUse
-     * @param string
+     * @param bool $allowUse If use is allowed
      * @return UserLight
      */
-    public function setAllowUse($allowUse)
+    public function setAllowUse(bool $allowUse)
     {
-        $this->allowUse = (bool) $allowUse;
+        $this->allowUse = $allowUse;
         return $this;
     }
 
@@ -360,17 +360,17 @@ trait UserLightTrait
      * Get allowUse
      * @return bool
      */
-    public function getAllowUse()
+    public function getAllowUse(): bool
     {
         return $this->allowUse;
     }
 
     /**
      * Set identifier
-     * @param string
+     * @param string $identifier Identifier
      * @return UserLight
      */
-    public function setIdentifier($identifier)
+    public function setIdentifier(?string $identifier)
     {
         $this->identifier = $identifier;
         return $this;
@@ -380,17 +380,17 @@ trait UserLightTrait
      * Get identifier
      * @return string
      */
-    public function getIdentifier()
+    public function getIdentifier(): ?string
     {
         return $this->identifier;
     }
 
     /**
      * Set email
-     * @param string
+     * @param string $email Email
      * @return UserLight
      */
-    public function setEmail($email)
+    public function setEmail(?string $email)
     {
         $this->email = $email;
         return $this;
@@ -400,17 +400,17 @@ trait UserLightTrait
      * Get email
      * @return string
      */
-    public function getEmail()
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
     /**
      * Set creation
-     * @param \DateTime
+     * @param DateTime $creation Datetime for creation
      * @return UserLight
      */
-    public function setCreation($creation)
+    public function setCreation(?DateTimeInterface $creation)
     {
         $this->creation = $creation;
         return $this;
@@ -420,19 +420,19 @@ trait UserLightTrait
      * Get creation
      * @return \DateTime
      */
-    public function getCreation()
+    public function getCreation(): ?DateTimeInterface
     {
         return $this->creation;
     }
 
     /**
      * Set enabled
-     * @param bool
+     * @param bool $enabled If enabled
      * @return UserLight
      */
-    public function setEnabled($enabled)
+    public function setEnabled(bool $enabled)
     {
-        $this->enabled = (bool) $enabled;
+        $this->enabled = $enabled;
         return $this;
     }
 
@@ -440,17 +440,17 @@ trait UserLightTrait
      * Get enabled
      * @return bool
      */
-    public function getEnabled()
+    public function getEnabled(): bool
     {
         return $this->enabled;
     }
 
     /**
      * Set salt
-     * @param string
+     * @param string $salt Salt
      * @return UserLight
      */
-    public function setSalt($salt)
+    public function setSalt(?string $salt)
     {
         $this->salt = $salt;
         return $this;
@@ -460,17 +460,17 @@ trait UserLightTrait
      * Get salt
      * @return string
      */
-    public function getSalt()
+    public function getSalt(): ?string
     {
         return $this->salt;
     }
 
     /**
      * Set password
-     * @param string
+     * @param string $password Password
      * @return UserLight
      */
-    public function setPassword($password)
+    public function setPassword(?string $password)
     {
         $this->password = $password;
         return $this;
@@ -480,17 +480,17 @@ trait UserLightTrait
      * Get password
      * @return string
      */
-    public function getPassword()
+    public function getPassword(): ?string
     {
         return $this->password;
     }
 
     /**
      * Set token
-     * @param string
+     * @param string $token Token
      * @return UserLight
      */
-    public function setToken($token)
+    public function setToken(?string $token)
     {
         $this->token = $token;
         return $this;
@@ -500,17 +500,17 @@ trait UserLightTrait
      * Get token
      * @return string
      */
-    public function getToken()
+    public function getToken(): ?string
     {
         return $this->token;
     }
 
     /**
      * Set passwordRequest
-     * @param \DateTime
+     * @param DateTime $passwordRequest Datetime for password request
      * @return UserLight
      */
-    public function setPasswordRequest($passwordRequest)
+    public function setPasswordRequest(?DateTimeInterface $passwordRequest)
     {
         $this->passwordRequest = $passwordRequest;
         return $this;
@@ -520,17 +520,17 @@ trait UserLightTrait
      * Get passwordRequest
      * @return \DateTime
      */
-    public function getPasswordRequest()
+    public function getPasswordRequest(): ?DateTimeInterface
     {
         return $this->passwordRequest;
     }
 
     /**
      * Set plainPassword
-     * @param string
+     * @param string $plainPassword Plain password (not stored)
      * @return UserLight
      */
-    public function setPlainPassword($plainPassword)
+    public function setPlainPassword(?string $plainPassword)
     {
         $this->plainPassword = $plainPassword;
         return $this;
@@ -540,17 +540,17 @@ trait UserLightTrait
      * Get plainPassword
      * @return string
      */
-    public function getPlainPassword()
+    public function getPlainPassword(): ?string
     {
         return $this->plainPassword;
     }
 
     /**
      * Set challenge
-     * @param string
+     * @param string $challenge Challenge
      * @return UserLight
      */
-    public function setChallenge($challenge)
+    public function setChallenge(?string $challenge)
     {
         $this->challenge = $challenge;
         return $this;
@@ -560,7 +560,7 @@ trait UserLightTrait
      * Get challenge
      * @return string
      */
-    public function getChallenge()
+    public function getChallenge(): ?string
     {
         return $this->challenge;
     }

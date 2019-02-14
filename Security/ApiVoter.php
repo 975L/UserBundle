@@ -15,6 +15,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use c975L\ConfigBundle\Service\ConfigServiceInterface;
 
 /**
@@ -144,7 +145,7 @@ class ApiVoter extends Voter
     protected function supports($attribute, $subject)
     {
         if (false !== $subject) {
-            return $subject instanceof \Symfony\Component\Security\Core\User\AdvancedUserInterface &&
+            return $subject instanceof UserInterface &&
                 in_array($attribute, self::ATTRIBUTES) &&
                 $this->isApiEnabled()
             ;

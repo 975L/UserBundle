@@ -13,7 +13,7 @@ use c975L\ConfigBundle\Service\ConfigServiceInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
-use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -135,7 +135,7 @@ class UserVoter extends Voter
     protected function supports($attribute, $subject)
     {
         if (false !== $subject) {
-            return ($subject instanceof AdvancedUserInterface) && in_array($attribute, self::ATTRIBUTES);
+            return ($subject instanceof UserInterface) && in_array($attribute, self::ATTRIBUTES);
         }
 
         return in_array($attribute, self::ATTRIBUTES);
@@ -164,7 +164,7 @@ class UserVoter extends Voter
                 return $this->isOwner($token, $subject);
                 break;
             case self::PUBLIC_PROFILE:
-                return $this->isAllowedPublicProfile($token, $subject);
+                return $this->isAllowedPublicProfile();
                 break;
             //User class has been checked at the supports() level
             case self::HELP:

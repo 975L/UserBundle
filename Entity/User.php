@@ -9,6 +9,7 @@
 
 namespace c975L\UserBundle\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use c975L\UserBundle\Entity\UserAbstract;
 

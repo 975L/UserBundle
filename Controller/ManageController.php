@@ -9,27 +9,26 @@
 
 namespace c975L\UserBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Exception\DisabledException;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\Exception\NotFoundHttpException;
-use Knp\Component\Pager\PaginatorInterface;
 use c975L\ConfigBundle\Service\ConfigServiceInterface;
 use c975L\UserBundle\Event\UserEvent;
 use c975L\UserBundle\Form\UserFormFactoryInterface;
 use c975L\UserBundle\Service\UserServiceInterface;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\DisabledException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\Exception\NotFoundHttpException;
 
 /**
  * Manage User Controller class
  * @author Laurent Marquet <laurent.marquet@laposte.net>
  * @copyright 2018 975L <contact@975l.com>
  */
-class ManageController extends Controller
+class ManageController extends AbstractController
 {
     /**
      * Stores ConfigServiceInterface
@@ -77,7 +76,6 @@ class ManageController extends Controller
      * @Route("/user/manage",
      *      name="user_manage",
      *      methods={"GET", "HEAD"})
-     * @Method({"GET", "HEAD"})
      */
     public function manage(Request $request, PaginatorInterface $paginator)
     {
@@ -107,7 +105,6 @@ class ManageController extends Controller
      *      name="user_manage_display",
      *      requirements={"identifier": "^([a-z0-9]{32})$"},
      *      methods={"GET", "HEAD"})
-     * @Method({"GET", "HEAD"})
      */
     public function display(Request $request, $identifier)
     {
@@ -141,7 +138,6 @@ class ManageController extends Controller
      *      name="user_manage_modify",
      *      requirements={"identifier": "^([a-z0-9]{32})$"},
      *      methods={"GET", "HEAD", "POST"})
-     * @Method({"GET", "HEAD", "POST"})
      */
     public function modify(Request $request, $identifier)
     {
@@ -185,7 +181,6 @@ class ManageController extends Controller
      *      name="user_manage_add_role",
      *      requirements={"identifier": "^([a-z0-9]{32})$"},
      *      methods={"GET", "HEAD", "POST"})
-     * @Method({"GET", "HEAD", "POST"})
      */
     public function addRole(Request $request, $identifier)
     {
@@ -227,7 +222,6 @@ class ManageController extends Controller
      *      name="user_manage_delete_role",
      *      requirements={"identifier": "^([a-z0-9]{32})$"},
      *      methods={"GET", "HEAD", "POST"})
-     * @Method({"GET", "HEAD", "POST"})
      */
     public function deleteRole(Request $request, $identifier)
     {
@@ -269,7 +263,6 @@ class ManageController extends Controller
      *      name="user_manage_delete",
      *      requirements={"identifier": "^([a-z0-9]{32})$"},
      *      methods={"GET", "HEAD", "POST"})
-     * @Method({"GET", "HEAD", "POST"})
      */
     public function delete(Request $request, $identifier)
     {

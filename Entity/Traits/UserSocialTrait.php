@@ -55,10 +55,10 @@ trait UserSocialTrait
 //GETTERS/SETTERS
     /**
      * Set socialNetwork
-     * @param string
+     * @param string $socialNetwork Social Network
      * @return UserLight
      */
-    public function setSocialNetwork($socialNetwork)
+    public function setSocialNetwork(?string $socialNetwork)
     {
         $this->socialNetwork = $socialNetwork;
         return $this;
@@ -68,17 +68,17 @@ trait UserSocialTrait
      * Get socialNetwork
      * @return string
      */
-    public function getSocialNetwork()
+    public function getSocialNetwork(): ?string
     {
         return $this->socialNetwork;
     }
 
     /**
      * Set socialId
-     * @param string
+     * @param string $socialId Social id
      * @return UserLight
      */
-    public function setSocialId($socialId)
+    public function setSocialId(?string $socialId)
     {
         $this->socialId = $socialId;
         return $this;
@@ -88,17 +88,17 @@ trait UserSocialTrait
      * Get socialId
      * @return string
      */
-    public function getSocialId()
+    public function getSocialId(): ?string
     {
         return $this->socialId;
     }
 
     /**
      * Set socialToken
-     * @param string
+     * @param string $socialToken Social token
      * @return UserLight
      */
-    public function setSocialToken($socialToken)
+    public function setSocialToken(?string $socialToken)
     {
         $this->socialToken = $socialToken;
         return $this;
@@ -108,17 +108,17 @@ trait UserSocialTrait
      * Get socialToken
      * @return string
      */
-    public function getSocialToken()
+    public function getSocialToken(): ?string
     {
         return $this->socialToken;
     }
 
     /**
      * Set socialPicture
-     * @param string
+     * @param string $socialPicture Social picture
      * @return UserLight
      */
-    public function setSocialPicture($socialPicture)
+    public function setSocialPicture(?string $socialPicture)
     {
         $this->socialPicture = $socialPicture;
         return $this;
@@ -128,7 +128,7 @@ trait UserSocialTrait
      * Get socialPicture
      * @return string
      */
-    public function getSocialPicture()
+    public function getSocialPicture(): ?string
     {
         return $this->socialPicture;
     }

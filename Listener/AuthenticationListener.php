@@ -19,6 +19,7 @@ use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
 use c975L\UserBundle\Entity\UserLightAbstract;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class to listen to authentication event
@@ -72,7 +73,7 @@ class AuthenticationListener implements EventSubscriberInterface
     public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
     {
         $user = $this->tokenStorage->getToken()->getUser();
-        if ($user instanceof \Symfony\Component\Security\Core\User\AdvancedUserInterface) {
+        if ($user instanceof UserInterface) {
             //Removes challenge from session in case a user clicked on signup, canceled and then authenticated
             $session = $this->request->getSession();
             $session->remove('challenge');

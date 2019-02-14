@@ -103,7 +103,7 @@ class UserEmail implements UserEmailInterface
             extract($options);
             $body = $this->templating->render('@c975LUser/emails/resetPasswordRequest.html.twig', array(
                 'url' => $this->router->generate('user_reset_password_confirm', array('token' => $user->getToken()), UrlGeneratorInterface::ABSOLUTE_URL),
-                'date' => $expiryDate->add($delayReset),
+                'date' => $expiryDate->add($delayReset), //Got from Service/Password/UserPassword->resetRequest()
                 '_locale' => $user->getLocale(),
                 'user' => $user,
             ));
@@ -118,7 +118,7 @@ class UserEmail implements UserEmailInterface
         }
 
         //Sends email
-        if (isset($body)) {
+        if (isset($subject) && isset($body)) {
             $emailData = array(
                 'subject' => $subject,
                 'sentFrom' => $this->configService->getParameter('c975LEmail.sentFrom'),
