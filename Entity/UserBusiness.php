@@ -19,8 +19,8 @@ use c975L\UserBundle\Entity\UserBusinessAbstract;
  * @copyright 2018 975L <contact@975l.com>
  *
  * @ORM\Table(name="user", indexes={
- *      @ORM\Index(name="un_email", columns={"name", "email"}),
- *      @ORM\Index(name="un_identifier", columns={"name", "identifier"}),
+ *      @ORM\Index(name="un_email", columns={"email"}),
+ *      @ORM\Index(name="un_identifier", columns={"identifier"}),
  * })
  * @ORM\Entity(repositoryClass="c975L\UserBundle\Repository\UserRepository")
  */

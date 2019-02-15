@@ -26,14 +26,4 @@ abstract class UserLightAbstract implements UserInterface
     use UserLightTrait;
 
     const ROLE_DEFAULT = 'ROLE_USER';
-
-    /**
-     * User unique id
-     * @var int
-     *
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(name="id", type="integer")
-     */
-    private $id;
 }

@@ -14,7 +14,6 @@ use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use c975L\UserBundle\Validator\Constraints as c975LUserBundleAssert;
-use c975L\UserBundle\Entity\UserLight;
 
 /**
  * Trait UserAddressTrait
@@ -23,6 +22,16 @@ use c975L\UserBundle\Entity\UserLight;
  */
 trait UserLightTrait
 {
+    /**
+     * User unique id
+     * @var int
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(name="id", type="integer")
+     */
+    private $id;
+
     /**
      * If the user allows use of its account (GDPR)
      * @var bool
@@ -202,16 +211,15 @@ trait UserLightTrait
      * Check if the user has the specified role
      * @return bool
      */
-    public function hasRole($role)
+    public function hasRole(?string $role): bool
     {
         return in_array(strtoupper($role), $this->getRoles(), true);
     }
 
     /**
      * Adds the role to the user
-     * @return UserLight
      */
-    public function addRole($role)
+    public function addRole(?string $role)
     {
         $role = strtoupper(trim($role));
         if ('ROLE_' !== substr($role, 0, 5)) {
@@ -237,9 +245,8 @@ trait UserLightTrait
 
     /**
      * Deletes the role to the user
-     * @return UserLight
      */
-    public function deleteRole($role)
+    public function deleteRole(?string $role)
     {
         $role = strtoupper($role);
         if ('ROLE_' !== substr($role, 0, 5)) {
@@ -263,9 +270,8 @@ trait UserLightTrait
     /**
      * Set roles
      * @param string $roles Roles
-     * @return UserLight
      */
-    public function setRoles($roles)
+    public function setRoles(?array $roles)
     {
         if (is_array($roles)) {
             array_unique($roles);
@@ -282,7 +288,7 @@ trait UserLightTrait
      * Get roles
      * @return array
      */
-    public function getRoles()
+    public function getRoles(): array
     {
         $roles = array_map('trim', explode(',', $this->roles));
         $roles = array_map('strtoupper', $roles);

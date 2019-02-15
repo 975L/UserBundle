@@ -234,20 +234,14 @@ SOCIAL
 - social_token
 - social_picture
 
-You can also create your own Class by overriding. In this case, you need to extend one of the Abstract classes with the following code:
+You can also create your own Class by extending one of the Abstract classes with the following code:
 ```php
 <?php
-//Your Entity file i.e. src/AppBundle/Entity/User.php
-namespace AppBundle\Entity;
+//Your Entity file i.e. src/App/Entity/User.php
+namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-//Just add 'Abstract' to the name of the extended class
 use c975L\UserBundle\Entity\UserAbstract;
 
-/**
- * @ORM\Table(name="user", indexes={@ORM\Index(name="un_email", columns={"name", "email"})})
- * @ORM\Entity(repositoryClass="c975L\UserBundle\Repository\UserRepository")
- */
 class User extends UserAbstract
 {
     //Add your properties and methods
@@ -259,8 +253,8 @@ Extending Forms
 You can extend `UserSignupType` and `UserProfileType`. To extend them, to include new properties or features, simply use the following code:
 ```php
 <?php
-//Your own form i.e. src/AppBundle/Form/UserProfileType
-namespace AppBundle\Form;
+//Your own form i.e. src/App/Form/UserProfileType
+namespace App\Form;
 
 use c975L\UserBundle\Form\UserProfileType as BaseProfileType;
 
@@ -294,15 +288,15 @@ services:
         autowire: true
         autoconfigure: true
         public: true
-    AppBundle\Form\:
-        resource: '../../src/AppBundle/Form/*'
+    App\Form\:
+        resource: '../../src/App/Form/*'
 ```
 
 And finally, you have to set it in your `app/config/config.yml`
 ```yml
 c975_l_user:
-    signupForm: 'AppBundle\Form\UserSignupType'
-    profileForm: 'AppBundle\Form\UserProfileType'
+    signupForm: 'App\Form\UserSignupType'
+    profileForm: 'App\Form\UserProfileType'
 ```
 
 Events
@@ -312,7 +306,7 @@ Multiples events are fired to help you fit your needs, they are all defined in `
 ```php
 <?php
 
-namespace AppBundle\Listener;
+namespace App\Listener;
 
 use c975L\UserBundle\Entity\UserAbstract;
 use c975L\UserBundle\Event\UserEvent;

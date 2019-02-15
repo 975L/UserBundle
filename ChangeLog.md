@@ -1,5 +1,10 @@
 # Changelog
 
+v2.4.1
+------
+- Corrected index values for Entities (15/02/2019)
+- Move `id` property to UserLightTrait (15/02/2019)
+
 v2.4
 ----
 - Removed deprecations for @Method (13/02/2019)
