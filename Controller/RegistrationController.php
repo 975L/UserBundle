@@ -106,7 +106,7 @@ class RegistrationController extends AbstractController
         }
 
         //Redirects to dashboard if user has already signed-in
-        if ($user instanceof UserInterface) {
+        if ($this->getUser() instanceof UserInterface) {
             return $this->redirectToRoute('user_dashboard');
         }
 
@@ -122,23 +122,30 @@ class RegistrationController extends AbstractController
             $session = $request->getSession();
             //Checks if challenge is ok
             if (strtoupper($session->get('challengeResult')) == strtoupper($user->getChallenge())) {
-                //Dispatch event
-                $event = new UserEvent($user, $request);
-                $this->dispatcher->dispatch(UserEvent::USER_SIGNUP, $event);
-
-                //Registers user
-                if (!$event->isPropagationStopped()) {
-                    $this->userService->signup($user);
-
+                //Checks if user doesn't already exist
+                $email = $form->getData()->getEmail();
+                if (null !== $email && null === $this->userService->findUserByEmail($email)) {
                     //Dispatch event
                     $event = new UserEvent($user, $request);
-                    $this->dispatcher->dispatch(UserEvent::USER_SIGNEDUP, $event);
+                    $this->dispatcher->dispatch(UserEvent::USER_SIGNUP, $event);
+
+                    //Registers user
+                    if (!$event->isPropagationStopped()) {
+                        $this->userService->signup($user);
+
+                        //Dispatch event
+                        $event = new UserEvent($user, $request);
+                        $this->dispatcher->dispatch(UserEvent::USER_SIGNEDUP, $event);
+                    }
+
+                    //Renders the check email page
+                    $session->set('checkEmailUser', $user->getEmail());
+                    $session->set('checkEmailUserAction', 'signup');
+                    return $this->redirectToRoute('user_check_email');
                 }
 
-                //Renders the check email page
-                $session->set('checkEmailUser', $user->getEmail());
-                $session->set('checkEmailUserAction', 'signup');
-                return $this->redirectToRoute('user_check_email');
+                //Creates flash
+                $this->serviceTools->createFlash('user', 'text.user_already_registered', 'danger');
             }
         }
 

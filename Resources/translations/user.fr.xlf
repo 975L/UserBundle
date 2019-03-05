@@ -194,6 +194,10 @@
                 <source>text.changed_password_not_requested</source>
                 <target>Si vous n'avez pas initié cette action, merci de nous contacter.</target>
             </trans-unit>
+            <trans-unit id="49">
+                <source>text.user_already_registered</source>
+                <target>L'utilisateur existe déjà.</target>
+            </trans-unit>
             <trans-unit id="51">
                 <source>text.delete_account_info</source>
                 <target><![CDATA[En supprimant mon compte, je comprends que tout ce qui est lié avec, sera supprimé. <strong>Je comprends aussi que cette action est immédiate et irréversible.</strong>]]></target>

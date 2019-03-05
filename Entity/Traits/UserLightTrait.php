@@ -366,7 +366,7 @@ trait UserLightTrait
      */
     public function getAllowUse(): bool
     {
-        return $this->allowUse;
+        return (bool) $this->allowUse;
     }
 
     /**

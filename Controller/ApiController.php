@@ -146,7 +146,7 @@ class ApiController extends AbstractController
         $userEntity = $this->configService->getParameter('c975LUser.entity');
         $user = new $userEntity();
         $email = $request->request->get('email');
-        if (null !== $email) {
+        if (null !== $email && null === $this->userService->findUserByEmail($email)) {
             $user->setEmail($email);
             //Validates entity
             if (count($validator->validate($user)) > 0) {
@@ -168,7 +168,7 @@ class ApiController extends AbstractController
             return new JsonResponse($userData);
         }
 
-        throw $this->createAccessDeniedException();
+        throw new \LogicException('User already registered');
     }
 
 //AUTHENTICATE

@@ -1,5 +1,10 @@
 # Changelog
 
+v2.4.3
+------
+- Added test to check if user is not already registered for API and Form (05/03/2019)
+- Corrected getAllowUse to return boolean (05/03/2019)
+
 v2.4.2
 ------
 - Corrected API add role (05/03/2019)
