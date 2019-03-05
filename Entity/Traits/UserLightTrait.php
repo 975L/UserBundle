@@ -238,7 +238,7 @@ trait UserLightTrait
             }
         }
 
-        $this->setRoles($this->roles);
+        $this->setRoles(explode(',', $this->roles));
 
         return $this;
     }
@@ -262,7 +262,7 @@ trait UserLightTrait
         }
 
         $this->roles = empty($this->roles) ? null : $this->roles;
-        $this->setRoles($this->roles);
+        $this->setRoles(explode(',', $this->roles));
 
         return $this;
     }
@@ -271,15 +271,13 @@ trait UserLightTrait
      * Set roles
      * @param string $roles Roles
      */
-    public function setRoles(?array $roles)
+    public function setRoles(array $roles)
     {
-        if (is_array($roles)) {
-            array_unique($roles);
-            unset($roles[static::ROLE_DEFAULT]);
-            sort($roles);
+        array_unique($roles);
+        unset($roles[static::ROLE_DEFAULT]);
+        sort($roles);
 
-            $this->roles = implode(',', $roles);
-        }
+        $this->roles = '' === implode(',', $roles) ? null : implode(',', $roles);
 
         return $this;
     }

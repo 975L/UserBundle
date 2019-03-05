@@ -1,5 +1,10 @@
 # Changelog
 
+v2.4.2
+------
+- Corrected API add role (05/03/2019)
+- Corrected API delete role (05/03/2019)
+
 v2.4.1
 ------
 - Corrected index values for Entities (15/02/2019)
