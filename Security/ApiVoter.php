@@ -56,6 +56,12 @@ class ApiVoter extends Voter
     public const API_USER_AUTHENTICATE = 'c975LUser-api-authenticate';
 
     /**
+     * Used for access to api change password
+     * @var string
+     */
+    public const API_USER_CHANGE_PASSWORD = 'c975LUser-api-change-password';
+
+    /**
      * Used for access to api create
      * @var string
      */
@@ -104,6 +110,12 @@ class ApiVoter extends Voter
     public const API_USER_MODIFY_ROLE = 'c975LUser-api-modify-role';
 
     /**
+     * Used for access to reset password
+     * @var string
+     */
+    public const API_USER_RESET_PASSWORD = 'c975LUser-api-reset-password';
+
+    /**
      * Used for access to api search
      * @var string
      */
@@ -116,6 +128,7 @@ class ApiVoter extends Voter
     private const ATTRIBUTES = array(
         self::API_USER_ADD_ROLE,
         self::API_USER_AUTHENTICATE,
+        self::API_USER_CHANGE_PASSWORD,
         self::API_USER_CREATE,
         self::API_USER_DELETE,
         self::API_USER_DELETE_ROLE,
@@ -124,6 +137,7 @@ class ApiVoter extends Voter
         self::API_USER_LIST,
         self::API_USER_MODIFY,
         self::API_USER_MODIFY_ROLE,
+        self::API_USER_RESET_PASSWORD,
         self::API_USER_SEARCH,
     );
 
@@ -177,10 +191,14 @@ class ApiVoter extends Voter
             case self::API_USER_DISPLAY:
                 return $this->decisionManager->decide($token, array('ROLE_USER'));
                 break;
+            case self::API_USER_CHANGE_PASSWORD:
             case self::API_USER_DELETE:
             case self::API_USER_EXPORT:
             case self::API_USER_MODIFY:
                 return $this->isOwner($token, $subject);
+                break;
+            case self::API_USER_RESET_PASSWORD:
+                return true;
                 break;
         }
 

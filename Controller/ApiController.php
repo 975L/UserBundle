@@ -298,7 +298,7 @@ class ApiController extends AbstractController
     public function addRole($identifier, $role)
     {
         $user = $this->userService->findUserByIdentifier($identifier);
-        $this->denyAccessUnlessGranted('c975LUser-api-add-role', $this->getUser());
+        $this->denyAccessUnlessGranted('c975LUser-api-add-role', $user);
 
         $this->userService->addRole($user, $role);
 
@@ -323,7 +323,7 @@ class ApiController extends AbstractController
     public function deleteRole($identifier, $role)
     {
         $user = $this->userService->findUserByIdentifier($identifier);
-        $this->denyAccessUnlessGranted('c975LUser-api-delete-role', $this->getUser());
+        $this->denyAccessUnlessGranted('c975LUser-api-delete-role', $user);
 
         $this->userService->deleteRole($user, $role);
 
@@ -340,16 +340,75 @@ class ApiController extends AbstractController
      * @Route("/user/api/modify-roles/{identifier}",
      *    name="user_api_modify_roles",
      *    requirements={"identifier": "^([0-9a-z]{32})"},
-     *    methods={"HEAD", "PUT", "POST"})
+     *    methods={"HEAD", "PUT"})
      */
     public function modifyRoles(Request $request, $identifier)
     {
         $user = $this->userService->findUserByIdentifier($identifier);
-        $this->denyAccessUnlessGranted('c975LUser-api-modify-role', $this->getUser());
+        $this->denyAccessUnlessGranted('c975LUser-api-modify-role', $user);
 
         $this->userService->modifyRoles($user, $request->getContent());
 
         return new JsonResponse($user->toArray());
+    }
+
+//CHANGE PASSWORD
+
+    /**
+     * Allows to change password for specific user using "/user/api/change-password"
+     * @return JsonResponse
+     * @throws AccessDeniedException
+     *
+     * @Route("/user/api/change-password",
+     *    name="user_api_change_password",
+     *    methods={"HEAD", "PUT"})
+     */
+    public function changePassword(Request $request)
+    {
+        $user = $this->getUser();
+        $this->denyAccessUnlessGranted('c975LUser-api-change-password', $user);
+
+        return new JsonResponse($this->apiService->changePassword($user, $request->getContent()));
+    }
+
+//RESET PASSWORD
+
+    /**
+     * Allows to reset password for specific user using "/user/api/reset-password/{identifier}"
+     * @return JsonResponse
+     * @throws AccessDeniedException
+     *
+     * @Route("/user/api/reset-password/{identifier}",
+     *    name="user_api_reset_password",
+     *    requirements={"identifier": "^([0-9a-z]{32})"},
+     *    methods={"HEAD", "PUT"})
+     */
+    public function resetPassword($identifier)
+    {
+        $user = $this->userService->findUserByIdentifier($identifier);
+        $this->denyAccessUnlessGranted('c975LUser-api-reset-password', $user);
+
+        return new JsonResponse($this->apiService->resetPassword($user));
+    }
+
+//RESET PASSWORD CONFIRM
+
+    /**
+     * Confirm the reset of the password for specific user using "/user/api/reset-password-confirm/{identifier}"
+     * @return JsonResponse
+     * @throws AccessDeniedException
+     *
+     * @Route("/user/api/reset-password-confirm/{identifier}",
+     *    name="user_api_reset_password_confirm",
+     *    requirements={"identifier": "^([0-9a-z]{32})"},
+     *    methods={"HEAD", "PUT"})
+     */
+    public function resetPasswordConfirm(Request $request, $identifier)
+    {
+        $user = $this->userService->findUserByIdentifier($identifier);
+        $this->denyAccessUnlessGranted('c975LUser-api-reset-password', $user);
+
+        return new JsonResponse($this->apiService->resetPasswordConfirm($user, $request->getContent()));
     }
 
 //EXPORT

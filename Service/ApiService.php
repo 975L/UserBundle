@@ -9,10 +9,13 @@
 
 namespace c975L\UserBundle\Service;
 
+use DateInterval;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\DisabledException;
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Parser;
@@ -48,6 +51,12 @@ class ApiService implements ApiServiceInterface
     private $keychain;
 
     /**
+     * Stores UserPasswordEncoderInterface
+     * @var UserPasswordEncoderInterface
+     */
+    private $passwordEncoder;
+
+    /**
      * Stores RouterInterface
      * @var RouterInterface
      */
@@ -65,19 +74,49 @@ class ApiService implements ApiServiceInterface
      */
     private $userService;
 
+    /**
+     * Used to define the delay (2 hours) to allow password reset
+     * @var string
+     */
+    public const DELAY = 'PT2H';
+
     public function __construct(
         ConfigServiceInterface $configService,
         EntityManagerInterface $em,
         RouterInterface $router,
+        UserPasswordEncoderInterface $passwordEncoder,
         UserServiceInterface $userService
     )
     {
         $this->configService = $configService;
         $this->em = $em;
         $this->keychain = new Keychain();
+        $this->passwordEncoder = $passwordEncoder;
         $this->router = $router;
         $this->signer = new Sha512();
         $this->userService = $userService;
+    }
+
+    /**
+     * Allows user to change its password by submitting a new one
+     */
+    public function changePassword($user, $parameters)
+    {
+        $parameters = json_decode($parameters, true);
+        if (array_key_exists('plainPassword', $parameters)) {
+            $user
+                ->setPassword($this->passwordEncoder->encodePassword($user, $parameters['plainPassword']))
+                ->setPlainPassword(null)
+                ->setToken(null)
+            ;
+
+            $this->em->persist($user);
+            $this->em->flush();
+
+            return $user->toArray();
+        }
+
+        return false;
     }
 
     /**
@@ -188,6 +227,71 @@ class ApiService implements ApiServiceInterface
         $parameters = json_decode($parameters, true);
         $this->hydrate($user, $parameters);
         $this->userService->modify($user);
+    }
+
+    /**
+     * Allows user to reset its password by setting a token to call the reset confirm Route
+     * @returns false|array
+     */
+    public function resetPassword($user)
+    {
+        //Request not already sent or is out of time
+        $delayReset = new DateInterval(self::DELAY);
+        if (null === $user->getPasswordRequest() ||
+            ($user->getPasswordRequest() instanceof DateTime && $user->getPasswordRequest()->add($delayReset) < new DateTime())
+        ) {
+            //Adds data to user
+            $token = hash('sha1', $user->getEmail() . uniqid());
+            $validity = new DateTime();
+            $user
+                ->setToken($token)
+                ->setPasswordRequest($validity)
+            ;
+
+            //Persists data in DB
+            $this->em->persist($user);
+            $this->em->flush();
+
+            //Returns data
+            return array(
+                'token' => $token,
+                'validity' => $validity->add($delayReset),
+            );
+        }
+
+        return false;
+    }
+
+    /**
+     * Reset and change the user password
+     * @returns false|array
+     */
+    public function resetPasswordConfirm($user, $parameters)
+    {
+        $parameters = json_decode($parameters, true);
+
+        //Checks if password can be reset
+        if (array_key_exists('plainPassword', $parameters) && array_key_exists('token', $parameters) && $parameters['token'] === $user->getToken()) {
+            //Request is in time
+            $delayReset = new DateInterval(self::DELAY);
+            if ($user->getPasswordRequest() instanceof DateTime && $user->getPasswordRequest()->add($delayReset) > new DateTime()) {
+                //Adds data to user
+                $user
+                    ->setPassword($this->passwordEncoder->encodePassword($user, $parameters['plainPassword']))
+                    ->setPlainPassword(null)
+                    ->setToken(null)
+                    ->setPasswordRequest(null)
+                ;
+
+                //Persists data in DB
+                $this->em->persist($user);
+                $this->em->flush();
+
+                return $user->toArray();
+            }
+        }
+
+        return false;
     }
 
     /**

@@ -1,5 +1,11 @@
 # Changelog
 
+v2.5
+----
+- Added route for API `change-password` and `reset-password` (06/03/2019)
+- Removed POST methods for some API modifyRole method (06/03/2019)
+- Corrected `user_api_add_role`, `user_api_delete_role` and `user_api_modify_roles` that were taking the user defined in JWT instead of the one defined with identifier (06/03/2019)
+
 v2.4.3
 ------
 - Added test to check if user is not already registered for API and Form (05/03/2019)

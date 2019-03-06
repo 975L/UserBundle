@@ -611,12 +611,20 @@ Except for `user_api_create` and `user_api_authenticate` you need to send the JW
 `methods={"HEAD", "PUT"}`, `{identifier} -> [0-9a-z]{32}`, `{role} -> [a-zA-Z\_]+`. To delete a Role of the user, call the Route `user_api_delete_role` in a `PUT` request, with the `identifier` of the user and the `role` you want to delete. The user defined in JWT must have sufficients rights, as configured in `user_config` Route.
 
 `/user/api/modify-roles/{identifier}`
--------------------------------------------
+-------------------------------------
 `methods={"HEAD", "PUT"}`, `{identifier} -> [0-9a-z]{32}`. To modify the Roles of the user, call the Route `user_api_modify_roles` in a `PUT` request, with the `identifier` of the user and an array of roles in the body of the request i.e. `{"roles": ["ROLE_ADMIN", "ROLE_USER"]}`. The user defined in JWT must have sufficients rights, as configured in `user_config` Route.
 
+`/user/api/change-password`
+---------------------------
+`methods={"HEAD", "PUT"}`. To change the password of a defined user, call the Route `user_api_change_password` in a `PUT` request with the data field `plainPassword` in the body of the request i.e. `{"plainPassword": "BrandNewPass*$1"}`. Only the user defined in JWT can change its password.
+
+`/user/api/reset-password/{identifier}` & `/user/api/reset-password-confirm/{identifier}`
+-----------------------------------------------------------------------------------------
+`methods={"HEAD", "PUT"}`. To reset the password of a defined user, call the Route `user_api_reset_password` in a `PUT` request with the `identifier` of the user, you will receive a token and its validity time (2 hours later). **Then**, to confirm (and change) the password, you have to call the route `user_api_reset_password_confirm` with `/user/api/reset-password-confirm/{identifier}` and the `identifier` of the user and with the data fields `token` (with the value received in previous call) and `plainPassword` in the body of the request i.e. `{"token": "tokenValue", "plainPassword": "BrandNewPass*$1"}`.
+
 `/user/api/export`
--------------------------------------------
-`methods={"HEAD", "GET"}`. To export user's (signed in) data, call the Route `user_api_export` in a `GET` request. Only the user defined in JWT can access its data. If you wish to add data you can liste to `UserEvent::API_USER_EXPORT` and update the user or you can export your own foramtted dat by using the following in an EventListener:
+------------------
+`methods={"HEAD", "GET"}`. To export user's data, call the Route `user_api_export` in a `GET` request. Only the user defined in JWT can access its data. If you wish to add data you can listen to `UserEvent::API_USER_EXPORT` and update the user or you can export your own foramtted data by using the following in an EventListener:
 
 ```php
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
