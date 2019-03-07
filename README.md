@@ -618,9 +618,9 @@ Except for `user_api_create` and `user_api_authenticate` you need to send the JW
 ---------------------------
 `methods={"HEAD", "PUT"}`. To change the password of a defined user, call the Route `user_api_change_password` in a `PUT` request with the data field `plainPassword` in the body of the request i.e. `{"plainPassword": "BrandNewPass*$1"}`. Only the user defined in JWT can change its password.
 
-`/user/api/reset-password` & `/user/api/reset-password-confirm/{identifier}`
-----------------------------------------------------------------------------
-`methods={"HEAD", "PUT"}`. To reset the password of a defined user, call the Route `user_api_reset_password` in a `PUT` request with an array with the field `email` in the body of the request i.e. `{"email": "email@example.com"}`, you will receive a token, its validity time (2 hours later) and the user's identifier. **Then**, to confirm (and change) the password, you have to call the route `user_api_reset_password_confirm` with `/user/api/reset-password-confirm/{identifier}` and the `identifier` of the user, with the data fields `token` (with the value received in previous call) and `plainPassword` in the body of the request i.e. `{"token": "tokenValue", "plainPassword": "BrandNewPass*$1"}`.
+`/user/api/reset-password` & `/user/api/reset-password-confirm`
+---------------------------------------------------------------
+`methods={"HEAD", "PUT"}`. To reset the password of a defined user, call the Route `user_api_reset_password` in a `PUT` request with an array with the field `email` in the body of the request i.e. `{"email": "email@example.com"}`, you will receive a token and its validity time (2 hours later). **Then**, to confirm (and change) the password, you have to call the route `user_api_reset_password_confirm` with `/user/api/reset-password-confirm/{token}` with the data field `plainPassword` in the body of the request i.e. `{"plainPassword": "BrandNewPass*$1"}`.
 
 `/user/api/export`
 ------------------

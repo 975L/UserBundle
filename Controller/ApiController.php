@@ -209,6 +209,7 @@ class ApiController extends AbstractController
      * Returns the json for a specific user using "/user/api/display/{identifier}"
      * @return JsonResponse
      * @throws AccessDeniedException
+     * @throws NotFoundHttpException
      *
      * @Route("/user/api/display/{identifier}",
      *    name="user_api_display",
@@ -218,9 +219,13 @@ class ApiController extends AbstractController
     public function display($identifier)
     {
         $user = $this->userService->findUserByIdentifier($identifier);
-        $this->denyAccessUnlessGranted('c975LUser-api-display', $user);
+        if (null !== $user) {
+            $this->denyAccessUnlessGranted('c975LUser-api-display', $user);
 
-        return new JsonResponse($user->toArray());
+            return new JsonResponse($user->toArray());
+        }
+
+        throw $this->createNotFoundException();
     }
 
 //MODIFY
@@ -229,6 +234,7 @@ class ApiController extends AbstractController
      * Modifies specific user using "/user/api/modify/{identifier}"
      * @return JsonResponse
      * @throws AccessDeniedException
+     * @throws NotFoundHttpException
      *
      * @Route("/user/api/modify/{identifier}",
      *    name="user_api_modify",
@@ -238,18 +244,22 @@ class ApiController extends AbstractController
     public function modify(Request $request, $identifier)
     {
         $user = $this->userService->findUserByIdentifier($identifier);
-        $this->denyAccessUnlessGranted('c975LUser-api-modify', $user);
+        if (null !== $user) {
+            $this->denyAccessUnlessGranted('c975LUser-api-modify', $user);
 
-        //Dispatch event
-        $event = new UserEvent($user, $request);
-        $this->dispatcher->dispatch(UserEvent::API_USER_MODIFY, $event);
+            //Dispatch event
+            $event = new UserEvent($user, $request);
+            $this->dispatcher->dispatch(UserEvent::API_USER_MODIFY, $event);
 
-        //Modifies the User
-        if (!$event->isPropagationStopped()) {
-            $this->apiService->modify($user, $request->getContent());
+            //Modifies the User
+            if (!$event->isPropagationStopped()) {
+                $this->apiService->modify($user, $request->getContent());
+            }
+
+            return new JsonResponse($user->toArray());
         }
 
-        return new JsonResponse($user->toArray());
+        throw $this->createNotFoundException();
     }
 
 //DELETE
@@ -258,6 +268,7 @@ class ApiController extends AbstractController
      * Deletes specific user using "/user/api/delete/{identifier}"
      * @return JsonResponse
      * @throws AccessDeniedException
+     * @throws NotFoundHttpException
      *
      * @Route("/user/api/delete/{identifier}",
      *    name="user_api_delete",
@@ -267,17 +278,21 @@ class ApiController extends AbstractController
     public function delete(Request $request, $identifier)
     {
         $user = $this->userService->findUserByIdentifier($identifier);
-        $this->denyAccessUnlessGranted('c975LUser-api-delete', $user);
+        if (null !== $user) {
+            $this->denyAccessUnlessGranted('c975LUser-api-delete', $user);
 
-        //Dispatch event
-        $event = new UserEvent($user, $request);
-        $this->dispatcher->dispatch(UserEvent::API_USER_DELETE, $event);
+            //Dispatch event
+            $event = new UserEvent($user, $request);
+            $this->dispatcher->dispatch(UserEvent::API_USER_DELETE, $event);
 
-        if (!$event->isPropagationStopped()) {
-            $this->apiService->delete($user);
+            if (!$event->isPropagationStopped()) {
+                $this->apiService->delete($user);
+            }
+
+            return new JsonResponse(true);
         }
 
-        return new JsonResponse(true);
+        throw $this->createNotFoundException();
     }
 
 //ADD ROLE
@@ -286,6 +301,7 @@ class ApiController extends AbstractController
      * Adds role to specific user using "/user/api/add-role/{identifier}/{role}"
      * @return JsonResponse
      * @throws AccessDeniedException
+     * @throws NotFoundHttpException
      *
      * @Route("/user/api/add-role/{identifier}/{role}",
      *    name="user_api_add_role",
@@ -298,11 +314,15 @@ class ApiController extends AbstractController
     public function addRole($identifier, $role)
     {
         $user = $this->userService->findUserByIdentifier($identifier);
-        $this->denyAccessUnlessGranted('c975LUser-api-add-role', $this->getUser());
+        if (null !== $user) {
+            $this->denyAccessUnlessGranted('c975LUser-api-add-role', $this->getUser());
 
-        $this->userService->addRole($user, $role);
+            $this->userService->addRole($user, $role);
 
-        return new JsonResponse($user->toArray());
+            return new JsonResponse($user->toArray());
+        }
+
+        throw $this->createNotFoundException();
     }
 
 //DELETE ROLE
@@ -311,6 +331,7 @@ class ApiController extends AbstractController
      * Adds role to specific user using "/user/api/delete-role/{identifier}/{role}"
      * @return JsonResponse
      * @throws AccessDeniedException
+     * @throws NotFoundHttpException
      *
      * @Route("/user/api/delete-role/{identifier}/{role}",
      *    name="user_api_delete_role",
@@ -323,11 +344,15 @@ class ApiController extends AbstractController
     public function deleteRole($identifier, $role)
     {
         $user = $this->userService->findUserByIdentifier($identifier);
-        $this->denyAccessUnlessGranted('c975LUser-api-delete-role', $this->getUser());
+        if (null !== $user) {
+            $this->denyAccessUnlessGranted('c975LUser-api-delete-role', $this->getUser());
 
-        $this->userService->deleteRole($user, $role);
+            $this->userService->deleteRole($user, $role);
 
-        return new JsonResponse($user->toArray());
+            return new JsonResponse($user->toArray());
+        }
+
+        throw $this->createNotFoundException();
     }
 
 //MODIFY ROLES
@@ -336,6 +361,7 @@ class ApiController extends AbstractController
      * Modifies roles to specific user using "/user/api/modify-role/{identifier}"
      * @return JsonResponse
      * @throws AccessDeniedException
+     * @throws NotFoundHttpException
      *
      * @Route("/user/api/modify-roles/{identifier}",
      *    name="user_api_modify_roles",
@@ -345,11 +371,15 @@ class ApiController extends AbstractController
     public function modifyRoles(Request $request, $identifier)
     {
         $user = $this->userService->findUserByIdentifier($identifier);
-        $this->denyAccessUnlessGranted('c975LUser-api-modify-role', $this->getUser());
+        if (null !== $user) {
+            $this->denyAccessUnlessGranted('c975LUser-api-modify-role', $this->getUser());
 
-        $this->userService->modifyRoles($user, $request->getContent());
+            $this->userService->modifyRoles($user, $request->getContent());
 
-        return new JsonResponse($user->toArray());
+            return new JsonResponse($user->toArray());
+        }
+
+        throw $this->createNotFoundException();
     }
 
 //CHANGE PASSWORD
@@ -377,6 +407,7 @@ class ApiController extends AbstractController
      * Allows to reset password for specific user using "/user/api/reset-password"
      * @return JsonResponse
      * @throws AccessDeniedException
+     * @throws NotFoundHttpException
      *
      * @Route("/user/api/reset-password",
      *    name="user_api_reset_password",
@@ -386,31 +417,39 @@ class ApiController extends AbstractController
     {
         $parameters = json_decode($request->getContent(), true);
         $email = array_key_exists('email', $parameters) ? $parameters['email'] : null;
-
         $user = $this->userService->findUserByEmail($email);
-        $this->denyAccessUnlessGranted('c975LUser-api-reset-password', $user);
+        if (null !== $user) {
+            $this->denyAccessUnlessGranted('c975LUser-api-reset-password', $user);
 
-        return new JsonResponse($this->apiService->resetPassword($user));
+            return new JsonResponse($this->apiService->resetPassword($user));
+        }
+
+        throw $this->createNotFoundException();
     }
 
 //RESET PASSWORD CONFIRM
 
     /**
-     * Confirm the reset of the password for specific user using "/user/api/reset-password-confirm/{identifier}"
+     * Confirm the reset of the password for specific user using "/user/api/reset-password-confirm"
      * @return JsonResponse
      * @throws AccessDeniedException
+     * @throws NotFoundHttpException
      *
-     * @Route("/user/api/reset-password-confirm/{identifier}",
+     * @Route("/user/api/reset-password-confirm/{token}",
      *    name="user_api_reset_password_confirm",
-     *    requirements={"identifier": "^([0-9a-z]{32})"},
+     *    requirements={"token": "^([0-9a-z]{40})"},
      *    methods={"HEAD", "PUT"})
      */
-    public function resetPasswordConfirm(Request $request, $identifier)
+    public function resetPasswordConfirm(Request $request, $token)
     {
-        $user = $this->userService->findUserByIdentifier($identifier);
-        $this->denyAccessUnlessGranted('c975LUser-api-reset-password', $user);
+        $user = $this->userService->findUserByToken($token);
+        if (null !== $user) {
+            $this->denyAccessUnlessGranted('c975LUser-api-reset-password', $user);
 
-        return new JsonResponse($this->apiService->resetPasswordConfirm($user, $request->getContent()));
+            return new JsonResponse($this->apiService->resetPasswordConfirm($user, $request->getContent()));
+        }
+
+        throw $this->createNotFoundException();
     }
 
 //EXPORT

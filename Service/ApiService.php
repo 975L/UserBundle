@@ -254,7 +254,6 @@ class ApiService implements ApiServiceInterface
 
             //Returns data
             return array(
-                'identifier' => $user->getIdentifier(),
                 'token' => $token,
                 'validity' => $validity->add($delayReset),
             );
@@ -269,11 +268,10 @@ class ApiService implements ApiServiceInterface
      */
     public function resetPasswordConfirm($user, $parameters)
     {
-        $parameters = json_decode($parameters, true);
-
         //Checks if password can be reset
-        if (array_key_exists('plainPassword', $parameters) && array_key_exists('token', $parameters) && $parameters['token'] === $user->getToken()) {
-            //Request is in time
+        $parameters = json_decode($parameters, true);
+        if (array_key_exists('plainPassword', $parameters)) {
+            //Checks if request is in time
             $delayReset = new DateInterval(self::DELAY);
             if ($user->getPasswordRequest() instanceof DateTime && $user->getPasswordRequest()->add($delayReset) > new DateTime()) {
                 //Adds data to user

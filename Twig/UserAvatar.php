@@ -9,8 +9,8 @@
 
 namespace c975L\UserBundle\Twig;
 
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use c975L\ConfigBundle\Service\ConfigServiceInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Twig_Extension;
 use Twig_SimpleFunction;
 

@@ -1,5 +1,11 @@
 # Changelog
 
+v2.5.3
+------
+- Removed {identifier} from `user_api_reset_password_confirm` as it can't be kept (07/03/2019)
+- Moved `token` to url instead of body for `user_api_reset_password_confirm` (07/03/2019)
+- Added condition to check if user has been found in ApiController (07/03/2019)
+
 v2.5.2
 ------
 - Modified API reset-password to take the email and not the identifier (07/03/2019)
