@@ -254,6 +254,7 @@ class ApiService implements ApiServiceInterface
 
             //Returns data
             return array(
+                'identifier' => $user->getIdentifier(),
                 'token' => $token,
                 'validity' => $validity->add($delayReset),
             );

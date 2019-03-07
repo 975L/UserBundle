@@ -374,18 +374,20 @@ class ApiController extends AbstractController
 //RESET PASSWORD
 
     /**
-     * Allows to reset password for specific user using "/user/api/reset-password/{identifier}"
+     * Allows to reset password for specific user using "/user/api/reset-password"
      * @return JsonResponse
      * @throws AccessDeniedException
      *
-     * @Route("/user/api/reset-password/{identifier}",
+     * @Route("/user/api/reset-password",
      *    name="user_api_reset_password",
-     *    requirements={"identifier": "^([0-9a-z]{32})"},
      *    methods={"HEAD", "PUT"})
      */
-    public function resetPassword($identifier)
+    public function resetPassword(Request $request)
     {
-        $user = $this->userService->findUserByIdentifier($identifier);
+        $parameters = json_decode($request->getContent(), true);
+        $email = array_key_exists('email', $parameters) ? $parameters['email'] : null;
+
+        $user = $this->userService->findUserByEmail($email);
         $this->denyAccessUnlessGranted('c975LUser-api-reset-password', $user);
 
         return new JsonResponse($this->apiService->resetPassword($user));

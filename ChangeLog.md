@@ -1,5 +1,9 @@
 # Changelog
 
+v2.5.2
+------
+- Modified API reset-password to take the email and not the identifier (07/03/2019)
+
 v2.5.1
 ------
 - Removed correction for `user_api_add_role`, `user_api_delete_role` and `user_api_modify_roles` as it has to be the user defined in JWT (07/03/2019)
