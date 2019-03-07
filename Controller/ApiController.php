@@ -298,7 +298,7 @@ class ApiController extends AbstractController
     public function addRole($identifier, $role)
     {
         $user = $this->userService->findUserByIdentifier($identifier);
-        $this->denyAccessUnlessGranted('c975LUser-api-add-role', $user);
+        $this->denyAccessUnlessGranted('c975LUser-api-add-role', $this->getUser());
 
         $this->userService->addRole($user, $role);
 
@@ -323,7 +323,7 @@ class ApiController extends AbstractController
     public function deleteRole($identifier, $role)
     {
         $user = $this->userService->findUserByIdentifier($identifier);
-        $this->denyAccessUnlessGranted('c975LUser-api-delete-role', $user);
+        $this->denyAccessUnlessGranted('c975LUser-api-delete-role', $this->getUser());
 
         $this->userService->deleteRole($user, $role);
 
@@ -345,7 +345,7 @@ class ApiController extends AbstractController
     public function modifyRoles(Request $request, $identifier)
     {
         $user = $this->userService->findUserByIdentifier($identifier);
-        $this->denyAccessUnlessGranted('c975LUser-api-modify-role', $user);
+        $this->denyAccessUnlessGranted('c975LUser-api-modify-role', $this->getUser());
 
         $this->userService->modifyRoles($user, $request->getContent());
 
