@@ -35,25 +35,21 @@ class RegistrationController extends AbstractController
      * @var ConfigServiceInterface
      */
     private $configService;
-
     /**
      * Stores EventDispatcherInterface
      * @var EventDispatcherInterface
      */
     private $dispatcher;
-
     /**
      * Stores ServiceToolsInterface
      * @var ServiceToolsInterface
      */
     private $serviceTools;
-
     /**
      * Stores UserFormFactoryInterface
      * @var UserFormFactoryInterface
      */
     private $userFormFactory;
-
     /**
      * Stores UserServiceInterface
      * @var UserServiceInterface
@@ -76,7 +72,6 @@ class RegistrationController extends AbstractController
     }
 
 //SIGN UP
-
     /**
      * Redirects to signup Route
      * @return Redirect
@@ -157,7 +152,6 @@ class RegistrationController extends AbstractController
     }
 
 //SIGN UP CONFIRM (FROM EMAIL LINK)
-
     /**
      * Confirms signup and redirects to user signin
      * @return Redirect

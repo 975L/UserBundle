@@ -32,19 +32,16 @@ class ProfileController extends AbstractController
      * @var ConfigServiceInterface
      */
     private $configService;
-
     /**
      * Stores EventDispatcherInterface
      * @var EventDispatcherInterface
      */
     private $dispatcher;
-
     /**
      * Stores UserFormFactoryInterface
      * @var UserFormFactoryInterface
      */
     private $userFormFactory;
-
     /**
      * Stores UserServiceInterface
      * @var UserServiceInterface
@@ -65,7 +62,6 @@ class ProfileController extends AbstractController
     }
 
 //DISPLAY
-
     /**
      * Displays the user's profile
      * @return Response
@@ -96,7 +92,6 @@ class ProfileController extends AbstractController
     }
 
 //MODIFY
-
     /**
      * Displays the form to modify the profile
      * @return Response
@@ -138,7 +133,6 @@ class ProfileController extends AbstractController
     }
 
 //DELETE
-
     /**
      * Deletes the user
      * @return REsponse
@@ -179,7 +173,6 @@ class ProfileController extends AbstractController
     }
 
 //PUBLIC PROFILE
-
     /**
      * Displays the public profile if enabled
      * @return Response
@@ -202,7 +195,6 @@ class ProfileController extends AbstractController
     }
 
 //EXPORT
-
     /**
      * Export the user's data in JSON or XML
      * @return Response

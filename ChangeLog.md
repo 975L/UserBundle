@@ -1,5 +1,9 @@
 # Changelog
 
+v2.5.4
+------
+- Made use of Twig namespace (11/03/2019)
+
 v2.5.3
 ------
 - Removed {identifier} from `user_api_reset_password_confirm` as it can't be kept (07/03/2019)
@@ -139,7 +143,7 @@ v2.2.2
 
 v2.2.1
 ------
-- Removed symfony/templating from composer.json (29/10/2018)
+- Removed symfony/environment from composer.json (29/10/2018)
 
 v2.2
 ----

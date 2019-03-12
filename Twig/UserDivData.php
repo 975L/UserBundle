@@ -9,20 +9,21 @@
 
 namespace c975L\UserBundle\Twig;
 
-use Twig_Extension;
-use Twig_SimpleFunction;
+use Twig\Extension\AbstractExtension;
+use Twig\Environment;
+use Twig\TwigFunction;
 
 /**
  * Twig extension to display user's information in a div data (mainly for javascript access) using `user_divData()`
  * @author Laurent Marquet <laurent.marquet@laposte.net>
  * @copyright 2018 975L <contact@975l.com>
  */
-class UserDivData extends Twig_Extension
+class UserDivData extends AbstractExtension
 {
     public function getFunctions()
     {
         return array(
-            new Twig_SimpleFunction(
+            new TwigFunction(
                 'user_divData',
                 array($this, 'divData'),
                 array(
@@ -37,7 +38,7 @@ class UserDivData extends Twig_Extension
      * Returns the xhtml code for the div data
      * @retuirn string
      */
-    public function divData(\Twig_Environment $environment)
+    public function divData(Environment $environment)
     {
         $render = $environment->render('@c975LUser/fragments/divData.html.twig');
 

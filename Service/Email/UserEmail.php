@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Translation\TranslatorInterface;
-use Twig_Environment;
+use Twig\Environment;
 use c975L\ConfigBundle\Service\ConfigService;
 use c975L\EmailBundle\Service\EmailService;
 use c975L\UserBundle\Service\Email\UserEmailInterface;
@@ -51,10 +51,10 @@ class UserEmail implements UserEmailInterface
     private $router;
 
     /**
-     * Stores Twig_Environment
-     * @var Twig_Environment
+     * Stores Environment
+     * @var Environment
      */
-    private $templating;
+    private $environment;
 
     /**
      * Stores TranslatorInterface
@@ -67,7 +67,7 @@ class UserEmail implements UserEmailInterface
         EmailService $emailService,
         RequestStack $requestStack,
         RouterInterface $router,
-        Twig_Environment $templating,
+        Environment $environment,
         TranslatorInterface $translator
     )
     {
@@ -75,7 +75,7 @@ class UserEmail implements UserEmailInterface
         $this->emailService = $emailService;
         $this->request = $requestStack->getCurrentRequest();
         $this->router = $router;
-        $this->templating = $templating;
+        $this->environment = $environment;
         $this->translator = $translator;
     }
 
@@ -87,13 +87,13 @@ class UserEmail implements UserEmailInterface
         //Change (or reset) password confirm
         if('change-password-confirm' === $object) {
             $subject = $this->translator->trans('label.change_password', array(), 'user');
-            $body = $this->templating->render('@c975LUser/emails/changedPassword.html.twig', array(
+            $body = $this->environment->render('@c975LUser/emails/changedPassword.html.twig', array(
                 '_locale' => $user->getLocale(),
             ));
         //Delete account
         } elseif ('delete' === $object) {
             $subject = $this->translator->trans('label.delete_account', array(), 'user');
-            $body = $this->templating->render('@c975LUser/emails/delete.html.twig', array(
+            $body = $this->environment->render('@c975LUser/emails/delete.html.twig', array(
                 '_locale' => $user->getLocale(),
             ));
         //Reset password request
@@ -101,7 +101,7 @@ class UserEmail implements UserEmailInterface
             $subject = $this->translator->trans('label.reset_password', array(), 'user');
             $expiryDate = new \DateTime();
             extract($options);
-            $body = $this->templating->render('@c975LUser/emails/resetPasswordRequest.html.twig', array(
+            $body = $this->environment->render('@c975LUser/emails/resetPasswordRequest.html.twig', array(
                 'url' => $this->router->generate('user_reset_password_confirm', array('token' => $user->getToken()), UrlGeneratorInterface::ABSOLUTE_URL),
                 'date' => $expiryDate->add($delayReset), //Got from Service/Password/UserPassword->resetRequest()
                 '_locale' => $user->getLocale(),
@@ -110,7 +110,7 @@ class UserEmail implements UserEmailInterface
         //Signup
         } elseif('signup' === $object) {
             $subject = $this->translator->trans('label.signup_email', array(), 'user');
-            $body = $this->templating->render('@c975LUser/emails/signup.html.twig', array(
+            $body = $this->environment->render('@c975LUser/emails/signup.html.twig', array(
                 'url' => $this->router->generate('user_signup_confirm', array('token' => $user->getToken()), UrlGeneratorInterface::ABSOLUTE_URL),
                 '_locale' => $user->getLocale(),
                 'user' => $user,

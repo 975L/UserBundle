@@ -35,19 +35,16 @@ class ManageController extends AbstractController
      * @var ConfigServiceInterface
      */
     private $configService;
-
     /**
      * Stores EventDispatcherInterface
      * @var EventDispatcherInterface
      */
     private $dispatcher;
-
     /**
      * Stores UserFormFactoryInterface
      * @var UserFormFactoryInterface
      */
     private $userFormFactory;
-
     /**
      * Stores UserServiceInterface
      * @var UserServiceInterface

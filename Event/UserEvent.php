@@ -78,7 +78,6 @@ class UserEvent extends Event
 
     /**
      * Stores User
-     * @var User
      */
     protected $user;
 

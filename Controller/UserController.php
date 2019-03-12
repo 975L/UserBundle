@@ -37,13 +37,11 @@ class UserController extends AbstractController
      * @var ConfigServiceInterface
      */
     private $configService;
-
     /**
      * Stores EventDispatcherInterface
      * @var EventDispatcherInterface
      */
     private $dispatcher;
-
     /**
      * Stores UserServiceInterface
      * @var UserServiceInterface

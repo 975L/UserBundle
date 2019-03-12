@@ -11,15 +11,16 @@ namespace c975L\UserBundle\Twig;
 
 use c975L\ConfigBundle\Service\ConfigServiceInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Twig_Extension;
-use Twig_SimpleFunction;
+use Twig\Environment;
+use Twig\TwigFunction;
+use Twig\Extension\AbstractExtension;
 
 /**
  * Twig extension to return the url to be used for user's avatar using `user_avatar([$size])`
  * @author Laurent Marquet <laurent.marquet@laposte.net>
  * @copyright 2018 975L <contact@975l.com>
  */
-class UserAvatar extends Twig_Extension
+class UserAvatar extends AbstractExtension
 {
     /**
      * Stores ConfigServiceInterface
@@ -45,7 +46,7 @@ class UserAvatar extends Twig_Extension
     public function getFunctions()
     {
         return array(
-            new Twig_SimpleFunction(
+            new TwigFunction(
                 'user_avatar',
                 array($this, 'avatar'),
                 array(
@@ -60,7 +61,7 @@ class UserAvatar extends Twig_Extension
      * Returns the avatar's url if enabled
      * @return string|null
      */
-    public function avatar(\Twig_Environment $environment, int $size = 128, $user = null)
+    public function avatar(Environment $environment, int $size = 128, $user = null)
     {
         //Avatar not enabled
         if (true !== $this->configService->getParameter('c975LUser.avatar')) {

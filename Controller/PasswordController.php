@@ -34,13 +34,11 @@ class PasswordController extends AbstractController
      * @var UserFormFactoryInterface
      */
     private $userFormFactory;
-
     /**
      * Stores UserServiceInterface
      * @var UserServiceInterface
      */
     private $userService;
-
     /**
      * Stores UserPasswordInterface
      * @var UserPasswordInterface

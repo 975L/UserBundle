@@ -14,6 +14,7 @@ use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use c975L\UserBundle\Validator\Constraints as c975LUserBundleAssert;
+use c975L\UserBundle\Entity\UserLight;
 
 /**
  * Trait UserAddressTrait

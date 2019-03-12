@@ -39,19 +39,16 @@ class ApiController extends AbstractController
      * @var ApiServiceInterface
      */
     private $apiService;
-
     /**
      * Stores ConfigServiceInterface
      * @var ConfigServiceInterface
      */
     private $configService;
-
     /**
      * Stores EventDispatcherInterface
      * @var EventDispatcherInterface
      */
     private $dispatcher;
-
     /**
      * Stores UserServiceInterface
      * @var UserServiceInterface
@@ -72,10 +69,9 @@ class ApiController extends AbstractController
     }
 
 //LIST
-
     /**
      * Lists all the users
-     * @return json
+     * @return JsonResponse
      * @throws AccessDeniedException
      *
      * @Route("/user/api/list",
@@ -101,10 +97,9 @@ class ApiController extends AbstractController
     }
 
 //SEARCH
-
     /**
      * Searches for %{term}% in email
-     * @return json
+     * @return JsonResponse
      * @throws AccessDeniedException
      *
      * @Route("/user/api/search/{term}",
@@ -131,10 +126,9 @@ class ApiController extends AbstractController
     }
 
 //CREATE
-
     /**
      * Creates the user using the API
-     * @return json
+     * @return JsonResponse
      * @throws AccessDeniedException
      *
      * @Route("/user/api/create",
@@ -172,10 +166,9 @@ class ApiController extends AbstractController
     }
 
 //AUTHENTICATE
-
     /**
      * Authenticates the user using the API and returns the JWToken
-     * @return json
+     * @return JsonResponse
      * @throws AccessDeniedException
      *
      * @Route("/user/api/authenticate",
@@ -204,7 +197,6 @@ class ApiController extends AbstractController
     }
 
 //DISPLAY
-
     /**
      * Returns the json for a specific user using "/user/api/display/{identifier}"
      * @return JsonResponse
@@ -229,7 +221,6 @@ class ApiController extends AbstractController
     }
 
 //MODIFY
-
     /**
      * Modifies specific user using "/user/api/modify/{identifier}"
      * @return JsonResponse
@@ -263,7 +254,6 @@ class ApiController extends AbstractController
     }
 
 //DELETE
-
     /**
      * Deletes specific user using "/user/api/delete/{identifier}"
      * @return JsonResponse
@@ -296,7 +286,6 @@ class ApiController extends AbstractController
     }
 
 //ADD ROLE
-
     /**
      * Adds role to specific user using "/user/api/add-role/{identifier}/{role}"
      * @return JsonResponse
@@ -326,7 +315,6 @@ class ApiController extends AbstractController
     }
 
 //DELETE ROLE
-
     /**
      * Adds role to specific user using "/user/api/delete-role/{identifier}/{role}"
      * @return JsonResponse
@@ -356,7 +344,6 @@ class ApiController extends AbstractController
     }
 
 //MODIFY ROLES
-
     /**
      * Modifies roles to specific user using "/user/api/modify-role/{identifier}"
      * @return JsonResponse
@@ -383,7 +370,6 @@ class ApiController extends AbstractController
     }
 
 //CHANGE PASSWORD
-
     /**
      * Allows to change password for specific user using "/user/api/change-password"
      * @return JsonResponse
@@ -402,7 +388,6 @@ class ApiController extends AbstractController
     }
 
 //RESET PASSWORD
-
     /**
      * Allows to reset password for specific user using "/user/api/reset-password"
      * @return JsonResponse
@@ -428,7 +413,6 @@ class ApiController extends AbstractController
     }
 
 //RESET PASSWORD CONFIRM
-
     /**
      * Confirm the reset of the password for specific user using "/user/api/reset-password-confirm"
      * @return JsonResponse
@@ -453,7 +437,6 @@ class ApiController extends AbstractController
     }
 
 //EXPORT
-
     /**
      * Export the user's data in JSON
      * @return JsonResponse
