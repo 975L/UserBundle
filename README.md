@@ -341,6 +341,7 @@ Service
 You can inject `c975L\UserBundle\Service\UserServiceInterface` to access its methods. For example you can retrieve a user with its id, email, socialId, ...
 ```php
 //Within a controller
+use c975L\UserBundle\Service\UserServiceInterface;
 
     public function yourAction(UserServiceInterface $userService)
     {
