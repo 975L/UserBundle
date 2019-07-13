@@ -13,12 +13,12 @@ c975LUser:
         type: string
         required: false
         default: null
-        info: "Define your own Signup form: i.e. AppBundle\\Form\\UserSignupType (Default null)"
+        info: "Define your own Signup form: i.e. App\\Form\\UserSignupType (Default null)"
     profileForm:
         type: string
         required: false
         default: null
-        info: "Define your own Profile form: i.e. AppBundle\\Form\\UserProfileType (Default null)"
+        info: "Define your own Profile form: i.e. App\\Form\\UserProfileType (Default null)"
     signinAttempts:
         type: int
         required: true
@@ -38,7 +38,7 @@ c975LUser:
         type: string
         required: true
         default: c975L\UserBundle\Entity\User
-        info: "Define your own Entity: i.e. AppBundle\\Entity\\User (Default c975L\\UserBundle\\Entity\\User)"
+        info: "Define your own Entity: i.e. App\\Entity\\User (Default c975L\\UserBundle\\Entity\\User)"
     social:
         type: bool
         required: false

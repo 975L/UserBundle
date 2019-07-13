@@ -1,5 +1,9 @@
 # Changelog
 
+v2.5.4.3
+--------
+- Removed Bundle from AppBundle in the bundle.yaml (13/07/2019)
+
 v2.5.4.2
 --------
 - Added use in README.md (08/07/2019)
