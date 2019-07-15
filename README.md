@@ -37,38 +37,22 @@ Bundle installation
 
 Step 1: Download the Bundle
 ---------------------------
+**v3.x works with Symfony 4.x. Use v2.x for Symfony 3.x**
 Use [Composer](https://getcomposer.org) to install the library
 ```bash
     composer require c975l/user-bundle
 ```
 
-Step 2: Enable the Bundle
--------------------------
-Then, enable the bundle by adding it to the list of registered bundles in the `app/AppKernel.php` file of your project:
-
-```php
-<?php
-class AppKernel extends Kernel
-{
-    public function registerBundles()
-    {
-        $bundles = [
-            // ...
-            new c975L\UserBundle\c975LUserBundle(),
-        ];
-    }
-}
-```
-
 Step 3: Configure the Bundle
 ----------------------------
 Check dependencies for their configuration:
-- [Swiftmailer](https://github.com/symfony/swiftmailer-bundle)
+- [Symfony Mailer](https://github.com/symfony/mailer)
 - [Doctrine](https://github.com/doctrine/DoctrineBundle)
 - [c975LEmailBundle](https://github.com/975L/EmailBundle)
 - [Misd\PhoneNumberBundle](https://github.com/misd-service-development/phone-number-bundle)
+- [lcobucci\JWT](https://github.com/lcobucci/jwt)
 
-If you use Address or Business fields, you have to add the following in your `app/config.yml` to enable phone and fax verification:
+If you use Address or Business fields, you have to add the following in your `/config/packages/doctrine.yaml` to enable phone and fax verification:
 ```yml
 doctrine:
     dbal:
@@ -76,7 +60,7 @@ doctrine:
             phone_number: Misd\PhoneNumberBundle\Doctrine\DBAL\Types\PhoneNumberType
 ```
 
-And finally in `app/security.yml`
+And finally in `/config/packages/security.yml`
 
 ```yml
 security:
@@ -118,7 +102,7 @@ Use `/Resources/sql/user.sql` to create the tables `user` and `user_archives`. T
 
 Step 5: Enable the Routes
 -------------------------
-Then, enable the routes by adding them to the `app/config/routing.yml` file of your project:
+Then, enable the routes by adding them to the `/config/routes.yaml` file of your project:
 
 ```yml
 c975_l_user:
@@ -144,14 +128,14 @@ Overriding Templates
 --------------------
 It is strongly recommended to use the [Override Templates from Third-Party Bundles feature](http://symfony.com/doc/current/templating/overriding.html) to integrate fully with your site.
 
-For this, simply, create the following structure `app/Resources/c975LUserBundle/views/` in your app and then duplicate the file `layout.html.twig` in it, to override the existing Bundle files, then apply your needed changes.
+For this, simply, create the following structure `/templates/bundles/c975LUserBundle/` in your app and then duplicate the file `layout.html.twig` in it, to override the existing Bundle files, then apply your needed changes.
 
 You can also override:
-- `app/Resources/c975LUserBundle/views/fragments/deleteAccountInfo.html.twig` that will list the implications, by deleting account, for user, displayed in the delete account page.
-- `app/Resources/c975LUserBundle/views/fragments/dashboardActions.html.twig` to add your own actions (or whatever) in the dashboard i.e.
-- `app/Resources/c975LUserBundle/views/fragments/avatar.html.twig` to modify the display of avatar (26/03/2018)
+- `/templates/bundles/c975LUserBundle/fragments/deleteAccountInfo.html.twig` that will list the implications, by deleting account, for user, displayed in the delete account page.
+- `/templates/bundles/c975LUserBundle/fragments/dashboardActions.html.twig` to add your own actions (or whatever) in the dashboard i.e.
+- `/templates/bundles/c975LUserBundle/fragments/avatar.html.twig` to modify the display of avatar (26/03/2018)
 
-You can add a navbar menu via `{% include('@c975LUser/fragments/navbarMenu.html.twig') %}`. You can override it, if needed, or simply override `app/Resources/c975LUserBundle/views/fragments/navbarMenuActions.html.twig` to add actions above it.
+You can add a navbar menu via `{% include('@c975LUser/fragments/navbarMenu.html.twig') %}`. You can override it, if needed, or simply override `/templates/bundles/c975LUserBundle/fragments/navbarMenuActions.html.twig` to add actions above it.
 
 Routes
 ------
@@ -173,7 +157,7 @@ The Routes availables are:
 
 Entities
 --------
-You must choose an entity linked to your needs and specify it in the `app/security.yml` and `app/config.yml`. Available entities are the following:
+You must choose an entity linked to your needs and specify it in the `/config/packages/security.yml`. Available entities are the following:
 
 - `c975L/UserBundle/Entity/UserLight`: light user with minimum requirements
 - `c975L/UserBundle/Entity/User`: default user
@@ -413,14 +397,14 @@ You can use Twig extensions to format VAT and Siret numbers.
 
 Using HwiOauth (Social network sign in)
 =======================================
-On the sign in form you can add links to sign in/sign up with social networks via [HWIOAuthBundle](https://github.com/hwi/HWIOAuthBundle). If you want to this feature, simply add in your `app/config/config.yml`, the following:
+On the sign in form you can add links to sign in/sign up with social networks via [HWIOAuthBundle](https://github.com/hwi/HWIOAuthBundle). If you want to this feature, simply add in your `/config/config_bundles.yaml` or using c975L\ConfigBundle and clear the cache, the following:
 ```yml
 c975_l_user:
     hwiOauth: ['facebook', 'google', 'live']
     social: true
 ```
 
-And in you `app/config/services.yml`, the following:
+And in your `/config/services.yaml`, the following:
 ```yml
 services:
     c975L\UserBundle\Security\OAuthUserProvider:
@@ -515,28 +499,13 @@ Remove from composer
 composer remove friendsofsymfony/user-bundle
 ```
 
-Remove from `AppKernel.php`
-```php
-<?php
-// app/AppKernel.php
-
-public function registerBundles()
-{
-    $bundles = array(
-        // ...
-        new FOS\UserBundle\FOSUserBundle(), //Remove this line
-        // ...
-    );
-}
-```
-
 Migrate your database table, by using `Resources\sql\MigrateFosUser.sql`. It will create a `user_migrate` table, will modify all the needed fields, will add missing ones, then, when you are ready, you can rename your FOSUSerBundle table to `user_fosuserbundle` (or whatever you want) and rename the `user_migrate` one to `user`. **Fields `username` and `groups` are kept but not used, so you can delete them if you don't use them.**
 
 API Documentation
 =================
 You can also use the API provided in c975LUserBundle with the following:
 
-You have to install `https://github.com/lcobucci/jwt` (openssl extension is required) using `composer require lcobucci/jwt`.
+You have to use `https://github.com/lcobucci/jwt` (openssl extension is required).
 
 Then create your RSA keys:
 ```bash
@@ -550,7 +519,7 @@ openssl genrsa -out config/jwt/private.pem -aes256 4096;
 #rm config/jwt/private.pem-back;
 openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem;
 ```
-Add those paths to `config\config_bundles.yaml` or using c975L\ConfigBundle :
+Add those paths to `/config/config_bundles.yaml` or using c975L\ConfigBundle :
 
 c975LUser:
     privateKey: 'config/jwt/private.pem'

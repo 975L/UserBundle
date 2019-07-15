@@ -1,5 +1,16 @@
 # Changelog
 
+v3.0
+----
+- Made use of c975LEmailBundle v3 which use Symfony/Mailer (15/07/2019)
+- Made use of KnpPagnigatorBundle v4 (15/07/2019)
+- Drop support of Symfony 3.x (15/07/2019)
+
+
+
+v2.x
+====
+
 v2.5.4.3
 --------
 - Removed Bundle from AppBundle in the bundle.yaml (13/07/2019)
@@ -214,6 +225,8 @@ v2.0
 - Removed Submit buttons from FormTypes (04/10/2018)
 - Added config route (04/10/2018)
 - Moved signin and signout to UserController (18/10/2018)
+
+
 
 v1.x
 ====
