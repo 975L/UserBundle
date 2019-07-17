@@ -399,7 +399,7 @@ Using HwiOauth (Social network sign in)
 =======================================
 On the sign in form you can add links to sign in/sign up with social networks via [HWIOAuthBundle](https://github.com/hwi/HWIOAuthBundle). If you want to this feature, simply add in your `/config/config_bundles.yaml` or using c975L\ConfigBundle and clear the cache, the following:
 ```yml
-c975_l_user:
+c975LUser:
     hwiOauth: ['facebook', 'google', 'live']
     social: true
 ```
@@ -413,7 +413,7 @@ services:
 
 **c975L/UserBundle doesn't implement the connection with social networks but provides a bridge with HWIOAuthBundle, to display buttons on the sign in page and to store users in the DB. You have to configure HWIOAuthBundle by your own.** This will mainly consist in setting differents informations in config files. As an example, they are listed below, for Facebook, but other networks will work in the same way:
 ```yml
-#routing.yml
+#routes.yaml
 hwi_oauth_redirect:
     resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
     prefix:   /connect

@@ -1,5 +1,9 @@
 # Changelog
 
+v3.0.1
+------
+- Updated README.md (17/07/2019)
+
 v3.0
 ----
 - Made use of c975LEmailBundle v3 which use Symfony/Mailer (15/07/2019)
