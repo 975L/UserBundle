@@ -98,7 +98,7 @@ class UserController extends AbstractController
 
         //Dispatch event
         $event = new UserEvent($user, $request);
-        $this->dispatcher->dispatch(UserEvent::USER_SIGNIN, $event);
+        $this->dispatcher->dispatch($event, UserEvent::USER_SIGNIN);
 
         //Adds signin attempt
         $error = '';

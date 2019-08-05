@@ -122,7 +122,7 @@ class RegistrationController extends AbstractController
                 if (null !== $email && null === $this->userService->findUserByEmail($email)) {
                     //Dispatch event
                     $event = new UserEvent($user, $request);
-                    $this->dispatcher->dispatch(UserEvent::USER_SIGNUP, $event);
+                    $this->dispatcher->dispatch($event, UserEvent::USER_SIGNUP);
 
                     //Registers user
                     if (!$event->isPropagationStopped()) {
@@ -130,7 +130,7 @@ class RegistrationController extends AbstractController
 
                         //Dispatch event
                         $event = new UserEvent($user, $request);
-                        $this->dispatcher->dispatch(UserEvent::USER_SIGNEDUP, $event);
+                        $this->dispatcher->dispatch($event, UserEvent::USER_SIGNEDUP);
                     }
 
                     //Renders the check email page
@@ -175,7 +175,7 @@ class RegistrationController extends AbstractController
 
         //Dispatch event
         $event = new UserEvent($user, $request);
-        $this->dispatcher->dispatch(UserEvent::USER_SIGNUP_CONFIRM, $event);
+        $this->dispatcher->dispatch($event, UserEvent::USER_SIGNUP_CONFIRM);
 
         //Confirms registration
         if (!$event->isPropagationStopped()) {

@@ -1,5 +1,10 @@
 # Changelog
 
+v3.1.1
+------
+- Removed unused use (05/08/2019)
+- Corrected dispatch of event (05/08/2019)
+
 v3.1
 ----
 - Made use of Symfony\Contracts\EventDispatcher\Event (05/08/2019)

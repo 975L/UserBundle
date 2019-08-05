@@ -113,7 +113,7 @@ class ProfileController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             //Dispatch event
             $event = new UserEvent($user, $request);
-            $this->dispatcher->dispatch(UserEvent::USER_MODIFY, $event);
+            $this->dispatcher->dispatch($event, UserEvent::USER_MODIFY);
 
             //Modify user
             if (!$event->isPropagationStopped()) {
@@ -154,7 +154,7 @@ class ProfileController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             //Dispatch event
             $event = new UserEvent($user, $request);
-            $this->dispatcher->dispatch(UserEvent::USER_DELETE, $event);
+            $this->dispatcher->dispatch($event, UserEvent::USER_DELETE);
 
             //Deletes user
             if (!$event->isPropagationStopped()) {

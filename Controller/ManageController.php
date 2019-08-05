@@ -279,7 +279,7 @@ class ManageController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             //Dispatch event
             $event = new UserEvent($managedUser, $request);
-            $this->dispatcher->dispatch(UserEvent::USER_DELETE, $event);
+            $this->dispatcher->dispatch($event, UserEvent::USER_DELETE);
 
             //Deletes managedUser
             if (!$event->isPropagationStopped()) {

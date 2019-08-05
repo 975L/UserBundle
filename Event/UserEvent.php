@@ -24,57 +24,57 @@ class UserEvent extends Event
     /**
      * Used to dispatch event API "authenticate"
      */
-    const API_USER_AUTHENTICATE = 'c975l_user.api.authenticate';
+    public const API_USER_AUTHENTICATE = 'c975l_user.api.authenticate';
 
     /**
      * Used to dispatch event API "created"
      */
-    const API_USER_CREATED = 'c975l_user.api.created';
+    public const API_USER_CREATED = 'c975l_user.api.created';
 
     /**
      * Used to dispatch event API "delete"
      */
-    const API_USER_DELETE = 'c975l_user.api.delete';
+    public const API_USER_DELETE = 'c975l_user.api.delete';
 
     /**
      * Used to dispatch event API "export"
      */
-    const API_USER_EXPORT = 'c975l_user.api.export';
+    public const API_USER_EXPORT = 'c975l_user.api.export';
 
     /**
      * Used to dispatch event API "modify"
      */
-    const API_USER_MODIFY = 'c975l_user.api.modify';
+    public const API_USER_MODIFY = 'c975l_user.api.modify';
 
     /**
      * Used to dispatch event "delete"
      */
-    const USER_DELETE = 'c975l_user.delete';
+    public const USER_DELETE = 'c975l_user.delete';
 
     /**
      * Used to dispatch event "modify"
      */
-    const USER_MODIFY = 'c975l_user.modify';
+    public const USER_MODIFY = 'c975l_user.modify';
 
     /**
      * Used to dispatch event "signedup"
      */
-    const USER_SIGNEDUP = 'c975l_user.signedup';
+    public const USER_SIGNEDUP = 'c975l_user.signedup';
 
     /**
      * Used to dispatch event "signin"
      */
-    const USER_SIGNIN = 'c975l_user.signin';
+    public const USER_SIGNIN = 'c975l_user.signin';
 
     /**
      * Used to dispatch event "signup"
      */
-    const USER_SIGNUP = 'c975l_user.signup';
+    public const USER_SIGNUP = 'c975l_user.signup';
 
     /**
      * Used to dispatch event "signup.confirm"
      */
-    const USER_SIGNUP_CONFIRM = 'c975l_user.signup.confirm';
+    public const USER_SIGNUP_CONFIRM = 'c975l_user.signup.confirm';
 
     /**
      * Stores User

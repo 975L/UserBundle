@@ -130,7 +130,7 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface
 
                 //Dispatch event USER_SIGNUP
                 $event = new UserEvent($user, $this->request);
-                $this->dispatcher->dispatch(UserEvent::USER_SIGNUP, $event);
+                $this->dispatcher->dispatch($event, UserEvent::USER_SIGNUP);
 
                 //Defines data for user
                 if (!$event->isPropagationStopped()) {
@@ -163,7 +163,7 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface
 
                     //Dispatch event USER_SIGNEDUP
                     $event = new UserEvent($user, $this->request);
-                    $this->dispatcher->dispatch(UserEvent::USER_SIGNEDUP, $event);
+                    $this->dispatcher->dispatch($event, UserEvent::USER_SIGNEDUP);
                 }
 
                 return $user;

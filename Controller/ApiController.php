@@ -14,17 +14,13 @@ use c975L\UserBundle\Event\UserEvent;
 use c975L\UserBundle\Service\ApiServiceInterface;
 use c975L\UserBundle\Service\UserServiceInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
@@ -151,7 +147,7 @@ class ApiController extends AbstractController
 
             //Dispatch event
             $event = new UserEvent($user, $request);
-            $this->dispatcher->dispatch(UserEvent::API_USER_CREATED, $event);
+            $this->dispatcher->dispatch($event, UserEvent::API_USER_CREATED);
 
             //Creates the User
             $userData = null;
@@ -182,7 +178,7 @@ class ApiController extends AbstractController
 
         //Dispatch event
         $event = new UserEvent($user, $request);
-        $this->dispatcher->dispatch(UserEvent::API_USER_AUTHENTICATE, $event);
+        $this->dispatcher->dispatch($event, UserEvent::API_USER_AUTHENTICATE);
 
         //Authenticates
         $authenticate = null;
@@ -240,7 +236,7 @@ class ApiController extends AbstractController
 
             //Dispatch event
             $event = new UserEvent($user, $request);
-            $this->dispatcher->dispatch(UserEvent::API_USER_MODIFY, $event);
+            $this->dispatcher->dispatch($event, UserEvent::API_USER_MODIFY);
 
             //Modifies the User
             if (!$event->isPropagationStopped()) {
@@ -273,7 +269,7 @@ class ApiController extends AbstractController
 
             //Dispatch event
             $event = new UserEvent($user, $request);
-            $this->dispatcher->dispatch(UserEvent::API_USER_DELETE, $event);
+            $this->dispatcher->dispatch($event, UserEvent::API_USER_DELETE);
 
             if (!$event->isPropagationStopped()) {
                 $this->apiService->delete($user);
@@ -453,7 +449,7 @@ class ApiController extends AbstractController
 
         //Dispatch event
         $event = new UserEvent($user, $request);
-        $this->dispatcher->dispatch(UserEvent::API_USER_EXPORT, $event);
+        $this->dispatcher->dispatch($event, UserEvent::API_USER_EXPORT);
 
         if (!$event->isPropagationStopped()) {
             return $this->userService->export($user, 'json');
