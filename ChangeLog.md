@@ -1,5 +1,9 @@
 # Changelog
 
+v3.0.1.1
+--------
+- Updated README.md to use auto instread of bcrypt ofr encoder (05/08/2019)
+
 v3.0.1
 ------
 - Updated README.md (17/07/2019)

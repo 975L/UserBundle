@@ -66,7 +66,7 @@ And finally in `/config/packages/security.yml`
 security:
     encoders:
         #The entity you want to use
-        c975L\UserBundle\Entity\User: bcrypt
+        c975L\UserBundle\Entity\User: auto
     role_hierarchy:
         ROLE_MODERATOR: 'ROLE_USER'
         ROLE_ADMIN: [ROLE_MODERATOR, ROLE_USER]
