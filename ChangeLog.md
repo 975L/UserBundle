@@ -1,5 +1,10 @@
 # Changelog
 
+v3.1
+----
+- Made use of Symfony\Contracts\EventDispatcher\Event (05/08/2019)
+- Made use of apply spaceless (05/08/2019)
+
 v3.0.1.1
 --------
 - Updated README.md to use auto instread of bcrypt ofr encoder (05/08/2019)

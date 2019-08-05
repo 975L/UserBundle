@@ -12,7 +12,7 @@ namespace c975L\UserBundle\Event;
 use c975L\UserBundle\Entity\UserLight;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * Events to be dispatched throughout the lifecycle of User Forms
