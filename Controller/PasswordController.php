@@ -63,8 +63,8 @@ class PasswordController extends AbstractController
      * @throws AccessDeniedException
      *
      * @Route("/user/change-password",
-     *      name="user_change_password",
-     *      methods={"GET", "HEAD", "POST"})
+     *     name="user_change_password",
+     *     methods={"GET", "HEAD", "POST"})
      */
     public function changePassword(Request $request)
     {
@@ -95,8 +95,8 @@ class PasswordController extends AbstractController
      * @return Response
      *
      * @Route("/user/reset-password",
-     *      name="user_reset_password",
-     *      methods={"GET", "HEAD", "POST"})
+     *     name="user_reset_password",
+     *     methods={"GET", "HEAD", "POST"})
      */
     public function resetPasswordRequest(Request $request)
     {
@@ -131,9 +131,9 @@ class PasswordController extends AbstractController
      * @throws AccessDeniedException
      *
      * @Route("/user/reset-password/{token}",
-     *      name="user_reset_password_confirm",
-     *      requirements={"token": "^[a-zA-Z0-9]{40}$"},
-     *      methods={"GET", "HEAD", "POST"})
+     *     name="user_reset_password_confirm",
+     *     requirements={"token": "^[a-zA-Z0-9]{40}$"},
+     *     methods={"GET", "HEAD", "POST"})
      */
     public function resetPasswordConfirm(Request $request, $token)
     {

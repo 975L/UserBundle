@@ -71,8 +71,8 @@ class ManageController extends AbstractController
      * @throws AccessDeniedException
      *
      * @Route("/user/manage",
-     *      name="user_manage",
-     *      methods={"GET", "HEAD"})
+     *     name="user_manage",
+     *     methods={"GET", "HEAD"})
      */
     public function manage(Request $request, PaginatorInterface $paginator)
     {
@@ -99,9 +99,9 @@ class ManageController extends AbstractController
      * @throws NotFoundHttpException
      *
      * @Route("/user/manage/display/{identifier}",
-     *      name="user_manage_display",
-     *      requirements={"identifier": "^([a-z0-9]{32})$"},
-     *      methods={"GET", "HEAD"})
+     *     name="user_manage_display",
+     *     requirements={"identifier": "^([a-z0-9]{32})$"},
+     *     methods={"GET", "HEAD"})
      */
     public function display(Request $request, $identifier)
     {
@@ -132,9 +132,9 @@ class ManageController extends AbstractController
      * @throws NotFoundHttpException
      *
      * @Route("/user/manage/modify/{identifier}",
-     *      name="user_manage_modify",
-     *      requirements={"identifier": "^([a-z0-9]{32})$"},
-     *      methods={"GET", "HEAD", "POST"})
+     *     name="user_manage_modify",
+     *     requirements={"identifier": "^([a-z0-9]{32})$"},
+     *     methods={"GET", "HEAD", "POST"})
      */
     public function modify(Request $request, $identifier)
     {
@@ -175,9 +175,9 @@ class ManageController extends AbstractController
      * @throws NotFoundHttpException
      *
      * @Route("/user/manage/add-role/{identifier}",
-     *      name="user_manage_add_role",
-     *      requirements={"identifier": "^([a-z0-9]{32})$"},
-     *      methods={"GET", "HEAD", "POST"})
+     *     name="user_manage_add_role",
+     *     requirements={"identifier": "^([a-z0-9]{32})$"},
+     *     methods={"GET", "HEAD", "POST"})
      */
     public function addRole(Request $request, $identifier)
     {
@@ -216,9 +216,9 @@ class ManageController extends AbstractController
      * @throws NotFoundHttpException
      *
      * @Route("/user/manage/delete-role/{identifier}",
-     *      name="user_manage_delete_role",
-     *      requirements={"identifier": "^([a-z0-9]{32})$"},
-     *      methods={"GET", "HEAD", "POST"})
+     *     name="user_manage_delete_role",
+     *     requirements={"identifier": "^([a-z0-9]{32})$"},
+     *     methods={"GET", "HEAD", "POST"})
      */
     public function deleteRole(Request $request, $identifier)
     {
@@ -257,9 +257,9 @@ class ManageController extends AbstractController
      * @throws NotFoundHttpException
      *
      * @Route("/user/manage/delete/{identifier}",
-     *      name="user_manage_delete",
-     *      requirements={"identifier": "^([a-z0-9]{32})$"},
-     *      methods={"GET", "HEAD", "POST"})
+     *     name="user_manage_delete",
+     *     requirements={"identifier": "^([a-z0-9]{32})$"},
+     *     methods={"GET", "HEAD", "POST"})
      */
     public function delete(Request $request, $identifier)
     {

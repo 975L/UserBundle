@@ -43,7 +43,7 @@ Use [Composer](https://getcomposer.org) to install the library
     composer require c975l/user-bundle
 ```
 
-Step 3: Configure the Bundle
+Step 2: Configure the Bundle
 ----------------------------
 Check dependencies for their configuration:
 - [Symfony Mailer](https://github.com/symfony/mailer)
@@ -51,14 +51,6 @@ Check dependencies for their configuration:
 - [c975LEmailBundle](https://github.com/975L/EmailBundle)
 - [Misd\PhoneNumberBundle](https://github.com/misd-service-development/phone-number-bundle)
 - [lcobucci\JWT](https://github.com/lcobucci/jwt)
-
-If you use Address or Business fields, you have to add the following in your `/config/packages/doctrine.yaml` to enable phone and fax verification:
-```yml
-doctrine:
-    dbal:
-        types:
-            phone_number: Misd\PhoneNumberBundle\Doctrine\DBAL\Types\PhoneNumberType
-```
 
 And finally in `/config/packages/security.yml`
 
@@ -96,11 +88,11 @@ security:
                 handlers: [c975L\UserBundle\Listener\LogoutListener]
 ```
 
-Step 4: Create MySql table
+Step 3: Create MySql table
 --------------------------
 Use `/Resources/sql/user.sql` to create the tables `user` and `user_archives`. The `DROP TABLE` are commented to avoid dropping by mistake. It will also create a stored procedure `sp_UserArchive()`.
 
-Step 5: Enable the Routes
+Step 4: Enable the Routes
 -------------------------
 Then, enable the routes by adding them to the `/config/routes.yaml` file of your project:
 
@@ -116,7 +108,7 @@ c975_l_user:
     #    _locale: en|fr|es
 ```
 
-Step 6: install assets to web folder
+Step 5: install assets to web folder
 ------------------------------------
 Install assets by running
 ```bash

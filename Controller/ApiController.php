@@ -71,8 +71,8 @@ class ApiController extends AbstractController
      * @throws AccessDeniedException
      *
      * @Route("/user/api/list",
-     *    name="user_api_list",
-     *    methods={"HEAD", "GET"})
+     *     name="user_api_list",
+     *     methods={"HEAD", "GET"})
      */
     public function listAll(Request $request, PaginatorInterface $paginator)
     {
@@ -99,9 +99,9 @@ class ApiController extends AbstractController
      * @throws AccessDeniedException
      *
      * @Route("/user/api/search/{term}",
-     *    name="user_api_search",
-     *    requirements={"term": "^([0-9a-zA-Z]+)"},
-     *    methods={"HEAD", "GET"})
+     *     name="user_api_search",
+     *     requirements={"term": "^([0-9a-zA-Z]+)"},
+     *     methods={"HEAD", "GET"})
      */
     public function search(Request $request, PaginatorInterface $paginator, string $term)
     {
@@ -128,8 +128,8 @@ class ApiController extends AbstractController
      * @throws AccessDeniedException
      *
      * @Route("/user/api/create",
-     *    name="user_api_create",
-     *    methods={"HEAD", "POST"})
+     *     name="user_api_create",
+     *     methods={"HEAD", "POST"})
      */
     public function create(Request $request, ValidatorInterface $validator)
     {
@@ -168,8 +168,8 @@ class ApiController extends AbstractController
      * @throws AccessDeniedException
      *
      * @Route("/user/api/authenticate",
-     *    name="user_api_authenticate",
-     *    methods={"HEAD", "POST"})
+     *     name="user_api_authenticate",
+     *     methods={"HEAD", "POST"})
      */
     public function authenticate(Request $request)
     {
@@ -200,9 +200,9 @@ class ApiController extends AbstractController
      * @throws NotFoundHttpException
      *
      * @Route("/user/api/display/{identifier}",
-     *    name="user_api_display",
-     *    requirements={"identifier": "^([0-9a-z]{32})"},
-     *    methods={"HEAD", "GET"})
+     *     name="user_api_display",
+     *     requirements={"identifier": "^([0-9a-z]{32})"},
+     *     methods={"HEAD", "GET"})
      */
     public function display($identifier)
     {
@@ -224,9 +224,9 @@ class ApiController extends AbstractController
      * @throws NotFoundHttpException
      *
      * @Route("/user/api/modify/{identifier}",
-     *    name="user_api_modify",
-     *    requirements={"identifier": "^([0-9a-z]{32})"},
-     *    methods={"HEAD", "PUT"})
+     *     name="user_api_modify",
+     *     requirements={"identifier": "^([0-9a-z]{32})"},
+     *     methods={"HEAD", "PUT"})
      */
     public function modify(Request $request, $identifier)
     {
@@ -257,9 +257,9 @@ class ApiController extends AbstractController
      * @throws NotFoundHttpException
      *
      * @Route("/user/api/delete/{identifier}",
-     *    name="user_api_delete",
-     *    requirements={"identifier": "^([0-9a-z]{32})"},
-     *    methods={"HEAD", "DELETE"})
+     *     name="user_api_delete",
+     *     requirements={"identifier": "^([0-9a-z]{32})"},
+     *     methods={"HEAD", "DELETE"})
      */
     public function delete(Request $request, $identifier)
     {
@@ -289,12 +289,12 @@ class ApiController extends AbstractController
      * @throws NotFoundHttpException
      *
      * @Route("/user/api/add-role/{identifier}/{role}",
-     *    name="user_api_add_role",
-     *    requirements={
-     *        "identifier": "^([0-9a-z]{32})",
-     *        "role": "^([a-zA-Z\_]+)"
-     *    },
-     *    methods={"HEAD", "PUT"})
+     *     name="user_api_add_role",
+     *     requirements={
+     *         "identifier": "^([0-9a-z]{32})",
+     *         "role": "^([a-zA-Z\_]+)"
+     *     },
+     *     methods={"HEAD", "PUT"})
      */
     public function addRole($identifier, $role)
     {
@@ -318,12 +318,12 @@ class ApiController extends AbstractController
      * @throws NotFoundHttpException
      *
      * @Route("/user/api/delete-role/{identifier}/{role}",
-     *    name="user_api_delete_role",
-     *    requirements={
-     *        "identifier": "^([0-9a-z]{32})",
-     *        "role": "^([a-zA-Z\_]+)"
-     *    },
-     *    methods={"HEAD", "PUT"})
+     *     name="user_api_delete_role",
+     *     requirements={
+     *         "identifier": "^([0-9a-z]{32})",
+     *         "role": "^([a-zA-Z\_]+)"
+     *     },
+     *     methods={"HEAD", "PUT"})
      */
     public function deleteRole($identifier, $role)
     {
@@ -347,9 +347,9 @@ class ApiController extends AbstractController
      * @throws NotFoundHttpException
      *
      * @Route("/user/api/modify-roles/{identifier}",
-     *    name="user_api_modify_roles",
-     *    requirements={"identifier": "^([0-9a-z]{32})"},
-     *    methods={"HEAD", "PUT"})
+     *     name="user_api_modify_roles",
+     *     requirements={"identifier": "^([0-9a-z]{32})"},
+     *     methods={"HEAD", "PUT"})
      */
     public function modifyRoles(Request $request, $identifier)
     {
@@ -372,8 +372,8 @@ class ApiController extends AbstractController
      * @throws AccessDeniedException
      *
      * @Route("/user/api/change-password",
-     *    name="user_api_change_password",
-     *    methods={"HEAD", "PUT"})
+     *     name="user_api_change_password",
+     *     methods={"HEAD", "PUT"})
      */
     public function changePassword(Request $request)
     {
@@ -391,8 +391,8 @@ class ApiController extends AbstractController
      * @throws NotFoundHttpException
      *
      * @Route("/user/api/reset-password",
-     *    name="user_api_reset_password",
-     *    methods={"HEAD", "PUT"})
+     *     name="user_api_reset_password",
+     *     methods={"HEAD", "PUT"})
      */
     public function resetPassword(Request $request)
     {
@@ -416,9 +416,9 @@ class ApiController extends AbstractController
      * @throws NotFoundHttpException
      *
      * @Route("/user/api/reset-password-confirm/{token}",
-     *    name="user_api_reset_password_confirm",
-     *    requirements={"token": "^([0-9a-z]{40})"},
-     *    methods={"HEAD", "PUT"})
+     *     name="user_api_reset_password_confirm",
+     *     requirements={"token": "^([0-9a-z]{40})"},
+     *     methods={"HEAD", "PUT"})
      */
     public function resetPasswordConfirm(Request $request, $token)
     {
@@ -439,8 +439,8 @@ class ApiController extends AbstractController
      * @throws AccessDeniedException
      *
      * @Route("/user/api/export",
-     *      name="user_api_export",
-     *      methods={"GET", "HEAD"})
+     *     name="user_api_export",
+     *     methods={"GET", "HEAD"})
      */
     public function export(Request $request)
     {

@@ -65,8 +65,7 @@ trait UserAddressTrait
      * @var string
      *
      * @AssertPhoneNumber
-     * @ORM\Column(type="phone_number")
-     * @ORM\Column(name="phone", type="string", nullable=true)
+     * @ORM\Column(name="phone", type="phone_number", nullable=true)
      */
     private $phone;
 
@@ -75,8 +74,7 @@ trait UserAddressTrait
      * @var string
      *
      * @AssertPhoneNumber
-     * @ORM\Column(type="phone_number")
-     * @ORM\Column(name="fax", type="string", nullable=true)
+     * @ORM\Column(name="fax", type="phone_number", nullable=true)
      */
     private $fax;
 

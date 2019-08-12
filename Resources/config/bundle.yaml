@@ -3,7 +3,7 @@ c975LUser:
         type: string
         required: true
         default: ROLE_ADMIN
-        info: "User's role needed to enable access to data linked to ExceptionCheckerBundle: i.e. ROLE_ADMIN (default)"
+        info: "User's role needed to enable access to data linked to UserBundle: i.e. ROLE_ADMIN (default)"
     signup:
         type: bool
         required: false

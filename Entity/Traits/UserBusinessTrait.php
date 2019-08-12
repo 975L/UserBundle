@@ -111,8 +111,7 @@ trait UserBusinessTrait
      * @var string
      *
      * @AssertPhoneNumber
-     * @ORM\Column(type="phone_number")
-     * @ORM\Column(name="business_phone", type="string", nullable=true)
+     * @ORM\Column(name="business_phone", type="phone_number", nullable=true)
      */
     private $businessPhone;
 
@@ -121,8 +120,7 @@ trait UserBusinessTrait
      * @var string
      *
      * @AssertPhoneNumber
-     * @ORM\Column(type="phone_number")
-     * @ORM\Column(name="business_fax", type="string", nullable=true)
+     * @ORM\Column(name="business_fax", type="phone_number", nullable=true)
      */
     private $businessFax;
 

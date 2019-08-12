@@ -65,9 +65,9 @@ class UserController extends AbstractController
      * @return Redirect
      *
      * @Route("/login",
-     *      methods={"GET", "HEAD"})
+     *     methods={"GET", "HEAD"})
      * @Route("/signin",
-     *      methods={"GET", "HEAD"})
+     *     methods={"GET", "HEAD"})
      */
     public function signinRedirect()
     {
@@ -79,8 +79,9 @@ class UserController extends AbstractController
      * @return Response|JsonResponse
      *
      * @Route("/user/signin",
-     *      name="user_signin",
-     *      methods={"GET", "HEAD", "POST"})
+     *     options={"expose"=true},
+     *     name="user_signin",
+     *     methods={"GET", "HEAD", "POST"})
      */
     public function signin(Request $request, AuthenticationUtils $authUtils)
     {
@@ -126,8 +127,8 @@ class UserController extends AbstractController
      * @throws AccessDeniedException
      *
      * @Route("/user/dashboard",
-     *      name="user_dashboard",
-     *      methods={"GET", "HEAD"})
+     *     name="user_dashboard",
+     *     methods={"GET", "HEAD"})
      */
     public function dashboard(Request $request, UserServiceInterface $userService)
     {
@@ -160,8 +161,8 @@ class UserController extends AbstractController
      * @return Response
      *
      * @Route("/user/check-email",
-     *      name="user_check_email",
-     *      methods={"GET", "HEAD"})
+     *     name="user_check_email",
+     *     methods={"GET", "HEAD"})
      */
     public function checkEmail(Request $request)
     {
@@ -193,8 +194,8 @@ class UserController extends AbstractController
      * @throws AccessDeniedException
      *
      * @Route("/user/config",
-     *      name="user_config",
-     *      methods={"GET", "HEAD", "POST"})
+     *     name="user_config",
+     *     methods={"GET", "HEAD", "POST"})
      */
     public function config(Request $request)
     {
@@ -224,8 +225,8 @@ class UserController extends AbstractController
      * Route to be defined for logout but everything is in \Listener\LogoutListener.php
      *
      * @Route("/user/signout",
-     *      name="user_signout",
-     *      methods={"GET", "HEAD"})
+     *     name="user_signout",
+     *     methods={"GET", "HEAD"})
      */
     public function signout(Request $request)
     {
@@ -238,8 +239,8 @@ class UserController extends AbstractController
      * @throws AccessDeniedException
      *
      * @Route("/user/help",
-     *      name="user_help",
-     *      methods={"GET", "HEAD"})
+     *     name="user_help",
+     *     methods={"GET", "HEAD"})
      */
     public function help()
     {

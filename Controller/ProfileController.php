@@ -68,8 +68,8 @@ class ProfileController extends AbstractController
      * @throws AccessDeniedException
      *
      * @Route("/user/display",
-     *      name="user_display",
-     *      methods={"GET", "HEAD", "POST"})
+     *     name="user_display",
+     *     methods={"GET", "HEAD", "POST"})
      */
     public function display()
     {
@@ -98,8 +98,8 @@ class ProfileController extends AbstractController
      * @throws AccessDeniedException
      *
      * @Route("/user/modify",
-     *      name="user_modify",
-     *      methods={"GET", "HEAD", "POST"})
+     *     name="user_modify",
+     *     methods={"GET", "HEAD", "POST"})
      */
     public function modify(Request $request)
     {
@@ -139,8 +139,8 @@ class ProfileController extends AbstractController
      * @throws AccessDeniedException
      *
      * @Route("/user/delete",
-     *      name="user_delete",
-     *      methods={"GET", "HEAD", "POST"})
+     *     name="user_delete",
+     *     methods={"GET", "HEAD", "POST"})
      */
     public function delete(Request $request)
     {
@@ -179,9 +179,9 @@ class ProfileController extends AbstractController
      * @throws AccessDeniedException
      *
      * @Route("/user/public/{identifier}",
-     *      name="user_public_profile",
-     *      requirements={"identifier": "^([a-z0-9]{32})$"},
-     *      methods={"GET", "HEAD"})
+     *     name="user_public_profile",
+     *     requirements={"identifier": "^([a-z0-9]{32})$"},
+     *     methods={"GET", "HEAD"})
      */
     public function publicProfile($identifier)
     {
@@ -201,9 +201,9 @@ class ProfileController extends AbstractController
      * @throws AccessDeniedException
      *
      * @Route("/user/export/{format}",
-     *      name="user_export",
-     *      requirements={"format": "^(json|xml)$"},
-     *      methods={"GET", "HEAD", "POST"})
+     *     name="user_export",
+     *     requirements={"format": "^(json|xml)$"},
+     *     methods={"GET", "HEAD", "POST"})
      */
     public function export(Request $request, $format)
     {

@@ -77,7 +77,7 @@ class RegistrationController extends AbstractController
      * @return Redirect
      *
      * @Route("/signup",
-     *      methods={"GET", "HEAD", "POST"})
+     *     methods={"GET", "HEAD", "POST"})
      */
     public function registerRedirect()
     {
@@ -90,8 +90,8 @@ class RegistrationController extends AbstractController
      * @throws AccessDeniedException
      *
      * @Route("/user/signup",
-     *      name="user_signup",
-     *      methods={"GET", "HEAD", "POST"})
+     *     name="user_signup",
+     *     methods={"GET", "HEAD", "POST"})
      */
     public function signup(Request $request)
     {
@@ -158,9 +158,9 @@ class RegistrationController extends AbstractController
      * @throws AccessDeniedException
      *
      * @Route("/user/signup/{token}",
-     *      name="user_signup_confirm",
-     *      requirements={"token": "^[a-zA-Z0-9]{40}$"},
-     *      methods={"GET", "HEAD"})
+     *     name="user_signup_confirm",
+     *     requirements={"token": "^[a-zA-Z0-9]{40}$"},
+     *     methods={"GET", "HEAD"})
      */
     public function signupConfirm(Request $request, $token)
     {
