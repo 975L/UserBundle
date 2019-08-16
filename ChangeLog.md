@@ -1,5 +1,9 @@
 # Changelog
 
+v3.2.1
+------
+- Added type for modifyRoles (16/08/2019)
+
 v3.2
 ----
 - Added `options={"expose"=true}` to `user_signin` Route to made it reacheable via javascript (12/08/2019)

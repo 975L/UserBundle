@@ -378,7 +378,7 @@ class UserService implements UserServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function modifyRoles($user, $roles)
+    public function modifyRoles($user, array $roles)
     {
         $roles = json_decode($roles, true);
         if (isset($roles['roles'])) {
