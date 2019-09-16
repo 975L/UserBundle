@@ -193,9 +193,9 @@ trait UserAddressTrait
 
     /**
      * Get phone
-     * @return string
+     * @return object|null
      */
-    public function getPhone(): ?string
+    public function getPhone()
     {
         return $this->phone;
     }
@@ -213,9 +213,9 @@ trait UserAddressTrait
 
     /**
      * Get fax
-     * @return string
+     * @return object|null
      */
-    public function getFax(): ?string
+    public function getFax()
     {
         return $this->fax;
     }

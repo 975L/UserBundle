@@ -319,9 +319,9 @@ trait UserBusinessTrait
 
     /**
      * Get businessPhone
-     * @return string
+     * @return object|null
      */
-    public function getBusinessPhone(): ?string
+    public function getBusinessPhone()
     {
         return $this->businessPhone;
     }
@@ -339,9 +339,9 @@ trait UserBusinessTrait
 
     /**
      * Get businessFax
-     * @return string
+     * @return object|null
      */
-    public function getBusinessFax(): ?string
+    public function getBusinessFax()
     {
         return $this->businessFax;
     }

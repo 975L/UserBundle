@@ -1,5 +1,9 @@
 # Changelog
 
+v3.2.1.1
+--------
+- Corrected type hint for phone/fax that should not return string (16/09/2019)
+
 v3.2.1
 ------
 - Added type for modifyRoles (16/08/2019)
