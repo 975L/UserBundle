@@ -512,12 +512,13 @@ openssl genrsa -out config/jwt/private.pem -aes256 4096;
 openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem;
 ```
 Add those paths to `/config/config_bundles.yaml` or using c975L\ConfigBundle :
-
+```yml
 c975LUser:
     privateKey: 'config/jwt/private.pem'
     publicKey: 'config/jwt/public.pem'
     api: true
     apiOnly: true #If you wish to only use API and not the web forms
+```
 
 Define the JSON end point in your `security.yaml`:
 ```yml

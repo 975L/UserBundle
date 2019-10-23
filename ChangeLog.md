@@ -1,5 +1,9 @@
 # Changelog
 
+v3.2.1.3
+--------
+- Updated README.md (23/10/2019)
+
 v3.2.1.2
 --------
 - Updated README.md (23/10/2019)
