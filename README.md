@@ -118,7 +118,7 @@ It will create a link from folder `Resources/public/` in your web folder.
 
 Overriding Templates
 --------------------
-It is strongly recommended to use the [Override Templates from Third-Party Bundles feature](http://symfony.com/doc/current/templating/overriding.html) to integrate fully with your site.
+It is strongly recommended to use the [Override Templates from Third-Party Bundles feature](https://symfony.com/doc/current/templating/overriding.html) to integrate fully with your site.
 
 For this, simply, create the following structure `/templates/bundles/c975LUserBundle/` in your app and then duplicate the file `layout.html.twig` in it, to override the existing Bundle files, then apply your needed changes.
 
@@ -497,7 +497,7 @@ API Documentation
 =================
 You can also use the API provided in c975LUserBundle with the following:
 
-You have to use `https://github.com/lcobucci/jwt` (openssl extension is required).
+You have to use [https://github.com/lcobucci/jwt](https://github.com/lcobucci/jwt) (openssl extension is required).
 
 Then create your RSA keys:
 ```bash
