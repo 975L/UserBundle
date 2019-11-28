@@ -1,5 +1,9 @@
 # Changelog
 
+v3.2.2
+------
+- Resized images to decrease downloaded size (28/11/2019)
+
 v3.2.1.3
 --------
 - Updated README.md (23/10/2019)
