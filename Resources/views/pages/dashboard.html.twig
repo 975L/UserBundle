@@ -51,15 +51,17 @@
                 <p>
                     {{ toolbar_button_text(path('user_signout'), 'signout') }}
                 </p>
-{# Manage title #}
-                <h3>
-                    {{ 'label.manage'|trans({}, 'toolbar') }}
-                </h3>
-{# User's managment #}
                 {% if is_granted(config('c975LUser.roleNeeded')) %}
+{# Manage title #}
+                    <h3>
+                        {{ 'label.manage'|trans({}, 'toolbar') }}
+                    </h3>
+{# User's managment #}
                     <p>
                         {{ toolbar_button_text(path('user_manage'), 'users') }}
                     </p>
+{# Dashboards #}
+                    {{ toolbar_dashboards('md') }}
                 {% endif %}
             </div>
         </div>

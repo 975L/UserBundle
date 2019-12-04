@@ -1,5 +1,11 @@
 # Changelog
 
+v3.3
+----
+- Moved manage title in dashboard to is_granted admin condition (04/12/2019)
+- Added 975L Dashboards in user's dashboard (04/12/2019)
+- Transformed buttons in user's management in a toolbar (04/12/2019)
+
 v3.2.2
 ------
 - Resized images to decrease downloaded size (28/11/2019)

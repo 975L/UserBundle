@@ -25,16 +25,8 @@
                             {{ user.email }}
                         </td>
                         <td class="text-center">
-{# Display #}
-                            {{ toolbar_button(path('user_manage_display', {'identifier': user.identifier}), 'display', 'sm') }}
-{# Modify #}
-                            {{ toolbar_button(path('user_manage_modify', {'identifier': user.identifier}), 'modify', 'sm') }}
-{# Add Role #}
-                            {{ toolbar_button(path('user_manage_add_role', {'identifier': user.identifier}), 'add_role', 'sm') }}
-{# Delete Role #}
-                            {{ toolbar_button(path('user_manage_delete_role', {'identifier': user.identifier}), 'delete_role', 'sm') }}
-{# Delete #}
-                            {{ toolbar_button(path('user_manage_delete', {'identifier': user.identifier}), 'delete', 'sm') }}
+{# Toolbar #}
+                            {{ toolbar_display('@c975LUser/fragments/usersTools.html.twig', 'userManagment', 'md', user) }}
                         </td>
                     </tr>
                 {% endfor %}

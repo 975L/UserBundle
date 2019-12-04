@@ -1,0 +1,10 @@
+{# Display #}
+{{ toolbar_button(path('user_manage_display', {'identifier': object.identifier}), 'display', 'sm') }}
+{# Modify #}
+{{ toolbar_button(path('user_manage_modify', {'identifier': object.identifier}), 'modify', 'sm') }}
+{# Add Role #}
+{{ toolbar_button(path('user_manage_add_role', {'identifier': object.identifier}), 'add_role', 'sm') }}
+{# Delete Role #}
+{{ toolbar_button(path('user_manage_delete_role', {'identifier': object.identifier}), 'delete_role', 'sm') }}
+{# Delete #}
+{{ toolbar_button(path('user_manage_delete', {'identifier': object.identifier}), 'delete', 'sm') }}
