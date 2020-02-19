@@ -1,5 +1,9 @@
 # Changelog
 
+v3.3.1
+------
+- Removed composer.lock from Git (19/02/2020)
+
 v3.3
 ----
 - Moved manage title in dashboard to is_granted admin condition (04/12/2019)
