@@ -65,8 +65,7 @@ class OAuthUserProvider implements OAuthAwareUserProviderInterface
         EntityManagerInterface $em,
         RequestStack $requestStack,
         UserServiceInterface $userService
-    )
-    {
+    ) {
         $this->configService = $configService;
         $this->dispatcher = $dispatcher;
         $this->em = $em;

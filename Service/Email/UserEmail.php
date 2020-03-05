@@ -100,10 +100,9 @@ class UserEmail implements UserEmailInterface
         } elseif('reset-password-request' === $object) {
             $subject = $this->translator->trans('label.reset_password', array(), 'user');
             $expiryDate = new \DateTime();
-            extract($options);
             $body = $this->environment->render('@c975LUser/emails/resetPasswordRequest.html.twig', array(
                 'url' => $this->router->generate('user_reset_password_confirm', array('token' => $user->getToken()), UrlGeneratorInterface::ABSOLUTE_URL),
-                'date' => $expiryDate->add($delayReset), //Got from Service/Password/UserPassword->resetRequest()
+                'date' => $expiryDate->add($options['delayReset']), //Got from Service/Password/UserPassword->resetRequest()
                 'locale' => $user->getLocale(),
                 'user' => $user,
             ));

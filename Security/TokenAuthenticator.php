@@ -59,19 +59,24 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         ConfigServiceInterface $configService,
         UserPasswordEncoderInterface $passwordEncoder,
         UserServiceInterface $userService
-    )
-    {
+    ) {
         $this->apiService = $apiService;
         $this->configService = $configService;
         $this->passwordEncoder = $passwordEncoder;
         $this->userService = $userService;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function supports(Request $request)
     {
         return $request->headers->has('X-AUTH-TOKEN') || $request->headers->has('Authorization');
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getCredentials(Request $request)
     {
         $token = null !== $request->headers->get('Authorization') && 'Bearer ' === substr($request->headers->get('Authorization'), 0, 7)
@@ -83,6 +88,9 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         );
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         $token = $this->apiService->validateToken($credentials['token']);
@@ -94,16 +102,25 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         return $this->userService->findUserByIdentifier($token->getClaim('sub'));
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function checkCredentials($credentials, UserInterface $user)
     {
         return true;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
         return null;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
         $data = array(
@@ -113,6 +130,9 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         return new JsonResponse($data, Response::HTTP_FORBIDDEN);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function start(Request $request, AuthenticationException $authException = null)
     {
         $data = array(
@@ -122,6 +142,9 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         return new JsonResponse($data, Response::HTTP_UNAUTHORIZED);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function supportsRememberMe()
     {
         return false;

@@ -62,8 +62,7 @@ class RegistrationController extends AbstractController
         ServiceToolsInterface $serviceTools,
         UserFormFactoryInterface $userFormFactory,
         UserServiceInterface $userService
-    )
-    {
+    ) {
         $this->configService = $configService;
         $this->dispatcher = $dispatcher;
         $this->serviceTools = $serviceTools;
@@ -145,10 +144,12 @@ class RegistrationController extends AbstractController
         }
 
         //Renders the signup forms
-        return $this->render('@c975LUser/forms/signup.html.twig', array(
-            'form' => $form->createView(),
-            'touUrl' => $this->serviceTools->getUrl($this->configService->getParameter('c975LUser.touUrl')),
-        ));
+        return $this->render(
+            '@c975LUser/forms/signup.html.twig',
+            array(
+                'form' => $form->createView(),
+                'touUrl' => $this->serviceTools->getUrl($this->configService->getParameter('c975LUser.touUrl')),
+            ));
     }
 
 //SIGN UP CONFIRM (FROM EMAIL LINK)

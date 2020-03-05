@@ -9,12 +9,12 @@
 
 namespace c975L\UserBundle\Listener;
 
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Logout\LogoutHandlerInterface;
-use c975L\UserBundle\Entity\UserLightAbstract;
 
 /**
  * Class to listen to logout event
@@ -35,14 +35,14 @@ class LogoutListener implements LogoutHandlerInterface
     }
 
     /**
-     * Adds data to user entity and persists
+     * {@inheritdoc}
      */
     public function logout(Request $request, Response $response, TokenInterface $token)
     {
         $user = $token->getUser();
         if (method_exists($user, 'setLatestSignout')) {
             //Writes signout time
-            $user->setLatestSignout(new \DateTime());
+            $user->setLatestSignout(new DateTime());
 
             $this->em->persist($user);
             $this->em->flush();

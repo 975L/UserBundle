@@ -56,8 +56,7 @@ class ApiController extends AbstractController
         ConfigServiceInterface $configService,
         EventDispatcherInterface $dispatcher,
         UserServiceInterface $userService
-    )
-    {
+    ) {
         $this->apiService = $apiService;
         $this->configService = $configService;
         $this->dispatcher = $dispatcher;

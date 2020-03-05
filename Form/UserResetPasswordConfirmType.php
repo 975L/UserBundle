@@ -24,6 +24,9 @@ use Symfony\Component\Validator\Constraints\NotBlank;
  */
 class UserResetPasswordConfirmType extends AbstractType
 {
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

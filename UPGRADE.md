@@ -1,7 +1,7 @@
 # UPGRADE
 
-v1.x > v2.x
------------
+## v1.x > v2.x
+
 When upgrading from v1.x to v2.x you should(must) do the following if they apply to your case:
 
 - The parameters entered in `config.yml` are not used anymore as they are managed by c975L/ConfigBundle, so you can delete them.

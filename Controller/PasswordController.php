@@ -49,8 +49,7 @@ class PasswordController extends AbstractController
         UserFormFactoryInterface $userFormFactory,
         UserServiceInterface $userService,
         UserPasswordInterface $userPassword
-    )
-    {
+    ) {
         $this->userFormFactory = $userFormFactory;
         $this->userPassword = $userPassword;
         $this->userService = $userService;
@@ -83,10 +82,12 @@ class PasswordController extends AbstractController
         }
 
         //Renders the changePassword form
-        return $this->render('@c975LUser/forms/changePassword.html.twig', array(
-            'form' => $form->createView(),
-            'user' => $user,
-        ));
+        return $this->render(
+            '@c975LUser/forms/changePassword.html.twig',
+            array(
+                'form' => $form->createView(),
+                'user' => $user,
+            ));
     }
 
 //RESET PASSWORD (REQUEST)
@@ -119,9 +120,11 @@ class PasswordController extends AbstractController
         }
 
         //Renders the resetPassword form
-        return $this->render('@c975LUser/forms/resetPasswordRequest.html.twig', array(
-            'form' => $form->createView(),
-        ));
+        return $this->render(
+            '@c975LUser/forms/resetPasswordRequest.html.twig',
+            array(
+                'form' => $form->createView(),
+            ));
     }
 
 //RESET PASSWORD CONFIRM (FROM EMAIL LINK)
@@ -158,8 +161,10 @@ class PasswordController extends AbstractController
         }
 
         //Renders the resetPasswordConfirm form
-        return $this->render('@c975LUser/forms/resetPasswordConfirm.html.twig', array(
-            'form' => $form->createView(),
-        ));
+        return $this->render(
+            '@c975LUser/forms/resetPasswordConfirm.html.twig',
+            array(
+                'form' => $form->createView(),
+            ));
     }
 }

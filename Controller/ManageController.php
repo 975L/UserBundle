@@ -56,8 +56,7 @@ class ManageController extends AbstractController
         EventDispatcherInterface $dispatcher,
         UserFormFactoryInterface $userFormFactory,
         UserServiceInterface $userService
-    )
-    {
+    ) {
         $this->configService = $configService;
         $this->dispatcher = $dispatcher;
         $this->userFormFactory = $userFormFactory;
@@ -85,10 +84,12 @@ class ManageController extends AbstractController
             $request->query->getInt('p', 1),
             $request->query->getInt('s', 50)
         );
-        return $this->render('@c975LUser/pages/users.html.twig', array(
-            'currentUser' => $user,
-            'users' => $users,
-        ));
+        return $this->render(
+            '@c975LUser/pages/users.html.twig',
+            array(
+                'currentUser' => $user,
+                'users' => $users,
+            ));
     }
 
 //DISPLAY
@@ -103,7 +104,7 @@ class ManageController extends AbstractController
      *     requirements={"identifier": "^([a-z0-9]{32})$"},
      *     methods={"GET", "HEAD"})
      */
-    public function display(Request $request, $identifier)
+    public function display($identifier)
     {
         $user = $this->getUser();
         $this->denyAccessUnlessGranted('c975LUser-manage-display', $user);
@@ -118,10 +119,12 @@ class ManageController extends AbstractController
         $form = $this->userFormFactory->create('display', $managedUser);
 
         //Renders the display form
-        return $this->render('@c975LUser/forms/display.html.twig', array(
-            'form' => $form->createView(),
-            'user' => $managedUser,
-        ));
+        return $this->render(
+            '@c975LUser/forms/display.html.twig',
+            array(
+                'form' => $form->createView(),
+                'user' => $managedUser,
+            ));
     }
 
 //MODIFY
@@ -160,11 +163,13 @@ class ManageController extends AbstractController
         }
 
         //Renders the modify form
-        return $this->render('@c975LUser/forms/modify.html.twig', array(
-            'form' => $form->createView(),
-            'user' => $managedUser,
-            'userBusiness' => $this->configService->getParameter('c975LUser.business'),
-        ));
+        return $this->render(
+            '@c975LUser/forms/modify.html.twig',
+            array(
+                'form' => $form->createView(),
+                'user' => $managedUser,
+                'userBusiness' => $this->configService->getParameter('c975LUser.business'),
+            ));
     }
 
 //ADD ROLE
@@ -202,10 +207,12 @@ class ManageController extends AbstractController
         }
 
         //Renders the addRole form
-        return $this->render('@c975LUser/forms/addRole.html.twig', array(
-            'form' => $form->createView(),
-            'user' => $managedUser,
-        ));
+        return $this->render(
+            '@c975LUser/forms/addRole.html.twig',
+            array(
+                'form' => $form->createView(),
+                'user' => $managedUser,
+            ));
     }
 
 //DELETE ROLE
@@ -243,10 +250,12 @@ class ManageController extends AbstractController
         }
 
         //Renders the deleteRole form
-        return $this->render('@c975LUser/forms/deleteRole.html.twig', array(
-            'form' => $form->createView(),
-            'user' => $managedUser,
-        ));
+        return $this->render(
+            '@c975LUser/forms/deleteRole.html.twig',
+            array(
+                'form' => $form->createView(),
+                'user' => $managedUser,
+            ));
     }
 
 //DELETE
@@ -291,9 +300,11 @@ class ManageController extends AbstractController
         }
 
         //Renders the delete form
-        return $this->render('@c975LUser/forms/delete.html.twig', array(
-            'form' => $form->createView(),
-            'user' => $managedUser,
-        ));
+        return $this->render(
+            '@c975LUser/forms/delete.html.twig',
+            array(
+                'form' => $form->createView(),
+                'user' => $managedUser,
+            ));
     }
 }

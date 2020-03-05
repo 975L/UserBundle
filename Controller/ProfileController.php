@@ -53,8 +53,7 @@ class ProfileController extends AbstractController
         EventDispatcherInterface $dispatcher,
         UserFormFactoryInterface $userFormFactory,
         UserServiceInterface $userService
-    )
-    {
+    ) {
         $this->configService = $configService;
         $this->dispatcher = $dispatcher;
         $this->userFormFactory = $userFormFactory;
@@ -85,10 +84,12 @@ class ProfileController extends AbstractController
         $form = $this->userFormFactory->create('display', $user);
 
         //Renders the profile
-        return $this->render('@c975LUser/forms/display.html.twig', array(
-            'form' => $form->createView(),
-            'user' => $user,
-        ));
+        return $this->render(
+            '@c975LUser/forms/display.html.twig',
+            array(
+                'form' => $form->createView(),
+                'user' => $user,
+            ));
     }
 
 //MODIFY
@@ -125,11 +126,13 @@ class ProfileController extends AbstractController
         }
 
         //Renders the profile
-        return $this->render('@c975LUser/forms/modify.html.twig', array(
-            'form' => $form->createView(),
-            'user' => $user,
-            'userBusiness' => $this->configService->getParameter('c975LUser.business'),
-        ));
+        return $this->render(
+            '@c975LUser/forms/modify.html.twig',
+            array(
+                'form' => $form->createView(),
+                'user' => $user,
+                'userBusiness' => $this->configService->getParameter('c975LUser.business'),
+            ));
     }
 
 //DELETE
@@ -166,10 +169,12 @@ class ProfileController extends AbstractController
         }
 
         //Renders the delete form
-        return $this->render('@c975LUser/forms/delete.html.twig', array(
-            'form' => $form->createView(),
-            'user' => $user,
-        ));
+        return $this->render(
+            '@c975LUser/forms/delete.html.twig',
+            array(
+                'form' => $form->createView(),
+                'user' => $user,
+            ));
     }
 
 //PUBLIC PROFILE
@@ -189,9 +194,11 @@ class ProfileController extends AbstractController
         $this->denyAccessUnlessGranted('c975LUser-public-profile', $user);
 
         //Renders the public profile
-        return $this->render('@c975LUser/pages/publicProfile.html.twig', array(
-            'user' => $user,
-        ));
+        return $this->render(
+            '@c975LUser/pages/publicProfile.html.twig',
+            array(
+                'user' => $user,
+            ));
     }
 
 //EXPORT
@@ -205,7 +212,7 @@ class ProfileController extends AbstractController
      *     requirements={"format": "^(json|xml)$"},
      *     methods={"GET", "HEAD", "POST"})
      */
-    public function export(Request $request, $format)
+    public function export($format)
     {
         $user = $this->getUser();
         $this->denyAccessUnlessGranted('c975LUser-export', $user);

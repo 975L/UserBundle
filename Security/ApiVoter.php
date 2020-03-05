@@ -145,16 +145,14 @@ class ApiVoter extends Voter
         ConfigServiceInterface $configService,
         AccessDecisionManagerInterface $decisionManager,
         RequestStack $requestStack
-    )
-    {
+    ) {
         $this->configService = $configService;
         $this->decisionManager = $decisionManager;
         $this->request = $requestStack->getCurrentRequest();
     }
 
     /**
-     * Checks if attribute and subject are supported
-     * @return bool
+     * {@inheritdoc}
      */
     protected function supports($attribute, $subject)
     {
@@ -169,9 +167,7 @@ class ApiVoter extends Voter
     }
 
     /**
-     * Votes if access is granted
-     * @return bool
-     * @throws \LogicException
+     * {@inheritdoc}
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {

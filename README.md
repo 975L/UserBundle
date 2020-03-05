@@ -1,5 +1,4 @@
-UserBundle
-==========
+# UserBundle
 
 Directly inspired from [FOSUserBundle](https://github.com/FriendsOfSymfony/FOSUserBundle), and migration of [c975L/UserFilesBundle](https://github.com/975L/UserFilesBundle/tree/master), UserBundle does the following:
 
@@ -32,20 +31,21 @@ Directly inspired from [FOSUserBundle](https://github.com/FriendsOfSymfony/FOSUs
 
 [UserBundle API documentation](https://975l.com/apidoc/c975L/UserBundle.html).
 
-Bundle installation
-===================
+## Bundle installation
 
-Step 1: Download the Bundle
----------------------------
-**v3.x works with Symfony 4.x. Use v2.x for Symfony 3.x**
+### Step 1: Download the Bundle
+
+v3.x works with Symfony 4.x. **Use v2.x for Symfony 3.x**
 Use [Composer](https://getcomposer.org) to install the library
+
 ```bash
     composer require c975l/user-bundle
 ```
 
-Step 2: Configure the Bundle
-----------------------------
+### Step 2: Configure the Bundle
+
 Check dependencies for their configuration:
+
 - [Symfony Mailer](https://github.com/symfony/mailer)
 - [Doctrine](https://github.com/doctrine/DoctrineBundle)
 - [c975LEmailBundle](https://github.com/975L/EmailBundle)
@@ -88,12 +88,12 @@ security:
                 handlers: [c975L\UserBundle\Listener\LogoutListener]
 ```
 
-Step 3: Create MySql table
---------------------------
+### Step 3: Create MySql table
+
 Use `/Resources/sql/user.sql` to create the tables `user` and `user_archives`. The `DROP TABLE` are commented to avoid dropping by mistake. It will also create a stored procedure `sp_UserArchive()`.
 
-Step 4: Enable the Routes
--------------------------
+### Step 4: Enable the Routes
+
 Then, enable the routes by adding them to the `/config/routes.yaml` file of your project:
 
 ```yml
@@ -108,30 +108,34 @@ c975_l_user:
     #    _locale: en|fr|es
 ```
 
-Step 5: install assets to web folder
-------------------------------------
+### Step 5: install assets to web folder
+
 Install assets by running
+
 ```bash
 php bin/console assets:install --symlink
 ```
+
 It will create a link from folder `Resources/public/` in your web folder.
 
-Overriding Templates
---------------------
+### Overriding Templates
+
 It is strongly recommended to use the [Override Templates from Third-Party Bundles feature](https://symfony.com/doc/current/templating/overriding.html) to integrate fully with your site.
 
 For this, simply, create the following structure `/templates/bundles/c975LUserBundle/` in your app and then duplicate the file `layout.html.twig` in it, to override the existing Bundle files, then apply your needed changes.
 
 You can also override:
+
 - `/templates/bundles/c975LUserBundle/fragments/deleteAccountInfo.html.twig` that will list the implications, by deleting account, for user, displayed in the delete account page.
 - `/templates/bundles/c975LUserBundle/fragments/dashboardActions.html.twig` to add your own actions (or whatever) in the dashboard i.e.
 - `/templates/bundles/c975LUserBundle/fragments/avatar.html.twig` to modify the display of avatar (26/03/2018)
 
 You can add a navbar menu via `{% include('@c975LUser/fragments/navbarMenu.html.twig') %}`. You can override it, if needed, or simply override `/templates/bundles/c975LUserBundle/fragments/navbarMenuActions.html.twig` to add actions above it.
 
-Routes
-------
+### Routes
+
 The Routes availables are:
+
 - user_signup
 - user_signup_confirm
 - user_signin
@@ -147,8 +151,8 @@ The Routes availables are:
 - user_delete
 - user_public_profile
 
-Entities
---------
+### Entities
+
 You must choose an entity linked to your needs and specify it in the `/config/packages/security.yml`. Available entities are the following:
 
 - `c975L/UserBundle/Entity/UserLight`: light user with minimum requirements
@@ -161,6 +165,7 @@ You must choose an entity linked to your needs and specify it in the `/config/pa
 To help you choose, the fields are the following:
 
 LIGHT
+
 - id
 - allow_use
 - identifier
@@ -174,6 +179,7 @@ LIGHT
 - roles
 
 DEFAULT
+
 - gender
 - firstname
 - lastname
@@ -183,6 +189,7 @@ DEFAULT
 - locale
 
 ADDRESS
+
 - address
 - address2
 - postal
@@ -192,6 +199,7 @@ ADDRESS
 - fax
 
 BUSINESS
+
 - business_type
 - business_name
 - business_address
@@ -205,12 +213,14 @@ BUSINESS
 - business_fax
 
 SOCIAL
+
 - social_network
 - social_id
 - social_token
 - social_picture
 
 You can also create your own Class by extending one of the Abstract classes with the following code:
+
 ```php
 <?php
 //Your Entity file i.e. src/App/Entity/User.php
@@ -224,9 +234,10 @@ class User extends UserAbstract
 }
 ```
 
-Extending Forms
----------------
+### Extending Forms
+
 You can extend `UserSignupType` and `UserProfileType`. To extend them, to include new properties or features, simply use the following code:
+
 ```php
 <?php
 //Your own form i.e. src/App/Form/UserProfileType
@@ -258,6 +269,7 @@ class UserProfileType extends BaseProfileType
 ```
 
 Then you have to add it as a service in your `app/config/services.yml`:
+
 ```yml
 services:
     _defaults:
@@ -269,14 +281,15 @@ services:
 ```
 
 And finally, you have to set it in your `app/config/config.yml`
+
 ```yml
 c975_l_user:
     signupForm: 'App\Form\UserSignupType'
     profileForm: 'App\Form\UserProfileType'
 ```
 
-Events
-------
+### Events
+
 Multiples events are fired to help you fit your needs, they are all defined in `Event\UserEvent.php`. For example if you need to perform taks before deleting a user, you can create a Listener like this:
 
 ```php
@@ -312,9 +325,10 @@ class UserDeleteListener implements EventSubscriberInterface
 }
 ```
 
-Service
--------
+### Service
+
 You can inject `c975L\UserBundle\Service\UserServiceInterface` to access its methods. For example you can retrieve a user with its id, email, socialId, ...
+
 ```php
 //Within a controller
 use c975L\UserBundle\Service\UserServiceInterface;
@@ -336,60 +350,68 @@ use c975L\UserBundle\Service\UserServiceInterface;
 
 ```
 
-Sign in/Sign out link
----------------------
+### Sign in/Sign out link
+
 If you want to insert a link to sign in/sign out, i.e. in the footer, you can do it via this code:
-```
+
+```twig
 {# Sign in/Sign out #}
 <p class="text-center">
     {% include '@c975LUser/fragments/signinSignout.html.twig' %}
 </p>
 ```
 
-User Div data for javascript use
---------------------------------
+### User Div data for javascript use
+
 If you want to insert a div containing the user's data, to be used by javascript, you can do it via the Twig extension:
-```
+
+```twig
 {# User DivData #}
 {{ user_divData() }}
 ```
 
 Then you can access it via
+
 ```javascript
 $(document).ready(function() {
     var firstname = $('#user').data('firstname');
 });
 ```
+
 Have a look at it to see the properties covered.
 
-Custom redirect after sign in
------------------------------
+### Custom redirect after sign in
+
 If you want to redirect to a specific page you can use [Request Parameters](https://symfony.com/doc/current/security/form_login.html#control-the-redirect-using-request-parameters) with the following code:
+
 ```php
 //In a Controller file
 return $this->redirectToRoute('user_signin', array('_target_path' => 'THE_ABSOLUTE_OR_RELATIVE_URL_TO_REDIRECT_TO'));
 ```
 
-User's avatar
--------------
+### User's avatar
+
 You can display the avatar linked to user's account (if enabled in config.yml) by calling the Twig extension where you want to place it:
+
 ```twig
 {{ user_avatar() }}
 {# Or with specifying its size, 128 by default #}
 {{ user_avatar(64) }}
 ```
 
-Twig extension
---------------
+### Twig extension
+
 You can use Twig extensions to format VAT and Siret numbers.
-```
+
+```twig
 {{ 'YOUR_VAT_NUMBER'|user_vat }}
 {{ 'YOUR_SIRET_NUMBER'|user_siret }}
 ```
 
-Using HwiOauth (Social network sign in)
-=======================================
+## Using HwiOauth (Social network sign in)
+
 On the sign in form you can add links to sign in/sign up with social networks via [HWIOAuthBundle](https://github.com/hwi/HWIOAuthBundle). If you want to this feature, simply add in your `/config/config_bundles.yaml` or using c975L\ConfigBundle and clear the cache, the following:
+
 ```yml
 c975LUser:
     hwiOauth: ['facebook', 'google', 'live']
@@ -397,13 +419,15 @@ c975LUser:
 ```
 
 And in your `/config/services.yaml`, the following:
+
 ```yml
 services:
     c975L\UserBundle\Security\OAuthUserProvider:
         public: true
 ```
 
-**c975L/UserBundle doesn't implement the connection with social networks but provides a bridge with HWIOAuthBundle, to display buttons on the sign in page and to store users in the DB. You have to configure HWIOAuthBundle by your own.** This will mainly consist in setting differents informations in config files. As an example, they are listed below, for Facebook, but other networks will work in the same way:
+c975L/UserBundle doesn't implement the connection with social networks but provides a bridge with HWIOAuthBundle. **To display buttons on the sign in page and to store users in the DB, you have to configure HWIOAuthBundle by your own.** This will mainly consist in setting differents informations in config files. As an example, they are listed below, for Facebook, but other networks will work in the same way:
+
 ```yml
 #routes.yaml
 hwi_oauth_redirect:
@@ -436,6 +460,7 @@ parameters:
 ```
 
 You will have to declare the account_connector `c975L\UserBundle\Security\OAuthUserProvider`
+
 ```yml
 #config.yml
 hwi_oauth:
@@ -455,6 +480,7 @@ hwi_oauth:
 ```
 
 You will have to declare the oauth_user_provider `c975L\UserBundle\Security\OAuthUserProvider`
+
 ```yml
 #security.yml
 security:
@@ -472,8 +498,8 @@ security:
                     service: c975L\UserBundle\Security\OAuthUserProvider
 ```
 
-Social networks images
-----------------------
+### Social networks images
+
 c975L/UserBundle provides images for some of the social networks, they were linked in your web folder when you have installed the assets (see above). If the network you want to use has not an image yet, you can use the file `Resources/SocialNetwork/signin.svg`` to build one and make a PR to add it to the bundle :-).
 
 You can also override  `Resources/views/fragments/socialNetworkImage.html.twig` with your own pictures set or to change the styles used.
@@ -482,24 +508,26 @@ As a "Bonus" if a user has signed up with its email address and then use a socia
 
 Signing up with another social network, after having already signed up with a different one, will replace the current one by the new one.
 
-Migration from FOSUserBundle
-============================
+## Migration from FOSUserBundle
+
 If you want to migrate from FOSUserBundle, you have to do the following:
 
 Remove from composer
+
 ```bash
 composer remove friendsofsymfony/user-bundle
 ```
 
 Migrate your database table, by using `Resources\sql\MigrateFosUser.sql`. It will create a `user_migrate` table, will modify all the needed fields, will add missing ones, then, when you are ready, you can rename your FOSUSerBundle table to `user_fosuserbundle` (or whatever you want) and rename the `user_migrate` one to `user`. **Fields `username` and `groups` are kept but not used, so you can delete them if you don't use them.**
 
-API Documentation
-=================
+## API Documentation
+
 You can also use the API provided in c975LUserBundle with the following:
 
 You have to use [https://github.com/lcobucci/jwt](https://github.com/lcobucci/jwt) (openssl extension is required).
 
 Then create your RSA keys:
+
 ```bash
 cd <your_root_project_dir>;
 mkdir -p config/jwt;
@@ -511,7 +539,9 @@ openssl genrsa -out config/jwt/private.pem -aes256 4096;
 #rm config/jwt/private.pem-back;
 openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem;
 ```
+
 Add those paths to `/config/config_bundles.yaml` or using c975L\ConfigBundle :
+
 ```yml
 c975LUser:
     privateKey: 'config/jwt/private.pem'
@@ -521,6 +551,7 @@ c975LUser:
 ```
 
 Define the JSON end point in your `security.yaml`:
+
 ```yml
 security:
     firewalls:
@@ -537,56 +568,56 @@ Then you can use the different Routes :
 
 Except for `user_api_create` and `user_api_authenticate` you need to send the JWT (obtained via `user_api_authenticate`) in the header `Authorization: Bearer <token>` (recommended) or in the header `X-AUTH-TOKEN: <token>` for all the API Routes requests.
 
-`/user/api/create`
-------------------
+### `/user/api/create`
+
 `methods={"HEAD", "POST"}`. To create the user, call the Route, in a `POST` request, `user_api_create` with the form-data fields needed by the User entity chosen (see above). Fields `email` and `plainPassword` are mandatory any other will be added to the Entity if the Method exists. You also need to add a field `apiKey` which consists of `sha1($email . apiPassword)`, `apiPassword` is defined in the `user_config` Route. It is also recommended to define CORS access.
 
-`/user/api/authenticate`
-------------------------
+### `/user/api/authenticate`
+
 `methods={"HEAD", "POST"}`. To authenticate, call the Route `user_api_authenticate` with the JSON body `{"username": "<email>", "password": "<password>"}` in a `POST` request, with the header `Content-Type: application/json`, you will receive a token. You can fix the expiration time of the JWT by adding `"expiration": <delay_inseconds>` to the json data sent.
 
-`/user/api/display/{identifier}`
---------------------------------
+### `/user/api/display/{identifier}`
+
 `methods={"HEAD", "GET"}`, `{identifier} -> [0-9a-z]{32}`. To display the user, call the Route `user_api_display`, in a `GET` request, with the `identifier` of the user. The user defined in JWT must have sufficients rights, as configured in `user_config` Route or be the user itself.
 
-`/user/api/list[?page=1&size=50]`
----------------------------------
+### `/user/api/list[?page=1&size=50]`
+
 `methods={"HEAD", "GET"}`. To list the users, call the Route `user_api_list` in a `GET` request. You can use the query parameters `page` (default 1) to define which page and `size` (default 50) to define the number of records to display. The user defined in JWT must have sufficients rights, as configured in `user_config` Route.
 
-`/user/api/search/{term}[?page=1&size=50]`
-------------------------------------------
+### `/user/api/search/{term}[?page=1&size=50]`
+
 `methods={"HEAD", "GET"}`, `{term} -> [0-9a-zA-Z]+`. To search within the users, call the Route `user_api_search`, in a `GET` request, with the `term` searched that will be matched as `%term%` with the email field of the User entity. You can use the query parameters `page` (default 1) to define which page and `size` (default 50) to define the number of records to display. The user defined in JWT must have sufficients rights, as configured in `user_config` Route.
 
-`/user/api/modify/{identifier}`
--------------------------------
+### `/user/api/modify/{identifier}`
+
 `methods={"HEAD", "PUT"}`, `{identifier} -> [0-9a-z]{32}`. To modify the user, call the Route `user_api_modify` in a `PUT` request, with the `identifier` of the user and the data fields in the body of the request i.e. `{"email": "mail@example.com"}` needed by the User entity chosen (see above). The user defined in JWT must have sufficients rights, as configured in `user_config` Route or be the user itself.
 
-`/user/api/delete/{identifier}`
--------------------------------
+### `/user/api/delete/{identifier}`
+
 `methods={"HEAD", "DELETE"}`, `{identifier} -> [0-9a-z]{32}`. To delete the user, call the Route `user_api_delete` in a `DELETE` request, with the `identifier` of the user. the user will be archived if you have defined it in the Config parameters. The user defined in JWT must have sufficients rights, as configured in `user_config` Route or be the user itself.
 
-`/user/api/add-role/{identifier}/{role}`
-----------------------------------------
+### `/user/api/add-role/{identifier}/{role}`
+
 `methods={"HEAD", "PUT"}`, `{identifier} -> [0-9a-z]{32}`, `{role} -> [a-zA-Z\_]+`. To add a Role to the user, call the Route `user_api_add_role` in a `PUT` request, with the `identifier` of the user and the `role` you want to assign. The user defined in JWT must have sufficients rights, as configured in `user_config` Route.
 
-`/user/api/delete-role/{identifier}/{role}`
--------------------------------------------
+### `/user/api/delete-role/{identifier}/{role}`
+
 `methods={"HEAD", "PUT"}`, `{identifier} -> [0-9a-z]{32}`, `{role} -> [a-zA-Z\_]+`. To delete a Role of the user, call the Route `user_api_delete_role` in a `PUT` request, with the `identifier` of the user and the `role` you want to delete. The user defined in JWT must have sufficients rights, as configured in `user_config` Route.
 
-`/user/api/modify-roles/{identifier}`
--------------------------------------
+### `/user/api/modify-roles/{identifier}`
+
 `methods={"HEAD", "PUT"}`, `{identifier} -> [0-9a-z]{32}`. To modify the Roles of the user, call the Route `user_api_modify_roles` in a `PUT` request, with the `identifier` of the user and an array of roles in the body of the request i.e. `{"roles": ["ROLE_ADMIN", "ROLE_USER"]}`. The user defined in JWT must have sufficients rights, as configured in `user_config` Route.
 
-`/user/api/change-password`
----------------------------
+### `/user/api/change-password`
+
 `methods={"HEAD", "PUT"}`. To change the password of a defined user, call the Route `user_api_change_password` in a `PUT` request with the data field `plainPassword` in the body of the request i.e. `{"plainPassword": "BrandNewPass*$1"}`. Only the user defined in JWT can change its password.
 
-`/user/api/reset-password` & `/user/api/reset-password-confirm`
----------------------------------------------------------------
+### `/user/api/reset-password` & `/user/api/reset-password-confirm`
+
 `methods={"HEAD", "PUT"}`. To reset the password of a defined user, call the Route `user_api_reset_password` in a `PUT` request with an array with the field `email` in the body of the request i.e. `{"email": "email@example.com"}`, you will receive a token and its validity time (2 hours later). **Then**, to confirm (and change) the password, you have to call the route `user_api_reset_password_confirm` with `/user/api/reset-password-confirm/{token}` with the data field `plainPassword` in the body of the request i.e. `{"plainPassword": "BrandNewPass*$1"}`.
 
-`/user/api/export`
-------------------
+### `/user/api/export`
+
 `methods={"HEAD", "GET"}`. To export user's data, call the Route `user_api_export` in a `GET` request. Only the user defined in JWT can access its data. If you wish to add data you can listen to `UserEvent::API_USER_EXPORT` and update the user or you can export your own foramtted data by using the following in an EventListener:
 
 ```php
@@ -622,4 +653,4 @@ class UserListener implements EventSubscriberInterface
 }
 ```
 
-**If this project help you to reduce time to develop, you can [buy me a coffee](https://www.buymeacoffee.com/LaurentMarquet) :)**
+If this project **help you to reduce time to develop**, you can sponsor me via the "Sponsor" button at the top :)

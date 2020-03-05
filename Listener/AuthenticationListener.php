@@ -13,12 +13,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Security\Core\AuthenticationEvents;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
-use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
-use c975L\UserBundle\Entity\UserLightAbstract;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -50,8 +46,7 @@ class AuthenticationListener implements EventSubscriberInterface
         EntityManagerInterface $em,
         RequestStack $requestStack,
         TokenStorageInterface $tokenStorage
-    )
-    {
+    ) {
         $this->em = $em;
         $this->request = $requestStack->getCurrentRequest();
         $this->tokenStorage = $tokenStorage;
@@ -70,7 +65,7 @@ class AuthenticationListener implements EventSubscriberInterface
     /**
      * Adds data to user entity and persists
      */
-    public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
+    public function onSecurityInteractiveLogin()
     {
         $user = $this->tokenStorage->getToken()->getUser();
         if ($user instanceof UserInterface) {

@@ -52,8 +52,7 @@ class UserController extends AbstractController
         ConfigServiceInterface $configService,
         EventDispatcherInterface $dispatcher,
         UserServiceInterface $userService
-    )
-    {
+    ) {
         $this->configService = $configService;
         $this->dispatcher = $dispatcher;
         $this->userService = $userService;
@@ -103,21 +102,27 @@ class UserController extends AbstractController
 
         //Adds signin attempt
         $error = '';
+        $attempts = array(
+            'attempt' => null,
+            'disabledSubmit' => null,
+        );
         if (!$event->isPropagationStopped()) {
             $error = $authUtils->getLastAuthenticationError();
-            extract($this->userService->addAttempt($error));
+            $attempts = $this->userService->addAttempt($error);
         }
 
         //Returns the signin form
-        return $this->render('@c975LUser/forms/signin.html.twig', array(
-            'error' => $error,
-            'attempt' => $attempt, //got from $this->userService->addAttempt()
-            'disabledSubmit' => $disabledSubmit, //got from $this->userService->addAttempt()
-            'site' => $this->configService->getParameter('c975LCommon.site'),
-            'signup' => $this->configService->getParameter('c975LUser.signup'),
-            'hwiOauth' => $this->configService->getParameter('c975LUser.hwiOauth'),
-            'targetPath' => $request->query->get('_target_path'),
-        ));
+        return $this->render(
+            '@c975LUser/forms/signin.html.twig',
+            array(
+                'error' => $error,
+                'attempt' => $attempts['attempt'],
+                'disabledSubmit' => $attempts['disabledSubmit'],
+                'site' => $this->configService->getParameter('c975LCommon.site'),
+                'signup' => $this->configService->getParameter('c975LUser.signup'),
+                'hwiOauth' => $this->configService->getParameter('c975LUser.hwiOauth'),
+                'targetPath' => $request->query->get('_target_path'),
+            ));
     }
 
 //DASHBOARD
@@ -149,10 +154,12 @@ class UserController extends AbstractController
         }
 
         //Renders the dashboard
-        return $this->render('@c975LUser/pages/dashboard.html.twig', array(
-            'user' => $user,
-            'publicProfile' => $this->configService->getParameter('c975LUser.publicProfile'),
-        ));
+        return $this->render(
+            '@c975LUser/pages/dashboard.html.twig',
+            array(
+                'user' => $user,
+                'publicProfile' => $this->configService->getParameter('c975LUser.publicProfile'),
+            ));
     }
 
 //CHECK EMAIL
@@ -177,10 +184,12 @@ class UserController extends AbstractController
             $session->remove('checkEmailUserAction');
 
             //Renders the page to check email
-            return $this->render('@c975LUser/pages/checkEmail.html.twig', array(
-                'email' => $email,
-                'action' => $action,
-            ));
+            return $this->render(
+                '@c975LUser/pages/checkEmail.html.twig',
+                array(
+                    'email' => $email,
+                    'action' => $action,
+                ));
         }
 
         //Not valid check email call
@@ -214,10 +223,12 @@ class UserController extends AbstractController
         }
 
         //Renders the config form
-        return $this->render('@c975LConfig/forms/config.html.twig', array(
-            'form' => $form->createView(),
-            'toolbar' => '@c975LUser',
-        ));
+        return $this->render(
+            '@c975LConfig/forms/config.html.twig',
+            array(
+                'form' => $form->createView(),
+                'toolbar' => '@c975LUser',
+            ));
     }
 
 //SIGN OUT
@@ -228,7 +239,7 @@ class UserController extends AbstractController
      *     name="user_signout",
      *     methods={"GET", "HEAD"})
      */
-    public function signout(Request $request)
+    public function signout()
     {
     }
 

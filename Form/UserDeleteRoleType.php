@@ -22,6 +22,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class UserDeleteRoleType extends AbstractType
 {
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $roles = $options['config']['user']->getRoles();

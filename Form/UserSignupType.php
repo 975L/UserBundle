@@ -32,6 +32,9 @@ class UserSignupType extends AbstractType
      */
     private $session;
 
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $this->session = $options['config']['session'];
@@ -99,7 +102,7 @@ class UserSignupType extends AbstractType
     public function challenge()
     {
         //Defines challenge if not already in session
-        if ($this->session->get('challenge') === null) {
+        if (null === $this->session->get('challenge')) {
             // Defines variables
             $charactersSet = array('letters', 'numbers');
             $characterSet = $charactersSet[mt_rand(0, 1)];
@@ -108,7 +111,7 @@ class UserSignupType extends AbstractType
             $sign = $operation === 'subtraction' ? ' - ' : ' + ';
 
             //Builds the challenge
-            $arrayChallenge = $characterSet === 'numbers' ? $this->challengeNumbers($operation) : $this->challengeLetters($operation);
+            $arrayChallenge = 'numbers' === $characterSet ? $this->challengeNumbers($operation) : $this->challengeLetters($operation);
             list(
                 $symbolsA,
                 $symbolsB,
@@ -116,11 +119,11 @@ class UserSignupType extends AbstractType
             ) = $arrayChallenge;
 
             // Replace a character (must be second or result in case of subtraction of letters, otherwise it's impossible to guess)
-            $character = $characterSet === 'letters' && $operation === 'subtraction' ? mt_rand(2, 3) : mt_rand(1, 3);
-            if ($character === 1) {
+            $character = 'letters' === $characterSet && 'subtraction' === $operation ? mt_rand(2, 3) : mt_rand(1, 3);
+            if (1 === $character) {
                 $challenge = '?' . $sign . $symbolsB .' = ' . $resultOperation;
                 $result = $symbolsA;
-            } elseif ($character === 2) {
+            } elseif (2 === $character) {
                 $challenge = $symbolsA . $sign . '?' .' = ' . $resultOperation;
                 $result = $symbolsB;
             } else {
@@ -144,7 +147,7 @@ class UserSignupType extends AbstractType
      */
     public function challengeLetters($operation)
     {
-        if ($operation === 'subtraction') {
+        if ('subtraction' === $operation) {
             $letter1 = chr(mt_rand(65, 71));
             $letter2 = chr(mt_rand(72, 77));
             $letter3 = chr(mt_rand(78, 83));
@@ -152,11 +155,11 @@ class UserSignupType extends AbstractType
             $symbolsA = $letter4 . $letter2 . $letter3 . $letter1;
             $symbolsB = mt_rand(1, 4);
 
-            if ($symbolsB === 1) {
+            if (1 === $symbolsB) {
                 $symbolsB = $letter4;
-            } elseif ($symbolsB === 2) {
+            } elseif (2 === $symbolsB) {
                 $symbolsB = $letter2;
-            } elseif ($symbolsB === 3) {
+            } elseif (3 === $symbolsB) {
                 $symbolsB = $letter3;
             } else {
                 $symbolsB = $letter1;
@@ -184,7 +187,7 @@ class UserSignupType extends AbstractType
      */
     public function challengeNumbers($operation)
     {
-        if ($operation === 'subtraction') {
+        if ('subtraction' === $operation) {
             $symbolsA = mt_rand(50, 100);
             $symbolsB = mt_rand(1, 50);
 
