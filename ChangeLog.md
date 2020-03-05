@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.4.1.2
+
+- Added missing minified version of business.js (05/03/2020)
+
 ## v3.4.1.1
 
 - Cosmetic changes due to Codacy review (2) (05/03/2020)
