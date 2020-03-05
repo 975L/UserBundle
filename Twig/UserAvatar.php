@@ -73,17 +73,9 @@ class UserAvatar extends AbstractExtension
             $user = $this->tokenStorage->getToken()->getUser();
         }
 
-        //Uses social network picture
-        if ($this->configService->getParameter('c975LUser.social') && null !== $user->getSocialPicture()) {
-            $avatar = $user->getSocialPicture();
-        //Uses Gravatar
-        } else {
-            $avatar = $user->getAvatar();
-        }
-
         //Returns avatar
         return $environment->render('@c975LUser/fragments/avatar.html.twig', array(
-            'avatar' => $avatar,
+            'avatar' => $this->configService->getParameter('c975LUser.social') && null !== $user->getSocialPicture() ? $user->getSocialPicture() : $user->getAvatar(),
             'size' => $size,
         ));
     }

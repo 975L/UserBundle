@@ -34,11 +34,11 @@ class SiretValidator extends ConstraintValidator
         } elseif (!empty($siret)) {
             $sum = 0;
             for ($i = 0; $i < 14; $i++) {
-                if ($i % 2 == 0) {
+                if ($i % 2 === 0) {
                     $tmp = $siret[$i] * 2;
                     $tmp = $tmp > 9 ? $tmp - 9 : $tmp;
                 } else {
-                    $tmp= $siret[$i];
+                    $tmp = $siret[$i];
                 }
                 $sum += $tmp;
             }

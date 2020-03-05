@@ -232,11 +232,7 @@ trait UserLightTrait
         }
 
         if (!in_array($role, $this->getRoles(), true)) {
-            if (null === $this->roles) {
-                $this->roles = trim($role);
-            } else {
-                $this->roles .= ',' . trim($role);
-            }
+            $this->roles = null === $this->roles ? trim($role) : $this->roles . ',' . trim($role);
         }
 
         $this->setRoles(explode(',', $this->roles));
@@ -254,7 +250,7 @@ trait UserLightTrait
             $role = 'ROLE_' . $role;
         }
 
-        if ($role === static::ROLE_DEFAULT) {
+        if (static::ROLE_DEFAULT === $role) {
             return $this;
         }
 

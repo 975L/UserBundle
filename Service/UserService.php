@@ -9,13 +9,11 @@
 
 namespace c975L\UserBundle\Service;
 
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Exception\DisabledException;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
@@ -59,12 +57,6 @@ class UserService implements UserServiceInterface
     private $request;
 
     /**
-     * Stores RouterInterface
-     * @var RouterInterface
-     */
-    private $router;
-
-    /**
      * Stores UserEmailInterface
      * @var UserEmailInterface
      */
@@ -81,16 +73,13 @@ class UserService implements UserServiceInterface
         EntityManagerInterface $em,
         UserPasswordEncoderInterface $passwordEncoder,
         RequestStack $requestStack,
-        RouterInterface $router,
         ServiceToolsInterface $serviceTools,
         UserEmailInterface $userEmail
-    )
-    {
+    ) {
         $this->configService = $configService;
         $this->em = $em;
         $this->passwordEncoder = $passwordEncoder;
         $this->request = $requestStack->getCurrentRequest();
-        $this->router = $router;
         $this->serviceTools = $serviceTools;
         $this->userEmail = $userEmail;
     }
@@ -103,7 +92,7 @@ class UserService implements UserServiceInterface
         //UserLight Entity
         $user
             ->setIdentifier(md5($user->getEmail() . uniqid(time())))
-            ->setCreation(new \DateTime())
+            ->setCreation(new DateTime())
             ->setEnabled(false)
             ->setPassword($this->passwordEncoder->encodePassword($user, $user->getPlainPassword()))
             ->setPlainPassword(null)
@@ -148,7 +137,7 @@ class UserService implements UserServiceInterface
                 }
 
                 //Disables submit button
-                if (new \DateTime() < $session->get('userSigninNewAttemptTime')) {
+                if (new DateTime() < $session->get('userSigninNewAttemptTime')) {
                     $disabledSubmit = 'disabled="disabled"';
                 //Enables submit button if delay is finished
                 } else {
