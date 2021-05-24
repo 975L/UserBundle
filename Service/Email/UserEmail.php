@@ -84,17 +84,20 @@ class UserEmail implements UserEmailInterface
      */
     public function send($object, $user, $options = array())
     {
+        //Defines locale
+        $locale = null === $user->getLocale() ? 'en' : $user->getLocale();
+
         //Change (or reset) password confirm
         if('change-password-confirm' === $object) {
             $subject = $this->translator->trans('label.change_password', array(), 'user');
             $body = $this->environment->render('@c975LUser/emails/changedPassword.html.twig', array(
-                'locale' => $user->getLocale(),
+                'locale' => $locale,
             ));
         //Delete account
         } elseif ('delete' === $object) {
             $subject = $this->translator->trans('label.delete_account', array(), 'user');
             $body = $this->environment->render('@c975LUser/emails/delete.html.twig', array(
-                'locale' => $user->getLocale(),
+                'locale' => $locale,
             ));
         //Reset password request
         } elseif('reset-password-request' === $object) {
@@ -103,7 +106,7 @@ class UserEmail implements UserEmailInterface
             $body = $this->environment->render('@c975LUser/emails/resetPasswordRequest.html.twig', array(
                 'url' => $this->router->generate('user_reset_password_confirm', array('token' => $user->getToken()), UrlGeneratorInterface::ABSOLUTE_URL),
                 'date' => $expiryDate->add($options['delayReset']), //Got from Service/Password/UserPassword->resetRequest()
-                'locale' => $user->getLocale(),
+                'locale' => $locale,
                 'user' => $user,
             ));
         //Signup
@@ -111,7 +114,7 @@ class UserEmail implements UserEmailInterface
             $subject = $this->translator->trans('label.signup_email', array(), 'user');
             $body = $this->environment->render('@c975LUser/emails/signup.html.twig', array(
                 'url' => $this->router->generate('user_signup_confirm', array('token' => $user->getToken()), UrlGeneratorInterface::ABSOLUTE_URL),
-                'locale' => $user->getLocale(),
+                'locale' => $locale,
                 'user' => $user,
             ));
         }
