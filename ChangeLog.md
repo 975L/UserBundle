@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.4.2.1
+
+- Corrected missing "?" to allow null latest sign out datetime (24/05/2021)
+
 ## v3.4.2
 
 - Added default "en" for locale when sending email (24/05/2021)

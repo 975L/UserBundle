@@ -211,7 +211,7 @@ trait UserDefaultTrait
      * Get latestSignout
      * @return DateTime
      */
-    public function getLatestSignout(): DateTimeInterface
+    public function getLatestSignout(): ?DateTimeInterface
     {
         return $this->latestSignout;
     }
