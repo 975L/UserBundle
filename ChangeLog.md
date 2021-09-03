@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.5.1
+
+- Changed `Symfony\Component\Translation\TranslatorInterface` to `Symfony\Contracts\Translation\TranslatorInterface` (03/09/2021)
+
 ## v3.5
 
 - Removed versions constraints in composer (03/09/2021)
