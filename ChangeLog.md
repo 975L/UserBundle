@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.6
+
+- Replaced `misd/phone-number-bundle` by `odolbeau/phone-number-bundle` (08/10/2021)
+
 ## v3.5.1
 
 - Changed `Symfony\Component\Translation\TranslatorInterface` to `Symfony\Contracts\Translation\TranslatorInterface` (03/09/2021)

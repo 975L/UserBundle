@@ -26,7 +26,7 @@
         "c975l/toolbar-bundle": "^1",
         "knplabs/knp-paginator-bundle": "*",
         "lcobucci/jwt": "*",
-        "misd/phone-number-bundle": "*",
+        "odolbeau/phone-number-bundle": "*",
         "symfony/form": "*",
         "symfony/security": "*",
         "symfony/serializer": "*",
