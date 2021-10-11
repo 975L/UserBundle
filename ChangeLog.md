@@ -1,5 +1,9 @@
 # Changelog
 
+## v4.0.1
+
+- Updated version for c975l/email-bundle (11/10/2021)
+
 ## v4.0
 
 - Changed `localizeddate` to `format_datetime` (11/10/2021)
