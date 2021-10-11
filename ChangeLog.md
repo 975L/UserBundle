@@ -1,5 +1,11 @@
 # Changelog
 
+## v4.0
+
+- Changed `localizeddate` to `format_datetime` (11/10/2021)
+
+Upgrading from v3.x? **Check UPGRADE.md**
+
 ## v3.6
 
 - Replaced `misd/phone-number-bundle` by `odolbeau/phone-number-bundle` (08/10/2021)
@@ -92,9 +98,9 @@
 
 - Made use of c975LEmailBundle v3 which use Symfony/Mailer (15/07/2019)
 - Made use of KnpPagnigatorBundle v4 (15/07/2019)
-- Drop support of Symfony 3.x (15/07/2019)
+- Dropped support of Symfony 3.x (15/07/2019)
 
-Upgrading from v1.x? **Check UPGRADE.md**
+Upgrading from v2.x? **Check UPGRADE.md**
 
 ## v2.x
 

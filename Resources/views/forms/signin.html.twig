@@ -82,7 +82,7 @@
                             {{ 'text.max_attempts_info'|trans }}
 {# New attempt time #}
                         {% else %}
-                            {{ 'text.new_attempt_time'|trans({'%time%': app.session.get('userSigninNewAttemptTime')|localizeddate('none', 'medium')}) }}
+                            {{ 'text.new_attempt_time'|trans({'%time%': app.session.get('userSigninNewAttemptTime')|format_datetime('none', 'medium')}) }}
                         {% endif %}
                     </div>
                 {% endif %}

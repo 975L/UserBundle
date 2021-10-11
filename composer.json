@@ -31,7 +31,8 @@
         "symfony/security": "*",
         "symfony/serializer": "*",
         "symfony/translation": "*",
-        "symfony/validator": "*"
+        "symfony/validator": "*",
+        "twig/intl-extra": "*"
     },
     "require-dev": {
         "phpstan/phpstan": "*",

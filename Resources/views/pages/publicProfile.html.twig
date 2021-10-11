@@ -19,7 +19,7 @@
         </p>
 {# Member since #}
         <p>
-            {{ 'label.member_since'|trans }} : <strong>{{ user.creation|localizeddate('medium', 'none') }}</strong>
+            {{ 'label.member_since'|trans }} : <strong>{{ user.creation|format_datetime('medium', 'none') }}</strong>
         </p>
     </div>
 {% endblock %}
